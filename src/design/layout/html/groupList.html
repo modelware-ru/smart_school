@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="auto">
+  <head>
+    @@include('./shared/header.html', { "title": "Список групп" })
+
+    <style>
+      .textarea-no-resizable {
+        resize: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav
+        id="nav"
+        class="navbar navbar-expand-md navbar-light"
+        aria-label="Умная школа навигационная панель"
+      >
+        @@include('./widget/adminNavigator.html')
+      </nav>
+      <hr class="m-0" />
+      <div id="main" class="my-3">
+        <p>Страница оформляется</p>
+      </div>
+    </div>
+    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

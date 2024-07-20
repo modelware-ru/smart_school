@@ -1,0 +1,13 @@
+{
+  "name": "page-design",
+  "type": "module",
+  "scripts": {
+    "start": "npx gulp watchMockup",
+    "build": "npx gulp buildMockup"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-file-include": "^2.3.0",
+    "gulp-format-html": "^2.3.0"
+  }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="auto">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <title>Меню</title>
+
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+
+  <style>
+    .textarea-no-resizable {
+      resize: none;
+    }
+
+    .menu-item {
+      width: 130px;
+      height: 130px;
+      background-color: antiquewhite;
+      text-decoration: none;
+      color: black;
+    }
+
+    .menu-item>span {
+      word-break: break-all;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+      <!-- widget.Navigator: start -->
+      <div class="container">
+        <a class="navbar-brand" href="adminIndex.html">Умная школа</a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navbarMain" class="navbar-collapse collapse justify-content-end">
+          <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
+            <li class="nav-item">
+              <a class="nav-link active" href="guestIndex.html">Выход</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- widget.Navigator: finish -->
+
+    </nav>
+    <hr class="m-0" />
+    <div id="main" class="my-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">Меню</li>
+        </ol>
+      </nav>
+
+      <div class="d-flex flex-wrap gap-3">
+        <a href="#" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+          <span>Параллели</span>
+        </a>
+
+        <a href="#" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+          <span>Группы</span>
+        </a>
+
+        <a href="#" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+          <span>Преподаватели</span>
+        </a>
+
+      </div>
+      <div class="row gap-3">
+        <a class="col-lg-1 col-md-2 col-sm-4 justify-content-center d-flex">
+          <div class="card-body">
+            <img class="img-logo" src="image/no-photos.svg" />
+            <div class="text-center">Параллели</div>
+          </div>
+        </a>
+
+        <a class="col-lg-1 col-md-2 col-sm-4 justify-content-center d-flex">
+          <div class="card-body">
+            <img class="img-logo" src="image/no-photos.svg" />
+            <div class="text-center">Группы</div>
+          </div>
+        </a>
+
+        <a class="col-lg-1 col-md-2 col-sm-4 justify-content-center d-flex">
+          <div class="card-body">
+            <img class="img-logo" src="image/no-photos.svg" />
+            <div class="text-center">Преподаватели</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

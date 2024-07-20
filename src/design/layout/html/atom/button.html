@@ -1,0 +1,11 @@
+<!-- atom.Button: start -->
+<button type="button" class="@@class">
+    @@if (isLoading === true) {
+        <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+    }
+    @@if (isLoading === false) {
+        <span></span>
+    }
+  <span role="status">@@title</span>
+</button>
+<!-- atom.Button: finish -->

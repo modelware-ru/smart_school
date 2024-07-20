@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru" data-bs-theme="auto">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <title>Вход</title>
+
+  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+
+  <style>
+    #main {
+      max-width: 450px;
+    }
+
+    .textarea-no-resizable {
+      resize: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+      <!-- widget.Navigator: start -->
+      <div class="container">
+        <a class="navbar-brand" href="guestIndex.html">Умная школа</a>
+      </div>
+      <!-- widget.Navigator: finish -->
+
+    </nav>
+    <hr class="m-0" />
+    <div id="main" class="d-flex flex-column mx-auto shadow-lg my-3">
+      <main class="d-flex flex-column p-4 border mx-auto">
+        <!-- widget.SignInForm: start -->
+        <div>
+          <div class="py-3 text-center">
+            <h2>Вход</h2>
+          </div>
+          <form class="mt-3 row gx-0 gy-3">
+            <!-- atom.Input: start -->
+            <div class="col-12">
+              <label for="l2" class="form-label">
+                <span>Логин</span>
+                <span class="text-danger">&nbsp;*</span>
+              </label>
+              <input type="text" class="form-control" id="lX" placeholder="login" />
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span class="text-secondary"></span>
+                  <span class="text-danger"></span>
+                </div>
+              </div>
+            </div>
+            <!-- atom.Input: finish -->
+
+
+            <!-- atom.Input: start -->
+            <div class="col-12">
+              <label for="l2" class="form-label">
+                <span>Пароль</span>
+                <span class="text-danger">&nbsp;*</span>
+              </label>
+              <input type="text" class="form-control" id="lX" placeholder="*****" />
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span class="text-secondary"></span>
+                  <span class="text-danger"></span>
+                </div>
+              </div>
+            </div>
+            <!-- atom.Input: finish -->
+
+
+            <!-- atom.Button: start -->
+            <button type="button" class="w-100 btn btn-primary">
+
+
+              <span></span>
+
+              <span role="status">Войти</span>
+            </button>
+            <!-- atom.Button: finish -->
+
+
+            <!-- atom.Button: start -->
+            <button type="button" class="w-100 btn btn-primary disabled">
+
+              <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+
+
+              <span role="status">Вход...</span>
+            </button>
+            <!-- atom.Button: finish -->
+
+
+            <a href="recoveryPassword.html" class="link-primary text-center">Восстановление пароля</a>
+
+          </form>
+        </div>
+        <!-- widget.SignInForm: finish -->
+
+      </main>
+      <!-- widget.Notification: start -->
+      <div class="alert alert-danger rounded-0 text-center m-0" role="alert">
+        <div>
+          <p class="m-0">Ошибка при входе в систему.</p>
+        </div>
+      </div>
+      <!-- widget.Notification: finish -->
+    </div>
+  </div>
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

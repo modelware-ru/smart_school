@@ -1,0 +1,35 @@
+<!-- widget.SignInForm: start -->
+<div>
+  <div class="py-3 text-center">
+    <h2>Вход</h2>
+  </div>
+  <form class="mt-3 row gx-0 gy-3">
+    @@include('../atom/input.html', {
+      "class": "col-12",
+      "label": "Логин",
+      "placeholder": "login"
+    })
+
+    @@include('../atom/input.html', {
+      "class": "col-12",
+      "label": "Пароль",
+      "placeholder": "*****"
+    })
+
+    @@include('../atom/button.html', {
+      "class": "w-100 btn btn-primary",
+      "isLoading": false,
+      "title": "Войти"
+    })
+
+    @@include('../atom/button.html', {
+      "class": "w-100 btn btn-primary disabled",
+      "isLoading": true,
+      "title": "Вход..."
+    })
+
+    <a href="recoveryPassword.html" class="link-primary text-center">Восстановление пароля</a>
+
+  </form>
+</div>
+<!-- widget.SignInForm: finish -->

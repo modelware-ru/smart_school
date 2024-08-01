@@ -1,0 +1,29 @@
+{
+  "type": "module",
+  "scripts": {
+    "app": "npx rollup -c rollup.config.mjs",
+    "style": "npx gulp app"
+  },
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "redom": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@babel/preset-env": "^7.23.6",
+    "@rollup/plugin-babel": "^6.0.4",
+    "autoprefixer": "^10.4.16",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-plugin-transform-redom-jsx": "^3.0.5",
+    "gulp": "^4.0.2",
+    "gulp-fonter-unx": "^0.3.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-svg-sprite": "^2.0.3",
+    "gulp-ttf2woff2": "^4.0.1",
+    "postcss": "^8.4.32",
+    "postcss-import": "^15.1.0",
+    "rollup": "^4.9.1"
+  }
+}

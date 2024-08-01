@@ -1,4 +1,4 @@
-FROM php:8.2.10-fpm
+FROM php:8.3-fpm
 
 RUN mkdir -p /var/log/app && apt-get update && apt-get install -y mc git libpng-dev libzip-dev
 

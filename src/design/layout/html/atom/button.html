@@ -6,6 +6,16 @@
     @@if (isLoading === false) {
         <span></span>
     }
-  <span role="status">@@title</span>
+    @@if (icon !== '') {
+        @@if (title === '') {
+            <i class="bi @@icon"></i>
+        }
+        @@if (title !== '') {
+            <i class="bi @@icon me-3"></i>
+        }
+    }
+    @@if (title !== '') {
+        <span role="status">@@title</span>
+    }
 </button>
 <!-- atom.Button: finish -->

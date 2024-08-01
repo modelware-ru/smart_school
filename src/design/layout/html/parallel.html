@@ -1,29 +1,49 @@
 <!DOCTYPE html>
 <html lang="ru" data-bs-theme="auto">
-  <head>
-    @@include('./shared/header.html', { "title": "Параллель" })
 
-    <style>
-      .textarea-no-resizable {
-        resize: none;
-      }
-    </style>
-  </head>
+<head>
+  @@include('./shared/header.html', { "title": "Параллель" })
 
-  <body>
-    <div class="container">
-      <nav
-        id="nav"
-        class="navbar navbar-expand-md navbar-light"
-        aria-label="Умная школа навигационная панель"
-      >
-        @@include('./widget/adminNavigator.html')
+  <style>
+    .textarea-no-resizable {
+      resize: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+      @@include('./widget/adminNavigator.html')
+    </nav>
+    <hr class="m-0" />
+    <div id="main" class="my-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="adminIndex.html">Меню</a></li>
+          <li class="breadcrumb-item"><a href="parallelList.html">Список параллелей</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Новая параллель</li>
+        </ol>
       </nav>
-      <hr class="m-0" />
-      <div id="main" class="my-3">
-        <p>Страница оформляется</p>
-      </div>
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="adminIndex.html">Меню</a></li>
+          <li class="breadcrumb-item"><a href="parallelList.html">Список параллелей</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Параллель "Первая параллель"</li>
+        </ol>
+      </nav>
+
+      <main class="d-flex flex-column">
+        @@include('./widget/parallelForm.html')
+      </main>
+      @@include('./widget/notification.html', {
+      "title": "Произошла ошибка при попытке сохранить данные."
+      })
     </div>
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-  </body>
+  </div>
+  @@include('./shared/footer.html')
+  </script>
+</body>
+
 </html>

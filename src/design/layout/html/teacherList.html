@@ -1,29 +1,122 @@
 <!DOCTYPE html>
 <html lang="ru" data-bs-theme="auto">
-  <head>
-    @@include('./shared/header.html', { "title": "Список учителей" })
 
-    <style>
-      .textarea-no-resizable {
-        resize: none;
-      }
-    </style>
-  </head>
+<head>
+  @@include('./shared/header.html', { "title": "Список учителей" })
 
-  <body>
-    <div class="container">
-      <nav
-        id="nav"
-        class="navbar navbar-expand-md navbar-light"
-        aria-label="Умная школа навигационная панель"
-      >
-        @@include('./widget/adminNavigator.html')
+  <style>
+    .textarea-no-resizable {
+      resize: none;
+    }
+
+    .table td.fit,
+    .table th.fit {
+      white-space: nowrap;
+      width: 1%;
+    }
+
+    .table.clickable-rows>tbody>tr {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+      @@include('./widget/adminNavigator.html')
+    </nav>
+    <hr class="m-0" />
+    <div id="main" class="my-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="adminIndex.html">Меню</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Список учителей</li>
+        </ol>
       </nav>
-      <hr class="m-0" />
-      <div id="main" class="my-3">
-        <p>Страница оформляется</p>
+
+      <div class="d-flex justify-content-end gap-5">
+        <form class="d-flex flex-fill">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
+          </div>
+        </form>
+        @@include('./atom/button.html', {
+        "class": "btn btn-success",
+        "isLoading": false,
+        "icon": "bi-plus-circle",
+        "title": "Добавить"
+        })
       </div>
+      <table class="table table-hover table-bordered clickable-rows my-3">
+        <thead>
+          <tr>
+            <th scope="col" class="text-end fit">#</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Группы</th>
+            <th scope="col" class="fit">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">1</th>
+            <td>Иванов Петр Сергеевич</td>
+            <td>Группа 1<br/>Группа 2</td>
+            <td class="p-1">
+              @@include('./atom/button.html', {
+              "class": "btn btn-outline-danger btn-sm",
+              "isLoading": false,
+              "icon": "bi-trash",
+              "title": ""
+              })
+            </td>
+          </tr>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">2</th>
+            <td>Иванов Петр Сергеевич</td>
+            <td>Группа 1<br/>Группа 2</td>
+            <td class="p-1">
+              @@include('./atom/button.html', {
+              "class": "btn btn-outline-danger btn-sm",
+              "isLoading": false,
+              "icon": "bi-trash",
+              "title": ""
+              })
+            </td>
+          </tr>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">3</th>
+            <td>Иванов Петр Сергеевич</td>
+            <td></td>
+            <td class="p-1">
+              @@include('./atom/button.html', {
+              "class": "btn btn-outline-danger btn-sm",
+              "isLoading": false,
+              "icon": "bi-trash",
+              "title": ""
+              })
+            </td>
+          </tr>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">4</th>
+            <td>Иванов Петр Сергеевич</td>
+            <td>Группа 1</td>
+            <td class="p-1">
+              @@include('./atom/button.html', {
+              "class": "btn btn-outline-danger btn-sm",
+              "isLoading": false,
+              "icon": "bi-trash",
+              "title": ""
+              })
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-  </body>
+  </div>
+  @@include('./shared/footer.html')
+  </script>
+</body>
+
 </html>

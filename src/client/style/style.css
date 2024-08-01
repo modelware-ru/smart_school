@@ -1,0 +1,5 @@
+@import url("../font/font.css");
+
+.textarea-no-resizable {
+  resize: none;
+}

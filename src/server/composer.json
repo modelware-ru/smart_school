@@ -1,0 +1,17 @@
+{
+  "name": "modelware/smartschool",
+  "require": {
+    "monolog/monolog": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "MW\\Shared\\": "./shared/",
+      "MW\\App\\": "./app/",
+      "MW\\Module\\Account\\": "./app/module/account",
+      "MW\\Service\\Authz\\": "./service/authz"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  }
+}

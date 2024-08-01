@@ -1,0 +1,1 @@
+-- INSERT INTO main__user (account_id, email, password, name, about_me) VALUES (1, "admin", "****", "admin");

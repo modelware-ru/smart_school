@@ -1,0 +1,8 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP DATABASE IF EXISTS smart_school;
+CREATE DATABASE smart_school;
+
+SET FOREIGN_KEY_CHECKS=1;
+
+USE smart_school;

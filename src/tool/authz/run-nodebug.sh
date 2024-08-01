@@ -1,0 +1,1 @@
+php authz-generator.php 

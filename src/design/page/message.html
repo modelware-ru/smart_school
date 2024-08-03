@@ -7,7 +7,8 @@
   <meta name="description" content="" />
   <title>Сообщение</title>
 
-  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap-icons.min.css">
 </head>
 
 <body>
@@ -32,6 +33,20 @@
     </div>
   </div>
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      console.log(document.getElementsByTagName('button'));
+      for (const item of document.getElementsByTagName('button')) {
+        item.addEventListener('click', (e) => { e.stopPropagation(); console.log('button click'); });
+      }
+
+      for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
+        item.addEventListener('click', (e) => { e.stopPropagation(); console.log('table row click'); });
+      }
+
+    });
+ </script>
+
 </body>
 
 </html>

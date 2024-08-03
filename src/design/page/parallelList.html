@@ -7,11 +7,22 @@
   <meta name="description" content="" />
   <title>Список параллелей</title>
 
-  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap-icons.min.css">
 
   <style>
     .textarea-no-resizable {
       resize: none;
+    }
+
+    .table td.fit,
+    .table th.fit {
+      white-space: nowrap;
+      width: 1%;
+    }
+
+    .table.clickable-rows>tbody>tr {
+      cursor: pointer;
     }
   </style>
 </head>
@@ -29,7 +40,7 @@
         <div id="navbarMain" class="navbar-collapse collapse justify-content-end">
           <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
             <li class="nav-item">
-              <a class="nav-link active" href="guestIndex.html">Выход</a>
+              <a class="nav-link active" href="guestIndex.html">Выйти</a>
             </li>
           </ul>
         </div>
@@ -39,10 +50,132 @@
     </nav>
     <hr class="m-0" />
     <div id="main" class="my-3">
-      <p>Страница оформляется</p>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="adminIndex.html">Меню</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Список параллелей</li>
+        </ol>
+      </nav>
+
+      <div class="d-flex justify-content-end">
+        <!-- atom.Button: start -->
+        <button type="button" class="btn btn-success">
+
+
+          <span></span>
+
+
+
+
+          <i class="bi bi-plus-circle me-3"></i>
+
+
+
+          <span role="status">Добавить</span>
+
+        </button>
+        <!-- atom.Button: finish -->
+      </div>
+      <table class="table table-hover table-bordered clickable-rows my-3">
+        <thead>
+          <tr>
+            <th scope="col" class="text-end fit">#</th>
+            <th scope="col">Название (текст)</th>
+            <th scope="col">Название (число)</th>
+            <th scope="col">Показать в группах</th>
+            <th scope="col" class="fit">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">1</th>
+            <td>Первая параллель</td>
+            <td>1</td>
+            <td>Да</td>
+            <td class="p-1">
+              <!-- atom.Button: start -->
+              <button type="button" class="btn btn-outline-danger btn-sm">
+
+
+                <span></span>
+
+
+
+                <i class="bi bi-trash"></i>
+
+
+
+
+              </button>
+              <!-- atom.Button: finish -->
+            </td>
+          </tr>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">2</th>
+            <td>Вторая параллель</td>
+            <td>2</td>
+            <td>Да</td>
+            <td class="p-1"></td>
+          </tr>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">3</th>
+            <td>Третья параллель</td>
+            <td>3</td>
+            <td>Да</td>
+            <td class="p-1"></td>
+          </tr>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">4</th>
+            <td>Четвертая параллель</td>
+            <td>4</td>
+            <td>Да</td>
+            <td class="p-1">
+              <!-- atom.Button: start -->
+              <button type="button" class="btn btn-outline-danger btn-sm">
+
+
+                <span></span>
+
+
+
+                <i class="bi bi-trash"></i>
+
+
+
+
+              </button>
+              <!-- atom.Button: finish -->
+            </td>
+          </tr>
+          <tr class="align-middle">
+            <th scope="row" class="text-end">5</th>
+            <td>Пятая параллель</td>
+            <td>5</td>
+            <td>Нет</td>
+            <td class="p-1"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      console.log(document.getElementsByTagName('button'));
+      for (const item of document.getElementsByTagName('button')) {
+        item.addEventListener('click', (e) => { e.stopPropagation(); console.log('button click'); });
+      }
+
+      for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
+        item.addEventListener('click', (e) => { e.stopPropagation(); console.log('table row click'); });
+      }
+
+    });
+ </script>
+
+  </script>
 </body>
 
 </html>

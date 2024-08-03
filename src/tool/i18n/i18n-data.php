@@ -6,11 +6,38 @@ use MW\Shared\Constant;
 // plain -> ${args[0]}
 // html -> {args[0]}
 $i18n_TTL = [
+    'LOGIN' => [
+        '_type' => 'plain',
+        'ru' => 'Логин',
+        'en' => 'Login',
+    ],
+    'PASSWORD' => [
+        '_type' => 'plain',
+        'ru' => 'Пароль',
+        'en' => 'Password',
+    ],
+    'RECOVERY_PASSWORD' => [
+        '_type' => 'plain',
+        'ru' => 'Восстановление пароля',
+        'en' => 'Recovery Password',
+    ],
     'SIGN_IN' => [
         '_type' => 'plain',
         'ru' => 'Вход',
         'en' => 'Sign In',
     ],
+    'TO_AUTHENTICATE' => [
+        '_type' => 'plain',
+        'ru' => 'Аутентификация...',
+        'en' => 'Authentication...',
+    ],
+    'TO_SIGN_IN' => [
+        '_type' => 'plain',
+        'ru' => 'Войти',
+        'en' => '',
+    ],
+
+
     'SIGN_OUT' => [
         '_type' => 'plain',
         'ru' => 'Выход',

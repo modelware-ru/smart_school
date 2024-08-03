@@ -5,16 +5,23 @@ global $templateData;
 global $langId;
 ?>
 <!DOCTYPE html>
-<html lang='<?=$langId?>' data-bs-theme='auto'>
-
-<?=Util::RenderTemplate('app/template/shared/head.php')?>
-
+<html lang='<?= $langId ?>' data-bs-theme='auto'>
+<head>
+    <?= Util::RenderTemplate('app/template/shared/head.php') ?>
+    <style>
+        #main {
+            max-width: 450px;
+        }
+    </style>
+</head>
 <body>
-    <div class='container'>
-        <nav id='nav' class='navbar navbar-expand-md navbar-light' aria-label='Эврика навигационная панель'></nav>
+    <div class="container">
+        <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+            <?= Util::RenderTemplate('app/template/shared/guestNavigator.php') ?>
+        </nav>
         <hr class='m-0'/>
-        GUEST INDEX
-        <!-- <div id='main' class='d-flex align-items-center py-4'></div> -->
+        <div id="main" class="d-flex flex-column mx-auto shadow-lg my-3">
+        </div>
     </div>
     <script src='js/bootstrap.bundle.min.js'></script>
 </body>

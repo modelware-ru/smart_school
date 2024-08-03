@@ -22,15 +22,9 @@ export default class Notificator {
 
     this._updateState(this._state);
 
-    commonEventManager.subscribe('changeLang', this._changeLang);
     commonEventManager.subscribe('showMessage', this._showMessage);
     commonEventManager.subscribe('hideMessage', this._hideMessage);
   }
-
-  _changeLang = (langId) => {
-    this._prop.langId = langId;
-    this._updateState(this._state);
-  };
 
   _showMessage = (message) => {
     if (this._state.show) {

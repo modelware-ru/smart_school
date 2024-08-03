@@ -12,13 +12,13 @@ if (isset($templateData['_js'])) {
 $_js['langId'] = $langId;
 $version = 'Web Application Template. Версия ' . VERSION . ' ' . (defined('PHPUNIT') ? 'Тестовая сборка' : 'Обычная сборка');
 ?>
-<script type='text/javascript' src='js/color-modes.js'></script>
 <meta charset='utf-8' />
 <meta name='viewport' content='width=device-width, initial-scale=1' />
 <meta name='description' content='' />
 <title><?=$title?></title>
 
 <link rel='stylesheet' href='style/bootstrap.min.css' />
+<link rel="stylesheet" href="style/bootstrap-icons.min.css">
 <link rel='stylesheet' href='style/style.css'>
 <script>
     window.app = JSON.parse('<?=addslashes(json_encode($_js, JSON_UNESCAPED_UNICODE))?>');
@@ -27,4 +27,3 @@ $version = 'Web Application Template. Версия ' . VERSION . ' ' . (defined(
 <script>
     console.log('<?=$version?>');
 </script>
-

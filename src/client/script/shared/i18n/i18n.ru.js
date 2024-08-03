@@ -1,8 +1,13 @@
-// GENERATED [2024-08-01 21:31:57]
+// GENERATED [2024-08-03 08:21:57]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
+  TTL_LOGIN: (...args) => `Логин`,
+  TTL_PASSWORD: (...args) => `Пароль`,
+  TTL_RECOVERY_PASSWORD: (...args) => `Восстановление пароля`,
   TTL_SIGN_IN: (...args) => `Вход`,
+  TTL_TO_AUTHENTICATE: (...args) => `Аутентификация...`,
+  TTL_TO_SIGN_IN: (...args) => `Войти`,
   TTL_SIGN_OUT: (...args) => `Выход`,
   MSG_FIELD_EMAIL_INCORRECT: (...args) => `Некорректный адрес электронной почты`,
   MSG_FIELD_IS_TOO_LONG: (...args) => `Поле содержит слишком длинное значение`,

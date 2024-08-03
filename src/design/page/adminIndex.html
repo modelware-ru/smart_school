@@ -7,7 +7,8 @@
   <meta name="description" content="" />
   <title>Меню</title>
 
-  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap-icons.min.css">
 
   <style>
     .textarea-no-resizable {
@@ -42,7 +43,7 @@
         <div id="navbarMain" class="navbar-collapse collapse justify-content-end">
           <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
             <li class="nav-item">
-              <a class="nav-link active" href="guestIndex.html">Выход</a>
+              <a class="nav-link active" href="guestIndex.html">Выйти</a>
             </li>
           </ul>
         </div>
@@ -72,31 +73,23 @@
         </a>
 
       </div>
-      <div class="row gap-3">
-        <a class="col-lg-1 col-md-2 col-sm-4 justify-content-center d-flex">
-          <div class="card-body">
-            <img class="img-logo" src="image/no-photos.svg" />
-            <div class="text-center">Параллели</div>
-          </div>
-        </a>
-
-        <a class="col-lg-1 col-md-2 col-sm-4 justify-content-center d-flex">
-          <div class="card-body">
-            <img class="img-logo" src="image/no-photos.svg" />
-            <div class="text-center">Группы</div>
-          </div>
-        </a>
-
-        <a class="col-lg-1 col-md-2 col-sm-4 justify-content-center d-flex">
-          <div class="card-body">
-            <img class="img-logo" src="image/no-photos.svg" />
-            <div class="text-center">Преподаватели</div>
-          </div>
-        </a>
-      </div>
     </div>
   </div>
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      console.log(document.getElementsByTagName('button'));
+      for (const item of document.getElementsByTagName('button')) {
+        item.addEventListener('click', (e) => { e.stopPropagation(); console.log('button click'); });
+      }
+
+      for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
+        item.addEventListener('click', (e) => { e.stopPropagation(); console.log('table row click'); });
+      }
+
+    });
+ </script>
+
 </body>
 
 </html>

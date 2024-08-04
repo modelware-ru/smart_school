@@ -29,7 +29,7 @@ if (is_null($langId)) {
 
 if (is_null($roleId) || is_null($roleStateId)) {
     $roleId = Setting::Get('authz.defaultRoleId');
-    SessionObject::Instance()->setRole($roleId);
+    SessionObject::Instance()->setRoleId($roleId);
     $roleStateId = Setting::Get('authz.defaultRoleStateId');
     SessionObject::Instance()->setRoleStateId($roleStateId);
 }

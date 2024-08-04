@@ -1,5 +1,28 @@
-@import url("../font/font.css");
+@import url('../font/font.css');
 
 .textarea-no-resizable {
-  resize: none;
+    resize: none;
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.table.clickable-rows > tbody > tr {
+    cursor: pointer;
+}
+
+.menu-item {
+    width: 130px;
+    height: 130px;
+    background-color: antiquewhite;
+    text-decoration: none;
+    color: black;
+}
+
+.menu-item>span {
+    word-break: break-all;
+    text-align: center;
 }

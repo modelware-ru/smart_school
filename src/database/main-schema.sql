@@ -50,13 +50,13 @@ CREATE TABLE main__student (
 
 CREATE TABLE main__user (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    account_id INT UNSIGNED NOT NULL,
     first_name VARCHAR(100) DEFAULT '',
     last_name VARCHAR(100) DEFAULT '',
     middle_name VARCHAR(100) DEFAULT '',
     login VARCHAR(50) NOT NULL,
     password CHAR(20) NOT NULL,
     email VARCHAR(100),
-    account_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__user___account_id FOREIGN KEY (account_id) REFERENCES authz__account(id),
     CONSTRAINT main__user___unique_1 UNIQUE (login),
@@ -103,8 +103,10 @@ CREATE TABLE main__task (
 
 CREATE TABLE main__group (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    parallel_id INT UNSIGNED NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
+    CONSTRAINT main__group___parallel_id FOREIGN KEY (parallel_id) REFERENCES main__parallel(id),
     CONSTRAINT main__group___unique_1 UNIQUE (name)
 ) ENGINE = InnoDB;
 
@@ -137,9 +139,9 @@ CREATE TABLE main__user_group (
 
 CREATE TABLE main__lesson (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    `date` DATETIME NOT NULL,
     subject_id INT UNSIGNED NOT NULL,
     group_id INT UNSIGNED NOT NULL,
+    `date` DATETIME NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__lesson___subject_id FOREIGN KEY (subject_id) REFERENCES main__subject(id),
     CONSTRAINT main__lesson___group_id FOREIGN KEY (group_id) REFERENCES main__group(id)
@@ -147,10 +149,10 @@ CREATE TABLE main__lesson (
 
 CREATE TABLE main__student_serieTask (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    value TINYINT,
-    `date` DATETIME NOT NULL,
     student_id INT UNSIGNED NOT NULL,
     serie_task_id INT UNSIGNED NOT NULL,
+    value TINYINT,
+    `date` DATETIME NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__student_serieTask___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
     CONSTRAINT main__student_serieTask___serie_task_id FOREIGN KEY (serie_task_id) REFERENCES main__serie_task(id)
@@ -158,11 +160,11 @@ CREATE TABLE main__student_serieTask (
 
 CREATE TABLE main__student_group_Hist (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    student_id INT UNSIGNED NOT NULL,
+    group_id INT UNSIGNED NOT NULL,
     reason TEXT,
     start_date DATETIME NOT NULL,
     `order` TINYINT NOT NULL,
-    student_id INT UNSIGNED NOT NULL,
-    group_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__student_group_Hist___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
     CONSTRAINT main__student_group_Hist___group_id FOREIGN KEY (group_id) REFERENCES main__group(id)
@@ -170,12 +172,12 @@ CREATE TABLE main__student_group_Hist (
 
 CREATE TABLE main__student_class_Hist (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    parallel_id INT UNSIGNED,
+    student_id INT UNSIGNED NOT NULL,
     letter VARCHAR(100),
     reason TEXT,
     start_date DATETIME NOT NULL,
     `order` TINYINT NOT NULL,
-    parallel_id INT UNSIGNED,
-    student_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__student_class_Hist___parallel_id FOREIGN KEY (parallel_id) REFERENCES main__parallel(id),
     CONSTRAINT main__student_class_Hist___student_id FOREIGN KEY (student_id) REFERENCES main__student(id)
@@ -183,9 +185,9 @@ CREATE TABLE main__student_class_Hist (
 
 CREATE TABLE main__student_lesson (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    note TEXT,
     student_id INT UNSIGNED NOT NULL,
     lesson_id INT UNSIGNED NOT NULL,
+    note TEXT,
     PRIMARY KEY (id),
     CONSTRAINT main__student_lesson___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
     CONSTRAINT main__student_lesson___lesson_id FOREIGN KEY (lesson_id) REFERENCES main__lesson(id)
@@ -193,10 +195,10 @@ CREATE TABLE main__student_lesson (
 
 CREATE TABLE main__lesson_serie (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    type ENUM ('CLASS', 'HOME', 'SPECIAL') NOT NULL,
-    name VARCHAR(100) NOT NULL,
     lesson_id INT UNSIGNED NOT NULL,
     serie_id INT UNSIGNED NOT NULL,
+    type ENUM ('CLASS', 'HOME', 'SPECIAL') NOT NULL,
+    name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__lesson_serie___lesson_id FOREIGN KEY (lesson_id) REFERENCES main__lesson(id),
     CONSTRAINT main__lesson_serie___serie_id FOREIGN KEY (serie_id) REFERENCES main__serie(id)

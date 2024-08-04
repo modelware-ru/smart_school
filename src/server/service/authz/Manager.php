@@ -1,4 +1,5 @@
 <?php
+
 namespace MW\Service\Authz;
 
 use MW\Shared\DBManager;
@@ -36,11 +37,10 @@ class Manager
             'roleId' => $roleId,
             'roleStateId' => $roleStateId,
         ];
-    
+
         $resourceCondition = '';
         if (!is_null($resource)) {
             if (is_array($resource)) {
-
             } else {
                 $resourceCondition = 'AND ap.resource_code_name_mask LIKE :resource ';
                 $vars['resource'] = $resource;
@@ -88,7 +88,7 @@ SQL;
             'roleId3' => $roleId,
             'roleStateId3' => $roleStateId,
         ];
-    
+
         $resourceCondition1 = '';
         $resourceCondition2 = '';
         if (!is_null($resource)) {
@@ -137,4 +137,12 @@ SQL;
         return $this->_db->select($stmt, $vars);
     }
 
+    public function getRoleListByAccount($accountId)
+    {
+        $stmt = <<<SQL
+SELECT role_id, role_state_id FROM authz__account_role WHERE account_id = :accountId ORDER BY `order`
+SQL;
+
+        return $this->_db->select($stmt, ['accountId' => $accountId]);
+    }
 }

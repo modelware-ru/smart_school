@@ -14,5 +14,3 @@ mount(
   </main>
 );
 mount(document.getElementById('main'), <Notificator langId={langId} show={false}/>);
-
-console.log ('guestIndex.js')

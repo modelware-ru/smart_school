@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-01 21:31:48]
+// GENERATED [2024-08-03 20:09:35]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -38,27 +38,27 @@ class Constant {
 
     // Resources
     // API
-    const RESOURCE_API_SIGNIN = 'signIn'; 
-    const RESOURCE_API_RECOVERYPASSWORD = 'recoveryPassword'; 
-    const RESOURCE_API_SIGNOUT = 'signOut'; 
-    const RESOURCE_API_SAVEPARALLEL = 'saveParallel'; 
-    const RESOURCE_API_SAVEGROUP = 'saveGroup'; 
-    const RESOURCE_API_SAVETEACHER = 'saveTeacher'; 
-    const RESOURCE_API_REMOVEPARALLEL = 'removeParallel'; 
-    const RESOURCE_API_REMOVEGROUP = 'removeGroup'; 
-    const RESOURCE_API_BLOCKTEACHER = 'blockTeacher'; 
+    const RESOURCE_API_SIGN_IN = 'signIn'; 
+    const RESOURCE_API_RECOVERY_PASSWORD = 'recoveryPassword'; 
+    const RESOURCE_API_SIGN_OUT = 'signOut'; 
+    const RESOURCE_API_SAVE_PARALLEL = 'saveParallel'; 
+    const RESOURCE_API_SAVE_GROUP = 'saveGroup'; 
+    const RESOURCE_API_SAVE_TEACHER = 'saveTeacher'; 
+    const RESOURCE_API_REMOVE_PARALLEL = 'removeParallel'; 
+    const RESOURCE_API_REMOVE_GROUP = 'removeGroup'; 
+    const RESOURCE_API_BLOCK_TEACHER = 'blockTeacher'; 
     // PAGE
-    const RESOURCE_PAGE_GUESTINDEX = 'guestIndex'; 
-    const RESOURCE_PAGE_RECOVERYPASSWORD = 'recoveryPassword'; 
+    const RESOURCE_PAGE_GUEST_INDEX = 'guestIndex'; 
+    const RESOURCE_PAGE_RECOVERY_PASSWORD = 'recoveryPassword'; 
     const RESOURCE_PAGE_MESSAGE = 'message'; 
-    const RESOURCE_PAGE_ADMININDEX = 'adminIndex'; 
+    const RESOURCE_PAGE_ADMIN_INDEX = 'adminIndex'; 
     const RESOURCE_PAGE_PARALLEL = 'parallel'; 
-    const RESOURCE_PAGE_PARALLELLIST = 'parallelList'; 
+    const RESOURCE_PAGE_PARALLEL_LIST = 'parallelList'; 
     const RESOURCE_PAGE_GROUP = 'group'; 
-    const RESOURCE_PAGE_GROUPLIST = 'groupList'; 
+    const RESOURCE_PAGE_GROUP_LIST = 'groupList'; 
     const RESOURCE_PAGE_TEACHER = 'teacher'; 
-    const RESOURCE_PAGE_TEACHERLIST = 'teacherList'; 
-    const RESOURCE_PAGE_TEACHERINDEX = 'teacherIndex'; 
+    const RESOURCE_PAGE_TEACHER_LIST = 'teacherList'; 
+    const RESOURCE_PAGE_TEACHER_INDEX = 'teacherIndex'; 
     // WIDGET
 
     // Action

@@ -8,6 +8,7 @@
       "MW\\Shared\\": "./shared/",
       "MW\\App\\": "./app/",
       "MW\\Module\\Account\\": "./app/module/account",
+      "MW\\Module\\Domain\\": "./app/module/domain",
       "MW\\Service\\Authz\\": "./service/authz"
     }
   },

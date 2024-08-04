@@ -16,7 +16,7 @@ global $langId;
 </head>
 <body>
     <div class="container">
-        <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+        <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
             <?= Util::RenderTemplate('app/template/shared/guestNavigator.php') ?>
         </nav>
         <hr class='m-0'/>

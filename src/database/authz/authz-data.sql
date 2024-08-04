@@ -73,5 +73,7 @@ INSERT INTO authz__group (id, name, description, role_id, role_state_id, options
 INSERT INTO authz__group_permission (permission_id, group_id, permission, prio) VALUES (3, 1, 'ALLOW', 1); -- SignOut группа -> Вызов метода sighOut
 
 -- Admin
-INSERT INTO authz__account_role (account_id, role_id, role_state_id, `order`) VALUES (1, 2, 1, 1);
+INSERT INTO authz__account_role (account_id, role_id, role_state_id, `order`) VALUES (1, 2, 2, 1);
+INSERT INTO authz__account_role (account_id, role_id, role_state_id, `order`) VALUES (1, 3, 3, 2);
+
 INSERT INTO authz__account_group (account_id, group_id) VALUES (1, 1);

@@ -114,11 +114,14 @@ class Util
 
     public static function MakeErrorOperationResult($errCode, $args = [], $test = [])
     {
-        return new OperationResult(OperationResult::ERROR, [
-            'code' => $errCode,
-            'args' => $args,
-            'test' => $test,
-        ]);
+        return new OperationResult(
+            OperationResult::ERROR,
+            [
+                'code' => $errCode,
+                'args' => $args,
+            ],
+            $test,
+        );
     }
 
     public static function CalcExecutionTime($startTime)
@@ -144,6 +147,15 @@ class Util
         }
         $res = ob_get_clean();
         return $res;
+    }
+
+    public static function MaskData($data)
+    {
+        $maskData = $data;
+        if (array_key_exists('password', $maskData)) {
+            $maskData['password'] = '*';
+        }
+        return $maskData;
     }
 
     public static function GenerateToken($key = '')

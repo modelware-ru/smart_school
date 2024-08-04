@@ -1,6 +1,9 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../server');
 
+$requestUID = uniqid(time(), true);
+$startTime = microtime(true);
+
 require_once 'vendor/autoload.php';
 
 use MW\Shared\DBManager;
@@ -30,6 +33,15 @@ try {
         $resourceList[$value['code_name']] = $db->select("SELECT id, code_name FROM {$value['resource_type']}");
     }
 
+    foreach ($resourceTypeList as $key => $value) {
+        foreach ($resourceList[$value['code_name']] as $key1 => $value1) {
+            $codeName = $resourceList[$value['code_name']][$key1]['code_name'];
+            preg_match_all('/[A-Z][^A-Z]*/', ucfirst($codeName), $matches);
+            $newCodeName = strtoupper(implode('_', $matches[0]));
+            $resourceList[$value['code_name']][$key1]['title'] = $newCodeName;
+        }
+    }
+
     ob_start();
     require 'authz-Constant.php.php';
     $res = ob_get_contents();
@@ -44,12 +56,13 @@ try {
 
 } catch (MWException $e) {
     $log->error($e->logMessage());
-    echo 'MWException ' . date('Y-m-d H:i') . PHP_EOL;
+    echo PHP_EOL . 'MWException: ' . $e->logMessage() . PHP_EOL;
 } catch (\Throwable $e) {
     $log->error($e->getMessage());
-    echo 'Error ' . date('Y-m-d H:i') . PHP_EOL;
+    echo 'Error: ' . $e->getMessage() . PHP_EOL;
 } finally {
-    $log->info('timing', Util::CalcExecutionTime(microtime(true)));
+    $log->info('timing', $res = Util::CalcExecutionTime($startTime));
     $log->notice('finish');
-    echo 'Done ' . date('Y-m-d H:i') . PHP_EOL;
+    echo 'Done: ' . date('Y-m-d H:i') . PHP_EOL;
+    echo 'Execution Time: ' . $res['execution'] . PHP_EOL;
 }

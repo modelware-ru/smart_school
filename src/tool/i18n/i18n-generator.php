@@ -1,6 +1,9 @@
 <?php
 set_include_path(get_include_path() . PATH_SEPARATOR . '../../server');
 
+$requestUID = uniqid(time(), true);
+$startTime = microtime(true);
+
 require_once 'vendor/autoload.php';
 
 use MW\Shared\DBManager;
@@ -48,12 +51,13 @@ try {
     file_put_contents("{$phpPath}/MWI18nHelper.php", $res);
 } catch (MWException $e) {
     $log->error($e->logMessage());
-    echo 'MWException ' . date('Y-m-d H:i') . PHP_EOL;
+    echo PHP_EOL . 'MWException: ' . $e->logMessage() . PHP_EOL;
 } catch (\Throwable $e) {
     $log->error($e->getMessage());
-    echo 'Error ' . date('Y-m-d H:i') . PHP_EOL;
+    echo 'Error: ' . $e->getMessage() . PHP_EOL;
 } finally {
-    $log->info('timing', Util::CalcExecutionTime(microtime(true)));
+    $log->info('timing', $res = Util::CalcExecutionTime($startTime));
     $log->notice('finish');
-    echo 'Done ' . date('Y-m-d H:i') . PHP_EOL;
+    echo 'Done: ' . date('Y-m-d H:i') . PHP_EOL;
+    echo 'Execution Time: ' . $res['execution'] . PHP_EOL;
 }

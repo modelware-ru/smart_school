@@ -1,4 +1,5 @@
 <?php
+
 namespace MW\Service\Authz;
 
 use MW\Shared\Logger;
@@ -7,7 +8,6 @@ use MW\Shared\MWI18nHelper;
 
 class Main
 {
-
     public static function GetPermissionList($args)
     {
         $localLog = Logger::Log()->withName('Service::Authz::GetPermissionList');
@@ -35,7 +35,7 @@ class Main
             );
         }
         // - TODO: тип ресурса не соответствует ресурсу
-        if (false/*|| !Constant::CheckResourceType($resource, $resourceType)*/) {
+        if (false /* || !Constant::CheckResourceType($resource, $resourceType) */) {
             MWException::ThrowEx(
                 errCode: MWI18nHelper::ERR_UNKNOWN,
                 logData: ["Несовместимость ресурса и его типа: '{$resource}' - '{$resourceType}'"],
@@ -43,7 +43,7 @@ class Main
         }
         // - TODO: нет такого типа ресурса
         // - TODO: действие не соответствует типу ресурса
-        if (false/*|| !Constant::CheckActionResourceType($action, $resourceType)*/) {
+        if (false /* || !Constant::CheckActionResourceType($action, $resourceType) */) {
             MWException::ThrowEx(
                 errCode: MWI18nHelper::ERR_UNKNOWN,
                 logData: ["Несовместимость действия и типа ресурса: '{$action}' - '{$resourceType}'"],
@@ -68,6 +68,33 @@ class Main
                 'options' => \json_decode($item['options'], true),
             ];
         }, $resDb);
+    }
+
+    public static function GetMainRoleByAccountId($args)
+    {
+        $localLog = Logger::Log()->withName('Service::Authz::GetMainRoleByAccountId');
+        $localLog->info('parameters:', $args);
+
+        $accountId = $args['accountId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getRoleListByAccount($accountId);
+
+        $res = [];
+        if (count($resDb) !== 0) {
+            $res ['roleId'] = $resDb[0]['role_id'];
+            $res ['roleStateId'] = $resDb[0]['role_state_id'];
+        }
+
+        return $res;
     }
 
     public static function CreateAccount($args)
@@ -118,5 +145,4 @@ class Main
             'accountId' => $accountId,
         ];
     }
-
 }

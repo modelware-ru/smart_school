@@ -1,9 +1,9 @@
 <?php
 namespace MW\Shared;
 
-use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
+use Monolog\ErrorHandler;
 use Monolog\Logger as MonologLogger;
 use MW\App\Setting;
 
@@ -14,7 +14,6 @@ class Logger
 
     public static function Init(string $name, bool $defaultName = false, string $pathLogTag = 'path')
     {
-
         if ($defaultName || empty(self::$_DefaultName)) {
             self::$_DefaultName = $name;
         }
@@ -46,18 +45,13 @@ class Logger
         $handler = new RotatingFileHandler(
             filename: $settings[$pathLogTag] . DIRECTORY_SEPARATOR . $name . '.log',
             maxFiles: $maxFiles,
-            level: $level);
+            level: $level
+        );
         $handler->setFormatter($formatter);
         self::$_LogList[$name]->pushHandler($handler);
         self::$_LogList[$name]->pushProcessor(function ($entry) {
             global $requestUID;
-            // if (
-            //     isset($entry['context']) &&
-            //     isset($entry['context']['payload']) &&
-            //     isset($entry['context']['payload']['email'])
-            // ) {
-            //     $entry['context']['payload']['email'] = '**************';
-            // }
+
             $entry['extra']['uid'] = $requestUID;
             return $entry;
         });
@@ -72,3 +66,4 @@ class Logger
         return empty($name) ? self::$_LogList[self::$_DefaultName] : self::$_LogList[$name];
     }
 }
+

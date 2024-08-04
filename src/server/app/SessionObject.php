@@ -33,7 +33,7 @@ class SessionObject
         return Session::Instance()->get(self::_ROLE_ID);
     }
 
-    public function setRole($roleId)
+    public function setRoleId($roleId)
     {
         Session::Instance()->set(self::_ROLE_ID, $roleId);
     }

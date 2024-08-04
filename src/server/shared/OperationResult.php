@@ -25,7 +25,7 @@ class OperationResult
 
     public function isFailed()
     {
-        return $this->type === self::UC_FAIL;
+        return $this->_type === self::UC_FAIL;
     }
 
     public function hasError()

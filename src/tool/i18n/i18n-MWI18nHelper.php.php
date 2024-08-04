@@ -55,11 +55,6 @@ foreach ($i18n_ERR as $key => $value) {
         return $this->_msgList[$errCode];
     }
 
-    public function errorMessageNOTUSED($errCode, $langId): callable
-    {
-        return $this->_errorMsgList[$errCode][$langId];
-    }
-
     public function errorLogMessage($errCode): callable
     {
         return $this->_errorLogMsgList[$errCode];

@@ -9,15 +9,15 @@ use MW\Shared\MWI18nHelper;
 global $roleId;
 switch ($roleId) {
     case AuthzConstant::ROLE_GUEST_ID:
-        $resource = AuthzConstant::RESOURCE_PAGE_GUESTINDEX;
+        $resource = AuthzConstant::RESOURCE_PAGE_GUEST_INDEX;
         $title = MWI18nHelper::PAGE_TITLE_GUEST_INDEX;
         break;
     case AuthzConstant::ROLE_ADMIN_ID:
-        $resource = AuthzConstant::RESOURCE_PAGE_ADMININDEX;
+        $resource = AuthzConstant::RESOURCE_PAGE_ADMIN_INDEX;
         $title = MWI18nHelper::PAGE_TITLE_ADMIN_INDEX;
         break;
     case AuthzConstant::ROLE_TEACHER_ID:
-        $resource = AuthzConstant::RESOURCE_PAGE_TEACHERINDEX;
+        $resource = AuthzConstant::RESOURCE_PAGE_TEACHER_INDEX;
         $title = MWI18nHelper::PAGE_TITLE_TEACHER_INDEX;
         break;
 }

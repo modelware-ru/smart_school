@@ -72,7 +72,7 @@ try {
     $log->error($e->getMessage());
     echo 'Error: ' . $e->getMessage() . PHP_EOL;
 } finally {
-    $log->info('timing', $res = Util::CalcExecutionTime(microtime(true)));
+    $log->info('timing', $res = Util::CalcExecutionTime($startTime));
     $log->notice('finish');
     echo 'Done: ' . date('Y-m-d H:i') . PHP_EOL;
     echo 'Execution Time: ' . $res['execution'] . PHP_EOL;

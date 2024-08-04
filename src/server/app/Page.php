@@ -69,12 +69,12 @@ class Page
                 return $carry;
             }, []);
 
-            $widgetPermission['*'] = [];
-            $widgetPermission['*']['*'] =
+            $widgetPermission['*'] = [];  // Первый уровень - widgetId
+            $widgetPermission['*']['*'] =  // Второй уровень - actionId
                 [
-                'permission' => (Setting::Get('authz.defaultPolicy'))[AuthzConstant::RESOURCE_TYPE_WIDGET],
-                'options' => [],
-            ];
+                    'permission' => (Setting::Get('authz.defaultPolicy'))[AuthzConstant::RESOURCE_TYPE_WIDGET],
+                    'options' => [],
+                ];
 
             $pagePermissionOptions = count($pagePermissionList) >= 1 ? $pagePermissionList[0]['options'] : [];
 
@@ -86,6 +86,8 @@ class Page
                     'permission' => $widgetPermission,
                 ],
             ];
+
+            echo Util::RenderTemplate("app/template/{$resource}.php");
 
         } catch (\Throwable $e) {
 
@@ -146,56 +148,13 @@ class Page
             $templateData['title'] = $title;
             $templateData['resource'] = $resource;
 
-        } finally {
-
             echo Util::RenderTemplate("app/template/{$resource}.php");
-
+        } finally {
             global $startTime;
+
             $log->info('timing', Util::CalcExecutionTime($startTime));
             $log->notice('finish');
         }
     }
 
-    private static function _HandleException($e)
-    {
-        $log = Logger::Log();
-
-        if ($e instanceof MWException) {
-            /** @var MWException $mwe */
-            $mwe = $e;
-            $errCode = $mwe->errCode();
-
-            switch ($errCode) {
-                case MWI18nHelper::ERR_UNKNOWN:
-                    $log->critical($e->logMessage());
-                    $templateData = [
-                        'message' => MWI18nHelper::ERR_UNKNOWN,
-                        'resource' => AuthzConstant::RESOURCE_PAGE_MESSAGE,
-                    ];
-                    break;
-                case MWI18nHelper::ERR_AUTHORIZATION_NEEDED:
-                    $log->warning($e->logMessage());
-                    $templateData = [
-                        'message' => MWI18nHelper::ERR_AUTHORIZATION_NEEDED,
-                        'resource' => AuthzConstant::RESOURCE_PAGE_MESSAGE,
-                    ];
-                    break;
-                default:
-                    $log->error($e->logMessage());
-                    $templateData = [
-                        'message' => MWI18nHelper::ERR_UNKNOWN,
-                        'resource' => AuthzConstant::RESOURCE_PAGE_MESSAGE,
-                    ];
-                    break;
-            }
-
-        } else {
-            $log->error($e->getMessage());
-            $templateData = [
-                'message' => MWI18nHelper::ERR_UNKNOWN,
-                'resource' => AuthzConstant::RESOURCE_PAGE_MESSAGE,
-            ];
-        }
-        return $templateData;
-    }
 }

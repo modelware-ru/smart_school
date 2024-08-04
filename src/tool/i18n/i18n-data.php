@@ -2,7 +2,7 @@
 
 use MW\Shared\Constant;
 
-// JS :
+// JS : i18n(langId, 'TTL_?')
 // plain -> ${args[0]}
 // html -> {args[0]}
 $i18n_TTL = [
@@ -45,7 +45,19 @@ $i18n_TTL = [
     ],
 ];
 
+// JS ['ru', 'en']: i18n(langId, 'TTL_?')
+// plain -> ${args[0]}
+// html -> {args[0]}
+// PHP ['log']
 $i18n_MSG = [
+    'WRONG_LOGIN_OR_PASSWORD' => [
+        '_type' => 'plain',
+        'ru' => 'Логин или пароль не верны',
+        'en' => 'Login or password are wrong',
+        'log' => 'Попытка входа в систему. %s',
+    ],
+
+
     'FIELD_EMAIL_INCORRECT' => [
         '_type' => 'plain',
         'ru' => 'Некорректный адрес электронной почты',
@@ -70,14 +82,13 @@ $i18n_MSG = [
         'en' => 'This is a required field',
         'log' => 'Поле должно быть заполнено: %s',
     ],
-    'WRONG_EMAIL_OR_PASSWORD' => [
-        '_type' => 'plain',
-        'ru' => 'Email или пароль не верен',
-        'en' => 'Email or password are wrong',
-        'log' => 'Попытка входа в систему. Не верный %s',
-    ],
+
 ];
 
+// JS ['ru', 'en']: i18n(langId, 'TTL_?')
+// plain -> ${args[0]}
+// html -> {args[0]}
+// PHP ['log'] -> ThrowEx
 $i18n_ERR = [
     'UNKNOWN' => [
         '_type' => 'plain',

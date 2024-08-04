@@ -71,7 +71,7 @@ foreach ($resourceList as $name => $resource) {
 <?php
     foreach ($resource as $key => $value) {
 ?>
-    const RESOURCE_<?=$name ?>_<?=strtoupper($value['code_name'])?> = '<?=$value['code_name']?>'; <?=PHP_EOL?>
+    const RESOURCE_<?=$name ?>_<?=$value['title']?> = '<?=$value['code_name']?>'; <?=PHP_EOL?>
 <?php
     }
 }

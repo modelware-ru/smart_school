@@ -22,6 +22,15 @@ try {
 
     list($resource, $payload, $query) = Util::HandlePOST();
 
+    $log->info('parameters:', ['resource' => $resource, 'payload' => $payload, 'query' => $query]);
+
+    if (empty($resource)) {
+        MWException::ThrowEx(
+            errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+            logData: [$resource, \json_encode($payload, JSON_PRETTY_PRINT)],
+        );
+    }
+
     $resourceType = AuthzConstant::RESOURCE_TYPE_API;
     $actionId = AuthzConstant::ACTION_API_CALL;
     $apiPermissionList = AuthzService::GetPermissionList([
@@ -66,6 +75,23 @@ try {
 
             require_once 'api/v1/service/app.php';
             $res = app_sign_in($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_SAVE_PARALLEL:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+            $args['number'] = $payload['number'];
+            $args['showInGroup'] = $payload['showInGroup'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_parallel($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_PARALLEL:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_parallel($args);
 
             break;
     }

@@ -45,6 +45,16 @@ foreach ($i18n_ERR as $key => $value) {
         return self::$_Instance;
     }
 
+    public static function LogMessage($code, $data): string
+    {
+        $message = (self::Instance())->message($code);
+        if (is_null($message)) {
+            return '';
+        }
+        
+        return $message(...$data);
+    }
+
     public function page($pageName, $langId): callable
     {
         return $this->_pageTemplateList[$pageName][$langId];

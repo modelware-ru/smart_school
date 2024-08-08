@@ -1,15 +1,24 @@
-// GENERATED [2024-08-03 11:29:37]
+// GENERATED [2024-08-06 20:19:23]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
   TTL_LOGIN: (...args) => `Логин`,
+  TTL_PARALLEL_NUMBER: (...args) => `Номер параллели (число)`,
+  TTL_PARALLEL_NAME: (...args) => `Название параллели (текст)`,
+  TTL_PARALLEL_SHOW_IN_GROUP: (...args) => `Показать в группах`,
   TTL_PASSWORD: (...args) => `Пароль`,
   TTL_RECOVERY_PASSWORD: (...args) => `Восстановление пароля`,
   TTL_SIGN_IN: (...args) => `Вход`,
-  TTL_TO_AUTHENTICATE: (...args) => `Аутентификация...`,
+  TTL_TO_CANCEL: (...args) => `Отменить`,
+  TTL_TO_REMOVE: (...args) => `Удалить`,
+  TTL_TO_REMOVE_IN_PROGRESS: (...args) => `Удаление...`,
+  TTL_TO_SAVE: (...args) => `Сохранить`,
+  TTL_TO_SAVE_IN_PROGRESS: (...args) => `Сохранение...`,
   TTL_TO_SIGN_IN: (...args) => `Войти`,
+  TTL_TO_SIGN_IN_IN_PROGRESS: (...args) => `Вход...`,
   TTL_SIGN_OUT: (...args) => `Выход`,
   MSG_WRONG_LOGIN_OR_PASSWORD: (...args) => `Логин или пароль не верны`,
+  MSG_FIELD_WITH_DUPLICATED_VALUE: (...args) => `Запись с таким значением уже существует`,
   MSG_FIELD_EMAIL_INCORRECT: (...args) => `Некорректный адрес электронной почты`,
   MSG_FIELD_IS_TOO_LONG: (...args) => `Поле содержит слишком длинное значение`,
   MSG_FIELD_IS_TOO_SHORT: (...args) => `Поле содержит слишком короткое значение`,

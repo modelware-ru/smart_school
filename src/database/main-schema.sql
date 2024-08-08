@@ -22,14 +22,14 @@ CREATE TABLE main__tagCategory (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__tagCategory___unique_1 UNIQUE (name)
+    CONSTRAINT main__tagCategory___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__topic (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__topic___unique_1 UNIQUE (name)
+    CONSTRAINT main__topic___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__attendance_Dict (
@@ -59,39 +59,39 @@ CREATE TABLE main__user (
     email VARCHAR(100),
     PRIMARY KEY (id),
     CONSTRAINT main__user___account_id FOREIGN KEY (account_id) REFERENCES authz__account(id),
-    CONSTRAINT main__user___unique_1 UNIQUE (login),
-    CONSTRAINT main__user___unique_2 UNIQUE (email)
+    CONSTRAINT main__user___unique_login UNIQUE (login),
+    CONSTRAINT main__user___unique_email UNIQUE (email)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__serie (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__serie___unique_1 UNIQUE (name)
+    CONSTRAINT main__serie___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__parallel (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    name_text VARCHAR(100) DEFAULT '' NOT NULL,
-    name_number VARCHAR(10) DEFAULT '' NOT NULL,
+    name VARCHAR(100) DEFAULT '' NOT NULL,
+    number VARCHAR(10) DEFAULT '' NOT NULL,
     show_in_group ENUM ('Y', 'N') NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__parallel___unique_1 UNIQUE (name_text),
-    CONSTRAINT main__parallel___unique_2 UNIQUE (name_number)
+    CONSTRAINT main__parallel___unique_name UNIQUE (name),
+    CONSTRAINT main__parallel___unique_number UNIQUE (number)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__subject (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__subject___unique_1 UNIQUE (name)
+    CONSTRAINT main__subject___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__tag (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__tag___unique_1 UNIQUE (name)
+    CONSTRAINT main__tag___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__task (
@@ -107,7 +107,7 @@ CREATE TABLE main__group (
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__group___parallel_id FOREIGN KEY (parallel_id) REFERENCES main__parallel(id),
-    CONSTRAINT main__group___unique_1 UNIQUE (name)
+    CONSTRAINT main__group___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__task_tag (

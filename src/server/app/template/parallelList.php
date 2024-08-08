@@ -1,8 +1,6 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Shared\MWException;
-use MW\Shared\MWI18nHelper;
 use MW\Module\Domain\Main as DomainModule;
 
 global $templateData;
@@ -28,7 +26,7 @@ list($res, $data) = (new DomainModule())->getParallelList($args);
             <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
         </nav>
         <hr class='m-0' />
-        <div id="main" class="container my-3">
+        <div id="main" class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
@@ -37,7 +35,7 @@ list($res, $data) = (new DomainModule())->getParallelList($args);
             </nav>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="parallel.php" class="btn btn-success">
+            <a href="parallel.php?id=0" class="btn btn-success">
                 <i class="bi bi-plus-circle me-3"></i>
                 <span role="status">Добавить</span>
             </a>
@@ -49,7 +47,7 @@ list($res, $data) = (new DomainModule())->getParallelList($args);
         ?>
             <table class="table table-hover table-bordered clickable-rows my-3">
                 <thead>
-                    <tr>
+                    <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
                         <th scope="col">Название (текст)</th>
                         <th scope="col">Название (число)</th>
@@ -61,18 +59,15 @@ list($res, $data) = (new DomainModule())->getParallelList($args);
                     <?php
                     foreach ($res->getData() as $key => $item) {
                     ?>
-                        <tr class="align-middle">
-                            <th scope="row" class="text-end"><?= "{$key} ({$item['id']}) " ?></th>
-                            <td><?= $item['name_text'] ?></td>
-                            <td><?= $item['name_number'] ?></td>
-                            <td>Да</td>
+                        <tr class="align-middle <?= $item['showInGroup'] ? "" : "table-danger" ?>" data-id="<?= $item['id'] ?>">
+                            <th scope="row" class="text-end text-nowrap"><?= $key + 1 ?></th>
+                            <td><?= $item['name'] ?></td>
+                            <td><?= $item['number'] ?></td>
+                            <td><?= $item['showInGroup'] ? "Да" : "Нет" ?></td>
                             <td class="p-1">
-                                <!-- @@include('./atom/button.html', {
-                "class": "btn btn-outline-danger btn-sm",
-                "isLoading": false,
-                "icon": "bi-trash",
-                "title": ""
-                }) -->
+                                <?php if ($item['canBeDeleted']) { ?>
+                                    <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
+                                <? } ?>
                             </td>
                         </tr>
                     <?php
@@ -83,15 +78,31 @@ list($res, $data) = (new DomainModule())->getParallelList($args);
                 ?>
                     <div class="alert alert-info rounded-0 my-3" role="alert">
                         <div>
-                            <p class="m-0">Не найдена ни одна параллель</p>
+                            <p class="m-0">Не найдена ни одна параллель.</p>
                         </div>
                     </div>
                 <?php
             }
                 ?>
-
     </div>
     <script src='js/bootstrap.bundle.min.js'></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            for (const item of document.querySelectorAll('button[data-action="remove"]')) {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.location.assign(`parallel.php?id=${item.dataset.id}&action=remove`);
+                });
+            }
+
+            for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.location.assign(`parallel.php?id=${item.dataset.id}`);
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

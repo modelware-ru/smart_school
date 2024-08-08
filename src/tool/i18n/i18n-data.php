@@ -11,6 +11,21 @@ $i18n_TTL = [
         'ru' => 'Логин',
         'en' => 'Login',
     ],
+    'PARALLEL_NUMBER' => [
+        '_type' => 'plain',
+        'ru' => 'Номер параллели (число)',
+        'en' => 'Parallel number',
+    ],
+    'PARALLEL_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название параллели (текст)',
+        'en' => 'Parallel name',
+    ],
+    'PARALLEL_SHOW_IN_GROUP' => [
+        '_type' => 'plain',
+        'ru' => 'Показать в группах',
+        'en' => 'Show in group',
+    ],
     'PASSWORD' => [
         '_type' => 'plain',
         'ru' => 'Пароль',
@@ -26,15 +41,40 @@ $i18n_TTL = [
         'ru' => 'Вход',
         'en' => 'Sign In',
     ],
-    'TO_AUTHENTICATE' => [
+    'TO_CANCEL' => [
         '_type' => 'plain',
-        'ru' => 'Аутентификация...',
-        'en' => 'Authentication...',
+        'ru' => 'Отменить',
+        'en' => 'Cancel',
+    ],
+    'TO_REMOVE' => [
+        '_type' => 'plain',
+        'ru' => 'Удалить',
+        'en' => 'Remove',
+    ],
+    'TO_REMOVE_IN_PROGRESS' => [
+        '_type' => 'plain',
+        'ru' => 'Удаление...',
+        'en' => 'Removing...',
+    ],
+    'TO_SAVE' => [
+        '_type' => 'plain',
+        'ru' => 'Сохранить',
+        'en' => 'Save',
+    ],
+    'TO_SAVE_IN_PROGRESS' => [
+        '_type' => 'plain',
+        'ru' => 'Сохранение...',
+        'en' => 'Saving...',
     ],
     'TO_SIGN_IN' => [
         '_type' => 'plain',
         'ru' => 'Войти',
         'en' => '',
+    ],
+    'TO_SIGN_IN_IN_PROGRESS' => [
+        '_type' => 'plain',
+        'ru' => 'Вход...',
+        'en' => 'Signing In...',
     ],
 
 
@@ -56,8 +96,12 @@ $i18n_MSG = [
         'en' => 'Login or password are wrong',
         'log' => 'Попытка входа в систему. %s',
     ],
-
-
+    'FIELD_WITH_DUPLICATED_VALUE' => [
+        '_type' => 'plain',
+        'ru' => 'Запись с таким значением уже существует',
+        'en' => 'This is a duplicated value',
+        'log' => 'Запись с таким значением уже существует: "%s"',
+    ],
     'FIELD_EMAIL_INCORRECT' => [
         '_type' => 'plain',
         'ru' => 'Некорректный адрес электронной почты',

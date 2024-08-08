@@ -24,7 +24,12 @@ class MWException extends \Exception
     {
         return $this->_errData;
     }
-    
+
+    public function logData(): array
+    {
+        return $this->_logData;
+    }
+
     public function logMessage(): string
     {
         $errorLogMessage = (MWI18nHelper::Instance())->errorLogMessage($this->_errCode);

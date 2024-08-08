@@ -3,12 +3,11 @@
 namespace MW\Module\Account;
 
 use MW\App\Setting;
-use MW\Service\Authz\Constant as AuthzConstant;
 use MW\Service\Authz\Main as AuthzService;
 use MW\Shared\Logger;
 use MW\Shared\MWI18nHelper;
 use MW\Shared\Util;
-use MW\Shared\ValueChecker;
+
 
 class Main
 {
@@ -34,7 +33,7 @@ class Main
         $manager = new Manager();
         $resDb = $manager->getUserByLogin($login);
         if (($cnt = count($resDb)) !== 1) {
-            $localLog->info(MWI18nHelper::LogMessage(MWI18nHelper::MSG_WRONG_LOGIN_OR_PASSWORD, ["Найдено {$cnt} зап."])); 
+            $localLog->info(MWI18nHelper::LogMessage(MWI18nHelper::MSG_WRONG_LOGIN_OR_PASSWORD, ["Найдено {$cnt} зап."]));
             $errorList['_msg_'] = [
                 'code' => MWI18nHelper::MSG_WRONG_LOGIN_OR_PASSWORD,
             ];
@@ -76,4 +75,5 @@ class Main
 
         return [Util::MakeSuccessOperationResult(test: $data), $data];
     }
+
 }

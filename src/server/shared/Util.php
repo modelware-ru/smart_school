@@ -7,19 +7,19 @@ class Util
     public static function HandlePOST(): array
     {
         $postBody = file_get_contents('php://input');
-        $data = $postBody === false ? [] : \json_decode($postBody, true);
+        $query = $_GET;
 
-        if (empty($data) || !isset($data['resource'])) {
-            MWException::ThrowEx(
-                errCode: MWI18nHelper::ERR_WRONG_POST_PARAMETERS,
-                logData: [\json_encode($data, JSON_PRETTY_PRINT)],
-            );
-        }
+        $data = $postBody === false ? [] : \json_decode($postBody, true);
 
         $resource = isset($data['resource']) ? $data['resource'] : '';
         $payload = isset($data['payload']) ? $data['payload'] : [];
-        $query = $_GET;
         return [$resource, $payload, $query];
+    }
+
+    public static function HandleGET()
+    {
+        $query = $_GET;
+        return $query;
     }
 
     public static function CompareStructures($test, $template, $options = [])
@@ -83,15 +83,12 @@ class Util
                         return false;
                     }
 
-                    if (compare_structures($item, $itemTemplate, $options) === false) {
+                    if (Util::CompareStructures($item, $itemTemplate, $options) === false) {
                         return false;
                     }
-
                 }
-
                 return true;
             }
-
             return false;
         } else {
             if (gettype($test) === 'NULL' && !$options['checkNull']) {

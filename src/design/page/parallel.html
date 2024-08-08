@@ -39,7 +39,7 @@
 
     </nav>
     <hr class="m-0" />
-    <div id="main" class="my-3">
+    <div class="container my-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
@@ -64,7 +64,7 @@
         </ol>
       </nav>
 
-      <main class="d-flex flex-column">
+      <div id="main" class="d-flex flex-column">
         <!-- widget.ParallelForm: start -->
         <div>
 
@@ -124,8 +124,8 @@
               <!-- atom.Checkbox: start -->
               <div class="col-12">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="l3">
-                  <label class="form-check-label" for="lX">
+                  <input class="form-check-input" type="checkbox" value="" id="l3X">
+                  <label class="form-check-label" for="l3X">
                     <span>Показать в группах</span>
 
                     <span class="text-danger">&nbsp;*</span>
@@ -199,14 +199,15 @@
           </form>
         </div>
         <!-- widget.ParallelForm: finish -->
-      </main>
-      <!-- widget.Notification: start -->
-      <div class="alert alert-danger rounded-0 text-center m-0" role="alert">
-        <div>
-          <p class="m-0">Произошла ошибка при попытке сохранить данные.</p>
+        <!-- widget.Notification: start -->
+        <div class="alert alert-danger rounded-0 text-center m-0" role="alert">
+          <div>
+            <p class="m-0">Произошла ошибка при попытке сохранить данные.</p>
+          </div>
         </div>
+        <!-- widget.Notification: finish -->
       </div>
-      <!-- widget.Notification: finish -->
+
     </div>
   </div>
   <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>

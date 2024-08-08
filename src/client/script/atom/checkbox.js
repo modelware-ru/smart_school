@@ -3,8 +3,7 @@ import { clsx } from '../../node_modules/clsx/dist/clsx.mjs';
 
 import Atom from './atom';
 
-//TODO: Проверить, что help отрисовывается при отсутствии ошибок (error)
-export default class Input extends Atom {
+export default class Checkbox extends Atom {
 
     labelFor = 'l' + new Date().getTime() + Math.random();
 
@@ -14,39 +13,30 @@ export default class Input extends Atom {
         const {
             className = '',
             label = '',
-            type = 'text', // text, password
-            placeholder = '',
-            value = '',
+            checked = '',
             help = '',
             hasError = 'unknown', // 'yes', 'no', 'unknown'
             error = '',
-            maxLength = null,
             disabled = false,
             mandatory = false,
-            onTest = null,
         } = settings;
 
         this._prop = {
             className,
             label,
-            type,
-            placeholder,
-            value, // initial value
+            checked, // initial value
             help,
             hasError,
             error,
-            maxLength,
             disabled,
             mandatory,
         };
 
         this._state = {
-            value,
-            availableCount: maxLength - value.length,
+            checked,
         };
 
         this._callback = {
-            onTest,
         };
 
         this.el = this._ui_render();
@@ -67,19 +57,15 @@ export default class Input extends Atom {
                 _ui_label.innerText = value;
                 break;
             // finish "label"
-            // start "type"
-            case 'type':
+            // start "checked"
+            case 'checked':
+                if (value) {
+                    _ui_input.setAttribute('checked', '');
+                } else {
+                    _ui_input.removeAttribute('checked');
+                }
                 break;
-            // finish "type"
-            // start "placeholder"
-            case 'placeholder':
-                _ui_input.placeholder = value;
-                break;
-            // finish "placeholder"
-            // start "value"
-            case 'value':
-                break;
-            // finish "value"
+            // finish "checked"
             // start "help"
             case 'help':
                 break;
@@ -94,10 +80,6 @@ export default class Input extends Atom {
                 _ui_input.className = this._inputClassName();
                 break;
             // finish "error"
-            // start "maxLength"
-            case 'maxLength':
-                break;
-            // finish "maxLength"
             // start "disabled"
             case 'disabled':
                 if (value) {
@@ -119,52 +101,28 @@ export default class Input extends Atom {
 
     // start "_renderState"
     _renderState = (name, value) => {
-        const { input: _ui_input, counter: _ui_counter } = this._el;
+        let { input: _ui_input } = this._el;
 
         switch (name) {
-            // start "value"
-            case 'value':
+            // start "checked"
+            case 'checked':
                 _ui_input.value = value;
                 break;
-            // finish "value"
-            // start "availableCount"
-            case 'availableCount':
-                _ui_counter.innerText = value;
-                break;
-            // finish "availableCount"
+            // finish "checked"
             default:
                 return;
         }
     };
     // finish "_renderState"
 
-    _onInput = (e) => {
-        const { value: oldValue } = this._state;
-        const newValue = e.target.value;
-
-        if (oldValue === newValue) return;
-
-        const { onTest } = this._callback;
-        if (onTest && !onTest(newValue)) {
-            this._renderState('value', oldValue);
-            return;
-        }
-
-        const { maxLength } = this._prop;
-
-        if (maxLength && newValue.length > maxLength) {
-            this._renderState('value', oldValue);
-            return;
-        }
-        this._updateState('value', newValue);
-        if (this._el.counter) {
-            this._updateState('availableCount', maxLength - newValue.length);
-        }
+    _onChange = (e) => {
+        const newValue = e.target.checked;
+        this._updateState('checked', newValue);
     };
 
     _inputClassName = () => {
         const { hasError } = this._prop;
-        return clsx('form-control', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
+        return clsx('form-check-input', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
     };
 
     _ui_help = () => {
@@ -182,45 +140,34 @@ export default class Input extends Atom {
         const { 
             className,
             label,
-            type,
-            placeholder,
-            value,
+            checked,
             help,
             hasError,
             error,
-            maxLength,
             disabled,
             mandatory,
         } = this._prop;
         const {
-            value,
-            availableCount,
+            checked,
         } = this._state;
 
         this._el.input = (
-            <input
-                type={type}
-                className={this._inputClassName()}
-                id={this.labelFor}
-                placeholder={placeholder}
-                value={value}
-                oninput={this._onInput}
-                disabled={disabled}
-            />
+            <input id={this.labelFor} class="form-check-input" type="checkbox" checked={checked} onchange={this._onChange} disabled={disabled} />
         );
         this._el.label = <span>{label}</span>;
         this._el.help = this._ui_help();
         this._el.error = this._ui_error();
-        this._el.counter = maxLength && <span className="text-secondary fw-bold">{availableCount}</span>;
 
         return (
             <div className={className}>
-                <label for={this.labelFor} className="form-label">
-                    {this._el.label}
-                    {mandatory && <span className="text-danger">&nbsp;*</span>}
-                </label>
-                {this._el.input}
-                <div className="d-flex justify-content-between">
+                <div class="form-check">
+                    {this._el.input}
+                    <label for={this.labelFor} class="form-check-label">
+                        {this._el.label}
+                        {mandatory && <span className="text-danger">&nbsp;*</span>}
+                    </label>
+                </div>
+                <div class="d-flex justify-content-between">
                     {
                         (this._el.errorParent = (
                             <div>
@@ -229,7 +176,6 @@ export default class Input extends Atom {
                             </div>
                         ))
                     }
-                    {this._el.counter}
                 </div>
             </div>
         );

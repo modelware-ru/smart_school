@@ -13,6 +13,21 @@ function check_type_parameters($apiResource, $payload)
             'password' => 'string',
         ],
         // signIn FINISH
+        // saveParallel START
+        AuthzConstant::RESOURCE_API_SAVE_PARALLEL => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+            'number' => 'string',
+            'showInGroup' => true,
+        ],
+        // saveParallel FINISH
+        // removeParallel START
+        AuthzConstant::RESOURCE_API_REMOVE_PARALLEL => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeParallel FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

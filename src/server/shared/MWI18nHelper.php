@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-03 11:29:37]
+// GENERATED [2024-08-06 20:19:23]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -17,6 +17,7 @@ class MWI18nHelper
     const PAGE_TITLE_TEACHER_INDEX = 'PAGE_TITLE_TEACHER_INDEX';
 
     const MSG_WRONG_LOGIN_OR_PASSWORD = 'MSG_WRONG_LOGIN_OR_PASSWORD';
+    const MSG_FIELD_WITH_DUPLICATED_VALUE = 'MSG_FIELD_WITH_DUPLICATED_VALUE';
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_IS_TOO_LONG = 'MSG_FIELD_IS_TOO_LONG';
     const MSG_FIELD_IS_TOO_SHORT = 'MSG_FIELD_IS_TOO_SHORT';
@@ -191,6 +192,9 @@ class MWI18nHelper
             self::MSG_WRONG_LOGIN_OR_PASSWORD => function (...$args) {
                 return sprintf('Попытка входа в систему. %s', ...$args);
             },
+            self::MSG_FIELD_WITH_DUPLICATED_VALUE => function (...$args) {
+                return sprintf('Запись с таким значением уже существует: "%s"', ...$args);
+            },
             self::MSG_FIELD_EMAIL_INCORRECT => function (...$args) {
                 return sprintf('Некорректный адрес электронной почты: %s', ...$args);
             },
@@ -204,6 +208,7 @@ class MWI18nHelper
                 return sprintf('Поле должно быть заполнено: %s', ...$args);
             },
         ];
+
         $this->_errorMsgList = [
             self::ERR_UNKNOWN => [
                 'ru' =>

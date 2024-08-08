@@ -1,15 +1,24 @@
-// GENERATED [2024-08-03 11:29:37]
+// GENERATED [2024-08-06 20:19:23]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
   TTL_LOGIN: (...args) => `Login`,
+  TTL_PARALLEL_NUMBER: (...args) => `Parallel number`,
+  TTL_PARALLEL_NAME: (...args) => `Parallel name`,
+  TTL_PARALLEL_SHOW_IN_GROUP: (...args) => `Show in group`,
   TTL_PASSWORD: (...args) => `Password`,
   TTL_RECOVERY_PASSWORD: (...args) => `Recovery Password`,
   TTL_SIGN_IN: (...args) => `Sign In`,
-  TTL_TO_AUTHENTICATE: (...args) => `Authentication...`,
+  TTL_TO_CANCEL: (...args) => `Cancel`,
+  TTL_TO_REMOVE: (...args) => `Remove`,
+  TTL_TO_REMOVE_IN_PROGRESS: (...args) => `Removing...`,
+  TTL_TO_SAVE: (...args) => `Save`,
+  TTL_TO_SAVE_IN_PROGRESS: (...args) => `Saving...`,
   TTL_TO_SIGN_IN: (...args) => ``,
+  TTL_TO_SIGN_IN_IN_PROGRESS: (...args) => `Signing In...`,
   TTL_SIGN_OUT: (...args) => `Sign Out`,
   MSG_WRONG_LOGIN_OR_PASSWORD: (...args) => `Login or password are wrong`,
+  MSG_FIELD_WITH_DUPLICATED_VALUE: (...args) => `This is a duplicated value`,
   MSG_FIELD_EMAIL_INCORRECT: (...args) => `Email is incorrect`,
   MSG_FIELD_IS_TOO_LONG: (...args) => `The field is too long`,
   MSG_FIELD_IS_TOO_SHORT: (...args) => `The field is too short`,

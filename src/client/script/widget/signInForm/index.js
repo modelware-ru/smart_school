@@ -106,7 +106,7 @@ export default class SignInForm {
     };
 
     _beforeCallSignIn = () => {
-        this._updateStateAuthButton({ disabled: true, isLoading: true, title: 'TTL_TO_AUTHENTICATE', icon: '' });
+        this._updateStateAuthButton({ disabled: true, isLoading: true, title: 'TTL_TO_SIGN_IN_IN_PROGRESS', icon: '' });
         this._updateStateLoginInput({ disabled: true });
         this._updateStatePasswordInput({ disabled: true });
     };
@@ -227,38 +227,4 @@ export default class SignInForm {
             </div>
         );
     };
-}
-
-{
-    /* <form class="mt-3 row gx-0 gy-3">
-@@include('../atom/input.html', {
-  "class": "col-12",
-  "label": "Логин",
-  "placeholder": "login"
-})
-
-@@include('../atom/input.html', {
-  "class": "col-12",
-  "label": "Пароль",
-  "placeholder": "*****"
-})
-
-@@include('../atom/button.html', {
-  "class": "w-100 btn btn-primary",
-  "isLoading": false,
-  "icon": '',
-  "title": "Войти"
-})
-
-@@include('../atom/button.html', {
-  "class": "w-100 btn btn-primary disabled",
-  "isLoading": true,
-  "icon": '',
-  "title": "Вход..."
-})
-
-<a href="recoveryPassword.html" class="link-primary text-center">Восстановление пароля</a>
-
-</form>
-</div>       */
 }

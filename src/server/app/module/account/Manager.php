@@ -1,4 +1,5 @@
 <?php
+
 namespace MW\Module\Account;
 
 use MW\Shared\DBManager;
@@ -15,8 +16,8 @@ class Manager
     public function getUserByLogin($login)
     {
         $stmt = <<<SQL
-            SELECT id, account_id, password FROM main__user WHERE login = :login
-            SQL;
+SELECT id, account_id, password FROM main__user WHERE login = :login
+SQL;
         return $this->_db->select($stmt, ['login' => $login]);
     }
 

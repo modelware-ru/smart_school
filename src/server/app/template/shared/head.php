@@ -5,7 +5,6 @@ global $templateData;
 global $langId;
 
 $title = (MWI18nHelper::Instance())->page($templateData['title'], $langId)();
-$resource = $templateData['resource'];
 if (isset($templateData['_js'])) {
     $_js = $templateData['_js'];
 }
@@ -23,7 +22,6 @@ $version = 'Web Application Template. Версия ' . VERSION . ' ' . (defined(
 <script>
     window.app = JSON.parse('<?=addslashes(json_encode($_js, JSON_UNESCAPED_UNICODE))?>');
 </script>
-<script type='text/javascript' src='js/<?=$resource?>_bundle.js' defer></script>
 <script>
     console.log('<?=$version?>');
 </script>

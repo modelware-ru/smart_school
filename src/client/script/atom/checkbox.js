@@ -140,7 +140,7 @@ export default class Checkbox extends Atom {
         const { 
             className,
             label,
-            checked,
+            // checked,
             help,
             hasError,
             error,

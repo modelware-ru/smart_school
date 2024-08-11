@@ -1,6 +1,6 @@
 import babel from '@rollup/plugin-babel';
 
-const pages = ['guestIndex', 'message', 'parallel'/* 'signIn', 'signUp', 'userIndex'*/];
+const pages = ['guestIndex', 'message', 'parallel', 'group'];
 
 const export_page = pages.reduce((acc, item) => {
   acc.push({

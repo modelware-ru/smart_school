@@ -189,7 +189,7 @@ export default class Textarea extends Atom {
             className,
             label,
             placeholder,
-            value,
+            // value,
             help,
             hasError,
             error,

@@ -3,9 +3,7 @@ import { clsx } from '../../node_modules/clsx/dist/clsx.mjs';
 
 import Atom from './atom';
 
-//TODO: Проверить, что help отрисовывается при отсутствии ошибок (error)
-export default class Input extends Atom {
-
+export default class Select extends Atom {
     labelFor = 'l' + new Date().getTime() + Math.random();
 
     // start "constructor"
@@ -14,48 +12,41 @@ export default class Input extends Atom {
         const {
             className = '',
             label = '',
-            type = 'text', // text, password
-            placeholder = '',
             value = '',
+            optionData = [],
             help = '',
             hasError = 'unknown', // 'yes', 'no', 'unknown'
             error = '',
-            maxLength = null,
             disabled = false,
             mandatory = false,
-            onTest = null,
         } = settings;
 
         this._prop = {
             className,
             label,
-            type,
-            placeholder,
-            value, // initial value
+            value,
+            optionData,
             help,
             hasError,
             error,
-            maxLength,
             disabled,
             mandatory,
         };
 
         this._state = {
             value,
-            availableCount: maxLength - value.length,
         };
 
-        this._callback = {
-            onTest,
-        };
+        this._callback = {};
 
         this.el = this._ui_render();
+
     }
     // finish "constructor"
 
     // start "_renderProp"
     _renderProp = (name, value) => {
-        let { input: _ui_input, label: _ui_label, error: _ui_error, errorParent: _ui_errorParent } = this._el;
+        let { select: _ui_select, label: _ui_label, error: _ui_error, errorParent: _ui_errorParent } = this._el;
 
         switch (name) {
             // start "className"
@@ -64,46 +55,36 @@ export default class Input extends Atom {
             // finish "className"
             // start "label"
             case 'label':
-                _ui_label.innerText = value;
                 break;
             // finish "label"
-            // start "type"
-            case 'type':
-                break;
-            // finish "type"
-            // start "placeholder"
-            case 'placeholder':
-                _ui_input.placeholder = value;
-                break;
-            // finish "placeholder"
             // start "value"
             case 'value':
                 break;
             // finish "value"
+            // start "optionData"
+            case 'optionData':
+                break;
+            // finish "optionData"
             // start "help"
             case 'help':
                 break;
             // finish "help"
             // start "hasError"
             case 'hasError':
-                // break;
+            // break;
             // finish "hasError"
             // start "error"
             case 'error':
                 this._el.error = mount(_ui_errorParent, this._ui_error(), _ui_error, true);
-                _ui_input.className = this._inputClassName();
+                _ui_select.className = this._inputClassName();
                 break;
             // finish "error"
-            // start "maxLength"
-            case 'maxLength':
-                break;
-            // finish "maxLength"
             // start "disabled"
             case 'disabled':
                 if (value) {
-                    _ui_input.setAttribute('disabled', '');
+                    _ui_select.setAttribute('disabled', '');
                 } else {
-                    _ui_input.removeAttribute('disabled');
+                    _ui_select.removeAttribute('disabled');
                 }
                 break;
             // finish "disabled"
@@ -119,52 +100,32 @@ export default class Input extends Atom {
 
     // start "_renderState"
     _renderState = (name, value) => {
-        const { input: _ui_input, counter: _ui_counter } = this._el;
+        const { select: _ui_select, counter: _ui_counter } = this._el;
 
         switch (name) {
             // start "value"
             case 'value':
-                _ui_input.value = value;
+                _ui_select.value = value;
                 break;
             // finish "value"
-            // start "availableCount"
-            case 'availableCount':
-                _ui_counter.innerText = value;
-                break;
-            // finish "availableCount"
             default:
                 return;
         }
     };
     // finish "_renderState"
 
-    _onInput = (e) => {
+    _onChange = (e) => {
         const { value: oldValue } = this._state;
         const newValue = e.target.value;
 
         if (oldValue === newValue) return;
 
-        const { onTest } = this._callback;
-        if (onTest && !onTest(newValue)) {
-            this._renderState('value', oldValue);
-            return;
-        }
-
-        const { maxLength } = this._prop;
-
-        if (maxLength && newValue.length > maxLength) {
-            this._renderState('value', oldValue);
-            return;
-        }
         this._updateState('value', newValue);
-        if (this._el.counter) {
-            this._updateState('availableCount', maxLength - newValue.length);
-        }
     };
 
     _inputClassName = () => {
         const { hasError } = this._prop;
-        return clsx('form-control', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
+        return clsx('form-select', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
     };
 
     _ui_help = () => {
@@ -179,47 +140,43 @@ export default class Input extends Atom {
 
     // start "_ui_render"
     _ui_render = () => {
-        const { 
+        const {
             className,
             label,
-            type,
-            placeholder,
             // value,
+            optionData,
             help,
             hasError,
             error,
-            maxLength,
             disabled,
             mandatory,
         } = this._prop;
-        const {
-            value,
-            availableCount,
-        } = this._state;
+        const { value } = this._state;
 
-        this._el.input = (
-            <input
-                type={type}
-                className={this._inputClassName()}
-                id={this.labelFor}
-                placeholder={placeholder}
-                value={value}
-                oninput={this._onInput}
-                disabled={disabled}
-            />
+        const optionList = optionData.map((item) => {
+            return (
+                <option value={item['value']} disabled={item['disabled']} selected={item['value'] === value}>
+                    {item['name']}
+                </option>
+            );
+        });
+
+        this._el.select = (
+            <select id={this.labelFor} className={this._inputClassName()} disabled={disabled} value={value} onchange={this._onChange}>
+                {optionList}
+            </select>
         );
         this._el.label = <span>{label}</span>;
         this._el.help = this._ui_help();
         this._el.error = this._ui_error();
-        this._el.counter = maxLength && <span className="text-secondary fw-bold">{availableCount}</span>;
 
         return (
-            <div className={className}>
-                <label for={this.labelFor} className="form-label">
+            <div class={className}>
+                <label for={this.labelFor} class="form-label">
                     {this._el.label}
                     {mandatory && <span className="text-danger">&nbsp;*</span>}
                 </label>
-                {this._el.input}
+                {this._el.select}
                 <div className="d-flex justify-content-between">
                     {
                         (this._el.errorParent = (
@@ -229,7 +186,6 @@ export default class Input extends Atom {
                             </div>
                         ))
                     }
-                    {this._el.counter}
                 </div>
             </div>
         );

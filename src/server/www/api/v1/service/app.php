@@ -30,3 +30,17 @@ function app_remove_parallel($args)
 
     return $res;
 }
+
+function app_save_group($args)
+{
+    list($res, $data) = (new DomainMain())->saveGroup($args);
+
+    return $res;
+}
+
+function app_remove_group($args)
+{
+    list($res, $data) = (new DomainMain())->removeGroup($args);
+
+    return $res;
+}

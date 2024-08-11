@@ -56,3 +56,16 @@ $atomTextarea = (new Atom('textarea'))
     ->AddState('value')
     ->AddState('availableCount')
     ->AddCallback('onTest', "null");
+
+$atomSelect = (new Atom('select'))
+    ->HasLabel()
+    ->AddProp('className')
+    ->AddProp('label')
+    ->AddProp('value')
+    ->AddProp('optionData', "[]")
+    ->AddProp('help')
+    ->AddProp('hasError', "'unknown'", "'yes', 'no', 'unknown'")
+    ->AddProp('error')
+    ->AddProp('disabled', "false")
+    ->AddProp('mandatory', "false")
+    ->AddState('value');

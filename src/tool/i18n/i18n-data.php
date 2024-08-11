@@ -6,6 +6,11 @@ use MW\Shared\Constant;
 // plain -> ${args[0]}
 // html -> {args[0]}
 $i18n_TTL = [
+    'GROUP_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название группы',
+        'en' => 'Group name',
+    ],
     'LOGIN' => [
         '_type' => 'plain',
         'ru' => 'Логин',
@@ -13,12 +18,12 @@ $i18n_TTL = [
     ],
     'PARALLEL_NUMBER' => [
         '_type' => 'plain',
-        'ru' => 'Номер параллели (число)',
+        'ru' => 'Номер параллели',
         'en' => 'Parallel number',
     ],
     'PARALLEL_NAME' => [
         '_type' => 'plain',
-        'ru' => 'Название параллели (текст)',
+        'ru' => 'Название параллели',
         'en' => 'Parallel name',
     ],
     'PARALLEL_SHOW_IN_GROUP' => [
@@ -90,23 +95,17 @@ $i18n_TTL = [
 // html -> {args[0]}
 // PHP ['log']
 $i18n_MSG = [
-    'WRONG_LOGIN_OR_PASSWORD' => [
-        '_type' => 'plain',
-        'ru' => 'Логин или пароль не верны',
-        'en' => 'Login or password are wrong',
-        'log' => 'Попытка входа в систему. %s',
-    ],
-    'FIELD_WITH_DUPLICATED_VALUE' => [
-        '_type' => 'plain',
-        'ru' => 'Запись с таким значением уже существует',
-        'en' => 'This is a duplicated value',
-        'log' => 'Запись с таким значением уже существует: "%s"',
-    ],
     'FIELD_EMAIL_INCORRECT' => [
         '_type' => 'plain',
         'ru' => 'Некорректный адрес электронной почты',
         'en' => 'Email is incorrect',
         'log' => 'Некорректный адрес электронной почты: %s',
+    ],
+    'FIELD_IS_REQUIRED' => [
+        '_type' => 'plain',
+        'ru' => 'Поле должно быть заполнено',
+        'en' => 'This is a required field',
+        'log' => 'Поле должно быть заполнено: %s',
     ],
     'FIELD_IS_TOO_LONG' => [
         '_type' => 'plain',
@@ -120,11 +119,29 @@ $i18n_MSG = [
         'en' => 'The field is too short',
         'log' => 'Поле содержит слишком короткое значение: %d меньше чем %d',
     ],
-    'FIELD_IS_REQUIRED' => [
+    'FIELD_WITH_DUPLICATED_VALUE' => [
         '_type' => 'plain',
-        'ru' => 'Поле должно быть заполнено',
-        'en' => 'This is a required field',
-        'log' => 'Поле должно быть заполнено: %s',
+        'ru' => 'Запись с таким значением уже существует',
+        'en' => 'This is a duplicated value',
+        'log' => 'Запись с таким значением уже существует: "%s"',
+    ],
+    'IMPOSSIBLE_TO_REMOVE_DATA' => [
+        '_type' => 'plain',
+        'ru' => 'Невозможно удалить данные: ${args[0]}',
+        'en' => 'Impossible to remove data',
+        'log' => 'Невозможно удалить данные: %s',
+    ],
+    'WRONG_FIELD_VALUE' => [
+        '_type' => 'plain',
+        'ru' => 'Неверное значение поля',
+        'en' => 'Wrong value of the field',
+        'log' => 'Неверное значение поля: %s - %s',
+    ],
+    'WRONG_LOGIN_OR_PASSWORD' => [
+        '_type' => 'plain',
+        'ru' => 'Логин или пароль не верны',
+        'en' => 'Login or password are wrong',
+        'log' => 'Попытка входа в систему. %s',
     ],
 
 ];

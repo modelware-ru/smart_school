@@ -94,6 +94,22 @@ try {
             $res = app_remove_parallel($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_SAVE_GROUP:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+            $args['parallelId'] = $payload['parallelId'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_group($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_GROUP:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_group($args);
+
+            break;
     }
 
     DBManager::Commit();

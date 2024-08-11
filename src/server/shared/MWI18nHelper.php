@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-06 20:19:23]
+// GENERATED [2024-08-10 16:37:25]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -16,12 +16,14 @@ class MWI18nHelper
     const PAGE_TITLE_TEACHER_LIST = 'PAGE_TITLE_TEACHER_LIST';
     const PAGE_TITLE_TEACHER_INDEX = 'PAGE_TITLE_TEACHER_INDEX';
 
-    const MSG_WRONG_LOGIN_OR_PASSWORD = 'MSG_WRONG_LOGIN_OR_PASSWORD';
-    const MSG_FIELD_WITH_DUPLICATED_VALUE = 'MSG_FIELD_WITH_DUPLICATED_VALUE';
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
+    const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
     const MSG_FIELD_IS_TOO_LONG = 'MSG_FIELD_IS_TOO_LONG';
     const MSG_FIELD_IS_TOO_SHORT = 'MSG_FIELD_IS_TOO_SHORT';
-    const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
+    const MSG_FIELD_WITH_DUPLICATED_VALUE = 'MSG_FIELD_WITH_DUPLICATED_VALUE';
+    const MSG_IMPOSSIBLE_TO_REMOVE_DATA = 'MSG_IMPOSSIBLE_TO_REMOVE_DATA';
+    const MSG_WRONG_FIELD_VALUE = 'MSG_WRONG_FIELD_VALUE';
+    const MSG_WRONG_LOGIN_OR_PASSWORD = 'MSG_WRONG_LOGIN_OR_PASSWORD';
 
     const ERR_UNKNOWN = 'ERR_UNKNOWN';
     const ERR_AUTHORIZATION_NEEDED = 'ERR_AUTHORIZATION_NEEDED';
@@ -189,14 +191,11 @@ class MWI18nHelper
                 ],
         ];
         $this->_msgList = [
-            self::MSG_WRONG_LOGIN_OR_PASSWORD => function (...$args) {
-                return sprintf('Попытка входа в систему. %s', ...$args);
-            },
-            self::MSG_FIELD_WITH_DUPLICATED_VALUE => function (...$args) {
-                return sprintf('Запись с таким значением уже существует: "%s"', ...$args);
-            },
             self::MSG_FIELD_EMAIL_INCORRECT => function (...$args) {
                 return sprintf('Некорректный адрес электронной почты: %s', ...$args);
+            },
+            self::MSG_FIELD_IS_REQUIRED => function (...$args) {
+                return sprintf('Поле должно быть заполнено: %s', ...$args);
             },
             self::MSG_FIELD_IS_TOO_LONG => function (...$args) {
                 return sprintf('Поле содержит слишком длинное значение: %d больше чем %d', ...$args);
@@ -204,8 +203,17 @@ class MWI18nHelper
             self::MSG_FIELD_IS_TOO_SHORT => function (...$args) {
                 return sprintf('Поле содержит слишком короткое значение: %d меньше чем %d', ...$args);
             },
-            self::MSG_FIELD_IS_REQUIRED => function (...$args) {
-                return sprintf('Поле должно быть заполнено: %s', ...$args);
+            self::MSG_FIELD_WITH_DUPLICATED_VALUE => function (...$args) {
+                return sprintf('Запись с таким значением уже существует: "%s"', ...$args);
+            },
+            self::MSG_IMPOSSIBLE_TO_REMOVE_DATA => function (...$args) {
+                return sprintf('Невозможно удалить данные: %s', ...$args);
+            },
+            self::MSG_WRONG_FIELD_VALUE => function (...$args) {
+                return sprintf('Неверное значение поля: %s - %s', ...$args);
+            },
+            self::MSG_WRONG_LOGIN_OR_PASSWORD => function (...$args) {
+                return sprintf('Попытка входа в систему. %s', ...$args);
             },
         ];
 

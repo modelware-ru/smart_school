@@ -28,6 +28,20 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeParallel FINISH
+        // saveGroup START
+        AuthzConstant::RESOURCE_API_SAVE_GROUP => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+            'parallelId' => 1,
+        ],
+        // saveGroup FINISH
+        // removeGroup START
+        AuthzConstant::RESOURCE_API_REMOVE_GROUP => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeGroup FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

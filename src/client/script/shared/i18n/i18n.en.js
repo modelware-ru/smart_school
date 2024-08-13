@@ -1,8 +1,10 @@
-// GENERATED [2024-08-10 16:37:25]
+// GENERATED [2024-08-13 19:17:58]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
   TTL_GROUP_NAME: (...args) => `Group name`,
+  TTL_GROUP_PARALLEL: (...args) => `Group parallel`,
+  TTL_GROUP_TEACHERS: (...args) => `Group teachers`,
   TTL_LOGIN: (...args) => `Login`,
   TTL_PARALLEL_NUMBER: (...args) => `Parallel number`,
   TTL_PARALLEL_NAME: (...args) => `Parallel name`,

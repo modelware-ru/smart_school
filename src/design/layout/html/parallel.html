@@ -13,11 +13,11 @@
 
 <body>
   <div class="container">
-    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
       @@include('./widget/adminNavigator.html')
     </nav>
     <hr class="m-0" />
-    <div id="main" class="my-3">
+    <div class="my-3">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="adminIndex.html">Меню</a></li>
@@ -34,12 +34,13 @@
         </ol>
       </nav>
 
-      <main class="d-flex flex-column">
+      <div id="main" class="d-flex flex-column">
         @@include('./widget/parallelForm.html')
-      </main>
-      @@include('./widget/notification.html', {
-      "title": "Произошла ошибка при попытке сохранить данные."
-      })
+        @@include('./widget/notification.html', {
+          "title": "Произошла ошибка при попытке сохранить данные."
+          })
+        </div>
+
     </div>
   </div>
   @@include('./shared/footer.html')

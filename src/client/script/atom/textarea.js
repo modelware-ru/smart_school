@@ -222,7 +222,7 @@ export default class Textarea extends Atom {
 
         return (
             <div className={className}>
-                <label for={this.labelFor} className="form-label">
+                <label for={this.labelFor} className="form-label fw-bold">
                     {this._el.label}
                     {mandatory && <span className="text-danger">&nbsp;*</span>}
                 </label>

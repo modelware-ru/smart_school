@@ -11,6 +11,16 @@ $i18n_TTL = [
         'ru' => 'Название группы',
         'en' => 'Group name',
     ],
+    'GROUP_PARALLEL' => [
+        '_type' => 'plain',
+        'ru' => 'Параллель группы',
+        'en' => 'Group parallel',
+    ],
+    'GROUP_TEACHERS' => [
+        '_type' => 'plain',
+        'ru' => 'Преподаватели группы',
+        'en' => 'Group teachers',
+    ],
     'LOGIN' => [
         '_type' => 'plain',
         'ru' => 'Логин',

@@ -29,19 +29,21 @@
 
 <body>
   <div class="container">
-    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
       <!-- widget.Navigator: start -->
-      <a class="navbar-brand" href="adminIndex.html">Квадривиум</a>
-      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="container">
+        <a class="navbar-brand" href="adminIndex.html">Умная школа</a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div id="navbarMain" class="navbar-collapse collapse justify-content-end">
-        <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
-          <li class="nav-item">
-            <a class="nav-link active" href="guestIndex.html">Выйти</a>
-          </li>
-        </ul>
+        <div id="navbarMain" class="navbar-collapse collapse justify-content-end">
+          <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
+            <li class="nav-item">
+              <a class="nav-link active" href="guestIndex.html">Выход</a>
+            </li>
+          </ul>
+        </div>
       </div>
       <!-- widget.Navigator: finish -->
 
@@ -59,7 +61,7 @@
 
       <div class="d-flex justify-content-end">
         <!-- atom.Button: start -->
-        <button type="button" class="btn btn-success text-nowrap">
+        <button type="button" class="btn btn-success">
 
 
           <span></span>
@@ -76,18 +78,9 @@
         </button>
         <!-- atom.Button: finish -->
       </div>
-
-      <!-- widget.Notification: start -->
-      <div class="alert alert-danger rounded-0 text-center m-0" role="alert">
-        <div>
-          <p class="m-0">Не найдено ни одной параллели</p>
-        </div>
-      </div>
-      <!-- widget.Notification: finish -->
-
       <table class="table table-hover table-bordered clickable-rows my-3">
         <thead>
-          <tr class="border-dark-subtle table-active">
+          <tr>
             <th scope="col" class="text-end fit">#</th>
             <th scope="col">Название (текст)</th>
             <th scope="col">Название (число)</th>
@@ -103,7 +96,7 @@
             <td>Да</td>
             <td class="p-1">
               <!-- atom.Button: start -->
-              <button type="button" class="btn btn-outline-danger btn-sm text-nowrap">
+              <button type="button" class="btn btn-outline-danger btn-sm">
 
 
                 <span></span>
@@ -140,7 +133,7 @@
             <td>Да</td>
             <td class="p-1">
               <!-- atom.Button: start -->
-              <button type="button" class="btn btn-outline-danger btn-sm text-nowrap">
+              <button type="button" class="btn btn-outline-danger btn-sm">
 
 
                 <span></span>
@@ -180,7 +173,7 @@
       }
 
     });
- </script>
+  </script>
 
   </script>
 </body>

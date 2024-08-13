@@ -51,7 +51,7 @@ list($res, $data) = (new DomainModule())->getGroupList($args);
                 <thead>
                     <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
-                        <th scope="col">Название</th>
+                        <th scope="col">Название группы</th>
                         <th scope="col">Параллель группы</th>
                         <th scope="col" class="fit">Действия</th>
                     </tr>

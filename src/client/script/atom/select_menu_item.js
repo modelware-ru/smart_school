@@ -2,37 +2,28 @@ import { el, mount } from '../../node_modules/redom/dist/redom.es';
 import { clsx } from '../../node_modules/clsx/dist/clsx.mjs';
 
 import Atom from './atom';
+import Button from './button';
 
-export default class Select extends Atom {
-
-    labelFor = 'l' + new Date().getTime() + Math.random();
+export default class SelectMenuItem extends Atom {
 
     // start "constructor"
     constructor(settings = {}) {
         super();
         const {
             className = '',
-            label = '',
+            status = 'new', // 'new', 'done'
             value = '',
             optionData = [],
-            help = '',
             hasError = 'unknown', // 'yes', 'no', 'unknown'
-            error = '',
-            disabled = false,
-            mandatory = false,
             onChanged = null,
         } = settings;
 
         this._prop = {
             className,
-            label,
+            status,
             value,
             optionData,
-            help,
             hasError,
-            error,
-            disabled,
-            mandatory,
         };
 
         this._state = {
@@ -49,17 +40,17 @@ export default class Select extends Atom {
 
     // start "_renderProp"
     _renderProp = (name, value) => {
-        let { select: _ui_select, label: _ui_label, error: _ui_error, errorParent: _ui_errorParent } = this._el;
+        // let { ???: _ui_??? } = this._el;
 
         switch (name) {
             // start "className"
             case 'className':
                 break;
             // finish "className"
-            // start "label"
-            case 'label':
+            // start "status"
+            case 'status':
                 break;
-            // finish "label"
+            // finish "status"
             // start "value"
             case 'value':
                 break;
@@ -68,33 +59,10 @@ export default class Select extends Atom {
             case 'optionData':
                 break;
             // finish "optionData"
-            // start "help"
-            case 'help':
-                break;
-            // finish "help"
             // start "hasError"
             case 'hasError':
-            // break;
+                break;
             // finish "hasError"
-            // start "error"
-            case 'error':
-                this._el.error = mount(_ui_errorParent, this._ui_error(), _ui_error, true);
-                _ui_select.className = this._inputClassName();
-                break;
-            // finish "error"
-            // start "disabled"
-            case 'disabled':
-                if (value) {
-                    _ui_select.setAttribute('disabled', '');
-                } else {
-                    _ui_select.removeAttribute('disabled');
-                }
-                break;
-            // finish "disabled"
-            // start "mandatory"
-            case 'mandatory':
-                break;
-            // finish "mandatory"
             default:
                 return;
         }
@@ -131,29 +99,20 @@ export default class Select extends Atom {
         return clsx('form-select', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
     };
 
-    _ui_help = () => {
-        const { hasError, help } = this._prop;
-        return <span className="text-secondary">{hasError !== 'yes' && help}</span>;
-    };
-
-    _ui_error = () => {
-        const { hasError, error } = this._prop;
-        return <span className="text-danger">{hasError === 'yes' && error}</span>;
+    _onButtonClick = (e) => {
+        console.log('_onButtonClick');
     };
 
     // start "_ui_render"
     _ui_render = () => {
         const {
             className,
-            label,
+            status,
             // value,
             optionData,
-            help,
             hasError,
-            error,
-            disabled,
-            mandatory,
         } = this._prop;
+
         const { value } = this._state;
 
         const optionList = optionData.map((item) => {
@@ -165,31 +124,20 @@ export default class Select extends Atom {
         });
 
         this._el.select = (
-            <select id={this.labelFor} className={this._inputClassName()} disabled={disabled} value={value} onchange={this._onChange}>
+            <select className={this._inputClassName()} disabled={status === 'done'} value={value} onchange={this._onChange}>
                 {optionList}
             </select>
         );
-        this._el.label = <span>{label}</span>;
-        this._el.help = this._ui_help();
-        this._el.error = this._ui_error();
 
         return (
-            <div class={className}>
-                <label for={this.labelFor} class="form-label fw-bold">
-                    {this._el.label}
-                    {mandatory && <span className="text-danger">&nbsp;*</span>}
-                </label>
+            <div class={clsx(className, 'd-flex')}>
                 {this._el.select}
-                <div className="d-flex justify-content-between">
-                    {
-                        (this._el.errorParent = (
-                            <div>
-                                {this._el.help}
-                                {this._el.error}
-                            </div>
-                        ))
-                    }
-                </div>
+                {status === 'new' && (
+                    <Button className="btn btn-outline-success ms-4" icon={'bi-plus-circle'} onClick={this._onButtonClick} />
+                )}
+                {status === 'done' && (
+                    <Button className="btn btn-outline-danger ms-4" icon={'bi-trash'} onClick={this._onButtonClick} />
+                )}
             </div>
         );
     };

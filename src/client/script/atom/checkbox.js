@@ -162,7 +162,7 @@ export default class Checkbox extends Atom {
             <div className={className}>
                 <div class="form-check">
                     {this._el.input}
-                    <label for={this.labelFor} class="form-check-label">
+                    <label for={this.labelFor} class="form-check-label fw-bold">
                         {this._el.label}
                         {mandatory && <span className="text-danger">&nbsp;*</span>}
                     </label>

@@ -5,6 +5,7 @@ import i18n from '../../shared/i18n/index';
 import Input from '../../atom/input';
 import Select from '../../atom/select';
 import Button from '../../atom/button';
+import SelectMenu from '../../widget/selectMenu/index';
 
 import { commonEventManager } from '../../shared/eventManager';
 
@@ -35,7 +36,7 @@ export default class GroupForm {
 
         this._stateParallelSelect = {};
         this._atm.parallelSelect = (
-            <Select className="col-12" label={i18n(langId, 'TTL_PARALLEL_NAME')} value={group.parallelId} optionData={parallelList} mandatory />
+            <Select className="col-12" label={i18n(langId, 'TTL_GROUP_PARALLEL')} value={group.parallelId} optionData={parallelList} mandatory />
         );
         this._updateStateParallelSelect({
             disabled: false,
@@ -220,25 +221,16 @@ export default class GroupForm {
 
     _ui_render = () => {
         const { langId } = this._prop;
+        const { group, parallelList } = this._prop;
 
         return (
             <form class="mt-3 row gx-0 gy-3">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <span class="nav-link active bg-body-tertiary" aria-current="page">
-                            Данные
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <span class="nav-link" aria-current="page">
-                            Преподаватели
-                        </span>
-                    </li>
-                </ul>
-
-                <div class="bg-body-tertiary row border border-top-0 gy-3 m-0 py-3">
+                <div class="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
                     {this._atm.parallelSelect}
+                    <hr />
+                    <label class="form-label fw-bold my-0">{i18n(langId, 'TTL_GROUP_TEACHERS')}:</label>
+                    <SelectMenu optionData={parallelList}/>
                 </div>
                 <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.saveButton}

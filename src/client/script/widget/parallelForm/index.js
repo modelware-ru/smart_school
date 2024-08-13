@@ -254,8 +254,8 @@ export default class ParallelForm {
         const { langId } = this._prop;
 
         return (
-            <form class="mt-3 row gx-0 gy-3">
-                <div class="bg-body-tertiary row border gy-3 m-0 py-3">
+            <form class="mt-0 row gx-0 gy-3">
+                <div class="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
                     {this._atm.numberInput}
                     {this._atm.showInGroupCheckbox}

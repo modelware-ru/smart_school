@@ -1,0 +1,23 @@
+<!-- atom.SelectMenuItem: start -->
+<div class="@@class d-flex">
+  @@if (mode === "new") {
+    <select class="form-select" aria-label="select">
+      <option selected>@@choiceItem</option>
+      <option value="1">Первая1</option>
+      <option value="2">Вторая2</option>
+      <option value="3">Третья3</option>
+    </select>
+    @@include('./button.html', { "class": "btn btn-outline-success bg-success-subtle ms-4", "isLoading": false, "icon": "bi-plus-circle", "title": "" })
+  }
+  @@if (mode === "done") {
+    <select class="form-select" aria-label="select" disabled>
+      <option selected>@@choiceItem</option>
+      <option value="1">Первая1</option>
+      <option value="2">Вторая2</option>
+      <option value="3">Третья3</option>
+    </select>
+    @@include('./button.html', { "class": "btn btn-outline-danger bg-danger-subtle ms-4", "isLoading": false, "icon": "bi-trash", "title": "" })
+  }
+
+</div>
+<!-- atom.SelectMenuItem: finish -->

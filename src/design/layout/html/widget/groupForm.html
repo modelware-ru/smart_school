@@ -1,145 +1,81 @@
 <!-- widget.ParallelForm: start -->
-<div>
-
-  <form class="mt-3 row gx-0 gy-3">
-
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <span class="nav-link active" aria-current="page">Данные</span>
-      </li>
-      <li class="nav-item">
-        <span class="nav-link" aria-current="page">Преподаватели</span>
-      </li>
-    </ul>
-    <div class="row border border-top-0 gy-3 m-0 py-3">
-      @@include('../atom/input.html', {
-      "class": "col-12",
-      "label": "id",
-      "placeholder": "id"
-      })
-
-      @@include('../atom/input.html', {
-      "class": "col-12",
-      "label": "Название группы",
-      "placeholder": "Название"
-      })
-
-      @@include('../atom/select.html', {
-      "class": "col-12",
-      "label": "Параллель"
-      })
-
-      @@include('../atom/checkbox.html', {
-      "class": "col-12",
-      "label": "Активная группа",
-      "mandatory": true,
-      })
+<form class="mt-3 row gx-0 gy-3">
+    
+    <!-- <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <span class="nav-link active bg-body-tertiary border-bottom-0" aria-current="page">Данные</span>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link" aria-current="page">Преподаватели</span>
+        </li>
+    </ul> -->
+    <div class="bg-body-tertiary row border gy-3 m-0 pb-3">
+        @@include('../atom/input.html', { "class": "col-12", "label": "Название группы", "placeholder": "Название" }) 
+        @@include('../atom/select.html', { "class": "col-12", "label": "Параллель"}) 
+        <!-- @@include('../atom/select-menu-item.html', { "class": "col-12", "choiceItem": "Выберите преподавателя", "mode": "done"}) 
+        @@include('../atom/select-menu-item.html', { "class": "col-12", "choiceItem": "Выберите преподавателя", "mode": "new"})  -->
+    <!-- </div> -->
+    
+    <!-- <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <span class="nav-link" aria-current="page">Данные</span>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link active bg-body-tertiary border-bottom-0" aria-current="page">Преподаватели</span>
+        </li>
+    </ul> -->
+    <!-- <div class="row gy-3"> -->
+        <!-- @@include('../atom/input.html', { "class": "col-12", "label": "Название группы", "placeholder": "Название" }) 
+        @@include('../atom/select.html', { "class": "col-12", "label": "Параллель"})  -->
+        <hr/>
+        <label class="form-label fw-bold my-0">Преподаватели группы:</label>
+        @@include('../atom/select-menu-item.html', { "class": "col-12", "choiceItem": "Выберите преподавателя", "mode": "done"}) 
+        @@include('../atom/select-menu-item.html', { "class": "col-12", "choiceItem": "Выберите преподавателя", "mode": "new"}) 
     </div>
 
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <span class="nav-link" aria-current="page">Данные</span>
-      </li>
-      <li class="nav-item">
-        <span class="nav-link active" aria-current="page">Преподаватели</span>
-      </li>
-    </ul>
-    <div class="row border border-top-0 gy-3 m-0 py-3">
-
-      <table class="table table-hover table-bordered clickable-rows my-3">
-        <thead>
-          <tr>
-            <th scope="col" class="text-end fit">#</th>
-            <th scope="col" class="fit">
-              @@include('../atom/checkbox.html', {
-              "class": "",
-              "label": "",
-              "mandatory": false,
-              })
-            </th>
-            <th scope="col">ФИО</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="align-middle">
-            <th scope="row" class="text-end">1</th>
-            <td>
-              @@include('../atom/checkbox.html', {
-              "class": "",
-              "label": "",
-              "mandatory": false,
-              })
-            </td>
-            <td>Иванова Петр Иванович</td>
-          </tr>
-          <tr class="align-middle">
-            <th scope="row" class="text-end">2</th>
-            <td>
-              @@include('../atom/checkbox.html', {
-              "class": "",
-              "label": "",
-              "mandatory": false,
-              })
-            </td>
-            <td>Иванова Петр Иванович</td>
-          </tr>
-          <tr class="align-middle table-success">
-            <th scope="row" class="text-end">3</th>
-            <td>
-              @@include('../atom/checkbox.html', {
-              "class": "",
-              "label": "",
-              "mandatory": false,
-              })
-            </td>
-            <td>Иванова Петр Иванович</td>
-          </tr>
-          <tr class="align-middle">
-            <th scope="row" class="text-end">4</th>
-            <td>
-              @@include('../atom/checkbox.html', {
-              "class": "",
-              "label": "",
-              "mandatory": false,
-              })
-            </td>
-            <td>Иванова Петр Иванович</td>
-          </tr>
-          <tr class="align-middle table-danger">
-            <th scope="row" class="text-end">5</th>
-            <td>
-              @@include('../atom/checkbox.html', {
-              "class": "",
-              "label": "",
-              "mandatory": false,
-              })
-            </td>
-            <td>Иванова Петр Иванович</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row border border-top-0 gy-3 m-0 py-3" style="display: none;">
+        <table class="table table-hover table-bordered clickable-rows my-3">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-end fit">#</th>
+                    <th scope="col" class="fit">@@include('../atom/checkbox.html', { "class": "", "label": "", "mandatory": false, })</th>
+                    <th scope="col">ФИО</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="align-middle">
+                    <th scope="row" class="text-end">1</th>
+                    <td>@@include('../atom/checkbox.html', { "class": "", "label": "", "mandatory": false, })</td>
+                    <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle">
+                    <th scope="row" class="text-end">2</th>
+                    <td>@@include('../atom/checkbox.html', { "class": "", "label": "", "mandatory": false, })</td>
+                    <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle table-success">
+                    <th scope="row" class="text-end">3</th>
+                    <td>@@include('../atom/checkbox.html', { "class": "", "label": "", "mandatory": false, })</td>
+                    <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle">
+                    <th scope="row" class="text-end">4</th>
+                    <td>@@include('../atom/checkbox.html', { "class": "", "label": "", "mandatory": false, })</td>
+                    <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle table-danger">
+                    <th scope="row" class="text-end">5</th>
+                    <td>@@include('../atom/checkbox.html', { "class": "", "label": "", "mandatory": false, })</td>
+                    <td>Иванова Петр Иванович</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
-      @@include('../atom/button.html', {
-      "class": "btn btn-success",
-      "isLoading": false,
-      "icon": "bi-floppy",
-      "title": "Сохранить"
-      })
-      @@include('../atom/button.html', {
-      "class": "btn btn-success disabled",
-      "isLoading": true,
-      "icon": "bi-floppy",
-      "title": "Сохранение..."
-      })
-      @@include('../atom/button.html', {
-      "class": "btn btn-outline-danger",
-      "isLoading": false,
-      "icon": "bi-x-circle",
-      "title": "Отменить"
-      })
+        @@include('../atom/button.html', { "class": "btn btn-success", "isLoading": false, "icon": "bi-floppy", "title": "Сохранить" })
+        @@include('../atom/button.html', { "class": "btn btn-success disabled", "isLoading": true, "icon": "bi-floppy", "title": "Сохранение..." })
+        @@include('../atom/button.html', { "class": "btn btn-outline-danger", "isLoading": false, "icon": "bi-x-circle", "title": "Отменить" })
     </div>
-
-  </form>
-</div>
+    
+</form>
 <!-- widget.ParallelForm: finish -->

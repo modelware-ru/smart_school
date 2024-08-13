@@ -24,26 +24,32 @@
     .table.clickable-rows>tbody>tr {
       cursor: pointer;
     }
+
+    .bg-success-subtle {
+      background-color: var(--bs-success-bg-subtle);
+    }
+
+    .bg-danger-subtle {
+      background-color: var(--bs-danger-bg-subtle);
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
       <!-- widget.Navigator: start -->
-      <div class="container">
-        <a class="navbar-brand" href="adminIndex.html">Умная школа</a>
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <a class="navbar-brand" href="adminIndex.html">Квадривиум</a>
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div id="navbarMain" class="navbar-collapse collapse justify-content-end">
-          <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
-            <li class="nav-item">
-              <a class="nav-link active" href="guestIndex.html">Выйти</a>
-            </li>
-          </ul>
-        </div>
+      <div id="navbarMain" class="navbar-collapse collapse justify-content-end">
+        <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
+          <li class="nav-item">
+            <a class="nav-link active" href="guestIndex.html">Выйти</a>
+          </li>
+        </ul>
       </div>
       <!-- widget.Navigator: finish -->
 
@@ -76,312 +82,330 @@
 
       <main class="d-flex flex-column">
         <!-- widget.ParallelForm: start -->
-        <div>
+        <form class="mt-3 row gx-0 gy-3">
 
-          <form class="mt-3 row gx-0 gy-3">
-
-            <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <span class="nav-link active" aria-current="page">Данные</span>
-              </li>
-              <li class="nav-item">
-                <span class="nav-link" aria-current="page">Преподаватели</span>
-              </li>
-            </ul>
-            <div class="row border border-top-0 gy-3 m-0 py-3">
-              <!-- atom.Input: start -->
-              <div class="col-12">
-                <label for="l2" class="form-label">
-                  <span>id</span>
-                  <span class="text-danger">&nbsp;*</span>
-                </label>
-                <input type="text" class="form-control" id="lX" placeholder="id" />
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <span class="text-secondary"></span>
-                    <span class="text-danger"></span>
-                  </div>
+          <!-- <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <span class="nav-link active bg-body-tertiary border-bottom-0" aria-current="page">Данные</span>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link" aria-current="page">Преподаватели</span>
+        </li>
+    </ul> -->
+          <div class="bg-body-tertiary row border gy-3 m-0 pb-3">
+            <!-- atom.Input: start -->
+            <div class="col-12">
+              <label for="l2" class="form-label fw-bold">
+                <span>Название группы</span>
+                <span class="text-danger">&nbsp;*</span>
+              </label>
+              <input type="text" class="form-control" id="l2" placeholder="Название" />
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span class="text-secondary"></span>
+                  <span class="text-danger"></span>
                 </div>
               </div>
-              <!-- atom.Input: finish -->
-
-
-              <!-- atom.Input: start -->
-              <div class="col-12">
-                <label for="l2" class="form-label">
-                  <span>Название группы</span>
-                  <span class="text-danger">&nbsp;*</span>
-                </label>
-                <input type="text" class="form-control" id="lX" placeholder="Название" />
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <span class="text-secondary"></span>
-                    <span class="text-danger"></span>
-                  </div>
-                </div>
-              </div>
-              <!-- atom.Input: finish -->
-
-
-              <!-- atom.Select: start -->
-              <div class="col-12">
-                <label for="l2" class="form-label">
-                  <span>Параллель</span>
-                  <span class="text-danger">&nbsp;*</span>
-                </label>
-                <select class="form-select" aria-label="select">
-                  <option selected>Выберите параллель</option>
-                  <option value="1">Первая</option>
-                  <option value="2">Вторая</option>
-                  <option value="3">Третья</option>
-                </select>
-
-                <!-- <input type="text" class="form-control" id="lX" placeholder="@@placeholder"/> -->
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <span class="text-secondary"></span>
-                    <span class="text-danger"></span>
-                  </div>
-                </div>
-              </div>
-
-
-              <!-- atom.Select: finish -->
-
-
-              <!-- atom.Checkbox: start -->
-              <div class="col-12">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="l3X">
-                  <label class="form-check-label" for="l3X">
-                    <span>Активная группа</span>
-
-                    <span class="text-danger">&nbsp;*</span>
-
-                  </label>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <div>
-                    <span class="text-secondary"></span>
-                    <span class="text-danger"></span>
-                  </div>
-                </div>
-              </div>
-              <!-- atom.Checkbox: finish -->
             </div>
+            <!-- atom.Input: finish -->
 
-            <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <span class="nav-link" aria-current="page">Данные</span>
-              </li>
-              <li class="nav-item">
-                <span class="nav-link active" aria-current="page">Преподаватели</span>
-              </li>
-            </ul>
-            <div class="row border border-top-0 gy-3 m-0 py-3">
+            <!-- atom.Select: start -->
+            <div class="col-12">
+              <label for="l2" class="form-label fw-bold">
+                <span>Параллель</span>
+                <span class="text-danger">&nbsp;*</span>
+              </label>
+              <select class="form-select" aria-label="select">
+                <option selected>Выберите параллель</option>
+                <option value="1">Первая</option>
+                <option value="2">Вторая</option>
+                <option value="3">Третья</option>
+              </select>
 
-              <table class="table table-hover table-bordered clickable-rows my-3">
-                <thead>
-                  <tr>
-                    <th scope="col" class="text-end fit">#</th>
-                    <th scope="col" class="fit">
-                      <!-- atom.Checkbox: start -->
-                      <div class="">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="l3X">
-                          <label class="form-check-label" for="l3X">
-                            <span></span>
-
-                          </label>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span class="text-secondary"></span>
-                            <span class="text-danger"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- atom.Checkbox: finish -->
-                    </th>
-                    <th scope="col">ФИО</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="align-middle">
-                    <th scope="row" class="text-end">1</th>
-                    <td>
-                      <!-- atom.Checkbox: start -->
-                      <div class="">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="l3X">
-                          <label class="form-check-label" for="l3X">
-                            <span></span>
-
-                          </label>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span class="text-secondary"></span>
-                            <span class="text-danger"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- atom.Checkbox: finish -->
-                    </td>
-                    <td>Иванова Петр Иванович</td>
-                  </tr>
-                  <tr class="align-middle">
-                    <th scope="row" class="text-end">2</th>
-                    <td>
-                      <!-- atom.Checkbox: start -->
-                      <div class="">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="l3X">
-                          <label class="form-check-label" for="l3X">
-                            <span></span>
-
-                          </label>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span class="text-secondary"></span>
-                            <span class="text-danger"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- atom.Checkbox: finish -->
-                    </td>
-                    <td>Иванова Петр Иванович</td>
-                  </tr>
-                  <tr class="align-middle table-success">
-                    <th scope="row" class="text-end">3</th>
-                    <td>
-                      <!-- atom.Checkbox: start -->
-                      <div class="">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="l3X">
-                          <label class="form-check-label" for="l3X">
-                            <span></span>
-
-                          </label>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span class="text-secondary"></span>
-                            <span class="text-danger"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- atom.Checkbox: finish -->
-                    </td>
-                    <td>Иванова Петр Иванович</td>
-                  </tr>
-                  <tr class="align-middle">
-                    <th scope="row" class="text-end">4</th>
-                    <td>
-                      <!-- atom.Checkbox: start -->
-                      <div class="">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="l3X">
-                          <label class="form-check-label" for="l3X">
-                            <span></span>
-
-                          </label>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span class="text-secondary"></span>
-                            <span class="text-danger"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- atom.Checkbox: finish -->
-                    </td>
-                    <td>Иванова Петр Иванович</td>
-                  </tr>
-                  <tr class="align-middle table-danger">
-                    <th scope="row" class="text-end">5</th>
-                    <td>
-                      <!-- atom.Checkbox: start -->
-                      <div class="">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="l3X">
-                          <label class="form-check-label" for="l3X">
-                            <span></span>
-
-                          </label>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                          <div>
-                            <span class="text-secondary"></span>
-                            <span class="text-danger"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- atom.Checkbox: finish -->
-                    </td>
-                    <td>Иванова Петр Иванович</td>
-                  </tr>
-                </tbody>
-              </table>
+              <!-- <input type="text" class="form-control" id="lX" placeholder="@@placeholder"/> -->
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span class="text-secondary"></span>
+                  <span class="text-danger"></span>
+                </div>
+              </div>
             </div>
-            <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
+            <!-- atom.Select: finish -->
+
+
+            <!-- </div> -->
+
+            <!-- <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <span class="nav-link" aria-current="page">Данные</span>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link active bg-body-tertiary border-bottom-0" aria-current="page">Преподаватели</span>
+        </li>
+    </ul> -->
+            <!-- <div class="row gy-3"> -->
+
+            <hr />
+            <label class="form-label fw-bold my-0">Преподаватели группы:</label>
+            <!-- atom.SelectMenuItem: start -->
+            <div class="col-12 d-flex">
+
+
+              <select class="form-select" aria-label="select" disabled>
+                <option selected>Выберите преподавателя</option>
+                <option value="1">Первая1</option>
+                <option value="2">Вторая2</option>
+                <option value="3">Третья3</option>
+              </select>
               <!-- atom.Button: start -->
-              <button type="button" class="btn btn-success">
+              <button type="button" class="btn btn-outline-danger bg-danger-subtle ms-4 text-nowrap">
 
 
                 <span></span>
 
 
 
-
-                <i class="bi bi-floppy me-3"></i>
-
+                <i class="bi bi-trash"></i>
 
 
-                <span role="status">Сохранить</span>
+
 
               </button>
               <!-- atom.Button: finish -->
+
+
+            </div>
+            <!-- atom.SelectMenuItem: finish -->
+
+            <!-- atom.SelectMenuItem: start -->
+            <div class="col-12 d-flex">
+
+              <select class="form-select" aria-label="select">
+                <option selected>Выберите преподавателя</option>
+                <option value="1">Первая1</option>
+                <option value="2">Вторая2</option>
+                <option value="3">Третья3</option>
+              </select>
               <!-- atom.Button: start -->
-              <button type="button" class="btn btn-success disabled">
-
-                <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
-
-
-
-
-
-                <i class="bi bi-floppy me-3"></i>
-
-
-
-                <span role="status">Сохранение...</span>
-
-              </button>
-              <!-- atom.Button: finish -->
-              <!-- atom.Button: start -->
-              <button type="button" class="btn btn-outline-danger">
+              <button type="button" class="btn btn-outline-success bg-success-subtle ms-4 text-nowrap">
 
 
                 <span></span>
 
 
 
-
-                <i class="bi bi-x-circle me-3"></i>
-
+                <i class="bi bi-plus-circle"></i>
 
 
-                <span role="status">Отменить</span>
+
 
               </button>
               <!-- atom.Button: finish -->
-            </div>
 
-          </form>
-        </div>
+
+
+            </div>
+            <!-- atom.SelectMenuItem: finish -->
+
+          </div>
+
+          <div class="row border border-top-0 gy-3 m-0 py-3" style="display: none;">
+            <table class="table table-hover table-bordered clickable-rows my-3">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-end fit">#</th>
+                  <th scope="col" class="fit"><!-- atom.Checkbox: start -->
+                    <div class="">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="l3X">
+                        <label class="form-check-label fw-bold" for="l3X">
+                          <span></span>
+
+                        </label>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-secondary"></span>
+                          <span class="text-danger"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- atom.Checkbox: finish -->
+                  </th>
+                  <th scope="col">ФИО</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="align-middle">
+                  <th scope="row" class="text-end">1</th>
+                  <td><!-- atom.Checkbox: start -->
+                    <div class="">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="l3X">
+                        <label class="form-check-label fw-bold" for="l3X">
+                          <span></span>
+
+                        </label>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-secondary"></span>
+                          <span class="text-danger"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- atom.Checkbox: finish -->
+                  </td>
+                  <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle">
+                  <th scope="row" class="text-end">2</th>
+                  <td><!-- atom.Checkbox: start -->
+                    <div class="">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="l3X">
+                        <label class="form-check-label fw-bold" for="l3X">
+                          <span></span>
+
+                        </label>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-secondary"></span>
+                          <span class="text-danger"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- atom.Checkbox: finish -->
+                  </td>
+                  <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle table-success">
+                  <th scope="row" class="text-end">3</th>
+                  <td><!-- atom.Checkbox: start -->
+                    <div class="">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="l3X">
+                        <label class="form-check-label fw-bold" for="l3X">
+                          <span></span>
+
+                        </label>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-secondary"></span>
+                          <span class="text-danger"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- atom.Checkbox: finish -->
+                  </td>
+                  <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle">
+                  <th scope="row" class="text-end">4</th>
+                  <td><!-- atom.Checkbox: start -->
+                    <div class="">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="l3X">
+                        <label class="form-check-label fw-bold" for="l3X">
+                          <span></span>
+
+                        </label>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-secondary"></span>
+                          <span class="text-danger"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- atom.Checkbox: finish -->
+                  </td>
+                  <td>Иванова Петр Иванович</td>
+                </tr>
+                <tr class="align-middle table-danger">
+                  <th scope="row" class="text-end">5</th>
+                  <td><!-- atom.Checkbox: start -->
+                    <div class="">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="l3X">
+                        <label class="form-check-label fw-bold" for="l3X">
+                          <span></span>
+
+                        </label>
+                      </div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <span class="text-secondary"></span>
+                          <span class="text-danger"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- atom.Checkbox: finish -->
+                  </td>
+                  <td>Иванова Петр Иванович</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
+            <!-- atom.Button: start -->
+            <button type="button" class="btn btn-success text-nowrap">
+
+
+              <span></span>
+
+
+
+
+              <i class="bi bi-floppy me-3"></i>
+
+
+
+              <span role="status">Сохранить</span>
+
+            </button>
+            <!-- atom.Button: finish -->
+            <!-- atom.Button: start -->
+            <button type="button" class="btn btn-success disabled text-nowrap">
+
+              <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+
+
+
+
+
+              <i class="bi bi-floppy me-3"></i>
+
+
+
+              <span role="status">Сохранение...</span>
+
+            </button>
+            <!-- atom.Button: finish -->
+            <!-- atom.Button: start -->
+            <button type="button" class="btn btn-outline-danger text-nowrap">
+
+
+              <span></span>
+
+
+
+
+              <i class="bi bi-x-circle me-3"></i>
+
+
+
+              <span role="status">Отменить</span>
+
+            </button>
+            <!-- atom.Button: finish -->
+          </div>
+
+        </form>
         <!-- widget.ParallelForm: finish -->
+
       </main>
       <!-- widget.Notification: start -->
       <div class="alert alert-danger rounded-0 text-center m-0" role="alert">

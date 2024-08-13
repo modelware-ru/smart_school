@@ -26,3 +26,11 @@
     word-break: break-all;
     text-align: center;
 }
+
+.bg-success-subtle {
+    background-color: var(--bs-success-bg-subtle);
+}
+
+.bg-danger-subtle {
+    background-color: var(--bs-danger-bg-subtle);
+}

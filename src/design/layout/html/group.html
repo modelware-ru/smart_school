@@ -18,12 +18,20 @@
     .table.clickable-rows>tbody>tr {
       cursor: pointer;
     }
+
+    .bg-success-subtle {
+      background-color: var(--bs-success-bg-subtle);
+    }
+
+    .bg-danger-subtle {
+        background-color: var(--bs-danger-bg-subtle);
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Умная школа навигационная панель">
+    <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
       @@include('./widget/adminNavigator.html')
     </nav>
     <hr class="m-0" />

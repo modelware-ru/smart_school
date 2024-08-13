@@ -4,18 +4,10 @@ import { clsx } from '../../node_modules/clsx/dist/clsx.mjs';
 import Atom from './atom';
 
 export default class Button extends Atom {
-
     // start "constructor"
     constructor(settings = {}) {
         super();
-        const {
-            title = '',
-            className = 'btn',
-            isLoading = false,
-            disabled = false,
-            icon = '',
-            onClick = null,
-        } = settings;
+        const { title = '', className = 'btn', isLoading = false, disabled = false, icon = '', onClick = null } = settings;
 
         this._prop = {
             title,
@@ -25,8 +17,7 @@ export default class Button extends Atom {
             icon,
         };
 
-        this._state = {
-        };
+        this._state = {};
 
         this._callback = {
             onClick,
@@ -109,16 +100,10 @@ export default class Button extends Atom {
 
     // start "_ui_render"
     _ui_render = () => {
-        const { 
-            title,
-            className,
-            isLoading,
-            disabled,
-            icon,
-        } = this._prop;
+        const { title, className, isLoading, disabled, icon } = this._prop;
 
         this._el.btn = (
-            <button type="button" className={className} disabled={disabled} onclick={this._onClick}>
+            <button type="button" className={clsx(className, 'text-nowrap')} disabled={disabled} onclick={this._onClick}>
                 {(this._el.spinner = this._ui_spinner(isLoading))}
                 {(this._el.icon = this._ui_icon(icon))}
                 {(this._el.btnTitle = <span role="status">{title}</span>)}

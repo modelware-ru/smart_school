@@ -28,8 +28,9 @@ CREATE TABLE authz__account_role (
     `order` SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT authz__account_role___account_id FOREIGN KEY (account_id) REFERENCES authz__account(id),
-    CONSTRAINT authz__account_role___role_id    FOREIGN KEY (role_id)    REFERENCES authz__role(id),
-    CONSTRAINT authz__account_role___role_state_id    FOREIGN KEY (role_state_id) REFERENCES authz__role_state(id)
+    CONSTRAINT authz__account_role___role_id FOREIGN KEY (role_id) REFERENCES authz__role(id),
+    CONSTRAINT authz__account_role___role_state_id FOREIGN KEY (role_state_id) REFERENCES authz__role_state(id),
+    CONSTRAINT authz__account_role___unique_accout_id_role_id UNIQUE (account_id, role_id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE authz__group (

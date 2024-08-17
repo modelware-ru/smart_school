@@ -70,3 +70,13 @@ $atomSelect = (new Atom('select'))
     ->AddProp('mandatory', "false")
     ->AddState('value');
 
+$atomSelectMenuItem = (new Atom('select menu item'))
+    ->AddProp('className')
+    ->AddProp('status', "'new'", "'new', 'done'")
+    ->AddProp('value')
+    ->AddProp('content', "[]")
+    ->AddProp('hasError', "'unknown'", "'yes', 'no', 'unknown'")
+    ->AddProp('key')
+    ->AddState('value')
+    ->AddCallback('onAction', "null");
+

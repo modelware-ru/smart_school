@@ -17,12 +17,14 @@ export default class GroupForm {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, group, parallelList } = settings;
+        const { langId, group, parallelList, activeTeacherList, teacherListInGroup } = settings;
 
         this._prop = {
             langId,
             groupId: group.id,
             parallelList,
+            activeTeacherList,
+            teacherListInGroup,
         };
 
         this._state = {};
@@ -67,8 +69,9 @@ export default class GroupForm {
 
         if (!hasError) {
             const { groupId } = this._prop;
+            const teacherList = this._el.selectMenu.getState('itemList').map((item) => parseInt(item));
 
-            this._callSaveGroup({ id: groupId, name, parallelId });
+            this._callSaveGroup({ id: groupId, name, parallelId, teacherList });
         }
     };
 
@@ -121,6 +124,7 @@ export default class GroupForm {
     _beforeCallSaveGroup = () => {
         this._updateStateSaveButton({ disabled: true, isLoading: true, title: 'TTL_TO_SAVE_IN_PROGRESS' });
         this._updateStateNameInput({ disabled: true });
+        this._updateStateParallelSelect({ disabled: true });
     };
 
     _afterCallSaveGroup = (payload) => {
@@ -136,7 +140,7 @@ export default class GroupForm {
     _callSaveGroup = async (payload) => {
         this._beforeCallSaveGroup();
         try {
-            const resp = await fetcher('saveGroup', payload, 'api/v1');
+            const resp = await fetcher('saveGroup', payload);
 
             if (resp.status === 'ok') {
                 openSiteURL('group-list.php');
@@ -221,7 +225,7 @@ export default class GroupForm {
 
     _ui_render = () => {
         const { langId } = this._prop;
-        const { group, parallelList } = this._prop;
+        const { activeTeacherList, teacherListInGroup } = this._prop;
 
         return (
             <form class="mt-3 row gx-0 gy-3">
@@ -230,7 +234,7 @@ export default class GroupForm {
                     {this._atm.parallelSelect}
                     <hr />
                     <label class="form-label fw-bold my-0">{i18n(langId, 'TTL_GROUP_TEACHERS')}:</label>
-                    <SelectMenu optionData={parallelList}/>
+                    {(this._el.selectMenu = <SelectMenu itemContent={activeTeacherList} itemList={teacherListInGroup} />)}
                 </div>
                 <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.saveButton}

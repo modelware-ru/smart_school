@@ -125,7 +125,7 @@ export default class SignInForm {
     _callSignIn = async (payload) => {
         this._beforeCallSignIn();
         try {
-            const resp = await fetcher('signIn', payload, 'api/v1');
+            const resp = await fetcher('signIn', payload);
 
             if (resp.status === 'ok') {
                 openSiteURL('index.php');

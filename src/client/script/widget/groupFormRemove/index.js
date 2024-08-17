@@ -70,7 +70,7 @@ export default class GroupFormRemove {
     _callRemoveGroup = async (payload) => {
         this._beforeCallRemoveGroup();
         try {
-            const resp = await fetcher('removeGroup', payload, 'api/v1');
+            const resp = await fetcher('removeGroup', payload);
 
             if (resp.status === 'ok') {
                 openSiteURL('group-list.php');

@@ -7,6 +7,8 @@ use MW\Shared\MWI18nHelper;
 use MW\Shared\Util;
 use MW\Shared\MWException;
 use MW\Shared\ValueChecker;
+use MW\Service\Authz\Constant as AuthzConstant;
+
 
 class Main
 {
@@ -38,7 +40,7 @@ class Main
                 'name' => $item['name'],
                 'number' => $item['number'],
                 'showInGroup' => $item['show_in_group'] === 'Y',
-                'canBeDeleted' => ($item['mg_count'] + $item['msch_count']) === 0,
+                'canBeRemoved' => ($item['mg_count'] + $item['msch_count']) === 0,
             ];
         }, $resDb);
 
@@ -228,7 +230,7 @@ class Main
                 'id' => $item['group_id'],
                 'name' => $item['group_name'],
                 'parallelName' => $item['parallel_name'],
-                'canBeDeleted' => ($item['mug_count'] + $item['ml_count'] + $item['msgh_count']) === 0,
+                'canBeRemoved' => ($item['mug_count'] + $item['ml_count'] + $item['msgh_count']) === 0,
             ];
         }, $resDb);
 
@@ -278,6 +280,13 @@ class Main
         $id = $args['id'];
         $name = $args['name'];
         $parallelId = $args['parallelId'];
+        $teacherList = array_reduce($args['teacherList'], function ($carry, $item) {
+            // ;
+            $carry[] = [
+                'userId' => $item,
+            ];
+            return $carry;
+        });
 
         // test. start
         if (defined('PHPUNIT')) {
@@ -309,8 +318,14 @@ class Main
             $manager = new Manager();
             if ($id === 0) {
                 $resDb = $manager->createGroup($name, $parallelId);
+                $id = $resDb[0];
             } else {
                 $resDb = $manager->updateGroup($id, $name, $parallelId);
+            }
+
+            $manager->removeTeacherListFromGroup($id);
+            if (!empty($teacherList)) {
+                $manager->addTeacherListToGroup($id, $teacherList);
             }
         } catch (MWException $e) {
             $msg = $e->logData();
@@ -350,6 +365,7 @@ class Main
 
         try {
             $manager = new Manager();
+            $manager->removeTeacherListFromGroup($id);
             $resDb = $manager->removeGroup($id);
         } catch (MWException $e) {
             $msg = $e->logData();
@@ -370,4 +386,227 @@ class Main
 
         return [Util::MakeSuccessOperationResult(), []];
     }
+
+    public function getActiveTeacherList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getActiveTeacherList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getActiveTeacherList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['teacher_id'],
+                'name' => "{$item['last_name']} {$item['first_name']} {$item['middle_name']}",
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getTeacherList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getActiveTeacherList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getTeacherList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['teacher_id'],
+                'name' => "{$item['last_name']} {$item['first_name']} {$item['middle_name']}",
+                'roleStateId' => $item['role_state_id'],
+                'canBeRemoved' => $item['mug_count'] === 0,
+                'canBeBlocked' => $item['role_state_id'] === AuthzConstant::ROLE_STATE_TEACHER_ACTIVE_ID,
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getTeacherListInGroup($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getTeacherListInGroup');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $groupId = $args['groupId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getTeacherListInGroup($groupId);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['teacher_id'],
+                'name' => "{$item['last_name']} {$item['first_name']} {$item['middle_name']}",
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+    // public function getGroupById($args)
+    // {
+    //     $localLog = Logger::Log()->withName('Module::Domain::getGroupById');
+    //     $localLog->info('parameters:', Util::MaskData($args));
+
+    //     $permissionOptions = $args['permissionOptions'];
+    //     $groupId = $args['groupId'];
+
+    //     // test. start
+    //     if (defined('PHPUNIT')) {
+    //     }
+    //     // test. finish
+
+    //     // check. start
+    //     // check. finish
+
+    //     $manager = new Manager();
+    //     $resDb = $manager->getGroupById($groupId);
+
+    //     if (count($resDb) !== 1) {
+    //         MWException::ThrowEx(
+    //             errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+    //             logData: ['', "Группа с id = {$groupId} не существует"],
+    //         );
+    //     }
+
+    //     $res =  [
+    //         'id' => $resDb[0]['group_id'],
+    //         'name' => $resDb[0]['group_name'],
+    //         'parallelId' => $resDb[0]['parallel_id'],
+    //     ];
+    //     return [Util::MakeSuccessOperationResult($res), []];
+    // }
+
+    // public function saveGroup($args)
+    // {
+    //     $localLog = Logger::Log()->withName('Module::Account::saveGroup');
+    //     $localLog->info('parameters:', Util::MaskData($args));
+
+    //     $permissionOptions = $args['permissionOptions'];
+    //     $id = $args['id'];
+    //     $name = $args['name'];
+    //     $parallelId = $args['parallelId'];
+
+    //     // test. start
+    //     if (defined('PHPUNIT')) {
+    //     }
+    //     // test. finish
+
+    //     // check. start
+    //     $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::GROUP_NAME_MAX_LENGTH)->check();
+
+    //     $errorList = [];
+    //     if ($nameCheck === ValueChecker::IS_EMPTY) {
+    //         $errorList['name'] = [
+    //             'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+    //             'args' => [],
+    //         ];
+    //     } else if ($nameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+    //         $errorList['name'] = [
+    //             'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+    //             'args' => [strlen($name), self::GROUP_NAME_MAX_LENGTH],
+    //         ];
+    //     }
+
+    //     if (count($errorList) > 0) {
+    //         return [Util::MakeFailOperationResult($errorList), []];
+    //     }
+    //     // check. finish
+
+    //     try {
+    //         $manager = new Manager();
+    //         if ($id === 0) {
+    //             $resDb = $manager->createGroup($name, $parallelId);
+    //         } else {
+    //             $resDb = $manager->updateGroup($id, $name, $parallelId);
+    //         }
+    //     } catch (MWException $e) {
+    //         $msg = $e->logData();
+    //         preg_match('/SQLSTATE\[23000\].*main__group.main__group___unique_name/', $msg[0], $matches);
+    //         $errorList = [];
+    //         if (!empty($matches)) {
+    //             $errorList['name'] = [
+    //                 'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
+    //                 'args' => [$name],
+    //             ];
+    //         }
+
+    //         if (count($errorList) > 0) {
+    //             return [Util::MakeFailOperationResult($errorList), []];
+    //         }
+    //         throw $e;
+    //     }
+
+    //     return [Util::MakeSuccessOperationResult(), []];
+    // }
+
+    // public function removeGroup($args)
+    // {
+    //     $localLog = Logger::Log()->withName('Module::Account::removeGroup');
+    //     $localLog->info('parameters:', Util::MaskData($args));
+
+    //     $permissionOptions = $args['permissionOptions'];
+    //     $id = $args['id'];
+
+    //     // test. start
+    //     if (defined('PHPUNIT')) {
+    //     }
+    //     // test. finish
+
+    //     // check. start
+    //     // check. finish
+
+    //     try {
+    //         $manager = new Manager();
+    //         $resDb = $manager->removeGroup($id);
+    //     } catch (MWException $e) {
+    //         $msg = $e->logData();
+    //         $localLog->error('error:', $msg);
+    //         preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+    //         $errorList = [];
+    //         if (!empty($matches)) {
+    //             $errorList['_msg_'] = [
+    //                 'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+    //                 'args' => ['данные используются'],
+    //             ];
+    //         }
+    //         if (count($errorList) > 0) {
+    //             return [Util::MakeFailOperationResult($errorList), []];
+    //         }
+    //         throw $e;
+    //     }
+
+    //     return [Util::MakeSuccessOperationResult(), []];
+    // }
 }

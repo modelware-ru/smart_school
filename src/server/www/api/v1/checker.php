@@ -34,6 +34,11 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
             'name' => 'string',
             'parallelId' => 1,
+            'teacherList' => [
+                "_type" => "array",
+                "_keyType" => 1,
+                "_itemTemplate" => 1,
+            ]
         ],
         // saveGroup FINISH
         // removeGroup START

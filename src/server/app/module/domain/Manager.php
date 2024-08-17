@@ -3,6 +3,7 @@
 namespace MW\Module\Domain;
 
 use MW\Shared\DBManager;
+use MW\Service\Authz\Constant as AuthzConstant;
 
 class Manager
 {
@@ -133,4 +134,58 @@ SQL;
         return $this->_db->delete($stmt, ['id' => $id]);
     }
 
+    public function getActiveTeacherList()
+    {
+        $stmt = <<<SQL
+SELECT mu.id teacher_id, mu.first_name, mu.last_name, mu.middle_name
+FROM main__user mu
+JOIN authz__account_role aar ON aar.account_id = mu.account_id AND aar.role_id = :roleId AND aar.role_state_id = :roleStateId
+ORDER BY mu.last_name, mu.first_name, mu.middle_name
+SQL;
+        return $this->_db->select($stmt, ['roleId' => AuthzConstant::ROLE_TEACHER_ID, 'roleStateId' => AuthzConstant::ROLE_STATE_TEACHER_ACTIVE_ID]);
+    }
+
+    public function getTeacherList()
+    {
+        $stmt = <<<SQL
+SELECT mu.id teacher_id, mu.first_name, mu.last_name, mu.middle_name, aar.role_state_id,
+(SELECT COUNT(mug.id) FROM main__user_group mug WHERE mug.user_id = mu.id) mug_count
+FROM main__user mu
+JOIN authz__account_role aar ON aar.account_id = mu.account_id AND aar.role_id = :roleId
+ORDER BY mu.last_name, mu.first_name, mu.middle_name
+SQL;
+        return $this->_db->select($stmt, ['roleId' => AuthzConstant::ROLE_TEACHER_ID]);
+    }
+
+    public function getTeacherListInGroup($groupId)
+    {
+        $stmt = <<<SQL
+SELECT mu.id teacher_id, mu.first_name, mu.last_name, mu.middle_name
+FROM main__user mu
+JOIN authz__account_role aar ON aar.account_id = mu.account_id AND aar.role_id = :roleId AND aar.role_state_id = :roleStateId
+JOIN main__user_group mug ON mug.user_id = mu.id AND mug.group_id = :groupId
+ORDER BY mu.last_name, mu.first_name, mu.middle_name
+SQL;
+        return $this->_db->select($stmt, [
+            'roleId' => AuthzConstant::ROLE_TEACHER_ID,
+            'roleStateId' => AuthzConstant::ROLE_STATE_TEACHER_ACTIVE_ID,
+            'groupId' => $groupId
+        ]);
+    }
+
+    public function removeTeacherListFromGroup($groupId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__user_group WHERE group_id = :groupId
+SQL;
+        return $this->_db->delete($stmt, ['groupId' => $groupId]);
+    }
+
+    public function addTeacherListToGroup($groupId, $teacherList)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__user_group (group_id, user_id) VALUES (:groupId, :userId);
+SQL;
+        return $this->_db->insert($stmt, $teacherList, ['groupId' => $groupId]); 
+    }
 }

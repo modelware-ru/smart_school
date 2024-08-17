@@ -52,9 +52,42 @@ $parallelList = array_reduce($res->getData(), function ($carry, $item) {
     ]
 ]);
 
+list($res, $data) = (new DomainModule())->getActiveTeacherList($args);
+
+$activeTeacherList = array_reduce($res->getData(), function ($carry, $item) {
+    $carry[] = [
+        'value' => strval($item['id']),
+        'name' => $item['name'],
+        'disabled' => false,
+    ];
+    return $carry;
+}, [
+    0 => [
+        "value" => "0",
+        "name" => "Выберите преподавателя",
+        "disabled" => true,
+    ]
+]);
+
+$args = [
+    'permissionOptions' => $templateData['permissionOptions'],
+    'groupId' => $groupId,
+];
+
+list($res, $data) = (new DomainModule())->getTeacherListInGroup($args);
+
+$teacherListInGroup = array_reduce($res->getData(), function ($carry, $item) {
+    $carry[] = [
+        'id' => strval($item['id']),
+        'name' => $item['name'],
+    ];
+    return $carry;
+}, []);
 
 $templateData['_js']['group'] = $group;
 $templateData['_js']['parallelList'] = $parallelList;
+$templateData['_js']['activeTeacherList'] = $activeTeacherList;
+$templateData['_js']['teacherListInGroup'] = $teacherListInGroup;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>

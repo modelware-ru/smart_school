@@ -65,7 +65,7 @@ list($res, $data) = (new DomainModule())->getGroupList($args);
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['parallelName'] ?></td>
                             <td class="p-1">
-                                <?php if ($item['canBeDeleted']) { ?>
+                                <?php if ($item['canBeRemoved']) { ?>
                                     <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
                                 <? } ?>
                             </td>

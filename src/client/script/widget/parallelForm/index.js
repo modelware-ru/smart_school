@@ -146,7 +146,7 @@ export default class ParallelForm {
     _callSaveParallel = async (payload) => {
         this._beforeCallSaveParallel();
         try {
-            const resp = await fetcher('saveParallel', payload, 'api/v1');
+            const resp = await fetcher('saveParallel', payload);
 
             if (resp.status === 'ok') {
                 openSiteURL('parallel-list.php');

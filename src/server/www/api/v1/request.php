@@ -98,6 +98,7 @@ try {
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
             $args['parallelId'] = $payload['parallelId'];
+            $args['teacherList'] = $payload['teacherList'];
 
             require_once 'api/v1/service/app.php';
             $res = app_save_group($args);

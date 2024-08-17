@@ -70,7 +70,7 @@ export default class ParallelFormRemove {
     _callRemoveParallel = async (payload) => {
         this._beforeCallRemoveParallel();
         try {
-            const resp = await fetcher('removeParallel', payload, 'api/v1');
+            const resp = await fetcher('removeParallel', payload);
 
             if (resp.status === 'ok') {
                 openSiteURL('parallel-list.php');

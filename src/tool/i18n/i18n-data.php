@@ -51,6 +51,11 @@ $i18n_TTL = [
         'ru' => 'Восстановление пароля',
         'en' => 'Recovery Password',
     ],
+    'SEARCH' => [
+        '_type' => 'plain',
+        'ru' => 'Поиск',
+        'en' => 'Search',
+    ],
     'SIGN_IN' => [
         '_type' => 'plain',
         'ru' => 'Вход',

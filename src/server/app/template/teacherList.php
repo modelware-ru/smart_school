@@ -20,6 +20,7 @@ list($res, $data) = (new DomainModule())->getTeacherList($args);
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
+    <script type='text/javascript' src='js/<?=$resource?>_bundle.js' defer></script>
 </head>
 
 <body>
@@ -36,11 +37,13 @@ list($res, $data) = (new DomainModule())->getTeacherList($args);
                 </ol>
             </nav>
         </div>
-        <div class="d-flex justify-content-end">
-            <a href="group.php?id=0" class="btn btn-success">
-                <i class="bi bi-plus-circle me-3"></i>
-                <span role="status">Добавить</span>
-            </a>
+        <div id='search-input' class="d-flex flex-row-reverse justify-content-sm-end gap-3 gap-md-5 flex-wrap-reverse">
+            <div class="d-flex justify-content-end">
+                <a href="group.php?id=0" class="btn btn-success">
+                    <i class="bi bi-plus-circle me-3"></i>
+                    <span role="status">Добавить</span>
+                </a>
+            </div>
         </div>
 
         <?php
@@ -67,7 +70,7 @@ list($res, $data) = (new DomainModule())->getTeacherList($args);
                             <td class="p-1">
                                 <?php if ($item['canBeBlocked']) { ?>
                                     <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-lock-fill"></i></button>
-                                    <? } else {?>
+                                <? } else { ?>
                                     <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-success btn-sm'><i class="bi bi-unlock-fill"></i></button>
                                 <? } ?>
                                 <?php if ($item['canBeRemoved']) { ?>

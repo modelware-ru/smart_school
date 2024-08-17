@@ -1,4 +1,4 @@
-// GENERATED [2024-08-13 19:17:58]
+// GENERATED [2024-08-17 11:29:06]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -11,6 +11,7 @@ export default {
   TTL_PARALLEL_SHOW_IN_GROUP: (...args) => `Show in group`,
   TTL_PASSWORD: (...args) => `Password`,
   TTL_RECOVERY_PASSWORD: (...args) => `Recovery Password`,
+  TTL_SEARCH: (...args) => `Search`,
   TTL_SIGN_IN: (...args) => `Sign In`,
   TTL_TO_CANCEL: (...args) => `Cancel`,
   TTL_TO_REMOVE: (...args) => `Remove`,

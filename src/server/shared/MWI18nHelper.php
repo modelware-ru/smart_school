@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-13 19:17:58]
+// GENERATED [2024-08-17 11:29:06]
 namespace MW\Shared;
 
 class MWI18nHelper

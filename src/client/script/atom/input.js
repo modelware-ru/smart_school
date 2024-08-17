@@ -5,7 +5,6 @@ import Atom from './atom';
 
 //TODO: Проверить, что help отрисовывается при отсутствии ошибок (error)
 export default class Input extends Atom {
-
     labelFor = 'l' + new Date().getTime() + Math.random();
 
     // start "constructor"
@@ -23,6 +22,7 @@ export default class Input extends Atom {
             maxLength = null,
             disabled = false,
             mandatory = false,
+            iconBefore = '',
             onTest = null,
         } = settings;
 
@@ -38,6 +38,7 @@ export default class Input extends Atom {
             maxLength,
             disabled,
             mandatory,
+            iconBefore,
         };
 
         this._state = {
@@ -86,7 +87,7 @@ export default class Input extends Atom {
             // finish "help"
             // start "hasError"
             case 'hasError':
-                // break;
+            // break;
             // finish "hasError"
             // start "error"
             case 'error':
@@ -111,6 +112,10 @@ export default class Input extends Atom {
             case 'mandatory':
                 break;
             // finish "mandatory"
+            // start "iconBefore"
+            case 'iconBefore':
+                break;
+            // finish "iconBefore"
             default:
                 return;
         }
@@ -177,9 +182,20 @@ export default class Input extends Atom {
         return <span className="text-danger">{hasError === 'yes' && error}</span>;
     };
 
+    _ui_icon_before = () => {
+        const { iconBefore } = this._prop;
+        return iconBefore ? (
+            <span class="input-group-text rounded-start-3">
+                <i class={`bi ${iconBefore}`}></i>
+            </span>
+        ) : (
+            <span />
+        );
+    };
+
     // start "_ui_render"
     _ui_render = () => {
-        const { 
+        const {
             className,
             label,
             type,
@@ -191,11 +207,9 @@ export default class Input extends Atom {
             maxLength,
             disabled,
             mandatory,
+            iconBefore,
         } = this._prop;
-        const {
-            value,
-            availableCount,
-        } = this._state;
+        const { value, availableCount } = this._state;
 
         this._el.input = (
             <input
@@ -212,6 +226,7 @@ export default class Input extends Atom {
         this._el.help = this._ui_help();
         this._el.error = this._ui_error();
         this._el.counter = maxLength && <span className="text-secondary fw-bold">{availableCount}</span>;
+        this._el.iconBefore = this._ui_icon_before();
 
         return (
             <div className={className}>
@@ -219,6 +234,7 @@ export default class Input extends Atom {
                     {this._el.label}
                     {mandatory && <span className="text-danger">&nbsp;*</span>}
                 </label>
+                {this._el.iconBefore}
                 {this._el.input}
                 <div className="d-flex justify-content-between">
                     {

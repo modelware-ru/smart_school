@@ -40,14 +40,6 @@ $resource = $templateData['resource'];
                     <span>Преподаватели</span>
                 </a>
 
-                <a href="student-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Ученики</span>
-                </a>
-
-                <a href="subject-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Предметы</span>
-                </a>
-
             </div>
         </div>
     </div>

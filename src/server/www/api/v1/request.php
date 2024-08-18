@@ -111,22 +111,23 @@ try {
             $res = app_remove_group($args);
 
             break;
-        // case AuthzConstant::RESOURCE_API_SAVE_TEACHER:
-        //     $args['id'] = $payload['id'];
-        //     $args['fir'] = $payload['name'];
-        //     $args['parallelId'] = $payload['parallelId'];
+        case AuthzConstant::RESOURCE_API_BLOCK_TEACHER:
+            $args['id'] = $payload['id'];
+            $args['action'] = $payload['action'];
 
-        //     require_once 'api/v1/service/app.php';
-        //     $res = app_save_group($args);
+            require_once 'api/v1/service/app.php';
+            $res = app_block_teacher($args);
 
-        //     break;
-        // case AuthzConstant::RESOURCE_API_BLOCK_TEACHER:
-        //     $args['id'] = $payload['id'];
+            break;
+            // case AuthzConstant::RESOURCE_API_SAVE_TEACHER:
+            //     $args['id'] = $payload['id'];
+            //     $args['fir'] = $payload['name'];
+            //     $args['parallelId'] = $payload['parallelId'];
 
-        //     require_once 'api/v1/service/app.php';
-        //     $res = app_remove_group($args);
+            //     require_once 'api/v1/service/app.php';
+            //     $res = app_save_group($args);
 
-        //     break;
+            //     break;
     }
 
     DBManager::Commit();

@@ -47,6 +47,13 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeGroup FINISH
+        // blockTeacher START
+        AuthzConstant::RESOURCE_API_BLOCK_TEACHER => [
+            '_type' => 'object',
+            'id' => 1,
+            'action' => 'string',
+        ],
+        // blockTeacher FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

@@ -1,0 +1,157 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.185 Electron/31.3.1 Safari/537.36" version="24.7.5">
+  <diagram name="Page-1" id="ZGJE-EuKqo1q0yyvJVfk">
+    <mxGraphModel dx="817" dy="434" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-1" value="Страница&lt;div&gt;Редактирование учителей&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-2" value="Страница&lt;div&gt;Удаление учителей&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-3" value="Страница&lt;div&gt;Список учеников&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-4" value="Страница&lt;div&gt;Список учеников по группам&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-5" value="Страница&lt;div&gt;Список учеников по параллелям&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-6" value="Страница&lt;div&gt;Список учеников по классам&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-7" value="Страница&lt;div&gt;Редактирование ученика&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-8" value="Страница&lt;div&gt;Удаления ученика&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-9" value="Страница&lt;div&gt;Список предметов&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-10" value="Страница&lt;div&gt;Редактирование предмета&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-11" value="Страница&lt;div&gt;Удаления предмета&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-12" value="Администратор" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="80" y="10" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-13" value="Учитель" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="760" y="10" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-14" value="Страница&lt;div&gt;Список групп&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="880" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-15" value="Страница&lt;div&gt;Журнал занятий в группе&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="960" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-16" value="Страница&lt;div&gt;Список учеников в группе&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-17" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="230" as="sourcePoint" />
+            <mxPoint x="680" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-18" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="470" as="sourcePoint" />
+            <mxPoint x="680" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-19" value="Страница&lt;div&gt;Список задач&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-20" value="Страница&lt;div&gt;Редактирование задачи&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-21" value="Страница&lt;div&gt;Удаления задачи&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-22" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="630" as="sourcePoint" />
+            <mxPoint x="880" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-23" value="Страница&lt;div&gt;Список серий&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-24" value="Страница&lt;div&gt;Редактирование серии&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="720" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-25" value="Страница&lt;div&gt;Удаления серии&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="800" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-26" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="870" as="sourcePoint" />
+            <mxPoint x="880" y="870" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-29" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="950" as="sourcePoint" />
+            <mxPoint x="880" y="950" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-30" value="Страница&lt;div&gt;Редактирование занятия в группе&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1040" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-31" value="Страница&lt;div&gt;Список тем задач&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-32" value="Страница Редактирование категорий тегов и тегов" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-33" value="Страница&lt;div&gt;Список категорий тегов&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-34" value="Страница&lt;div&gt;Редактирование тем задач&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-35" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="230" as="sourcePoint" />
+            <mxPoint x="880" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-36" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="390" as="sourcePoint" />
+            <mxPoint x="880" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-37" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="1110" as="sourcePoint" />
+            <mxPoint x="880" y="1110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-38" value="Страница&lt;div&gt;Истории ученика&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-39" value="" style="endArrow=none;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="1270" as="sourcePoint" />
+            <mxPoint x="880" y="1270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-42" value="- посещаемость (просмотр и ввод)&lt;div&gt;- выбор серии для ученика (просмотр и выбор)&lt;br&gt;&lt;div style=&quot;font-size: 9px;&quot;&gt;- оценки по задачам серии (просмотр и ввод)&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=12;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;align=left;verticalAlign=top;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1120" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-43" value="Страница&lt;div&gt;Успеваемости ученика&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iRvsRHOg4NnXrF-ah_4C-44" value="- посещаемость&lt;div&gt;- выбор серии&lt;br&gt;&lt;div style=&quot;font-size: 9px;&quot;&gt;- оценки по задачам серии&lt;/div&gt;&lt;/div&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=12;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;align=left;verticalAlign=top;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="900" y="1280" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -186,6 +186,21 @@ SQL;
         $stmt = <<<SQL
 INSERT INTO main__user_group (group_id, user_id) VALUES (:groupId, :userId);
 SQL;
-        return $this->_db->insert($stmt, $teacherList, ['groupId' => $groupId]); 
+        return $this->_db->insert($stmt, $teacherList, ['groupId' => $groupId]);
+    }
+
+
+    public function blockTeacher($id, $action)
+    {
+        $newState = ($action === 'block') ? AuthzConstant::ROLE_STATE_TEACHER_BLOCKED_ID : AuthzConstant::ROLE_STATE_TEACHER_ACTIVE_ID;
+        $teacherRole = AuthzConstant::ROLE_TEACHER_ID;
+        $stmt = <<<SQL
+SELECT aar.account_id FROM authz__account_role aar 
+WHERE aar.account_id = (SELECT mu.account_id FROM main__user mu WHERE mu.id = {$id})
+AND aar.role_id  = {$teacherRole} INTO @accountId;
+
+UPDATE authz__account_role SET role_state_id = {$newState} WHERE account_id = @accountId AND role_id  = {$teacherRole};
+SQL;
+        return $this->_db->exec($stmt);
     }
 }

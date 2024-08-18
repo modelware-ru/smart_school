@@ -4,7 +4,6 @@ import { clsx } from '../../node_modules/clsx/dist/clsx.mjs';
 import Atom from './atom';
 
 export default class Checkbox extends Atom {
-
     labelFor = 'l' + new Date().getTime() + Math.random();
 
     // start "constructor"
@@ -36,8 +35,7 @@ export default class Checkbox extends Atom {
             checked,
         };
 
-        this._callback = {
-        };
+        this._callback = {};
 
         this.el = this._ui_render();
     }
@@ -72,12 +70,12 @@ export default class Checkbox extends Atom {
             // finish "help"
             // start "hasError"
             case 'hasError':
-                // break;
+            // break;
             // finish "hasError"
             // start "error"
             case 'error':
                 this._el.error = mount(_ui_errorParent, this._ui_error(), _ui_error, true);
-                _ui_input.className = this._inputClassName();
+                _ui_input.className = this._checkbox_class_name();
                 break;
             // finish "error"
             // start "disabled"
@@ -120,9 +118,9 @@ export default class Checkbox extends Atom {
         this._updateState('checked', newValue);
     };
 
-    _inputClassName = () => {
+    _checkbox_class_name = () => {
         const { hasError } = this._prop;
-        return clsx('form-check-input', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
+        return clsx('form-check-input', { 'is-invalid': hasError === 'yes' }, { 'is-valid': hasError === 'no' });
     };
 
     _ui_help = () => {
@@ -137,7 +135,7 @@ export default class Checkbox extends Atom {
 
     // start "_ui_render"
     _ui_render = () => {
-        const { 
+        const {
             className,
             label,
             // checked,
@@ -147,12 +145,10 @@ export default class Checkbox extends Atom {
             disabled,
             mandatory,
         } = this._prop;
-        const {
-            checked,
-        } = this._state;
+        const { checked } = this._state;
 
         this._el.input = (
-            <input id={this.labelFor} class="form-check-input" type="checkbox" checked={checked} onchange={this._onChange} disabled={disabled} />
+            <input id={this.labelFor} className="form-check-input" type="checkbox" checked={checked} onchange={this._onChange} disabled={disabled} />
         );
         this._el.label = <span>{label}</span>;
         this._el.help = this._ui_help();
@@ -160,14 +156,14 @@ export default class Checkbox extends Atom {
 
         return (
             <div className={className}>
-                <div class="form-check">
+                <div className="form-check">
                     {this._el.input}
-                    <label for={this.labelFor} class="form-check-label fw-bold">
+                    <label for={this.labelFor} className="form-check-label fw-bold">
                         {this._el.label}
                         {mandatory && <span className="text-danger">&nbsp;*</span>}
                     </label>
                 </div>
-                <div class="d-flex justify-content-between">
+                <div className="d-flex justify-content-between">
                     {
                         (this._el.errorParent = (
                             <div>

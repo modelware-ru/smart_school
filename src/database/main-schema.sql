@@ -107,7 +107,7 @@ CREATE TABLE main__group (
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__group___parallel_id FOREIGN KEY (parallel_id) REFERENCES main__parallel(id),
-    CONSTRAINT main__group___unique_name UNIQUE (name)
+    CONSTRAINT main__group___unique_parallel_id_name UNIQUE (parallel_id, name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__task_tag (
@@ -145,6 +145,15 @@ CREATE TABLE main__lesson (
     PRIMARY KEY (id),
     CONSTRAINT main__lesson___subject_id FOREIGN KEY (subject_id) REFERENCES main__subject(id),
     CONSTRAINT main__lesson___group_id FOREIGN KEY (group_id) REFERENCES main__group(id)
+) ENGINE = InnoDB;
+
+CREATE TABLE main__student_serie (
+    id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    student_id INT UNSIGNED NOT NULL,
+    serie_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT main__student_serie___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
+    CONSTRAINT main__student_serie___serie_id FOREIGN KEY (serie_id) REFERENCES main__serie(id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__student_serieTask (

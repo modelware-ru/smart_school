@@ -5,7 +5,6 @@ import Atom from './atom';
 
 //TODO: Проверить, что help отрисовывается при отсутствии ошибок (error)
 export default class Textarea extends Atom {
-
     labelFor = 'l' + new Date().getTime() + Math.random();
 
     // start "constructor"
@@ -84,7 +83,7 @@ export default class Textarea extends Atom {
             // finish "help"
             // start "hasError"
             case 'hasError':
-                // break;
+            // break;
             // finish "hasError"
             // start "error"
             case 'error':
@@ -170,7 +169,7 @@ export default class Textarea extends Atom {
 
     _textareaClassName = () => {
         const { hasError, resizable } = this._prop;
-        return clsx('form-control', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid', !resizable && 'textarea-no-resizable');
+        return clsx('form-control', { 'is-invalid': hasError === 'yes' }, { 'is-valid': hasError === 'no' }, { 'textarea-no-resizable': !resizable });
     };
 
     _ui_help = () => {
@@ -185,7 +184,7 @@ export default class Textarea extends Atom {
 
     // start "_ui_render"
     _ui_render = () => {
-        const { 
+        const {
             className,
             label,
             placeholder,
@@ -199,10 +198,7 @@ export default class Textarea extends Atom {
             disabled,
             mandatory,
         } = this._prop;
-        const {
-            value,
-            availableCount,
-        } = this._state;
+        const { value, availableCount } = this._state;
 
         this._el.textarea = (
             <textarea

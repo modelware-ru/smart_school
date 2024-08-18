@@ -8,6 +8,8 @@ $atomButton = (new Atom('button'))
     ->AddProp('isLoading', "false")
     ->AddProp('disabled', "false")
     ->AddProp('icon')
+    ->AddProp('iconSpin', "false")
+    ->AddProp('onClickData', "{}")
     ->AddCallback('onClick', "null");
 
 $atomInput = (new Atom('input'))
@@ -80,4 +82,10 @@ $atomSelectMenuItem = (new Atom('select menu item'))
     ->AddProp('key')
     ->AddState('value')
     ->AddCallback('onAction', "null");
+
+$atomTableRow = (new Atom('table row'))
+    ->AddProp('className')
+    ->AddProp('content', "[]")
+    ->AddProp('key')
+    ->AddCallback('onRowClick', 'null');
 

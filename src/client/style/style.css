@@ -22,9 +22,15 @@
     color: black;
 }
 
-.menu-item>span {
+.menu-item > span {
     word-break: break-all;
     text-align: center;
+}
+
+.menu-item:hover {
+    box-shadow: var(--bs-box-shadow) !important;
+    border: 2px solid gray !important;
+    font-weight: bold !important;
 }
 
 .bg-success-subtle {

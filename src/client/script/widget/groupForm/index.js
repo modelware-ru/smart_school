@@ -228,15 +228,15 @@ export default class GroupForm {
         const { activeTeacherList, teacherListInGroup } = this._prop;
 
         return (
-            <form class="mt-3 row gx-0 gy-3">
-                <div class="bg-body-tertiary row border gy-3 m-0 pb-3">
+            <form className="mt-3 row gx-0 gy-3">
+                <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
                     {this._atm.parallelSelect}
                     <hr />
-                    <label class="form-label fw-bold my-0">{i18n(langId, 'TTL_GROUP_TEACHERS')}:</label>
+                    <label className="form-label fw-bold my-0">{i18n(langId, 'TTL_GROUP_TEACHERS')}:</label>
                     {(this._el.selectMenu = <SelectMenu itemContent={activeTeacherList} itemList={teacherListInGroup} />)}
                 </div>
-                <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
+                <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.saveButton}
                     <Button
                         className="btn btn-outline-secondary"

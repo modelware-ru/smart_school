@@ -329,10 +329,10 @@ class Main
             }
         } catch (MWException $e) {
             $msg = $e->logData();
-            preg_match('/SQLSTATE\[23000\].*main__group.main__group___unique_name/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__group.main__group___unique_parallel_id_name/', $msg[0], $matches);
             $errorList = [];
             if (!empty($matches)) {
-                $errorList['name'] = [
+                $errorList['_msg_'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
                     'args' => [$name],
                 ];
@@ -474,6 +474,31 @@ class Main
 
         return [Util::MakeSuccessOperationResult($res), []];
     }
+
+    public function blockTeacher($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::blockTeacher');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+        $action = $args['action'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->blockTeacher($id, $action);
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+
     // public function getGroupById($args)
     // {
     //     $localLog = Logger::Log()->withName('Module::Domain::getGroupById');

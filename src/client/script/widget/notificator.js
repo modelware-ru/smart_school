@@ -74,15 +74,15 @@ export default class Notificator {
 
         this._el.widget = (
             <div
-                class={clsx(
+                className={clsx(
                     'alert alert-danger alert-dismissible rounded-0 text-center m-0 fade show',
                     { 'fixed-top': fixed === 'top' },
                     { 'fixed-bottom': fixed === 'bottom' }
                 )}
                 role="alert"
             >
-                {(this._el.content = <p class="m-0"></p>)}
-                <button type="button" class="btn-close" aria-label="Close" onclick={this._hideMessage}></button>
+                {(this._el.content = <p className="m-0"></p>)}
+                <button type="button" className="btn-close" aria-label="Close" onclick={this._hideMessage}></button>
             </div>
         );
 

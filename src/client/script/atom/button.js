@@ -7,7 +7,16 @@ export default class Button extends Atom {
     // start "constructor"
     constructor(settings = {}) {
         super();
-        const { title = '', className = 'btn', isLoading = false, disabled = false, icon = '', onClick = null } = settings;
+        const {
+            title = '',
+            className = 'btn',
+            isLoading = false,
+            disabled = false,
+            icon = '',
+            iconSpin = false,
+            onClickData = {},
+            onClick = null,
+        } = settings;
 
         this._prop = {
             title,
@@ -15,6 +24,8 @@ export default class Button extends Atom {
             isLoading,
             disabled,
             icon,
+            iconSpin,
+            onClickData,
         };
 
         this._state = {};
@@ -39,6 +50,7 @@ export default class Button extends Atom {
             // finish "title"
             // start "className"
             case 'className':
+                this._el.btn.className = value;
                 break;
             // finish "className"
             // start "isLoading"
@@ -60,6 +72,20 @@ export default class Button extends Atom {
                 this._el.icon = mount(_ui_btn, this._ui_icon(), _ui_icon, true);
                 break;
             // finish "icon"
+            // start "iconSpin"
+            case 'iconSpin':
+                if (value) {
+                    this._el.icon.classList.add('bi--spin');
+                } else {
+                    this._el.icon.classList.remove('bi--spin');
+                }
+                break;
+            // finish "iconSpin"
+            // start "onClickData"
+            case 'onClickData':
+                this._prop['onClickData'] = value;
+                break;
+            // finish "onClickData"
             default:
                 return;
         }
@@ -78,8 +104,10 @@ export default class Button extends Atom {
     // finish "_renderState"
 
     _onClick = (e) => {
+        e.stopPropagation();
+        const { onClickData } = this._prop;
         const { onClick } = this._callback;
-        onClick && onClick();
+        onClick && onClick(onClickData);
     };
 
     _ui_spinner = () => {
@@ -88,13 +116,13 @@ export default class Button extends Atom {
     };
 
     _ui_icon = () => {
-        const { icon, title } = this._prop;
+        const { icon, iconSpin, title } = this._prop;
         if (icon.length === 0) return <i></i>;
 
         if (title.length === 0) {
-            return <i class={'bi ' + icon}></i>;
+            return <i className={clsx('bi', icon, { 'bi--spin': iconSpin })}></i>;
         } else {
-            return <i class={'bi ' + icon + ' me-2'}></i>;
+            return <i className={clsx('bi', 'me-2', icon, { 'bi--spin': iconSpin })}></i>;
         }
     };
 

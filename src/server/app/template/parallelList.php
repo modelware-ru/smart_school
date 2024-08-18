@@ -24,11 +24,11 @@ list($res, $data) = (new DomainModule())->getParallelList($args);
 
 <body>
     <div class="container">
-        <nav id="nav" class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
+        <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
             <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
         </nav>
         <hr class='m-0' />
-        <div id="main" class="my-3">
+        <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>

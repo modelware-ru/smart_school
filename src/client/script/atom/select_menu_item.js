@@ -110,9 +110,9 @@ export default class SelectMenuItem extends Atom {
         this._updateState('value', newValue);
     };
 
-    _inputClassName = () => {
+    _select_class_name = () => {
         const { hasError } = this._prop;
-        return clsx('form-select', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
+        return clsx('form-select', { 'is-invalid': hasError === 'yes' }, { 'is-valid': hasError === 'no' });
     };
 
     _onButtonClick = (e) => {
@@ -159,13 +159,13 @@ export default class SelectMenuItem extends Atom {
         });
 
         this._el.select = (
-            <select className={this._inputClassName()} disabled={status === 'done'} value={value} onchange={this._onChange}>
+            <select className={this._select_class_name()} disabled={status === 'done'} value={value} onchange={this._onChange}>
                 {optionList}
             </select>
         );
 
         return (this._el.menuitem = (
-            <div class={clsx(className, 'd-flex')}>
+            <div className={clsx(className, 'd-flex')}>
                 {this._el.select}
                 {(this._el.btn = this._ui_button())}
             </div>

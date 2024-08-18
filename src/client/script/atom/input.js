@@ -92,7 +92,7 @@ export default class Input extends Atom {
             // start "error"
             case 'error':
                 this._el.error = mount(_ui_errorParent, this._ui_error(), _ui_error, true);
-                _ui_input.className = this._inputClassName();
+                _ui_input.className = this._input_class_name();
                 break;
             // finish "error"
             // start "maxLength"
@@ -167,9 +167,9 @@ export default class Input extends Atom {
         }
     };
 
-    _inputClassName = () => {
+    _input_class_name = () => {
         const { hasError } = this._prop;
-        return clsx('form-control', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
+        return clsx('form-control', { 'is-invalid': hasError === 'yes' }, { 'is-valid': hasError === 'no' });
     };
 
     _ui_help = () => {
@@ -185,8 +185,8 @@ export default class Input extends Atom {
     _ui_icon_before = () => {
         const { iconBefore } = this._prop;
         return iconBefore ? (
-            <span class="input-group-text rounded-start-3">
-                <i class={`bi ${iconBefore}`}></i>
+            <span className="input-group-text rounded-start-3">
+                <i className={`bi ${iconBefore}`}></i>
             </span>
         ) : (
             <span />
@@ -214,7 +214,7 @@ export default class Input extends Atom {
         this._el.input = (
             <input
                 type={type}
-                className={this._inputClassName()}
+                className={this._input_class_name()}
                 id={this.labelFor}
                 placeholder={placeholder}
                 value={value}

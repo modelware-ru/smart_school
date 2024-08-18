@@ -44,3 +44,10 @@ function app_remove_group($args)
 
     return $res;
 }
+
+function app_block_teacher($args)
+{
+    list($res, $data) = (new DomainMain())->blockTeacher($args);
+
+    return $res;
+}

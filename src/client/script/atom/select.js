@@ -79,7 +79,7 @@ export default class Select extends Atom {
             // start "error"
             case 'error':
                 this._el.error = mount(_ui_errorParent, this._ui_error(), _ui_error, true);
-                _ui_select.className = this._inputClassName();
+                _ui_select.className = this._select_class_name();
                 break;
             // finish "error"
             // start "disabled"
@@ -126,9 +126,9 @@ export default class Select extends Atom {
         this._updateState('value', newValue);
     };
 
-    _inputClassName = () => {
+    _select_class_name = () => {
         const { hasError } = this._prop;
-        return clsx('form-select', hasError === 'yes' && 'is-invalid', hasError === 'no' && 'is-valid');
+        return clsx('form-select', { 'is-invalid': hasError === 'yes' }, { 'is-valid': hasError === 'no' });
     };
 
     _ui_help = () => {
@@ -165,7 +165,7 @@ export default class Select extends Atom {
         });
 
         this._el.select = (
-            <select id={this.labelFor} className={this._inputClassName()} disabled={disabled} value={value} onchange={this._onChange}>
+            <select id={this.labelFor} className={this._select_class_name()} disabled={disabled} value={value} onchange={this._onChange}>
                 {optionList}
             </select>
         );
@@ -174,8 +174,8 @@ export default class Select extends Atom {
         this._el.error = this._ui_error();
 
         return (
-            <div class={className}>
-                <label for={this.labelFor} class="form-label fw-bold">
+            <div className={className}>
+                <label for={this.labelFor} className="form-label fw-bold">
                     {this._el.label}
                     {mandatory && <span className="text-danger">&nbsp;*</span>}
                 </label>

@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-17 11:29:06]
+// GENERATED [2024-08-21 18:48:38]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -20,6 +20,7 @@ class MWI18nHelper
     const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
     const MSG_FIELD_IS_TOO_LONG = 'MSG_FIELD_IS_TOO_LONG';
     const MSG_FIELD_IS_TOO_SHORT = 'MSG_FIELD_IS_TOO_SHORT';
+    const MSG_FIELD_VALUE_IS_NOT_VALID = 'MSG_FIELD_VALUE_IS_NOT_VALID';
     const MSG_FIELD_WITH_DUPLICATED_VALUE = 'MSG_FIELD_WITH_DUPLICATED_VALUE';
     const MSG_IMPOSSIBLE_TO_REMOVE_DATA = 'MSG_IMPOSSIBLE_TO_REMOVE_DATA';
     const MSG_WRONG_FIELD_VALUE = 'MSG_WRONG_FIELD_VALUE';
@@ -202,6 +203,9 @@ class MWI18nHelper
             },
             self::MSG_FIELD_IS_TOO_SHORT => function (...$args) {
                 return sprintf('Поле содержит слишком короткое значение: %d меньше чем %d', ...$args);
+            },
+            self::MSG_FIELD_VALUE_IS_NOT_VALID => function (...$args) {
+                return sprintf('Для поля (%s) недопустимое значение (%s)', ...$args);
             },
             self::MSG_FIELD_WITH_DUPLICATED_VALUE => function (...$args) {
                 return sprintf('Запись с таким значением уже существует: "%s"', ...$args);

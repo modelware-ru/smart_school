@@ -119,15 +119,21 @@ try {
             $res = app_block_teacher($args);
 
             break;
-            // case AuthzConstant::RESOURCE_API_SAVE_TEACHER:
-            //     $args['id'] = $payload['id'];
-            //     $args['fir'] = $payload['name'];
-            //     $args['parallelId'] = $payload['parallelId'];
+        case AuthzConstant::RESOURCE_API_SAVE_TEACHER:
+            $args['id'] = $payload['id'];
+            $args['login'] = $payload['login'];
+            $args['email'] = $payload['email'];
+            $args['password'] = $payload['password'];
+            $args['firstName'] = $payload['firstName'];
+            $args['lastName'] = $payload['lastName'];
+            $args['middleName'] = $payload['middleName'];
+            $args['roleStateId'] = $payload['roleStateId'];
+            $args['groupList'] = $payload['groupList'];
 
-            //     require_once 'api/v1/service/app.php';
-            //     $res = app_save_group($args);
+            require_once 'api/v1/service/app.php';
+            $res = app_save_teacher($args);
 
-            //     break;
+            break;
     }
 
     DBManager::Commit();

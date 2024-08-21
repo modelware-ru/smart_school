@@ -17,7 +17,7 @@ class Manager
     public function getParallelList()
     {
         $stmt = <<<SQL
-SELECT mp.id parallel_id, mp.name, mp.number, mp.show_in_group,
+SELECT mp.id, mp.name, mp.number, mp.show_in_group,
 (SELECT COUNT(mg.id) FROM main__group mg WHERE mg.parallel_id = mp.id) mg_count,
 (SELECT COUNT(msch.id) FROM main__student_class_Hist msch WHERE msch.parallel_id = mp.id) msch_count
 FROM main__parallel mp
@@ -137,7 +137,7 @@ SQL;
     public function getActiveTeacherList()
     {
         $stmt = <<<SQL
-SELECT mu.id teacher_id, mu.first_name, mu.last_name, mu.middle_name
+SELECT mu.id, mu.first_name, mu.last_name, mu.middle_name
 FROM main__user mu
 JOIN authz__account_role aar ON aar.account_id = mu.account_id AND aar.role_id = :roleId AND aar.role_state_id = :roleStateId
 ORDER BY mu.last_name, mu.first_name, mu.middle_name
@@ -190,17 +190,110 @@ SQL;
     }
 
 
-    public function blockTeacher($id, $action)
+    public function blockTeacher($id, $roleStateId)
     {
-        $newState = ($action === 'block') ? AuthzConstant::ROLE_STATE_TEACHER_BLOCKED_ID : AuthzConstant::ROLE_STATE_TEACHER_ACTIVE_ID;
         $teacherRole = AuthzConstant::ROLE_TEACHER_ID;
         $stmt = <<<SQL
 SELECT aar.account_id FROM authz__account_role aar 
 WHERE aar.account_id = (SELECT mu.account_id FROM main__user mu WHERE mu.id = {$id})
 AND aar.role_id  = {$teacherRole} INTO @accountId;
 
-UPDATE authz__account_role SET role_state_id = {$newState} WHERE account_id = @accountId AND role_id  = {$teacherRole};
+UPDATE authz__account_role SET role_state_id = {$roleStateId} WHERE account_id = @accountId AND role_id  = {$teacherRole};
 SQL;
         return $this->_db->exec($stmt);
+    }
+
+    public function getTeacherById($teacherId)
+    {
+        $teacherRole = AuthzConstant::ROLE_TEACHER_ID;
+        $stmt = <<<SQL
+SELECT mu.id teacher_id, mu.first_name, mu.last_name, mu.middle_name, mu.login, mu.email, aar.role_state_id
+FROM main__user mu
+JOIN authz__account_role aar ON aar.account_id = mu.account_id AND aar.role_id = {$teacherRole}
+WHERE mu.id = :teacherId
+ORDER BY mu.last_name, mu.first_name, mu.middle_name
+SQL;
+        return $this->_db->select($stmt, ['teacherId' => $teacherId]);
+    }
+
+    public function getGroupListForTeacher($teacherId)
+    {
+        $stmt = <<<SQL
+SELECT mg.id group_id, mg.name group_name, mp.name parallel_name
+FROM main__group mg
+JOIN main__user_group mug ON mug.group_id = mg.id AND mug.user_id = :teacherId
+JOIN main__parallel mp ON mp.id = mg.parallel_id
+SQL;
+        return $this->_db->select($stmt, [
+            'teacherId' => $teacherId
+        ]);
+    }
+
+    public function createTeacher($accountId, $firstName, $lastName, $middleName, $login, $password, $email)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__user (account_id, first_name, last_name, middle_name, login, password, email)
+VALUES (:accountId, :firstName, :lastName, :middleName, :login, :password, :email)
+SQL;
+        return $this->_db->insert($stmt, [
+            0 => [
+                'accountId' => $accountId,
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'middleName' => $middleName,
+                'login' => $login,
+                'password' => $password,
+                'email' => $email,
+            ],
+        ]);
+    }
+
+    public function updateTeacher($id, $firstName, $lastName, $middleName, $login, $password, $email)
+    {
+        $passwordLine = '';
+        if (!empty($password)) {
+            $passwordLine = "password = :password,";
+        }
+        $stmt = <<<SQL
+UPDATE main__user SET 
+first_name = :firstName,
+last_name = :lastName,
+middle_name = :middleName,
+login = :login,
+{$passwordLine}
+email = :email
+WHERE id = :id
+SQL;
+        $vars = [
+            'id' => $id,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'middleName' => $middleName,
+            'login' => $login,
+            'email' => $email,
+        ];
+        if (!empty($password)) {
+            $vars['password'] = $password;
+        }
+
+        return $this->_db->update($stmt, [
+            0 => $vars
+        ]);
+    }
+
+    public function removeGroupListFromTeacher($teacherId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__user_group WHERE user_id = :teacherId
+SQL;
+        return $this->_db->delete($stmt, ['teacherId' => $teacherId]);
+    }
+
+    public function addGroupListToTeacher($teacherId, $groupList)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__user_group (group_id, user_id) VALUES (:groupId, :userId);
+SQL;
+        return $this->_db->insert($stmt, $groupList, ['userId' => $teacherId]);
     }
 }

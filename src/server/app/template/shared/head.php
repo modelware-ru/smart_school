@@ -18,6 +18,7 @@ $version = 'Web Application Template. Версия ' . VERSION . ' ' . (defined(
 
 <link rel='stylesheet' href='style/bootstrap.min.css' />
 <link rel="stylesheet" href="style/bootstrap-icons-font.min.css">
+<link rel="stylesheet" href="style/bootstrap-icons.min.css">
 <link rel='stylesheet' href='style/style.css'>
 <script>
     window.app = JSON.parse('<?=addslashes(json_encode($_js, JSON_UNESCAPED_UNICODE))?>');

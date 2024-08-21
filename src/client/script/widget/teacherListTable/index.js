@@ -128,7 +128,7 @@ export default class TeacherListTable {
                 teacher.blockBtn.updateProp('iconSpin', false);
                 teacher.blockBtn.updateProp('className', action === 'block' ? 'btn btn-outline-success btn-sm' : 'btn btn-outline-danger btn-sm');
                 teacher.blockBtn.updateProp('icon', action === 'block' ? 'bi-unlock-fill' : 'bi-lock-fill');
-                teacher.blockBtn.updateProp('disabled', false);
+                teacher.blockBtn.updateProp('iconSpin', false);
                 teacher.blockBtn.updateProp('onClickData', { key, id, action: action === 'block' ? 'unblock' : 'block' });
                 return;
             }

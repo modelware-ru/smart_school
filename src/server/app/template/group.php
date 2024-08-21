@@ -57,7 +57,7 @@ list($res, $data) = (new DomainModule())->getActiveTeacherList($args);
 $activeTeacherList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [
         'value' => strval($item['id']),
-        'name' => $item['name'],
+        'name' => "{$item['lastName']} {$item['firstName']} {$item['middleName']}",
         'disabled' => false,
     ];
     return $carry;
@@ -76,13 +76,12 @@ $args = [
 
 list($res, $data) = (new DomainModule())->getTeacherListInGroup($args);
 
-$teacherListInGroup = array_reduce($res->getData(), function ($carry, $item) {
-    $carry[] = [
+$teacherListInGroup = array_map(function ($item) {
+    return [
         'id' => strval($item['id']),
-        'name' => $item['name'],
+        'name' => "{$item['lastName']} {$item['firstName']} {$item['middleName']}",
     ];
-    return $carry;
-}, []);
+}, $res->getData());
 
 $templateData['_js']['group'] = $group;
 $templateData['_js']['parallelList'] = $parallelList;

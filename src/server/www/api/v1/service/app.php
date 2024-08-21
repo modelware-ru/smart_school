@@ -51,3 +51,10 @@ function app_block_teacher($args)
 
     return $res;
 }
+
+function app_save_teacher($args)
+{
+    list($res, $data) = (new DomainMain())->saveTeacher($args);
+
+    return $res;
+}

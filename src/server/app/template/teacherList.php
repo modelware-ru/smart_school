@@ -14,7 +14,15 @@ $args = [
 
 list($res, $data) = (new DomainModule())->getTeacherList($args);
 
-$teacherList = $res->getData();
+$teacherList = array_map(function ($item) {
+    return [
+        'id' => $item['id'],
+        'name' => "{$item['lastName']} {$item['firstName']} {$item['middleName']}",
+        'roleStateId' => $item['role_state_id'],
+        'canBeRemoved' => $item['canBeRemoved'],
+        'canBeBlocked' => $item['canBeBlocked'],
+    ];
+}, $res->getData());
 
 $templateData['_js']['teacherList'] = $teacherList;
 ?>

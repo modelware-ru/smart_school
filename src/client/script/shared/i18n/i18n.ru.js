@@ -1,18 +1,25 @@
-// GENERATED [2024-08-17 11:29:06]
+// GENERATED [2024-08-21 18:48:38]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
+  TTL_EMAIL: (...args) => `Email`,
+  TTL_FIRST_NAME: (...args) => `Имя`,
   TTL_GROUP_NAME: (...args) => `Название группы`,
   TTL_GROUP_PARALLEL: (...args) => `Параллель группы`,
   TTL_GROUP_TEACHERS: (...args) => `Преподаватели группы`,
+  TTL_LAST_NAME: (...args) => `Фамилия`,
   TTL_LOGIN: (...args) => `Логин`,
+  TTL_MIDDLE_NAME: (...args) => `Отчество`,
   TTL_PARALLEL_NUMBER: (...args) => `Номер параллели`,
   TTL_PARALLEL_NAME: (...args) => `Название параллели`,
   TTL_PARALLEL_SHOW_IN_GROUP: (...args) => `Показать в группах`,
   TTL_PASSWORD: (...args) => `Пароль`,
+  TTL_PASSWORD_HELP: (...args) => `Для изменения пароля введите новый пароль. Если пароль изменять не требуется - оставьте поле пустым.`,
   TTL_RECOVERY_PASSWORD: (...args) => `Восстановление пароля`,
   TTL_SEARCH: (...args) => `Поиск`,
   TTL_SIGN_IN: (...args) => `Вход`,
+  TTL_STATE: (...args) => `Состояние`,
+  TTL_TEACHER_GROUPS: (...args) => `Группы преподавателя`,
   TTL_TO_CANCEL: (...args) => `Отменить`,
   TTL_TO_REMOVE: (...args) => `Удалить`,
   TTL_TO_REMOVE_IN_PROGRESS: (...args) => `Удаление...`,
@@ -25,6 +32,7 @@ export default {
   MSG_FIELD_IS_REQUIRED: (...args) => `Поле должно быть заполнено`,
   MSG_FIELD_IS_TOO_LONG: (...args) => `Поле содержит слишком длинное значение`,
   MSG_FIELD_IS_TOO_SHORT: (...args) => `Поле содержит слишком короткое значение`,
+  MSG_FIELD_VALUE_IS_NOT_VALID: (...args) => `Недопустимое значение поля`,
   MSG_FIELD_WITH_DUPLICATED_VALUE: (...args) => `Запись с таким значением уже существует`,
   MSG_IMPOSSIBLE_TO_REMOVE_DATA: (...args) => `Невозможно удалить данные: ${args[0]}`,
   MSG_WRONG_FIELD_VALUE: (...args) => `Неверное значение поля`,

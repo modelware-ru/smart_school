@@ -54,6 +54,24 @@ function check_type_parameters($apiResource, $payload)
             'action' => 'string',
         ],
         // blockTeacher FINISH
+        // saveTeacher START
+        AuthzConstant::RESOURCE_API_SAVE_TEACHER => [
+            '_type' => 'object',
+            'id' => 1,
+            'login' => 'string',
+            'email' => 'string',
+            'password' => 'string',
+            'firstName' => 'string',
+            'lastName' => 'string',
+            'middleName' => 'string',
+            'roleStateId' => 1,
+            'groupList' => [
+                "_type" => "array",
+                "_keyType" => 1,
+                "_itemTemplate" => 1,
+            ]
+        ],
+        // saveTeacher FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

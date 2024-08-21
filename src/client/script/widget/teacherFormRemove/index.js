@@ -10,24 +10,28 @@ import { commonEventManager } from '../../shared/eventManager';
 import { openSiteURL } from '../../shared/utils';
 import { fetcher } from '../../shared/fetcher';
 
-export default class GroupFormRemove {
+export default class TeacherFormRemove {
     _el = {};
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, group, parallelList } = settings;
+        const { langId, teacher, roleStateList, groupList, groupListForTeacher } = settings;
 
         this._prop = {
             langId,
-            groupId: group.id,
-            parallelList,
+            teacherId: teacher.id,
+            roleStateList,
+            groupList,
+            groupListForTeacher,
         };
 
         this._state = {};
 
-        this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_GROUP_NAME')} value={group.name} disabled={true} />;
-        this._atm.parallelSelect = (
-            <Select className="col-12" label={i18n(langId, 'TTL_PARALLEL_NAME')} value={group.parallelId} optionData={parallelList} disabled={true} />
+        this._atm.firstNameInput = <Input className="col-12" label={i18n(langId, 'TTL_FIRST_NAME')} value={teacher.firstName} disabled={true} />;
+        this._atm.lastNameInput = <Input className="col-12" label={i18n(langId, 'TTL_LAST_NAME')} value={teacher.lastName} disabled={true} />;
+        this._atm.middleNameInput = <Input className="col-12" label={i18n(langId, 'TTL_MIDDLE_NAME')} value={teacher.middleName} disabled={true} />;
+        this._atm.roleStateSelect = (
+            <Select className="col-12" label={i18n(langId, 'TTL_STATE')} value={teacher.roleStateId} optionData={roleStateList} disabled={true} />
         );
 
         this._stateRemoveButton = {};
@@ -45,20 +49,20 @@ export default class GroupFormRemove {
     _onRemoveButtonClick = () => {
         commonEventManager.dispatch('hideMessage');
 
-        const { groupId } = this._prop;
+        const { teacherId } = this._prop;
 
-        this._callRemoveGroup({ id: groupId });
+        this._callRemoveTeacher({ id: teacherId });
     };
 
     _onCancelButtonClick = () => {
         history.back();
     };
 
-    _beforeCallRemoveGroup = () => {
+    _beforeCallRemoveTeacher = () => {
         this._updateStateRemoveButton({ disabled: true, isLoading: true, title: 'TTL_TO_REMOVE_IN_PROGRESS' });
     };
 
-    _afterCallRemoveGroup = (payload) => {
+    _afterCallRemoveTeacher = (payload) => {
         this._updateStateRemoveButton({
             disabled: false,
             title: 'TTL_TO_REMOVE',
@@ -66,19 +70,19 @@ export default class GroupFormRemove {
         });
     };
 
-    _callRemoveGroup = async (payload) => {
-        this._beforeCallRemoveGroup();
+    _callRemoveTeacher = async (payload) => {
+        this._beforeCallRemoveTeacher();
         try {
-            const resp = await fetcher('removeGroup', payload);
+            const resp = await fetcher('removeTeacher', payload);
 
             if (resp.status === 'ok') {
-                openSiteURL('group-list.php');
+                openSiteURL('teacher-list.php');
             }
 
-            this._afterCallRemoveGroup({ status: resp.status, data: resp.data });
+            this._afterCallRemoveTeacher({ status: resp.status, data: resp.data });
         } catch (e) {
             debugger;
-            this._afterCallRemoveGroup({ status: 'error' });
+            this._afterCallRemoveTeacher({ status: 'error' });
         }
     };
 
@@ -116,8 +120,10 @@ export default class GroupFormRemove {
         return (
             <form className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
-                    {this._atm.nameInput}
-                    {this._atm.parallelSelect}
+                    {this._atm.firstNameInput}
+                    {this._atm.lastNameInput}
+                    {this._atm.middleNameInput}
+                    {this._atm.roleStateSelect}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.removeButton}

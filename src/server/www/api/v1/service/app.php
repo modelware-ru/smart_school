@@ -58,3 +58,10 @@ function app_save_teacher($args)
 
     return $res;
 }
+
+function app_remove_teacher($args)
+{
+    list($res, $data) = (new DomainMain())->removeTeacher($args);
+
+    return $res;
+}

@@ -27,9 +27,11 @@ export default class TeacherFormRemove {
 
         this._state = {};
 
+        this._atm.loginInput = <Input className="col-12" label={i18n(langId, 'TTL_LOGIN')} value={teacher.login} disabled={true} />;
         this._atm.firstNameInput = <Input className="col-12" label={i18n(langId, 'TTL_FIRST_NAME')} value={teacher.firstName} disabled={true} />;
         this._atm.lastNameInput = <Input className="col-12" label={i18n(langId, 'TTL_LAST_NAME')} value={teacher.lastName} disabled={true} />;
         this._atm.middleNameInput = <Input className="col-12" label={i18n(langId, 'TTL_MIDDLE_NAME')} value={teacher.middleName} disabled={true} />;
+        this._atm.emailInput = <Input className="col-12" label={i18n(langId, 'TTL_EMAIL')} value={teacher.email} disabled={true} />;
         this._atm.roleStateSelect = (
             <Select className="col-12" label={i18n(langId, 'TTL_STATE')} value={teacher.roleStateId} optionData={roleStateList} disabled={true} />
         );
@@ -120,9 +122,11 @@ export default class TeacherFormRemove {
         return (
             <form className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
+                    {this._atm.loginInput}
                     {this._atm.firstNameInput}
                     {this._atm.lastNameInput}
                     {this._atm.middleNameInput}
+                    {this._atm.emailInput}
                     {this._atm.roleStateSelect}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">

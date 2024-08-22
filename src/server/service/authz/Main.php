@@ -145,4 +145,35 @@ class Main
             'accountId' => $accountId,
         ];
     }
+
+    public static function RemoveAccount($args)
+    {
+        $localLog = Logger::Log()->withName('Service::Authz::RemoveAccount');
+        $localLog->info('parameters:', $args);
+
+        $accountId = $args['accountId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+            // TODO: Подмена значений для тестов
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+
+        $resDb = $manager->removeAccountRole($accountId);
+        $resDb = $manager->removeAccountGroup($accountId);
+        $resDb = $manager->removeAccount($accountId);
+        if ($resDb !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_UNKNOWN,
+                logData: ["Ошибка при удалении записи в таблице account ({$accountId})"],
+            );
+        }
+
+        return;
+    }
 }

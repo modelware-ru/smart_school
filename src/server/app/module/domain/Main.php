@@ -2,6 +2,7 @@
 
 namespace MW\Module\Domain;
 
+use MW\App\Setting;
 use MW\Shared\Logger;
 use MW\Shared\MWI18nHelper;
 use MW\Shared\Util;
@@ -708,14 +709,20 @@ class Main
         // check. finish
 
         try {
-            $res = AuthzService::CreateAccount([
-                'roleId' => AuthzConstant::ROLE_TEACHER_ID,
-                'roleStateId' => $roleStateId,
-            ]);
-            $accountId = intval($res['accountId']);
+
+            if (!empty($password)) {
+                $secret = Setting::Get('app.account.passSecret');
+                $password = Util::GenerateHash($password, "{$secret}");
+            }
 
             $manager = new Manager();
             if ($id === 0) {
+                $res = AuthzService::CreateAccount([
+                    'roleId' => AuthzConstant::ROLE_TEACHER_ID,
+                    'roleStateId' => $roleStateId,
+                ]);
+                $accountId = intval($res['accountId']);
+                
                 $resDb = $manager->createTeacher($accountId, $firstName, $lastName, $middleName, $login, $password, $email);
             } else {
                 $resDb = $manager->updateTeacher($id, $firstName, $lastName, $middleName, $login, $password, $email);
@@ -754,42 +761,54 @@ class Main
         return [Util::MakeSuccessOperationResult(), []];
     }
 
-    // public function removeGroup($args)
-    // {
-    //     $localLog = Logger::Log()->withName('Module::Account::removeGroup');
-    //     $localLog->info('parameters:', Util::MaskData($args));
+    public function removeTeacher($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::removeTeacher');
+        $localLog->info('parameters:', Util::MaskData($args));
 
-    //     $permissionOptions = $args['permissionOptions'];
-    //     $id = $args['id'];
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
 
-    //     // test. start
-    //     if (defined('PHPUNIT')) {
-    //     }
-    //     // test. finish
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
 
-    //     // check. start
-    //     // check. finish
+        // check. start
+        // check. finish
 
-    //     try {
-    //         $manager = new Manager();
-    //         $resDb = $manager->removeGroup($id);
-    //     } catch (MWException $e) {
-    //         $msg = $e->logData();
-    //         $localLog->error('error:', $msg);
-    //         preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
-    //         $errorList = [];
-    //         if (!empty($matches)) {
-    //             $errorList['_msg_'] = [
-    //                 'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
-    //                 'args' => ['данные используются'],
-    //             ];
-    //         }
-    //         if (count($errorList) > 0) {
-    //             return [Util::MakeFailOperationResult($errorList), []];
-    //         }
-    //         throw $e;
-    //     }
+        try {
+            $manager = new Manager();
 
-    //     return [Util::MakeSuccessOperationResult(), []];
-    // }
+            $resDb = $manager->getTeacherById($id);
+            if (count($resDb) !== 1) {
+                MWException::ThrowEx(
+                    errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                    logData: ['', "Преподавателя с id = {$id} не существует"],
+                );
+            }
+            $accountId = $resDb[0]['account_id'];
+
+            $resDb = $manager->removeTeacher($id);
+
+            AuthzService::RemoveAccount(['accountId' => $accountId]);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('error:', $msg);
+            preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+            $errorList = [];
+            if (!empty($matches)) {
+                $errorList['_msg_'] = [
+                    'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+                    'args' => ['данные используются'],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
 }

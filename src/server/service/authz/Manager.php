@@ -145,4 +145,23 @@ SQL;
 
         return $this->_db->select($stmt, ['accountId' => $accountId]);
     }
+
+    public function removeAccountRole($accountId)
+    {
+        $stmt = 'DELETE FROM authz__account_role WHERE account_id = :id';
+        return $this->_db->delete($stmt, ['id' => $accountId]);
+    }
+
+    public function removeAccountGroup($accountId)
+    {
+        $stmt = 'DELETE FROM authz__account_group WHERE account_id = :id';
+        return $this->_db->delete($stmt, ['id' => $accountId]);
+    }
+
+    public function removeAccount($accountId)
+    {
+        $stmt = 'DELETE FROM authz__account WHERE id = :id';
+        return $this->_db->delete($stmt, ['id' => $accountId]);
+    }
+
 }

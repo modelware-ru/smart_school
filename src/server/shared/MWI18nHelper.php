@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-21 18:48:38]
+// GENERATED [2024-08-21 21:34:09]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -15,6 +15,8 @@ class MWI18nHelper
     const PAGE_TITLE_TEACHER = 'PAGE_TITLE_TEACHER';
     const PAGE_TITLE_TEACHER_LIST = 'PAGE_TITLE_TEACHER_LIST';
     const PAGE_TITLE_TEACHER_INDEX = 'PAGE_TITLE_TEACHER_INDEX';
+    const PAGE_TITLE_SUBJECT = 'PAGE_TITLE_SUBJECT';
+    const PAGE_TITLE_SUBJECT_LIST = 'PAGE_TITLE_SUBJECT_LIST';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
@@ -188,6 +190,26 @@ class MWI18nHelper
                 'en' =>
                     function (...$args) {
                         return sprintf('Menu', ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_SUBJECT => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf('Предмет', ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf('Subject', ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_SUBJECT_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf('Список предметов', ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf('Subject List', ...$args);
                     },
                 ],
         ];

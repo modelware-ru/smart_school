@@ -207,7 +207,7 @@ SQL;
     {
         $teacherRole = AuthzConstant::ROLE_TEACHER_ID;
         $stmt = <<<SQL
-SELECT mu.id teacher_id, mu.first_name, mu.last_name, mu.middle_name, mu.login, mu.email, aar.role_state_id
+SELECT mu.id teacher_id, mu.first_name, mu.last_name, mu.middle_name, mu.login, mu.email, aar.role_state_id, mu.account_id
 FROM main__user mu
 JOIN authz__account_role aar ON aar.account_id = mu.account_id AND aar.role_id = {$teacherRole}
 WHERE mu.id = :teacherId
@@ -296,4 +296,13 @@ INSERT INTO main__user_group (group_id, user_id) VALUES (:groupId, :userId);
 SQL;
         return $this->_db->insert($stmt, $groupList, ['userId' => $teacherId]);
     }
+
+    public function removeTeacher($id)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__user WHERE id = :id
+SQL;
+        return $this->_db->delete($stmt, ['id' => $id]);
+    }
+
 }

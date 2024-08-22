@@ -134,6 +134,13 @@ try {
             $res = app_save_teacher($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_REMOVE_TEACHER:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_teacher($args);
+
+            break;
     }
 
     DBManager::Commit();

@@ -10,6 +10,8 @@ INSERT INTO main__api (id, code_name) VALUES (9, 'blockTeacher');
 INSERT INTO main__api (id, code_name) VALUES (10, 'removeTeacher');
 INSERT INTO main__api (id, code_name) VALUES (11, 'saveSubject');
 INSERT INTO main__api (id, code_name) VALUES (12, 'removeSubject');
+INSERT INTO main__api (id, code_name) VALUES (13, 'saveStudent');
+INSERT INTO main__api (id, code_name) VALUES (14, 'removeStudent');
 
 INSERT INTO main__page (id, code_name, name) VALUES (1, 'guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (id, code_name, name) VALUES (2, 'recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -24,6 +26,8 @@ INSERT INTO main__page (id, code_name, name) VALUES (10, 'teacherList', '{"title
 INSERT INTO main__page (id, code_name, name) VALUES (11, 'teacherIndex', '{"title":{"ru": "Меню", "en": "Menu"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (12, 'subject', '{"title":{"ru": "Предмет", "en": "Subject"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (13, 'subjectList', '{"title":{"ru": "Список предметов", "en": "Subject List"}}');
+INSERT INTO main__page (id, code_name, name) VALUES (14, 'student', '{"title":{"ru": "Ученик", "en": "Student"}}');
+INSERT INTO main__page (id, code_name, name) VALUES (15, 'studentList', '{"title":{"ru": "Список учеников", "en": "Student List"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');

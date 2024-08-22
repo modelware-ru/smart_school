@@ -6,6 +6,16 @@ use MW\Shared\Constant;
 // plain -> ${args[0]}
 // html -> {args[0]}
 $i18n_TTL = [
+    'EMAIL' => [
+        '_type' => 'plain',
+        'ru' => 'Email',
+        'en' => 'Email',
+    ],
+    'FIRST_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Имя',
+        'en' => 'First name',
+    ],
     'GROUP_NAME' => [
         '_type' => 'plain',
         'ru' => 'Название группы',
@@ -21,10 +31,20 @@ $i18n_TTL = [
         'ru' => 'Преподаватели группы',
         'en' => 'Group teachers',
     ],
+    'LAST_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Фамилия',
+        'en' => 'Last name',
+    ],
     'LOGIN' => [
         '_type' => 'plain',
         'ru' => 'Логин',
         'en' => 'Login',
+    ],
+    'MIDDLE_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Отчество',
+        'en' => 'Middle name',
     ],
     'PARALLEL_NUMBER' => [
         '_type' => 'plain',
@@ -46,6 +66,11 @@ $i18n_TTL = [
         'ru' => 'Пароль',
         'en' => 'Password',
     ],
+    'PASSWORD_HELP' => [
+        '_type' => 'plain',
+        'ru' => 'Для изменения пароля введите новый пароль. Если пароль изменять не требуется - оставьте поле пустым.',
+        'en' => 'Password',
+    ],
     'RECOVERY_PASSWORD' => [
         '_type' => 'plain',
         'ru' => 'Восстановление пароля',
@@ -60,6 +85,21 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Вход',
         'en' => 'Sign In',
+    ],
+    'STATE' => [
+        '_type' => 'plain',
+        'ru' => 'Состояние',
+        'en' => 'State',
+    ],
+    'SUBJECT_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название предмета',
+        'en' => 'Subject name',
+    ],
+    'TEACHER_GROUPS' => [
+        '_type' => 'plain',
+        'ru' => 'Группы преподавателя',
+        'en' => 'Teacher groups',
     ],
     'TO_CANCEL' => [
         '_type' => 'plain',
@@ -133,6 +173,12 @@ $i18n_MSG = [
         'ru' => 'Поле содержит слишком короткое значение',
         'en' => 'The field is too short',
         'log' => 'Поле содержит слишком короткое значение: %d меньше чем %d',
+    ],
+    'FIELD_VALUE_IS_NOT_VALID' => [
+        '_type' => 'plain',
+        'ru' => 'Недопустимое значение поля',
+        'en' => 'The field value is not valid',
+        'log' => 'Для поля (%s) недопустимое значение (%s)',
     ],
     'FIELD_WITH_DUPLICATED_VALUE' => [
         '_type' => 'plain',

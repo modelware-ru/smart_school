@@ -359,4 +359,71 @@ DELETE FROM main__subject WHERE id = :id
 SQL;
         return $this->_db->delete($stmt, ['id' => $subjectId]);
     }
+
+    public function getStudentList()
+    {
+        $stmt = <<<SQL
+SELECT ms.id student_id, ms.first_name, ms.last_name, ms.middle_name,
+(SELECT COUNT(msch.id) FROM main__student_class_Hist msch WHERE msch.student_id = ms.id) msch_count,
+(SELECT COUNT(msgh.id) FROM main__student_group_Hist msgh WHERE msgh.student_id = ms.id) msgh_count,
+(SELECT COUNT(msl.id) FROM main__student_lesson msl WHERE msl.student_id = ms.id) msl_count,
+(SELECT COUNT(mss.id) FROM main__student_serie mss WHERE mss.student_id = ms.id) mss_count,
+(SELECT COUNT(msst.id) FROM main__student_serieTask msst WHERE msst.student_id = ms.id) msst_count
+FROM main__student ms
+ORDER BY ms.last_name, ms.first_name, ms.middle_name
+SQL;
+        return $this->_db->select($stmt);
+    }
+
+    public function getStudentById($studentId)
+    {
+        $stmt = <<<SQL
+SELECT ms.id student_id, ms.first_name, ms.last_name, ms.middle_name
+FROM main__student ms
+WHERE ms.id = :studentId 
+SQL;
+        return $this->_db->select($stmt, ['studentId' => $studentId]);
+    }
+
+    public function createStudent($firstName, $lastName, $middleName)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__student (first_name, last_name, middle_name)
+VALUES (:firstName, :lastName, :middleName)
+SQL;
+        return $this->_db->insert($stmt, [
+            0 => [
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'middleName' => $middleName,
+            ],
+        ]);
+    }
+
+    public function updateStudent($studentId, $firstName, $lastName, $middleName)
+    {
+        $stmt = <<<SQL
+UPDATE main__student SET 
+first_name = :firstName,
+last_name = :lastName,
+middle_name = :middleName
+WHERE id = :id
+SQL;
+        return $this->_db->update($stmt, [
+            0 => [
+                'id' => $studentId,
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'middleName' => $middleName,
+            ]
+        ]);
+    }
+
+    public function removeStudent($studentId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__student WHERE id = :id
+SQL;
+        return $this->_db->delete($stmt, ['id' => $studentId]);
+    }
 }

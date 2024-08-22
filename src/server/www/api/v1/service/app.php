@@ -79,3 +79,17 @@ function app_remove_subject($args)
 
     return $res;
 }
+
+function app_save_student($args)
+{
+    list($res, $data) = (new DomainMain())->saveStudent($args);
+
+    return $res;
+}
+
+function app_remove_student($args)
+{
+    list($res, $data) = (new DomainMain())->removeStudent($args);
+
+    return $res;
+}

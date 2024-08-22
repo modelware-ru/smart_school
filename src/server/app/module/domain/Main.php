@@ -619,7 +619,7 @@ class Main
             : (new ValueChecker($password))->check();
         $firstNameCheck = (new ValueChecker($firstName))->notEmpty()->lengthLessOrEqual(self::FIRST_NAME_MAX_LENGTH)->check();
         $lastNameCheck = (new ValueChecker($lastName))->notEmpty()->lengthLessOrEqual(self::LAST_NAME_MAX_LENGTH)->check();
-        $middleNameCheck = (new ValueChecker($middleName))->notEmpty()->lengthLessOrEqual(self::MIDDLE_NAME_MAX_LENGTH)->check();
+        $middleNameCheck = (new ValueChecker($middleName))->lengthLessOrEqual(self::MIDDLE_NAME_MAX_LENGTH)->check();
 
         $errorList = [];
         if ($loginCheck === ValueChecker::IS_EMPTY) {
@@ -892,7 +892,7 @@ class Main
 
         // check. start
         $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::SUBJECT_NAME_MAX_LENGTH)->check();
-     
+
         $errorList = [];
         if ($nameCheck === ValueChecker::IS_EMPTY) {
             $errorList['name'] = [
@@ -918,7 +918,6 @@ class Main
             } else {
                 $resDb = $manager->updateSubject($id, $name);
             }
-
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
@@ -977,4 +976,183 @@ class Main
         return [Util::MakeSuccessOperationResult(), []];
     }
 
+    public function getStudentList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getStudentList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getStudentList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['student_id'],
+                'firstName' => $item['first_name'],
+                'lastName' => $item['last_name'],
+                'middleName' => $item['middle_name'],
+                'canBeRemoved' => ($item['msch_count'] + $item['msgh_count'] + $item['msl_count'] + $item['mss_count'] + $item['msst_count']) === 0,
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getStudentById($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getStudentById');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $studentId = $args['studentId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getStudentById($studentId);
+
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Ученика с id = {$studentId} не существует"],
+            );
+        }
+
+        $res =  [
+            'id' => $resDb[0]['student_id'],
+            'firstName' => $resDb[0]['first_name'],
+            'lastName' => $resDb[0]['last_name'],
+            'middleName' => $resDb[0]['middle_name'],
+        ];
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function saveStudent($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::saveStudent');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+        $firstName = $args['firstName'];
+        $lastName = $args['lastName'];
+        $middleName = $args['middleName'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        $firstNameCheck = (new ValueChecker($firstName))->notEmpty()->lengthLessOrEqual(self::FIRST_NAME_MAX_LENGTH)->check();
+        $lastNameCheck = (new ValueChecker($lastName))->notEmpty()->lengthLessOrEqual(self::LAST_NAME_MAX_LENGTH)->check();
+        $middleNameCheck = (new ValueChecker($middleName))->lengthLessOrEqual(self::MIDDLE_NAME_MAX_LENGTH)->check();
+
+        $errorList = [];
+        if ($firstNameCheck === ValueChecker::IS_EMPTY) {
+            $errorList['firstName'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($firstNameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['firstName'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($firstName), self::FIRST_NAME_MAX_LENGTH],
+            ];
+        }
+
+        if ($lastNameCheck === ValueChecker::IS_EMPTY) {
+            $errorList['lastName'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($lastNameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['lastName'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($lastName), self::LAST_NAME_MAX_LENGTH],
+            ];
+        }
+
+        if ($middleNameCheck === ValueChecker::IS_EMPTY) {
+            $errorList['middleName'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($middleNameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['middleName'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($middleName), self::MIDDLE_NAME_MAX_LENGTH],
+            ];
+        }
+
+        if (count($errorList) > 0) {
+            return [Util::MakeFailOperationResult($errorList), []];
+        }
+        // check. finish
+
+        $manager = new Manager();
+        if ($id === 0) {
+            $resDb = $manager->createStudent($firstName, $lastName, $middleName);
+        } else {
+            $resDb = $manager->updateStudent($id, $firstName, $lastName, $middleName);
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function removeStudent($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::removeStudent');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        try {
+            $manager = new Manager();
+
+            $resDb = $manager->removeStudent($id);
+
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('error:', $msg);
+            preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+            $errorList = [];
+            if (!empty($matches)) {
+                $errorList['_msg_'] = [
+                    'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+                    'args' => ['данные используются'],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
 }

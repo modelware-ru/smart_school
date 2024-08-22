@@ -57,7 +57,7 @@ export default class TeacherListTable {
                             {
                                 value: item['name'],
                             },
-                            {},
+                            // {},
                             {
                                 className: 'p-1',
                                 value: blockBtnParent,
@@ -184,7 +184,7 @@ export default class TeacherListTable {
                             #
                         </th>
                         <th scope="col">ФИО</th>
-                        <th scope="col">Группы</th>
+                        {/* <th scope="col">Группы</th> */}
                         <th scope="col" className="fit">
                             Действия
                         </th>

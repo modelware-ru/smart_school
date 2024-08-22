@@ -8,6 +8,8 @@ INSERT INTO main__api (id, code_name) VALUES (7, 'removeParallel');
 INSERT INTO main__api (id, code_name) VALUES (8, 'removeGroup');
 INSERT INTO main__api (id, code_name) VALUES (9, 'blockTeacher');
 INSERT INTO main__api (id, code_name) VALUES (10, 'removeTeacher');
+INSERT INTO main__api (id, code_name) VALUES (11, 'saveSubject');
+INSERT INTO main__api (id, code_name) VALUES (12, 'removeSubject');
 
 INSERT INTO main__page (id, code_name, name) VALUES (1, 'guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (id, code_name, name) VALUES (2, 'recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');

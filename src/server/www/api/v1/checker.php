@@ -78,6 +78,19 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeTeacher FINISH
+        // saveSubject START
+        AuthzConstant::RESOURCE_API_SAVE_SUBJECT => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+        ],
+        // saveSubject FINISH
+        // removeSubject START
+        AuthzConstant::RESOURCE_API_REMOVE_SUBJECT => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeSubject FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

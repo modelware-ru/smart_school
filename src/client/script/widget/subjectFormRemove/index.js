@@ -10,25 +10,21 @@ import { commonEventManager } from '../../shared/eventManager';
 import { openSiteURL } from '../../shared/utils';
 import { fetcher } from '../../shared/fetcher';
 
-export default class ParallelFormRemove {
+export default class SubjectFormRemove {
     _el = {};
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, parallel } = settings;
+        const { langId, subject } = settings;
 
         this._prop = {
             langId,
-            parallelId: parallel.id,
+            subjectId: subject.id,
         };
 
         this._state = {};
 
-        this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_PARALLEL_NAME')} value={parallel.name} disabled={true} />;
-        this._atm.numberInput = <Input className="col-12" label={i18n(langId, 'TTL_PARALLEL_NUMBER')} value={parallel.number} disabled={true} />;
-        this._atm.showInGroupCheckbox = (
-            <Checkbox className="col-12" label={i18n(langId, 'TTL_PARALLEL_SHOW_IN_GROUP')} checked={parallel.showInGroup} disabled={true} />
-        );
+        this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_SUBJECT_NAME')} value={subject.name} disabled={true} />;
 
         this._stateRemoveButton = {};
         this._atm.removeButton = <Button className="btn btn-danger" onClick={this._onRemoveButtonClick} />;
@@ -45,20 +41,20 @@ export default class ParallelFormRemove {
     _onRemoveButtonClick = () => {
         commonEventManager.dispatch('hideMessage');
 
-        const { parallelId } = this._prop;
+        const { subjectId } = this._prop;
 
-        this._callRemoveParallel({ id: parallelId });
+        this._callRemoveSubject({ id: subjectId });
     };
 
     _onCancelButtonClick = () => {
         history.back();
     };
 
-    _beforeCallRemoveParallel = () => {
+    _beforeCallRemoveSubject = () => {
         this._updateStateRemoveButton({ disabled: true, isLoading: true, title: 'TTL_TO_REMOVE_IN_PROGRESS' });
     };
 
-    _afterCallRemoveParallel = (payload) => {
+    _afterCallRemoveSubject = (payload) => {
         this._updateStateRemoveButton({
             disabled: false,
             title: 'TTL_TO_REMOVE',
@@ -66,19 +62,19 @@ export default class ParallelFormRemove {
         });
     };
 
-    _callRemoveParallel = async (payload) => {
-        this._beforeCallRemoveParallel();
+    _callRemoveSubject = async (payload) => {
+        this._beforeCallRemoveSubject();
         try {
-            const resp = await fetcher('removeParallel', payload);
+            const resp = await fetcher('removeSubject', payload);
 
             if (resp.status === 'ok') {
-                openSiteURL('parallel-list.php');
+                openSiteURL('subject-list.php');
             }
 
-            this._afterCallRemoveParallel({ status: resp.status, data: resp.data });
+            this._afterCallRemoveSubject({ status: resp.status, data: resp.data });
         } catch (e) {
             debugger;
-            this._afterCallRemoveParallel({ status: 'error' });
+            this._afterCallRemoveSubject({ status: 'error' });
         }
     };
 
@@ -117,8 +113,6 @@ export default class ParallelFormRemove {
             <form className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 py-3">
                     {this._atm.nameInput}
-                    {this._atm.numberInput}
-                    {this._atm.showInGroupCheckbox}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.removeButton}

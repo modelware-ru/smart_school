@@ -50,7 +50,7 @@ SQL;
         ]);
     }
 
-    public function updateParallel($id, $name, $number, $showInGroup)
+    public function updateParallel($parallelId, $name, $number, $showInGroup)
     {
         $stmt = <<<SQL
 UPDATE main__parallel SET name = :name, number = :number, show_in_group = :showInGroup 
@@ -58,7 +58,7 @@ WHERE id = :id
 SQL;
         return $this->_db->update($stmt, [
             0 => [
-                'id' => $id,
+                'id' => $parallelId,
                 'name' => $name,
                 'number' => $number,
                 'showInGroup' => $showInGroup,
@@ -66,12 +66,12 @@ SQL;
         ]);
     }
 
-    public function removeParallel($id)
+    public function removeParallel($parallelId)
     {
         $stmt = <<<SQL
 DELETE FROM main__parallel WHERE id = :id
 SQL;
-        return $this->_db->delete($stmt, ['id' => $id]);
+        return $this->_db->delete($stmt, ['id' => $parallelId]);
     }
 
     public function getGroupList()
@@ -111,7 +111,7 @@ SQL;
         ]);
     }
 
-    public function updateGroup($id, $name, $parallelId)
+    public function updateGroup($groupId, $name, $parallelId)
     {
         $stmt = <<<SQL
 UPDATE main__group SET name = :name, parallel_id = :parallelId
@@ -119,19 +119,19 @@ WHERE id = :id
 SQL;
         return $this->_db->update($stmt, [
             0 => [
-                'id' => $id,
+                'id' => $groupId,
                 'name' => $name,
                 'parallelId' => $parallelId,
             ]
         ]);
     }
 
-    public function removeGroup($id)
+    public function removeGroup($groupId)
     {
         $stmt = <<<SQL
 DELETE FROM main__group WHERE id = :id
 SQL;
-        return $this->_db->delete($stmt, ['id' => $id]);
+        return $this->_db->delete($stmt, ['id' => $groupId]);
     }
 
     public function getActiveTeacherList()
@@ -190,12 +190,12 @@ SQL;
     }
 
 
-    public function blockTeacher($id, $roleStateId)
+    public function blockTeacher($teacherId, $roleStateId)
     {
         $teacherRole = AuthzConstant::ROLE_TEACHER_ID;
         $stmt = <<<SQL
 SELECT aar.account_id FROM authz__account_role aar 
-WHERE aar.account_id = (SELECT mu.account_id FROM main__user mu WHERE mu.id = {$id})
+WHERE aar.account_id = (SELECT mu.account_id FROM main__user mu WHERE mu.id = {$teacherId})
 AND aar.role_id  = {$teacherRole} INTO @accountId;
 
 UPDATE authz__account_role SET role_state_id = {$roleStateId} WHERE account_id = @accountId AND role_id  = {$teacherRole};
@@ -248,7 +248,7 @@ SQL;
         ]);
     }
 
-    public function updateTeacher($id, $firstName, $lastName, $middleName, $login, $password, $email)
+    public function updateTeacher($teacherId, $firstName, $lastName, $middleName, $login, $password, $email)
     {
         $passwordLine = '';
         if (!empty($password)) {
@@ -265,7 +265,7 @@ email = :email
 WHERE id = :id
 SQL;
         $vars = [
-            'id' => $id,
+            'id' => $teacherId,
             'firstName' => $firstName,
             'lastName' => $lastName,
             'middleName' => $middleName,
@@ -297,12 +297,66 @@ SQL;
         return $this->_db->insert($stmt, $groupList, ['userId' => $teacherId]);
     }
 
-    public function removeTeacher($id)
+    public function removeTeacher($teacherId)
     {
         $stmt = <<<SQL
 DELETE FROM main__user WHERE id = :id
 SQL;
-        return $this->_db->delete($stmt, ['id' => $id]);
+        return $this->_db->delete($stmt, ['id' => $teacherId]);
     }
 
+    public function getSubjectList()
+    {
+        $stmt = <<<SQL
+SELECT ms.id, ms.name,
+(SELECT COUNT(ml.id) FROM main__lesson ml WHERE ml.subject_id = ms.id) ml_count
+FROM main__subject ms
+SQL;
+        return $this->_db->select($stmt);
+    }
+
+    public function getSubjectById($subjectId)
+    {
+        $stmt = <<<SQL
+SELECT ms.id, ms.name
+FROM main__subject ms
+WHERE ms.id = :subjectId 
+SQL;
+        return $this->_db->select($stmt, ['subjectId' => $subjectId]);
+    }
+
+    public function createSubject($name)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__subject (name)
+VALUES (:name)
+SQL;
+        return $this->_db->insert($stmt, [
+            0 => [
+                'name' => $name,
+            ],
+        ]);
+    }
+
+    public function updateSubject($subjectId, $name)
+    {
+        $stmt = <<<SQL
+UPDATE main__subject SET name = :name
+WHERE id = :id
+SQL;
+        return $this->_db->update($stmt, [
+            0 => [
+                'id' => $subjectId,
+                'name' => $name,
+            ]
+        ]);
+    }
+
+    public function removeSubject($subjectId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__subject WHERE id = :id
+SQL;
+        return $this->_db->delete($stmt, ['id' => $subjectId]);
+    }
 }

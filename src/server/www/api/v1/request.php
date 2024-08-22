@@ -141,6 +141,21 @@ try {
             $res = app_remove_teacher($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_SAVE_SUBJECT:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_subject($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_SUBJECT:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_subject($args);
+
+            break;
     }
 
     DBManager::Commit();

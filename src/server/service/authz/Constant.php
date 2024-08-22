@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-21 21:44:17]
+// GENERATED [2024-08-22 14:05:14]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -48,6 +48,8 @@ class Constant {
     const RESOURCE_API_REMOVE_GROUP = 'removeGroup'; 
     const RESOURCE_API_BLOCK_TEACHER = 'blockTeacher'; 
     const RESOURCE_API_REMOVE_TEACHER = 'removeTeacher'; 
+    const RESOURCE_API_SAVE_SUBJECT = 'saveSubject'; 
+    const RESOURCE_API_REMOVE_SUBJECT = 'removeSubject'; 
     // PAGE
     const RESOURCE_PAGE_GUEST_INDEX = 'guestIndex'; 
     const RESOURCE_PAGE_RECOVERY_PASSWORD = 'recoveryPassword'; 

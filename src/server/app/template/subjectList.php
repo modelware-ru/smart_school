@@ -12,7 +12,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getGroupList($args);
+list($res, $data) = (new DomainModule())->getSubjectList($args);
 
 ?>
 <!DOCTYPE html>
@@ -32,12 +32,12 @@ list($res, $data) = (new DomainModule())->getGroupList($args);
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Список групп</li>
+                    <li class="breadcrumb-item active" aria-current="page">Список предметов</li>
                 </ol>
             </nav>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="group.php?id=0" class="btn btn-success">
+            <a href="subject.php?id=0" class="btn btn-success">
                 <i class="bi bi-plus-circle me-3"></i>
                 <span role="status">Добавить</span>
             </a>
@@ -51,8 +51,7 @@ list($res, $data) = (new DomainModule())->getGroupList($args);
                 <thead>
                     <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
-                        <th scope="col">Название группы</th>
-                        <th scope="col">Параллель группы</th>
+                        <th scope="col">Название предмета</th>
                         <th scope="col" class="fit">Действия</th>
                     </tr>
                 </thead>
@@ -63,7 +62,6 @@ list($res, $data) = (new DomainModule())->getGroupList($args);
                         <tr class="align-middle" data-id="<?= $item['id'] ?>">
                             <th scope="row" class="text-end text-nowrap"><?= $key + 1 ?></th>
                             <td><?= $item['name'] ?></td>
-                            <td><?= $item['parallelName'] ?></td>
                             <td class="p-1">
                                 <?php if ($item['canBeRemoved']) { ?>
                                     <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
@@ -78,7 +76,7 @@ list($res, $data) = (new DomainModule())->getGroupList($args);
                 ?>
                     <div class="alert alert-info rounded-0 my-3" role="alert">
                         <div>
-                            <p class="m-0">Не найдена ни одна группа.</p>
+                            <p class="m-0">Не найден ни один предмет.</p>
                         </div>
                     </div>
                 <?php
@@ -91,14 +89,14 @@ list($res, $data) = (new DomainModule())->getGroupList($args);
             for (const item of document.querySelectorAll('button[data-action="remove"]')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`group.php?id=${item.dataset.id}&action=remove`);
+                    window.location.assign(`subject.php?id=${item.dataset.id}&action=remove`);
                 });
             }
 
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`group.php?id=${item.dataset.id}`);
+                    window.location.assign(`subject.php?id=${item.dataset.id}`);
                 });
             }
         });

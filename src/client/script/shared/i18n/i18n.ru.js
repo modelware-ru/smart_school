@@ -1,4 +1,4 @@
-// GENERATED [2024-08-21 21:34:09]
+// GENERATED [2024-08-22 07:01:55]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -19,6 +19,7 @@ export default {
   TTL_SEARCH: (...args) => `Поиск`,
   TTL_SIGN_IN: (...args) => `Вход`,
   TTL_STATE: (...args) => `Состояние`,
+  TTL_SUBJECT_NAME: (...args) => `Название предмета`,
   TTL_TEACHER_GROUPS: (...args) => `Группы преподавателя`,
   TTL_TO_CANCEL: (...args) => `Отменить`,
   TTL_TO_REMOVE: (...args) => `Удалить`,

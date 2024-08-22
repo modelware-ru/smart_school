@@ -65,3 +65,17 @@ function app_remove_teacher($args)
 
     return $res;
 }
+
+function app_save_subject($args)
+{
+    list($res, $data) = (new DomainMain())->saveSubject($args);
+
+    return $res;
+}
+
+function app_remove_subject($args)
+{
+    list($res, $data) = (new DomainMain())->removeSubject($args);
+
+    return $res;
+}

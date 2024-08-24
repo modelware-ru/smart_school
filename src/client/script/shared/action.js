@@ -1,4 +1,4 @@
-// GENERATED [2024-08-24 10:02:09]
+// GENERATED [2024-08-24 14:50:12]
 export default {
     ACTION_API_CALL: 1, // Вызов метода
     ACTION_PAGE_SHOW: 2, // Показ страницы

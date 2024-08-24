@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-24 14:42:23]
+// GENERATED [2024-08-24 14:50:15]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -21,6 +21,7 @@ class MWI18nHelper
     const PAGE_TITLE_STUDENT_LIST = 'PAGE_TITLE_STUDENT_LIST';
     const PAGE_TITLE_STUDENT_LIST_CHANGE_CLASS = 'PAGE_TITLE_STUDENT_LIST_CHANGE_CLASS';
     const PAGE_TITLE_STUDENT_LIST_CHANGE_GROUP = 'PAGE_TITLE_STUDENT_LIST_CHANGE_GROUP';
+    const PAGE_TITLE_STUDENT_CLASS_GROUP_HISTORY = 'PAGE_TITLE_STUDENT_CLASS_GROUP_HISTORY';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
@@ -254,6 +255,16 @@ class MWI18nHelper
                 'en' =>
                     function (...$args) {
                         return sprintf("Change Group", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_STUDENT_CLASS_GROUP_HISTORY => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("История ученика", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Student History", ...$args);
                     },
                 ],
         ];

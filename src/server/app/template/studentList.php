@@ -24,6 +24,7 @@ $studentList = array_map(function ($item) {
         'groupParallelId' => $item['groupParallelId'],
         'groupParallelNumber' => $item['groupParallelNumber'],
         'canBeRemoved' => $item['canBeRemoved'],
+        'canBeShowHistory' => $item['canBeShowHistory'],
     ];
 }, $res->getData());
 

@@ -38,7 +38,7 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (1
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (114, 2, 'studentList');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (115, 2, 'studentListChangeClass');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (116, 2, 'studentListChangeGroup');
-
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (117, 2, 'studentClassGroupHistory');
 
 INSERT INTO authz__role (id, code_name, name, description) VALUES (1, 'Guest', 'Гость', '');
 INSERT INTO authz__role (id, code_name, name, description) VALUES (2, 'Admin', 'Администратор', '');
@@ -85,6 +85,7 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (114, 2, 'ALLOW', 1, '{}', 2); -- studentList
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (115, 2, 'ALLOW', 1, '{}', 2); -- studentListChangeClass
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (116, 2, 'ALLOW', 1, '{}', 2); -- studentListChangeGroup
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (117, 2, 'ALLOW', 1, '{}', 2); -- studentClassGroupHistory
 
 -- Преподаватель ---- Вызов метода
 

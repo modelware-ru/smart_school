@@ -549,4 +549,20 @@ SQL;
             ],
         );
     }
+
+    public function getStudentClassGroupHistory($studentId)
+    {
+        $stmt = <<<SQL
+SELECT msch.id class_history_id, 0 group_history_id, msch.start_date, msch.`order`, CONCAT(mp.number, msch.letter) class_name, '' group_name, reason FROM main__student_class_Hist msch 
+JOIN main__parallel mp ON mp.id = msch.parallel_id 
+WHERE msch.student_id = :studentId1
+UNION
+SELECT 0 class_history_id, msgh.id group_history_id, msgh.start_date, msgh.`order`, '' class_name, CONCAT('[', mp.`number`, '] ', mg.name) group_name, reason FROM main__student_group_Hist msgh 
+JOIN main__group mg ON mg.id = msgh.group_id 
+JOIN main__parallel mp ON mp.id = mg.parallel_id 
+WHERE msgh.student_id = :studentId2
+ORDER BY start_date
+SQL;
+        return $this->_db->select($stmt, ['studentId1' => $studentId, 'studentId2' => $studentId]);
+    }
 }

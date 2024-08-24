@@ -55,7 +55,7 @@ export default class StudentListTable {
                                 className: clsx('text-center position-relative', {
                                     'bg-danger-subtle': item['classParallelId'] !== item['groupParallelId'],
                                 }),
-                                value: (item['classParallelId'] && 
+                                value: item['classParallelId'] && (
                                     <div className="position-absolute w-100 h-100 top-0 end-0 p-2" role="button">
                                         <label className="d-flex justify-content-between w-100 h-100">
                                             <input type="checkbox" />
@@ -73,7 +73,7 @@ export default class StudentListTable {
                             {
                                 className: 'p-1',
                                 value: (
-                                    <div className="d-flex gap-2">
+                                    <div className="d-flex gap-5">
                                         {item['canBeRemoved'] && (
                                             <button
                                                 className="btn btn-outline-danger btn-sm"
@@ -83,6 +83,17 @@ export default class StudentListTable {
                                                 }}
                                             >
                                                 <i className="bi bi-trash"></i>
+                                            </button>
+                                        )}
+                                        {item['canBeShowHistory'] && (
+                                            <button
+                                                className="btn btn-outline-primary btn-sm"
+                                                onclick={(e) => {
+                                                    e.stopPropagation();
+                                                    this._onAction({ key, id: item['id'], action: 'showHistory' });
+                                                }}
+                                            >
+                                                <i className="bi bi-file-text"></i>
                                             </button>
                                         )}
                                     </div>
@@ -139,6 +150,10 @@ export default class StudentListTable {
 
         if (action === 'remove') {
             openSiteURL('student.php', { id, action: 'remove' });
+            return;
+        }
+        if (action === 'showHistory') {
+            openSiteURL('student-class-group-history.php', { id });
             return;
         }
     };

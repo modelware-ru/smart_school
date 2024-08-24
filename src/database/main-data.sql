@@ -32,6 +32,7 @@ INSERT INTO main__page (id, code_name, name) VALUES (14, 'student', '{"title":{"
 INSERT INTO main__page (id, code_name, name) VALUES (15, 'studentList', '{"title":{"ru": "Список учеников", "en": "Student List"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (16, 'studentListChangeClass', '{"title":{"ru": "Смена класса", "en": "Change Class"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (17, 'studentListChangeGroup', '{"title":{"ru": "Смена группы", "en": "Change Group"}}');
+INSERT INTO main__page (id, code_name, name) VALUES (18, 'studentClassGroupHistory', '{"title":{"ru": "История ученика", "en": "Student History"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');

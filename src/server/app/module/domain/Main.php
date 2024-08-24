@@ -1036,6 +1036,7 @@ class Main
                 'groupParallelId' => $item['group_parallel_id'],
                 'groupParallelNumber' => $item['group_parallel_number'],
                 'canBeRemoved' => ($item['msch_count'] + $item['msgh_count'] + $item['msl_count'] + $item['mss_count'] + $item['msst_count']) === 0,
+                'canBeShowHistory' => ($item['msch_count'] + $item['msgh_count']) > 0,
             ];
         }, $resDb);
 
@@ -1346,5 +1347,39 @@ class Main
         $resDb = $manager->addStudentGroupHistory($studentIdList, $startDate, $groupId, $reason);
 
         return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function getStudentClassGroupHistory($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getStudentClassGroupHistory');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $studentId = $args['studentId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getStudentClassGroupHistory($studentId);
+
+        $res = array_map(function ($item) {
+            return [
+                'classHistoryId' => $item['class_history_id'],
+                'groupHistoryId' => $item['group_history_id'],
+                'startDate' => substr($item['start_date'], 0, 10),
+                'order' => $item['order'],
+                'className' => $item['class_name'],
+                'groupName' => $item['group_name'],
+                'reason' => $item['reason'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
     }
 }

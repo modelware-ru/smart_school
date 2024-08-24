@@ -18,6 +18,11 @@ $studentList = array_map(function ($item) {
     return [
         'id' => $item['id'],
         'name' => "{$item['lastName']} {$item['firstName']} {$item['middleName']}",
+        'class' => "{$item['classNumber']} {$item['classLetter']}",
+        'classParallelId' => $item['classParallelId'],
+        'group' => $item['groupName'],
+        'groupParallelId' => $item['groupParallelId'],
+        'groupParallelNumber' => $item['groupParallelNumber'],
         'canBeRemoved' => $item['canBeRemoved'],
     ];
 }, $res->getData());
@@ -46,7 +51,7 @@ $templateData['_js']['studentList'] = $studentList;
                 </ol>
             </nav>
         </div>
-        <div id='search-input' class="d-flex flex-row-reverse justify-content-sm-end gap-3 gap-md-5 flex-wrap-reverse">
+        <div id='student-list-header' class="d-flex flex-row-reverse justify-content-sm-end gap-1 gap-md-3 flex-wrap-reverse">
             <div class="d-flex justify-content-end">
                 <a href="student.php?id=0" class="btn btn-success">
                     <i class="bi bi-plus-circle me-3"></i>

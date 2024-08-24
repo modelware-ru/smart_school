@@ -71,17 +71,19 @@ list($res, $data) = (new DomainModule())->getSubjectList($args);
                     <?php
                     }
                     ?>
-                <?php
-            } else {
-                ?>
-                    <div class="alert alert-info rounded-0 my-3" role="alert">
-                        <div>
-                            <p class="m-0">Не найден ни один предмет.</p>
-                        </div>
-                    </div>
-                <?php
-            }
-                ?>
+                </tbody>
+            </table>
+        <?php
+        } else {
+        ?>
+            <div class="alert alert-info rounded-0 my-3" role="alert">
+                <div>
+                    <p class="m-0">Не найден ни один предмет.</p>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
     </div>
     <script src='js/bootstrap.bundle.min.js'></script>
     <script>

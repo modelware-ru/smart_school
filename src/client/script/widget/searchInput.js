@@ -22,7 +22,7 @@ export default class SearchInput {
         this._stateSearchInput = {};
         this._atm.searchInput = <Input className="input-group" type="search" placeholder={i18n(langId, 'TTL_SEARCH')} iconBefore={'bi-search'} onTest={this._onSearchTest} />;
         this._updateSearchInput({
-            disabled: false,
+            disabled: true,
             hasError: 'unknown',
         });
 

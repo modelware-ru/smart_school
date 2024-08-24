@@ -280,6 +280,35 @@ class Main
         return [Util::MakeSuccessOperationResult($res), []];
     }
 
+    public function getGroupListByParallelId($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getGroupListByParallelId');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $parallelId = $args['parallelId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getGroupListByParallelId($parallelId);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['group_id'],
+                'name' => $item['group_name'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
     public function saveGroup($args)
     {
         $localLog = Logger::Log()->withName('Module::Account::saveGroup');
@@ -1000,6 +1029,12 @@ class Main
                 'firstName' => $item['first_name'],
                 'lastName' => $item['last_name'],
                 'middleName' => $item['middle_name'],
+                'classNumber' => $item['class_number'],
+                'classLetter' => $item['class_letter'],
+                'classParallelId' => $item['class_parallel_id'],
+                'groupName' => $item['group_name'],
+                'groupParallelId' => $item['group_parallel_id'],
+                'groupParallelNumber' => $item['group_parallel_number'],
                 'canBeRemoved' => ($item['msch_count'] + $item['msgh_count'] + $item['msl_count'] + $item['mss_count'] + $item['msst_count']) === 0,
             ];
         }, $resDb);
@@ -1039,6 +1074,47 @@ class Main
             'lastName' => $resDb[0]['last_name'],
             'middleName' => $resDb[0]['middle_name'],
         ];
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getStudentByIdList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getStudentByIdList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $studentIdList = $args['studentIdList'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getStudentByIdList($studentIdList);
+
+        if (count($resDb) === 0) {
+            $logVar = implode(',', $studentIdList);
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Учеников с id = ({$logVar}) не существует"],
+            );
+        }
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['student_id'],
+                'firstName' => $item['first_name'],
+                'lastName' => $item['last_name'],
+                'middleName' => $item['middle_name'],
+                'classNumber' => $item['class_number'],
+                'classLetter' => $item['class_letter'],
+                'classParallelId' => $item['class_parallel_id'],
+            ];
+        }, $resDb);
         return [Util::MakeSuccessOperationResult($res), []];
     }
 
@@ -1135,7 +1211,6 @@ class Main
             $manager = new Manager();
 
             $resDb = $manager->removeStudent($id);
-
         } catch (MWException $e) {
             $msg = $e->logData();
             $localLog->error('error:', $msg);
@@ -1152,6 +1227,123 @@ class Main
             }
             throw $e;
         }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function changeClass($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::changeClass');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $startDate = $args['startDate'];
+        $classLetter = $args['classLetter'];
+        $parallelId = $args['parallelId'];
+        $reason = $args['reason'];
+        $studentIdList = $args['studentIdList'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+
+        $resDb =  $manager->getMaxOrderForStudentClassHistory($studentIdList, $startDate);
+
+        $studentIdList = array_map(function ($item) use ($resDb) {
+            $res = NULL;
+            foreach ($resDb as $key => $value) {
+                if ($value['student_id'] === $item['id']) {
+                    $res = $value['max_order'];
+                    break;
+                }
+            }
+            return [
+                'id' => $item['id'],
+                'order' => is_null($res) ? 1 : $res + 1,
+            ];
+        }, $studentIdList);
+
+        $resDb = $manager->addStudentClassHistory($studentIdList, $startDate, $parallelId, $classLetter, $reason);
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function changeGroup($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::changeGroup');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $startDate = $args['startDate'];
+        $groupId = $args['groupId'];
+        $reason = $args['reason'];
+        $studentIdList = $args['studentIdList'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+
+        $sl = array_reduce($studentIdList, function ($carry, $item) {
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+
+        $resDb = $manager->getStudentByIdList($sl);
+
+        if (count($resDb) === 0) {
+            $logVar = implode(',', $sl);
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Учеников с id = ({$logVar}) не существует"],
+            );
+        }
+
+        $classParallelList = array_reduce($resDb, function ($carry, $item) {
+            if (!is_null($item['class_parallel_id']) && !in_array($item['class_parallel_id'], $carry)) {
+                $carry[] = $item['class_parallel_id'];
+            }
+
+            return $carry;
+        }, []);
+
+        if (count($classParallelList) !== 1) {
+            $errorList['_msg_'] = [
+                'code' => MWI18nHelper::MSG_FIELD_VALUE_IS_NOT_VALID,
+                'args' => ['classParallelList', 'не единственный'],
+            ];
+            $localLog->debug('client error message:', $errorList);
+            return [Util::MakeFailOperationResult($errorList), []];
+        }
+
+        $resDb =  $manager->getMaxOrderForStudentGroupHistory($studentIdList, $startDate);
+
+        $studentIdList = array_map(function ($item) use ($resDb) {
+            $res = NULL;
+            foreach ($resDb as $key => $value) {
+                if ($value['student_id'] === $item['id']) {
+                    $res = $value['max_order'];
+                    break;
+                }
+            }
+            return [
+                'id' => $item['id'],
+                'order' => is_null($res) ? 1 : $res + 1,
+            ];
+        }, $studentIdList);
+
+        $resDb = $manager->addStudentGroupHistory($studentIdList, $startDate, $groupId, $reason);
 
         return [Util::MakeSuccessOperationResult(), []];
     }

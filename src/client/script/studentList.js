@@ -1,7 +1,7 @@
 import { mount, el } from '../node_modules/redom/dist/redom.es';
 
 import Notificator from './widget/notificator';
-import SearchInput from './widget/searchInput';
+import StudentListHeader from './widget/studentListHeader/index';
 import StudentListTable from './widget/studentListTable/index';
 import PermissionManager from './shared/permissionManager';
 
@@ -11,5 +11,5 @@ PermissionManager.setPermissionList(window.app.permission);
 
 
 mount(document.getElementById('main'), <StudentListTable langId={langId} studentList={studentList}/>);
-mount(document.getElementById('search-input'), <SearchInput langId={langId} />);
+mount(document.getElementById('student-list-header'), <StudentListHeader langId={langId} />);
 mount(document.getElementById('main'), <Notificator langId={langId} show={false} fixed='top'/>);

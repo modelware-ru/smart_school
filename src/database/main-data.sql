@@ -12,6 +12,8 @@ INSERT INTO main__api (id, code_name) VALUES (11, 'saveSubject');
 INSERT INTO main__api (id, code_name) VALUES (12, 'removeSubject');
 INSERT INTO main__api (id, code_name) VALUES (13, 'saveStudent');
 INSERT INTO main__api (id, code_name) VALUES (14, 'removeStudent');
+INSERT INTO main__api (id, code_name) VALUES (15, 'changeClass');
+INSERT INTO main__api (id, code_name) VALUES (16, 'changeGroup');
 
 INSERT INTO main__page (id, code_name, name) VALUES (1, 'guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (id, code_name, name) VALUES (2, 'recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -28,6 +30,8 @@ INSERT INTO main__page (id, code_name, name) VALUES (12, 'subject', '{"title":{"
 INSERT INTO main__page (id, code_name, name) VALUES (13, 'subjectList', '{"title":{"ru": "Список предметов", "en": "Subject List"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (14, 'student', '{"title":{"ru": "Ученик", "en": "Student"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (15, 'studentList', '{"title":{"ru": "Список учеников", "en": "Student List"}}');
+INSERT INTO main__page (id, code_name, name) VALUES (16, 'studentListChangeClass', '{"title":{"ru": "Смена класса", "en": "Change Class"}}');
+INSERT INTO main__page (id, code_name, name) VALUES (17, 'studentListChangeGroup', '{"title":{"ru": "Смена группы", "en": "Change Group"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');
@@ -74,3 +78,22 @@ INSERT INTO main__user_group (user_id, group_id) VALUES (3, 6);
 INSERT INTO main__user_group (user_id, group_id) VALUES (3, 7);
 INSERT INTO main__user_group (user_id, group_id) VALUES (3, 8);
 INSERT INTO main__user_group (user_id, group_id) VALUES (3, 9);
+
+INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (1, 'иван', 'иванов', 'иванович');
+INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (2, 'петр', 'петров', 'петрович');
+INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (3, 'сергей', 'сергеев', 'сергеевич');
+INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (4, 'максим', 'максимов', 'максимович');
+
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (1, 1, 'А', 'Причина 1', '2024-01-01', 1);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (1, 1, 'Б', 'Причина 2', '2024-02-01', 1);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 1, 'Б', 'Причина 3', '2024-02-01', 2);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 2, 'А', 'Причина 4', '2024-01-01', 1);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 2, 'Б', 'Причина 5', '2024-02-01', 1);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 2, 'B', 'Причина 6', '2024-03-01', 1);
+
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (1, 1, 'Причина _1', '2024-01-01', 1);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (1, 2, 'Причина _2', '2024-02-01', 1);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (1, 3, 'Причина _3', '2024-02-01', 2);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 1, 'Причина _1', '2024-01-01', 1);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 2, 'Причина _2', '2024-02-01', 1);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 4, 'Причина _4', '2024-03-01', 1);

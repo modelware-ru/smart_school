@@ -60,23 +60,30 @@ export default class TableRow extends Atom {
     };
     // finish "_renderState"
 
-    _onRowClick = (e) => {
-        e.stopPropagation();
-
-        const { onRowClick } = this._callback;
-        const { key } = this._prop;
-
-        onRowClick && onRowClick(key);
+    _onCellClick = (item) => {
+        return (e) => {
+            e.stopPropagation();
+            if (item['onClick']) {
+                item['onClick'](item['onClickData'], e);
+            } else {
+                const { onRowClick } = this._callback;
+                const { key } = this._prop;
+                onRowClick && onRowClick(key);
+            }
+        };
     };
-
     // start "_ui_render"
     _ui_render = () => {
         const { className, content, key } = this._prop;
 
         return (this._el.row = (
-            <tr className={className} onclick={this._onRowClick}>
+            <tr className={className}>
                 {content.map((item) => {
-                    return <td className={item['className'] ?? ''}>{item['value']}</td>;
+                    return (
+                        <td className={item['className'] ?? ''} onclick={this._onCellClick(item)}>
+                            {item['value']}
+                        </td>
+                    );
                 })}
             </tr>
         ));

@@ -84,11 +84,11 @@ foreach ($i18n_PAGE_TITLE as $key => $value) {
             self::PAGE_TITLE_<?=$key?> => [
                 'ru' =>
                     function (...$args) {
-                        return sprintf('<?=$value['title']['ru']?>', ...$args);
+                        return sprintf("<?=$value['title']['ru']?>", ...$args);
                     },
                 'en' =>
                     function (...$args) {
-                        return sprintf('<?=$value['title']['en']?>', ...$args);
+                        return sprintf("<?=$value['title']['en']?>", ...$args);
                     },
                 ],
 <?php
@@ -100,7 +100,7 @@ foreach ($i18n_PAGE_TITLE as $key => $value) {
 foreach ($i18n_MSG as $key => $value) {
     ?>
             self::MSG_<?=$key?> => function (...$args) {
-                return sprintf('<?=$value['log']?>', ...$args);
+                return sprintf("<?=$value['log']?>", ...$args);
             },
 <?php
 }
@@ -114,11 +114,11 @@ foreach ($i18n_ERR as $key => $value) {
             self::ERR_<?=$key?> => [
                 'ru' =>
                     function (...$args) {
-                        return sprintf('<?=$value['ru']?>', ...$args);
+                        return sprintf("<?=$value['ru']?>", ...$args);
                     },
                 'en' =>
                     function (...$args) {
-                        return sprintf('<?=$value['en']?>', ...$args);
+                        return sprintf("<?=$value['en']?>", ...$args);
                     },
                 ],
 <?php
@@ -130,7 +130,7 @@ foreach ($i18n_ERR as $key => $value) {
 foreach ($i18n_ERR as $key => $value) {
     ?>
             self::ERR_<?=$key?> => function (...$args) {
-                return sprintf('<?=$value['log']?>', ...$args);
+                return sprintf("<?=$value['log']?>", ...$args);
             },
 <?php
 }

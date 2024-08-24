@@ -173,6 +173,27 @@ try {
             $res = app_remove_student($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_CHANGE_CLASS:
+            $args['startDate'] = $payload['startDate'];
+            $args['classLetter'] = $payload['classLetter'];
+            $args['parallelId'] = $payload['parallelId'];
+            $args['reason'] = $payload['reason'];
+            $args['studentIdList'] = $payload['studentIdList'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_change_class($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_CHANGE_GROUP:
+            $args['startDate'] = $payload['startDate'];
+            $args['groupId'] = $payload['groupId'];
+            $args['reason'] = $payload['reason'];
+            $args['studentIdList'] = $payload['studentIdList'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_change_group($args);
+
+            break;
     }
 
     DBManager::Commit();

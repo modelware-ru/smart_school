@@ -6,6 +6,16 @@ use MW\Shared\Constant;
 // plain -> ${args[0]}
 // html -> {args[0]}
 $i18n_TTL = [
+    'CLASS_LETTER' => [
+        '_type' => 'plain',
+        'ru' => 'Буква класса',
+        'en' => 'Class letter',
+    ],
+    'DATE' => [
+        '_type' => 'plain',
+        'ru' => 'Дата',
+        'en' => 'Date',
+    ],
     'EMAIL' => [
         '_type' => 'plain',
         'ru' => 'Email',
@@ -15,6 +25,11 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Имя',
         'en' => 'First name',
+    ],
+    'GROUP' => [
+        '_type' => 'plain',
+        'ru' => 'Группа',
+        'en' => 'Group',
     ],
     'GROUP_NAME' => [
         '_type' => 'plain',
@@ -46,6 +61,11 @@ $i18n_TTL = [
         'ru' => 'Отчество',
         'en' => 'Middle name',
     ],
+    'PARALLEL' => [
+        '_type' => 'plain',
+        'ru' => 'Параллель',
+        'en' => 'Parallel',
+    ],
     'PARALLEL_NUMBER' => [
         '_type' => 'plain',
         'ru' => 'Номер параллели',
@@ -70,6 +90,11 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Для изменения пароля введите новый пароль. Если пароль изменять не требуется - оставьте поле пустым.',
         'en' => 'Password',
+    ],
+    'REASON' => [
+        '_type' => 'plain',
+        'ru' => 'Причина',
+        'en' => 'Reason',
     ],
     'RECOVERY_PASSWORD' => [
         '_type' => 'plain',
@@ -105,6 +130,16 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Отменить',
         'en' => 'Cancel',
+    ],
+    'TO_CHANGE_CLASS' => [
+        '_type' => 'html',
+        'ru' => '<span>Сменить класс <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
+        'en' => '<span>Change class <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
+    ],
+    'TO_CHANGE_GROUP' => [
+        '_type' => 'html',
+        'ru' => '<span>Сменить группу <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
+        'en' => '<span>Change group <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
     ],
     'TO_REMOVE' => [
         '_type' => 'plain',
@@ -184,7 +219,7 @@ $i18n_MSG = [
         '_type' => 'plain',
         'ru' => 'Запись с таким значением уже существует',
         'en' => 'This is a duplicated value',
-        'log' => 'Запись с таким значением уже существует: "%s"',
+        'log' => 'Запись с таким значением уже существует: \'%s\'',
     ],
     'IMPOSSIBLE_TO_REMOVE_DATA' => [
         '_type' => 'plain',
@@ -248,4 +283,3 @@ $i18n_ERR = [
         'httpStatus' => Constant::HTTP_BAR_REQUEST,
     ],
 ];
-

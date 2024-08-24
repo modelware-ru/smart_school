@@ -35,9 +35,9 @@ function check_type_parameters($apiResource, $payload)
             'name' => 'string',
             'parallelId' => 1,
             'teacherList' => [
-                "_type" => "array",
-                "_keyType" => 1,
-                "_itemTemplate" => 1,
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
             ]
         ],
         // saveGroup FINISH
@@ -66,9 +66,9 @@ function check_type_parameters($apiResource, $payload)
             'middleName' => 'string',
             'roleStateId' => 1,
             'groupList' => [
-                "_type" => "array",
-                "_keyType" => 1,
-                "_itemTemplate" => 1,
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
             ]
         ],
         // saveTeacher FINISH
@@ -106,6 +106,39 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeStudent FINISH
+        // changeClass START
+        AuthzConstant::RESOURCE_API_CHANGE_CLASS => [
+            '_type' => 'object',
+            'startDate' => 'string',
+            'classLetter' => 'string',
+            'parallelId' => 1,
+            'reason' => 'string',
+            'studentIdList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => [
+                    '_type' => 'object',
+                    'id' => 1,
+                ],
+            ]
+        ],
+        // changeClass FINISH  
+        // changeGroup START
+        AuthzConstant::RESOURCE_API_CHANGE_GROUP => [
+            '_type' => 'object',
+            'startDate' => 'string',
+            'groupId' => 1,
+            'reason' => 'string',
+            'studentIdList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => [
+                    '_type' => 'object',
+                    'id' => 1,
+                ],
+            ]
+        ],
+        // changeGroup FINISH  
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

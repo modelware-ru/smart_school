@@ -48,7 +48,7 @@ export default class StudentFormRemove {
     };
 
     _onCancelButtonClick = () => {
-        history.back();
+        openSiteURL('student-list.php');
     };
 
     _beforeCallRemoveStudent = () => {

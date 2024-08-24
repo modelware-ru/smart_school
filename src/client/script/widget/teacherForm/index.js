@@ -302,11 +302,9 @@ export default class TeacherForm {
                 return;
         }
 
-        stateNameInput = {
-            disabled: disabled ?? stateNameInput.disabled,
-            hasError: hasError ?? stateNameInput.hasError,
-            error: error ?? stateNameInput.error,
-        };
+        stateNameInput['disabled'] = disabled ?? stateNameInput.disabled;
+        stateNameInput['hasError'] = hasError ?? stateNameInput.hasError;
+        stateNameInput['error'] = error ?? stateNameInput.error;
 
         if (disabled !== null) {
             nameInput.updateProp('disabled', disabled);

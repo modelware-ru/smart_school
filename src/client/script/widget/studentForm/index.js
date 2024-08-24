@@ -80,7 +80,7 @@ export default class StudentForm {
     };
 
     _onCancelButtonClick = () => {
-        history.back();
+        openSiteURL('student-list.php');
     };
 
     _validateFormData = (firstName, lastName) => {

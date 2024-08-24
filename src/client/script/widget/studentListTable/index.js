@@ -3,7 +3,6 @@ import { clsx } from '../../../node_modules/clsx/dist/clsx.mjs';
 
 import i18n from '../../shared/i18n/index';
 import TableRow from '../../atom/table_row';
-import Button from '../../atom/button';
 import { openSiteURL } from '../../shared/utils';
 import { fetcher } from '../../shared/fetcher';
 
@@ -38,6 +37,40 @@ export default class StudentListTable {
                                 value: item['name'],
                             },
                             {
+                                className: 'text-center position-relative',
+                                value: (
+                                    <div className="position-absolute w-100 h-100 top-0 end-0 p-2" role="button">
+                                        <label className="d-flex justify-content-between w-100 h-100">
+                                            <input type="checkbox" />
+                                            <div className="d-flex flex-fill justify-content-start ms-3">
+                                                <span className="text-nowrap">{item['class']}</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                ),
+                                onClickData: { id: item['id'] },
+                                onClick: this._onCellClassClick,
+                            },
+                            {
+                                className: clsx('text-center position-relative', {
+                                    'bg-danger-subtle': item['classParallelId'] !== item['groupParallelId'],
+                                }),
+                                value: (item['classParallelId'] && 
+                                    <div className="position-absolute w-100 h-100 top-0 end-0 p-2" role="button">
+                                        <label className="d-flex justify-content-between w-100 h-100">
+                                            <input type="checkbox" />
+                                            <div className="d-flex flex-fill justify-content-start ms-3">
+                                                <span className="text-nowrap">
+                                                    {item['groupParallelNumber'] && `[${item['groupParallelNumber']}]`} {item['group']}
+                                                </span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                ),
+                                onClickData: { id: item['id'] },
+                                onClick: this._onCellGroupClick,
+                            },
+                            {
                                 className: 'p-1',
                                 value: (
                                     <div className="d-flex gap-2">
@@ -65,10 +98,35 @@ export default class StudentListTable {
 
         this._state = {
             rowList,
+            markedClassStudentList: new Set(),
+            markedGroupStudentList: new Set(),
         };
 
         this.el = this._ui_render();
     }
+
+    _onCellClassClick = (item, e) => {
+        const { markedClassStudentList } = this._state;
+        if (e.target.checked) {
+            markedClassStudentList.add(item.id);
+        } else {
+            markedClassStudentList.delete(item.id);
+        }
+        this._state['markedClassStudentList'] = markedClassStudentList;
+        commonEventManager.dispatch('changedMarkedClassStudentList', [...markedClassStudentList]);
+    };
+
+    _onCellGroupClick = (item, e) => {
+        const { markedGroupStudentList } = this._state;
+
+        if (e.target.checked) {
+            markedGroupStudentList.add(item.id);
+        } else {
+            markedGroupStudentList.delete(item.id);
+        }
+        this._state['markedGroupStudentList'] = markedGroupStudentList;
+        commonEventManager.dispatch('changedMarkedGroupStudentList', [...markedGroupStudentList]);
+    };
 
     _onRowClick = (key) => {
         const { rowList } = this._state;
@@ -108,6 +166,12 @@ export default class StudentListTable {
                             #
                         </th>
                         <th scope="col">ФИО</th>
+                        <th scope="col" className="text-center">
+                            Класс
+                        </th>
+                        <th scope="col" className="text-center">
+                            Группа
+                        </th>
                         <th scope="col" className="fit">
                             Действия
                         </th>

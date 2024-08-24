@@ -17,6 +17,8 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (1
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (12, 1, 'removeSubject');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (13, 1, 'saveStudent');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (14, 1, 'removeStudent');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (15, 1, 'changeClass');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (16, 1, 'changeGroup');
 
 -- Показ страницы
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (100, 2, 'guestIndex'); 
@@ -34,6 +36,8 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (1
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (112, 2, 'subjectList');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (113, 2, 'student');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (114, 2, 'studentList');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (115, 2, 'studentListChangeClass');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (116, 2, 'studentListChangeGroup');
 
 
 INSERT INTO authz__role (id, code_name, name, description) VALUES (1, 'Guest', 'Гость', '');
@@ -64,6 +68,8 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (12, 2, 'ALLOW', 1, '{}', 2); -- removeSubject
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (13, 2, 'ALLOW', 1, '{}', 2); -- saveStudent
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (14, 2, 'ALLOW', 1, '{}', 2); -- removeStudent
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (15, 2, 'ALLOW', 1, '{}', 2); -- changeClass
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (16, 2, 'ALLOW', 1, '{}', 2); -- changeGroup
 
 -- Администратор ---- Показ страницы
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (103, 2, 'ALLOW', 1, '{}', 2); -- adminIndex
@@ -77,6 +83,8 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (112, 2, 'ALLOW', 1, '{}', 2); -- subjectList
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (113, 2, 'ALLOW', 1, '{}', 2); -- student
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (114, 2, 'ALLOW', 1, '{}', 2); -- studentList
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (115, 2, 'ALLOW', 1, '{}', 2); -- studentListChangeClass
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (116, 2, 'ALLOW', 1, '{}', 2); -- studentListChangeGroup
 
 -- Преподаватель ---- Вызов метода
 

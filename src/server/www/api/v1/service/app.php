@@ -93,3 +93,17 @@ function app_remove_student($args)
 
     return $res;
 }
+
+function app_change_class($args)
+{
+    list($res, $data) = (new DomainMain())->changeClass($args);
+
+    return $res;
+}
+
+function app_change_group($args)
+{
+    list($res, $data) = (new DomainMain())->changeGroup($args);
+
+    return $res;
+}

@@ -97,6 +97,16 @@ SQL;
         return $this->_db->select($stmt, ['groupId' => $groupId]);
     }
 
+    public function getGroupListByParallelId($parallelId)
+    {
+        $stmt = <<<SQL
+SELECT mg.id group_id, mg.name group_name
+FROM main__group mg
+WHERE mg.parallel_id = :parallelId
+SQL;
+        return $this->_db->select($stmt, ['parallelId' => $parallelId]);
+    }
+
     public function createGroup($name, $parallelId)
     {
         $stmt = <<<SQL
@@ -363,13 +373,34 @@ SQL;
     public function getStudentList()
     {
         $stmt = <<<SQL
-SELECT ms.id student_id, ms.first_name, ms.last_name, ms.middle_name,
+SELECT ms.id student_id, ms.first_name, ms.last_name, ms.middle_name, t1.class_number, t1.class_letter, t1.class_parallel_id, t2.group_name, t2.group_parallel_id, t2.group_parallel_number,
 (SELECT COUNT(msch.id) FROM main__student_class_Hist msch WHERE msch.student_id = ms.id) msch_count,
 (SELECT COUNT(msgh.id) FROM main__student_group_Hist msgh WHERE msgh.student_id = ms.id) msgh_count,
 (SELECT COUNT(msl.id) FROM main__student_lesson msl WHERE msl.student_id = ms.id) msl_count,
 (SELECT COUNT(mss.id) FROM main__student_serie mss WHERE mss.student_id = ms.id) mss_count,
 (SELECT COUNT(msst.id) FROM main__student_serieTask msst WHERE msst.student_id = ms.id) msst_count
 FROM main__student ms
+
+LEFT JOIN (
+    SELECT ch.student_id, mp.`number` class_number, msch.letter class_letter, msch.parallel_id class_parallel_id
+    FROM (
+	    SELECT id, student_id, start_date, `order`,	MAX(start_date) OVER(PARTITION BY student_id) max_start_date, MAX(`order`) OVER(PARTITION BY student_id, start_date) max_order
+	    FROM main__student_class_Hist) ch
+    JOIN main__student_class_Hist msch ON msch.id = ch.id
+    JOIN main__parallel mp ON msch.parallel_id = mp.id 
+    WHERE ch.start_date = ch.max_start_date AND ch.`order` = ch.max_order
+) t1 ON t1.student_id = ms.id
+
+LEFT JOIN (SELECT gh.student_id, mg.name group_name, mg.parallel_id group_parallel_id, mp.number group_parallel_number
+FROM (
+	SELECT id, student_id, start_date, `order`,	MAX(start_date) OVER(PARTITION BY student_id) max_start_date, MAX(`order`) OVER(PARTITION BY student_id, start_date) max_order
+	FROM main__student_group_Hist) 
+gh
+JOIN main__student_group_Hist msgh ON msgh.id = gh.id
+JOIN main__group mg ON msgh.group_id = mg.id 
+JOIN main__parallel mp ON mg.parallel_id = mp.id 
+WHERE gh.start_date = gh.max_start_date AND gh.`order` = gh.max_order) t2 
+ON t2.student_id = ms.id
 ORDER BY ms.last_name, ms.first_name, ms.middle_name
 SQL;
         return $this->_db->select($stmt);
@@ -383,6 +414,27 @@ FROM main__student ms
 WHERE ms.id = :studentId 
 SQL;
         return $this->_db->select($stmt, ['studentId' => $studentId]);
+    }
+
+    public function getStudentByIdList($studentIdList)
+    {
+        $studentIdListString = implode(',', $studentIdList);
+        $stmt = <<<SQL
+SELECT ms.id student_id, ms.first_name, ms.last_name, ms.middle_name, t1.class_number, t1.class_letter, t1.class_parallel_id
+FROM main__student ms
+LEFT JOIN (
+    SELECT ch.student_id, mp.`number` class_number, msch.letter class_letter, msch.parallel_id class_parallel_id
+    FROM (
+	    SELECT id, student_id, start_date, `order`,	MAX(start_date) OVER(PARTITION BY student_id) max_start_date, MAX(`order`) OVER(PARTITION BY student_id, start_date) max_order
+	    FROM main__student_class_Hist) ch
+    JOIN main__student_class_Hist msch ON msch.id = ch.id
+    JOIN main__parallel mp ON msch.parallel_id = mp.id 
+    WHERE ch.start_date = ch.max_start_date AND ch.`order` = ch.max_order
+) t1 ON t1.student_id = ms.id
+WHERE ms.id IN ({$studentIdListString})
+ORDER BY ms.last_name, ms.first_name, ms.middle_name
+SQL;
+        return $this->_db->select($stmt);
     }
 
     public function createStudent($firstName, $lastName, $middleName)
@@ -425,5 +477,76 @@ SQL;
 DELETE FROM main__student WHERE id = :id
 SQL;
         return $this->_db->delete($stmt, ['id' => $studentId]);
+    }
+
+    public function getMaxOrderForStudentClassHistory($studentIdList, $startDate)
+    {
+        $sl = array_reduce($studentIdList, function ($carry, $item) {
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+
+        $studentIdListString = implode(',', $sl);
+
+        $stmt = <<<SQL
+SELECT msch.student_id, MAX(`order`) max_order FROM main__student_class_Hist msch 
+WHERE msch.start_date = :startDate
+AND msch.student_id IN ({$studentIdListString})
+GROUP BY msch.student_id
+SQL;
+        return $this->_db->select($stmt, ['startDate' => $startDate]);
+    }
+
+    public function addStudentClassHistory($studentIdList, $startDate, $parallelId, $classLetter, $reason)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__student_class_Hist (student_id, start_date, parallel_id, letter, reason, `order`)
+VALUES (:id, :startDate, :parallelId, :classLetter, :reason, :order)
+SQL;
+        return $this->_db->insert(
+            $stmt,
+            $studentIdList,
+            [
+                'startDate' => $startDate,
+                'parallelId' => $parallelId,
+                'classLetter' => $classLetter,
+                'reason' => $reason,
+            ],
+        );
+    }
+
+    public function getMaxOrderForStudentGroupHistory($studentIdList, $startDate)
+    {
+        $sl = array_reduce($studentIdList, function ($carry, $item) {
+            $carry[] = $item['id'];
+            return $carry;
+        }, []);
+
+        $studentIdListString = implode(',', $sl);
+
+        $stmt = <<<SQL
+SELECT msgh.student_id, MAX(`order`) max_order FROM main__student_group_Hist msgh 
+WHERE msgh.start_date = :startDate
+AND msgh.student_id IN ({$studentIdListString})
+GROUP BY msgh.student_id
+SQL;
+        return $this->_db->select($stmt, ['startDate' => $startDate]);
+    }
+
+    public function addStudentGroupHistory($studentIdList, $startDate, $groupId, $reason)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__student_group_Hist (student_id, start_date, group_id, reason, `order`)
+VALUES (:id, :startDate, :groupId, :reason, :order)
+SQL;
+        return $this->_db->insert(
+            $stmt,
+            $studentIdList,
+            [
+                'startDate' => $startDate,
+                'groupId' => $groupId,
+                'reason' => $reason,
+            ],
+        );
     }
 }

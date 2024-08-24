@@ -1,20 +1,25 @@
-// GENERATED [2024-08-22 16:05:53]
+// GENERATED [2024-08-24 14:42:23]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
+  TTL_CLASS_LETTER: (...args) => `Буква класса`,
+  TTL_DATE: (...args) => `Дата`,
   TTL_EMAIL: (...args) => `Email`,
   TTL_FIRST_NAME: (...args) => `Имя`,
+  TTL_GROUP: (...args) => `Группа`,
   TTL_GROUP_NAME: (...args) => `Название группы`,
   TTL_GROUP_PARALLEL: (...args) => `Параллель группы`,
   TTL_GROUP_TEACHERS: (...args) => `Преподаватели группы`,
   TTL_LAST_NAME: (...args) => `Фамилия`,
   TTL_LOGIN: (...args) => `Логин`,
   TTL_MIDDLE_NAME: (...args) => `Отчество`,
+  TTL_PARALLEL: (...args) => `Параллель`,
   TTL_PARALLEL_NUMBER: (...args) => `Номер параллели`,
   TTL_PARALLEL_NAME: (...args) => `Название параллели`,
   TTL_PARALLEL_SHOW_IN_GROUP: (...args) => `Показать в группах`,
   TTL_PASSWORD: (...args) => `Пароль`,
   TTL_PASSWORD_HELP: (...args) => `Для изменения пароля введите новый пароль. Если пароль изменять не требуется - оставьте поле пустым.`,
+  TTL_REASON: (...args) => `Причина`,
   TTL_RECOVERY_PASSWORD: (...args) => `Восстановление пароля`,
   TTL_SEARCH: (...args) => `Поиск`,
   TTL_SIGN_IN: (...args) => `Вход`,
@@ -22,6 +27,8 @@ export default {
   TTL_SUBJECT_NAME: (...args) => `Название предмета`,
   TTL_TEACHER_GROUPS: (...args) => `Группы преподавателя`,
   TTL_TO_CANCEL: (...args) => `Отменить`,
+  TTL_TO_CHANGE_CLASS: (...args) => <span>Сменить класс <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
+  TTL_TO_CHANGE_GROUP: (...args) => <span>Сменить группу <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
   TTL_TO_REMOVE: (...args) => `Удалить`,
   TTL_TO_REMOVE_IN_PROGRESS: (...args) => `Удаление...`,
   TTL_TO_SAVE: (...args) => `Сохранить`,

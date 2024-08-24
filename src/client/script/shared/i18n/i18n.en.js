@@ -1,20 +1,25 @@
-// GENERATED [2024-08-22 16:05:53]
+// GENERATED [2024-08-24 14:42:23]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
+  TTL_CLASS_LETTER: (...args) => `Class letter`,
+  TTL_DATE: (...args) => `Date`,
   TTL_EMAIL: (...args) => `Email`,
   TTL_FIRST_NAME: (...args) => `First name`,
+  TTL_GROUP: (...args) => `Group`,
   TTL_GROUP_NAME: (...args) => `Group name`,
   TTL_GROUP_PARALLEL: (...args) => `Group parallel`,
   TTL_GROUP_TEACHERS: (...args) => `Group teachers`,
   TTL_LAST_NAME: (...args) => `Last name`,
   TTL_LOGIN: (...args) => `Login`,
   TTL_MIDDLE_NAME: (...args) => `Middle name`,
+  TTL_PARALLEL: (...args) => `Parallel`,
   TTL_PARALLEL_NUMBER: (...args) => `Parallel number`,
   TTL_PARALLEL_NAME: (...args) => `Parallel name`,
   TTL_PARALLEL_SHOW_IN_GROUP: (...args) => `Show in group`,
   TTL_PASSWORD: (...args) => `Password`,
   TTL_PASSWORD_HELP: (...args) => `Password`,
+  TTL_REASON: (...args) => `Reason`,
   TTL_RECOVERY_PASSWORD: (...args) => `Recovery Password`,
   TTL_SEARCH: (...args) => `Search`,
   TTL_SIGN_IN: (...args) => `Sign In`,
@@ -22,6 +27,8 @@ export default {
   TTL_SUBJECT_NAME: (...args) => `Subject name`,
   TTL_TEACHER_GROUPS: (...args) => `Teacher groups`,
   TTL_TO_CANCEL: (...args) => `Cancel`,
+  TTL_TO_CHANGE_CLASS: (...args) => <span>Change class <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
+  TTL_TO_CHANGE_GROUP: (...args) => <span>Change group <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
   TTL_TO_REMOVE: (...args) => `Remove`,
   TTL_TO_REMOVE_IN_PROGRESS: (...args) => `Removing...`,
   TTL_TO_SAVE: (...args) => `Save`,

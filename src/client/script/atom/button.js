@@ -45,7 +45,11 @@ export default class Button extends Atom {
         switch (name) {
             // start "title"
             case 'title':
-                _ui_btnTitle.innerText = value;
+                if (typeof value === 'object') {
+                    this._el.btnTitle = mount(_ui_btn, this._ui_btn(), _ui_btnTitle, true);
+                } else {
+                    _ui_btnTitle.innerText = value;
+                }
                 break;
             // finish "title"
             // start "className"
@@ -126,15 +130,20 @@ export default class Button extends Atom {
         }
     };
 
+    _ui_btn = () => {
+        const { title } = this._prop;
+        return <span role="status">{title}</span>;
+    };
+
     // start "_ui_render"
     _ui_render = () => {
-        const { title, className, isLoading, disabled, icon } = this._prop;
+        const { className, isLoading, disabled, icon } = this._prop;
 
         this._el.btn = (
             <button type="button" className={clsx(className, 'text-nowrap')} disabled={disabled} onclick={this._onClick}>
                 {(this._el.spinner = this._ui_spinner(isLoading))}
                 {(this._el.icon = this._ui_icon(icon))}
-                {(this._el.btnTitle = <span role="status">{title}</span>)}
+                {(this._el.btnTitle = this._ui_btn())}
             </button>
         );
         return this._el.btn;

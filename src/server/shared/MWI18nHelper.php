@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-24 14:50:15]
+// GENERATED [2024-08-27 07:14:57]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -22,6 +22,10 @@ class MWI18nHelper
     const PAGE_TITLE_STUDENT_LIST_CHANGE_CLASS = 'PAGE_TITLE_STUDENT_LIST_CHANGE_CLASS';
     const PAGE_TITLE_STUDENT_LIST_CHANGE_GROUP = 'PAGE_TITLE_STUDENT_LIST_CHANGE_GROUP';
     const PAGE_TITLE_STUDENT_CLASS_GROUP_HISTORY = 'PAGE_TITLE_STUDENT_CLASS_GROUP_HISTORY';
+    const PAGE_TITLE_TOPIC_LIST = 'PAGE_TITLE_TOPIC_LIST';
+    const PAGE_TITLE_TOPIC = 'PAGE_TITLE_TOPIC';
+    const PAGE_TITLE_CATEGORY_TAG_LIST = 'PAGE_TITLE_CATEGORY_TAG_LIST';
+    const PAGE_TITLE_CATEGORY_TAG = 'PAGE_TITLE_CATEGORY_TAG';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
@@ -265,6 +269,46 @@ class MWI18nHelper
                 'en' =>
                     function (...$args) {
                         return sprintf("Student History", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_TOPIC_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Список тем задач", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Topic List", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_TOPIC => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Тема задач", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Topic", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_CATEGORY_TAG_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Список категорий и тегов", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Category Tag List", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_CATEGORY_TAG => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Категория и теги", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Category Tag", ...$args);
                     },
                 ],
         ];

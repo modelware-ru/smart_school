@@ -9,23 +9,21 @@ import { commonEventManager } from '../../shared/eventManager';
 import { openSiteURL } from '../../shared/utils';
 import { fetcher } from '../../shared/fetcher';
 
-export default class StudentFormRemove {
+export default class TopicFormRemove {
     _el = {};
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, student } = settings;
+        const { langId, topic } = settings;
 
         this._prop = {
             langId,
-            studentId: student.id,
+            topicId: topic.id,
         };
 
         this._state = {};
 
-        this._atm.loginInput = <Input className="col-12" label={i18n(langId, 'TTL_LOGIN')} value={student.login} disabled={true} />;
-        this._atm.firstNameInput = <Input className="col-12" label={i18n(langId, 'TTL_FIRST_NAME')} value={student.firstName} disabled={true} />;
-        this._atm.lastNameInput = <Input className="col-12" label={i18n(langId, 'TTL_LAST_NAME')} value={student.lastName} disabled={true} />;
+        this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_TOPIC_NAME')} value={topic.name} disabled={true} />;
 
         this._stateRemoveButton = {};
         this._atm.removeButton = <Button className="btn btn-danger" onClick={this._onRemoveButtonClick} />;
@@ -42,20 +40,20 @@ export default class StudentFormRemove {
     _onRemoveButtonClick = () => {
         commonEventManager.dispatch('hideMessage');
 
-        const { studentId } = this._prop;
+        const { topicId } = this._prop;
 
-        this._callRemoveStudent({ id: studentId });
+        this._callRemoveTopic({ id: topicId });
     };
 
     _onCancelButtonClick = () => {
-        openSiteURL('student-list.php');
+        history.back();
     };
 
-    _beforeCallRemoveStudent = () => {
+    _beforeCallRemoveTopic = () => {
         this._updateStateRemoveButton({ disabled: true, isLoading: true, title: 'TTL_TO_REMOVE_IN_PROGRESS' });
     };
 
-    _afterCallRemoveStudent = (payload) => {
+    _afterCallRemoveTopic = (payload) => {
         this._updateStateRemoveButton({
             disabled: false,
             title: 'TTL_TO_REMOVE',
@@ -63,19 +61,19 @@ export default class StudentFormRemove {
         });
     };
 
-    _callRemoveStudent = async (payload) => {
-        this._beforeCallRemoveStudent();
+    _callRemoveTopic = async (payload) => {
+        this._beforeCallRemoveTopic();
         try {
-            const resp = await fetcher('removeStudent', payload);
+            const resp = await fetcher('removeTopic', payload);
 
             if (resp.status === 'ok') {
-                openSiteURL('student-list.php');
+                openSiteURL('topic-list.php');
             }
 
-            this._afterCallRemoveStudent({ status: resp.status, data: resp.data });
+            this._afterCallRemoveTopic({ status: resp.status, data: resp.data });
         } catch (e) {
             debugger;
-            this._afterCallRemoveStudent({ status: 'error' });
+            this._afterCallRemoveTopic({ status: 'error' });
         }
     };
 
@@ -112,10 +110,8 @@ export default class StudentFormRemove {
 
         return (
             <div className="mt-3 row gx-0 gy-3">
-                <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
-                    {this._atm.firstNameInput}
-                    {this._atm.lastNameInput}
-                    {this._atm.middleNameInput}
+                <div className="bg-body-tertiary row border gy-3 m-0 py-3">
+                    {this._atm.nameInput}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.removeButton}

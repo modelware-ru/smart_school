@@ -25,11 +25,16 @@ class Setting
                 'user' => 'denis',
                 'password' => 'denis',
             ],
+            'majordomo' => [
+                'dsn' => 'mysql:host=78.108.80.142;port=3306;dbname=b171063_smart_school;charset=UTF8',
+                'user' => 'u171063_smart',
+                'password' => 'smart_school',
+            ],
             // 'localhost-test' => [
             //     'dsn' => 'mysql:host=localhost;port=3306;dbname=webapp-test;charset=UTF8',
             //     'user' => 'webapp',
             //     'password' => 'Webapp_1973!',
-            // ],            
+            // ],
         ],
         'app' => [
             // язык по умолчанию

@@ -96,9 +96,11 @@ CREATE TABLE main__tag (
 
 CREATE TABLE main__task (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    topic_id INT UNSIGNED NOT NULL,
     path VARCHAR(1000) DEFAULT '' NOT NULL,
     note TEXT,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    CONSTRAINT main__task___topic_id FOREIGN KEY (topic_id) REFERENCES main__topic(id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__group (

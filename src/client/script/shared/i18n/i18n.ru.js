@@ -1,4 +1,4 @@
-// GENERATED [2024-08-24 14:50:15]
+// GENERATED [2024-08-27 07:14:57]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -26,6 +26,7 @@ export default {
   TTL_STATE: (...args) => `Состояние`,
   TTL_SUBJECT_NAME: (...args) => `Название предмета`,
   TTL_TEACHER_GROUPS: (...args) => `Группы преподавателя`,
+  TTL_TOPIC_NAME: (...args) => `Название темы`,
   TTL_TO_CANCEL: (...args) => `Отменить`,
   TTL_TO_CHANGE_CLASS: (...args) => <span>Сменить класс <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
   TTL_TO_CHANGE_GROUP: (...args) => <span>Сменить группу <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,

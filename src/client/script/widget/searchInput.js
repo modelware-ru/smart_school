@@ -58,6 +58,6 @@ export default class SearchInput {
     }
 
     _ui_render = () => {
-        return <form className="d-flex flex-fill">{this._atm.searchInput}</form>;
+        return <div className="d-flex flex-fill">{this._atm.searchInput}</div>;
     };
 }

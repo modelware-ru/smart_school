@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-24 14:50:12]
+// GENERATED [2024-08-27 07:14:53]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -54,6 +54,10 @@ class Constant {
     const RESOURCE_API_REMOVE_STUDENT = 'removeStudent'; 
     const RESOURCE_API_CHANGE_CLASS = 'changeClass'; 
     const RESOURCE_API_CHANGE_GROUP = 'changeGroup'; 
+    const RESOURCE_API_SAVE_TOPIC = 'saveTopic'; 
+    const RESOURCE_API_REMOVE_TOPIC = 'removeTopic'; 
+    const RESOURCE_API_SAVE_CATEGORY_TAG = 'saveCategoryTag'; 
+    const RESOURCE_API_REMOVE_CATEGORY_TAG = 'removeCategoryTag'; 
     // PAGE
     const RESOURCE_PAGE_GUEST_INDEX = 'guestIndex'; 
     const RESOURCE_PAGE_RECOVERY_PASSWORD = 'recoveryPassword'; 
@@ -73,6 +77,10 @@ class Constant {
     const RESOURCE_PAGE_STUDENT_LIST_CHANGE_CLASS = 'studentListChangeClass'; 
     const RESOURCE_PAGE_STUDENT_LIST_CHANGE_GROUP = 'studentListChangeGroup'; 
     const RESOURCE_PAGE_STUDENT_CLASS_GROUP_HISTORY = 'studentClassGroupHistory'; 
+    const RESOURCE_PAGE_TOPIC_LIST = 'topicList'; 
+    const RESOURCE_PAGE_TOPIC = 'topic'; 
+    const RESOURCE_PAGE_CATEGORY_TAG_LIST = 'categoryTagList'; 
+    const RESOURCE_PAGE_CATEGORY_TAG = 'categoryTag'; 
     // WIDGET
 
     // Action

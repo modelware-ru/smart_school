@@ -19,6 +19,10 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (1
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (14, 1, 'removeStudent');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (15, 1, 'changeClass');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (16, 1, 'changeGroup');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (17, 1, 'saveTopic');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (18, 1, 'removeTopic');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (19, 1, 'saveCategoryTag');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (20, 1, 'removeCategoryTag');
 
 -- Показ страницы
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (100, 2, 'guestIndex'); 
@@ -39,6 +43,10 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (1
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (115, 2, 'studentListChangeClass');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (116, 2, 'studentListChangeGroup');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (117, 2, 'studentClassGroupHistory');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (118, 2, 'topicList');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (119, 2, 'topic');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (120, 2, 'categoryTagList');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (121, 2, 'categoryTag');
 
 INSERT INTO authz__role (id, code_name, name, description) VALUES (1, 'Guest', 'Гость', '');
 INSERT INTO authz__role (id, code_name, name, description) VALUES (2, 'Admin', 'Администратор', '');
@@ -88,10 +96,18 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (117, 2, 'ALLOW', 1, '{}', 2); -- studentClassGroupHistory
 
 -- Преподаватель ---- Вызов метода
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (17, 3, 'ALLOW', 1, '{}', 3); -- saveStudent
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (18, 3, 'ALLOW', 1, '{}', 3); -- removeStudent
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (19, 3, 'ALLOW', 1, '{}', 3); -- saveCategoryTag
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (20, 3, 'ALLOW', 1, '{}', 3); -- removeCategoryTag
 
 -- Преподаватель ---- Показ страницы
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (110, 3, 'ALLOW', 1, '{}', 3); -- teacherIndex
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (108, 3, 'ALLOW', 1, '{"self": true}', 3); -- teacher
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (118, 3, 'ALLOW', 1, '{}', 3); -- topicList
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (119, 3, 'ALLOW', 1, '{}', 3); -- topic
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (120, 3, 'ALLOW', 1, '{}', 3); -- categoryTagList
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (121, 3, 'ALLOW', 1, '{}', 3); -- categoryTag
 
 -- Account
 INSERT INTO authz__account (id) VALUES (1);

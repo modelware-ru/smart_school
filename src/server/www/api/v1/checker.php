@@ -139,6 +139,19 @@ function check_type_parameters($apiResource, $payload)
             ]
         ],
         // changeGroup FINISH  
+        // saveTopic START
+        AuthzConstant::RESOURCE_API_SAVE_TOPIC => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+        ],
+        // saveTopic FINISH
+        // removeTopic START
+        AuthzConstant::RESOURCE_API_REMOVE_TOPIC => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeTopic FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

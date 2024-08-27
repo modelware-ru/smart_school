@@ -1,5 +1,6 @@
 <?php
-require_once '../../../app/include.php';
+require_once '../../defines.php';
+require_once '../../' . PATH_TO_INCLUDE;
 require_once 'app/init.php';
 
 use MW\Service\Authz\Constant as AuthzConstant;
@@ -192,6 +193,21 @@ try {
 
             require_once 'api/v1/service/app.php';
             $res = app_change_group($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_SAVE_TOPIC:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_topic($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_TOPIC:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_topic($args);
 
             break;
     }

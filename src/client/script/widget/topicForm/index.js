@@ -3,7 +3,6 @@ import { el, mount } from '../../../node_modules/redom/dist/redom.es';
 import ID from './ids';
 import i18n from '../../shared/i18n/index';
 import Input from '../../atom/input';
-import Checkbox from '../../atom/checkbox';
 import Button from '../../atom/button';
 
 import { commonEventManager } from '../../shared/eventManager';
@@ -11,41 +10,23 @@ import { commonEventManager } from '../../shared/eventManager';
 import { openSiteURL } from '../../shared/utils';
 import { fetcher } from '../../shared/fetcher';
 
-export default class ParallelForm {
+export default class TopicForm {
     _el = {};
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, parallel } = settings;
+        const { langId, topic } = settings;
 
         this._prop = {
             langId,
-            parallelId: parallel.id,
+            topicId: topic.id,
         };
 
         this._state = {};
 
         this._stateNameInput = {};
-        this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_PARALLEL_NAME')} value={parallel.name} mandatory maxLength={100} />;
+        this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_TOPIC_NAME')} value={topic.name} mandatory maxLength={100} />;
         this._updateStateNameInput({
-            disabled: false,
-            hasError: 'unknown',
-        });
-
-        this._stateNumberInput = {};
-        this._atm.numberInput = (
-            <Input className="col-12" label={i18n(langId, 'TTL_PARALLEL_NUMBER')} value={parallel.number} mandatory maxLength={10} />
-        );
-        this._updateStateNumberInput({
-            disabled: false,
-            hasError: 'unknown',
-        });
-
-        this._stateShowInGroupCheckbox = {};
-        this._atm.showInGroupCheckbox = (
-            <Checkbox className="col-12" label={i18n(langId, 'TTL_PARALLEL_SHOW_IN_GROUP')} checked={parallel.showInGroup} />
-        );
-        this._updateStateShowInGroupCheckbox({
             disabled: false,
             hasError: 'unknown',
         });
@@ -64,78 +45,62 @@ export default class ParallelForm {
 
     _onSaveButtonClick = () => {
         const name = this._atm.nameInput.getState('value');
-        const number = this._atm.numberInput.getState('value');
-        const showInGroup = this._atm.showInGroupCheckbox.getState('checked');
 
-        const { hasError, data } = this._validateFormData(name, number);
+        const { hasError, data } = this._validateFormData(name);
 
         this._showError({ status: hasError ? 'fail' : 'ok', data });
 
         commonEventManager.dispatch('hideMessage');
 
         if (!hasError) {
-            const { parallelId } = this._prop;
+            const { topicId } = this._prop;
 
-            this._callSaveParallel({ id: parallelId, name, number, showInGroup });
+            this._callSaveTopic({ id: topicId, name });
         }
     };
 
     _onCancelButtonClick = () => {
         history.back();
-    }
+    };
 
-    _validateFormData = (name, number) => {
+    _validateFormData = (name) => {
         let data = {};
         let hasError = false;
         if (name.length === 0) {
-            data[ID.PF_INPUT_NAME_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
+            data[ID.TF_INPUT_NAME_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
             hasError = true;
         }
 
-        if (number.length === 0) {
-            data[ID.PF_INPUT_NUMBER_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
-            hasError = true;
-        }
         return { hasError, data };
     };
 
     _showError = ({ status, data }) => {
         if (status === 'ok') {
             this._updateStateNameInput({ disabled: false, hasError: 'no', error: null });
-            this._updateStateNumberInput({ disabled: false, hasError: 'no', error: null });
             return;
         }
 
         if (status === 'error') {
             this._updateStateNameInput({ disabled: false, hasError: 'undefine', error: null });
-            this._updateStateNumberInput({ disabled: false, hasError: 'undefine', error: null });
             return;
         }
 
-        if (typeof data[ID.PF_INPUT_NAME_ID] !== 'undefined') {
-            this._updateStateNameInput({ disabled: false, hasError: 'yes', error: data[ID.PF_INPUT_NAME_ID] });
+        if (typeof data[ID.TF_INPUT_NAME_ID] !== 'undefined') {
+            this._updateStateNameInput({ disabled: false, hasError: 'yes', error: data[ID.TF_INPUT_NAME_ID] });
         } else {
             this._updateStateNameInput({ disabled: false, hasError: 'undefined', error: null });
         }
 
-        if (typeof data[ID.PF_INPUT_NUMBER_ID] !== 'undefined') {
-            this._updateStateNumberInput({ disabled: false, hasError: 'yes', error: data[ID.PF_INPUT_NUMBER_ID] });
-        } else {
-            this._updateStateNumberInput({ disabled: false, hasError: 'undefined', error: null });
-        }
     };
 
-    _beforeCallSaveParallel = () => {
+    _beforeCallSaveTopic = () => {
         this._updateStateSaveButton({ disabled: true, isLoading: true, title: 'TTL_TO_SAVE_IN_PROGRESS' });
         this._updateStateNameInput({ disabled: true });
-        this._updateStateNumberInput({ disabled: true });
-        this._updateStateShowInGroupCheckbox({ disabled: true });
     };
 
-    _afterCallSaveParallel = (payload) => {
+    _afterCallSaveTopic = (payload) => {
         this._showError(payload);
 
-        this._updateStateShowInGroupCheckbox({disabled: false});
         this._updateStateSaveButton({
             disabled: false,
             title: 'TTL_TO_SAVE',
@@ -143,19 +108,19 @@ export default class ParallelForm {
         });
     };
 
-    _callSaveParallel = async (payload) => {
-        this._beforeCallSaveParallel();
+    _callSaveTopic = async (payload) => {
+        this._beforeCallSaveTopic();
         try {
-            const resp = await fetcher('saveParallel', payload);
+            const resp = await fetcher('saveTopic', payload);
 
             if (resp.status === 'ok') {
-                openSiteURL('parallel-list.php');
+                openSiteURL('topic-list.php');
             }
 
-            this._afterCallSaveParallel({ status: resp.status, data: resp.data });
+            this._afterCallSaveTopic({ status: resp.status, data: resp.data });
         } catch (e) {
             debugger;
-            this._afterCallSaveParallel({ status: 'error' });
+            this._afterCallSaveTopic({ status: 'error' });
         }
     };
 
@@ -177,27 +142,6 @@ export default class ParallelForm {
         }
         if (error !== null && this._atm.nameInput.getProp('error') !== i18n(langId, error.code, error.args)) {
             this._atm.nameInput.updateProp('error', i18n(langId, error.code, error.args));
-        }
-    };
-
-    _updateStateNumberInput = (state) => {
-        const { disabled = null, hasError = null, error = null } = state;
-        const { langId } = this._prop;
-
-        this._stateNumberInput = {
-            disabled: disabled ?? this._stateNumberInput.disabled,
-            hasError: hasError ?? this._stateNumberInput.hasError,
-            error: error ?? this._stateNumberInput.error,
-        };
-
-        if (disabled !== null) {
-            this._atm.numberInput.updateProp('disabled', disabled);
-        }
-        if (hasError !== null) {
-            this._atm.numberInput.updateProp('hasError', hasError);
-        }
-        if (error !== null && this._atm.numberInput.getProp('error') !== i18n(langId, error.code, error.args)) {
-            this._atm.numberInput.updateProp('error', i18n(langId, error.code, error.args));
         }
     };
 
@@ -229,27 +173,6 @@ export default class ParallelForm {
         }
     };
 
-    _updateStateShowInGroupCheckbox = (state) => {
-        const { disabled = null, hasError = null, error = null } = state;
-        const { langId } = this._prop;
-
-        this._stateShowInGroupCheckbox = {
-            disabled: disabled ?? this._stateShowInGroupCheckbox.disabled,
-            hasError: hasError ?? this._stateShowInGroupCheckbox.hasError,
-            error: error ?? this._stateShowInGroupCheckbox.error,
-        };
-
-        if (disabled !== null) {
-            this._atm.showInGroupCheckbox.updateProp('disabled', disabled);
-        }
-        if (hasError !== null) {
-            this._atm.showInGroupCheckbox.updateProp('hasError', hasError);
-        }
-        if (error !== null && this._atm.showInGroupCheckbox.getProp('error') !== i18n(langId, error.code, error.args)) {
-            this._atm.showInGroupCheckbox.updateProp('error', i18n(langId, error.code, error.args));
-        }
-    };
-
     _ui_render = () => {
         const { langId } = this._prop;
 
@@ -257,8 +180,6 @@ export default class ParallelForm {
             <div className="mt-0 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
-                    {this._atm.numberInput}
-                    {this._atm.showInGroupCheckbox}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.saveButton}

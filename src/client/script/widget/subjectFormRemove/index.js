@@ -2,7 +2,6 @@ import { el, mount } from '../../../node_modules/redom/dist/redom.es';
 
 import i18n from '../../shared/i18n/index';
 import Input from '../../atom/input';
-import Checkbox from '../../atom/checkbox';
 import Button from '../../atom/button';
 
 import { commonEventManager } from '../../shared/eventManager';
@@ -110,7 +109,7 @@ export default class SubjectFormRemove {
         const { langId } = this._prop;
 
         return (
-            <form className="mt-3 row gx-0 gy-3">
+            <div className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 py-3">
                     {this._atm.nameInput}
                 </div>
@@ -123,7 +122,7 @@ export default class SubjectFormRemove {
                         onClick={this._onCancelButtonClick}
                     />
                 </div>
-            </form>
+            </div>
         );
     };
 }

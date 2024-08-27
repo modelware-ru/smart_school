@@ -370,7 +370,7 @@ export default class TeacherForm {
         const { groupList, groupListForTeacher } = this._prop;
 
         return (
-            <form className="mt-3 row gx-0 gy-3">
+            <div className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.loginInput}
                     {this._atm.passwordInput}
@@ -392,7 +392,7 @@ export default class TeacherForm {
                         onClick={this._onCancelButtonClick}
                     />
                 </div>
-            </form>
+            </div>
         );
     };
 }

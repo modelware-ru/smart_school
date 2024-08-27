@@ -126,6 +126,11 @@ $i18n_TTL = [
         'ru' => 'Группы преподавателя',
         'en' => 'Teacher groups',
     ],
+    'TOPIC_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название темы',
+        'en' => 'Topic name',
+    ],
     'TO_CANCEL' => [
         '_type' => 'plain',
         'ru' => 'Отменить',

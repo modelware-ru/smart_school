@@ -107,3 +107,17 @@ function app_change_group($args)
 
     return $res;
 }
+
+function app_save_topic($args)
+{
+    list($res, $data) = (new DomainMain())->saveTopic($args);
+
+    return $res;
+}
+
+function app_remove_topic($args)
+{
+    list($res, $data) = (new DomainMain())->removeTopic($args);
+
+    return $res;
+}

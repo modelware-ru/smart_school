@@ -24,6 +24,7 @@ class Main
     const LAST_NAME_MAX_LENGTH = 100;
     const MIDDLE_NAME_MAX_LENGTH = 100;
     const SUBJECT_NAME_MAX_LENGTH = 100;
+    const TOPIC_NAME_MAX_LENGTH = 100;
 
     public function getParallelList($args)
     {
@@ -1381,5 +1382,168 @@ class Main
         }, $resDb);
 
         return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getTopicList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getTopicList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getTopicList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'canBeRemoved' => $item['mts_count'] === 0,
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getTopicById($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getTopicById');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $topicId = $args['topicId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getTopicById($topicId);
+
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Тема с id = {$topicId} не существует"],
+            );
+        }
+
+        $res =  [
+            'id' => $resDb[0]['id'],
+            'name' => $resDb[0]['name'],
+        ];
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function saveTopic($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::saveTopic');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+        $name = $args['name'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::TOPIC_NAME_MAX_LENGTH)->check();
+
+        $errorList = [];
+        if ($nameCheck === ValueChecker::IS_EMPTY) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($nameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($name), self::FIRST_NAME_MAX_LENGTH],
+            ];
+        }
+
+        if (count($errorList) > 0) {
+            return [Util::MakeFailOperationResult($errorList), []];
+        }
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            if ($id === 0) {
+                $resDb = $manager->createTopic($name);
+            } else {
+                $resDb = $manager->updateTopic($id, $name);
+            }
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $errorList = [];
+            preg_match('/SQLSTATE\[23000\].*main__topic.main__topic___unique_name/', $msg[0], $matches);
+            if (!empty($matches)) {
+                $errorList['name'] = [
+                    'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
+                    'args' => [$name],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function removeTopic($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::removeTopic');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            $resDb = $manager->removeTopic($id);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('error:', $msg);
+            preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+            $errorList = [];
+            if (!empty($matches)) {
+                $errorList['_msg_'] = [
+                    'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+                    'args' => ['данные используются'],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
     }
 }

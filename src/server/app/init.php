@@ -3,11 +3,6 @@ use MW\App\SessionObject;
 use MW\App\Setting;
 use MW\Shared\Session;
 
-define('VERSION', '0.0.1');
-// добавляет в ответы сервера дополнительные данные, которые можно использовать для тестов
-// перенаправляет работу на тестовую схему БД
-// define('PHPUNIT', true);
-
 // используется при передаче параметров в шаблоны.
 $templateData = [];
 

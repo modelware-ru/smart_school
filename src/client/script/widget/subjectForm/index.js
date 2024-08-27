@@ -177,7 +177,7 @@ export default class SubjectForm {
         const { langId } = this._prop;
 
         return (
-            <form className="mt-0 row gx-0 gy-3">
+            <div className="mt-0 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
                 </div>
@@ -190,7 +190,7 @@ export default class SubjectForm {
                         onClick={this._onCancelButtonClick}
                     />
                 </div>
-            </form>
+            </div>
         );
     };
 }

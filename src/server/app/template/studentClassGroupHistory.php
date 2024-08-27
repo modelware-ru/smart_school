@@ -81,11 +81,11 @@ list($res, $data) = (new DomainModule())->getStudentClassGroupHistory($args);
                                 <?php
                                 if ($item['classHistoryId'] !== 0) {
                                 ?>
-                                    <button data-action="removeClassHistory" data-id="<?= $item['classHistoryId'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
+                                    <button data-action="removeClassHistory" data-id="<?= $item['classHistoryId'] ?>" class='btn btn-outline-danger btn-sm' disabled><i class="bi bi-trash"></i></button>
                                 <?php
                                 } else if ($item['groupHistoryId'] !== 0) {
                                 ?>
-                                    <button data-action="removeGroupHistory" data-id="<?= $item['groupHistoryId'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
+                                    <button data-action="removeGroupHistory" data-id="<?= $item['groupHistoryId'] ?>" class='btn btn-outline-danger btn-sm' disabled><i class="bi bi-trash"></i></button>
                                 <?php
                                 }
                                 ?>

@@ -216,14 +216,14 @@ export default class SignInForm {
                 <div className="py-3 text-center">
                     <h2>{i18n(langId, 'TTL_SIGN_IN')}</h2>
                 </div>
-                <form className="mt-3 row gx-0 gy-3">
+                <div className="mt-3 row gx-0 gy-3">
                     {this._atm.loginInput}
                     {this._atm.passwordInput}
                     {this._atm.authButton}
                     <a href="recoveryPassword.php" className="link-primary text-center">
                         {i18n(langId, 'TTL_RECOVERY_PASSWORD')}
                     </a>
-                </form>
+                </div>
             </div>
         );
     };

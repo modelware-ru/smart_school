@@ -125,8 +125,8 @@ class Util
     {
         $finishTime = microtime(true);
         return [
-            'start' => date('Y-m-d H:i:s', $startTime),
-            'finish' => date('Y-m-d H:i:s', $finishTime),
+            'start' => date('Y-m-d H:i:s', intval($startTime)),
+            'finish' => date('Y-m-d H:i:s', intval($finishTime)),
             'execution' => sprintf('%f', $finishTime - $startTime),
         ];
     }

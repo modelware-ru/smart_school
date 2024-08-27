@@ -121,3 +121,17 @@ function app_remove_topic($args)
 
     return $res;
 }
+
+function app_save_categoryTag($args)
+{
+    list($res, $data) = (new DomainMain())->saveCategoryTag($args);
+
+    return $res;
+}
+
+function app_remove_categoryTag($args)
+{
+    list($res, $data) = (new DomainMain())->removeCategoryTag($args);
+
+    return $res;
+}

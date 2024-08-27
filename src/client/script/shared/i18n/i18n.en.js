@@ -1,7 +1,8 @@
-// GENERATED [2024-08-27 07:14:57]
+// GENERATED [2024-08-27 13:31:44]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
+  TTL_CATEGORYTAG_NAME: (...args) => `Category name`,
   TTL_CLASS_LETTER: (...args) => `Class letter`,
   TTL_DATE: (...args) => `Date`,
   TTL_EMAIL: (...args) => `Email`,

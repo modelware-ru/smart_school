@@ -6,6 +6,11 @@ use MW\Shared\Constant;
 // plain -> ${args[0]}
 // html -> {args[0]}
 $i18n_TTL = [
+    'CATEGORYTAG_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название категории',
+        'en' => 'Category name',
+    ],
     'CLASS_LETTER' => [
         '_type' => 'plain',
         'ru' => 'Буква класса',

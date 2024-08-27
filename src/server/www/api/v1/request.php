@@ -210,6 +210,21 @@ try {
             $res = app_remove_topic($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_SAVE_CATEGORY_TAG:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_categoryTag($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_CATEGORY_TAG:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_categoryTag($args);
+
+            break;
     }
 
     DBManager::Commit();

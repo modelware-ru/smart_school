@@ -18,11 +18,11 @@ CREATE TABLE main__widget (
 ) ENGINE = InnoDB;
 
 
-CREATE TABLE main__tagCategory (
+CREATE TABLE main__categoryTag (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__tagCategory___unique_name UNIQUE (name)
+    CONSTRAINT main__categoryTag___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__topic (
@@ -89,8 +89,10 @@ CREATE TABLE main__subject (
 
 CREATE TABLE main__tag (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    categoryTag_id INT UNSIGNED NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
+    CONSTRAINT main__tag___categoryTag_id FOREIGN KEY (categoryTag_id) REFERENCES main__categoryTag(id),
     CONSTRAINT main__tag___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 

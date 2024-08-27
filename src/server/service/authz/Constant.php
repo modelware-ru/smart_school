@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-27 07:14:53]
+// GENERATED [2024-08-27 13:25:54]
 namespace MW\Service\Authz;
 
 class Constant {

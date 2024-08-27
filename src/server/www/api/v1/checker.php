@@ -152,6 +152,19 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeTopic FINISH
+        // saveCategoryTag START
+        AuthzConstant::RESOURCE_API_SAVE_CATEGORY_TAG => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+        ],
+        // saveCategoryTag FINISH
+        // removeCategoryTag START
+        AuthzConstant::RESOURCE_API_REMOVE_CATEGORY_TAG => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeCategoryTag FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

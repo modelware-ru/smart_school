@@ -25,6 +25,7 @@ class Main
     const MIDDLE_NAME_MAX_LENGTH = 100;
     const SUBJECT_NAME_MAX_LENGTH = 100;
     const TOPIC_NAME_MAX_LENGTH = 100;
+    const CATEGORYTAG_NAME_MAX_LENGTH = 100;
 
     public function getParallelList($args)
     {
@@ -660,7 +661,7 @@ class Main
         } else if ($loginCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
             $errorList['login'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
-                'args' => [strlen($firstName), self::FIRST_NAME_MAX_LENGTH],
+                'args' => [strlen($firstName), self::LOGIN_MAX_LENGTH],
             ];
         }
         if ($emailCheck === ValueChecker::IS_EMPTY) {
@@ -671,7 +672,7 @@ class Main
         } else if ($emailCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
             $errorList['email'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
-                'args' => [strlen($firstName), self::FIRST_NAME_MAX_LENGTH],
+                'args' => [strlen($firstName), self::EMAIL_MAX_LENGTH],
             ];
         } else if ($emailCheck === ValueChecker::IS_NOT_VALID_EMAIL) {
             $errorList['email'] = [
@@ -687,7 +688,7 @@ class Main
         } else if ($passwordCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
             $errorList['password'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
-                'args' => [strlen($firstName), self::FIRST_NAME_MAX_LENGTH],
+                'args' => [strlen($firstName), self::PASSWORD_MAX_LENGTH],
             ];
         }
         if ($firstNameCheck === ValueChecker::IS_EMPTY) {
@@ -932,7 +933,7 @@ class Main
         } else if ($nameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
             $errorList['name'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
-                'args' => [strlen($name), self::FIRST_NAME_MAX_LENGTH],
+                'args' => [strlen($name), self::SUBJECT_NAME_MAX_LENGTH],
             ];
         }
 
@@ -1473,7 +1474,7 @@ class Main
         } else if ($nameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
             $errorList['name'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
-                'args' => [strlen($name), self::FIRST_NAME_MAX_LENGTH],
+                'args' => [strlen($name), self::TOPIC_NAME_MAX_LENGTH],
             ];
         }
 
@@ -1527,6 +1528,171 @@ class Main
         try {
             $manager = new Manager();
             $resDb = $manager->removeTopic($id);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('error:', $msg);
+            preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+            $errorList = [];
+            if (!empty($matches)) {
+                $errorList['_msg_'] = [
+                    'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+                    'args' => ['данные используются'],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+
+
+    public function getCategoryTagList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getCategoryTagList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getCategoryTagList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'canBeRemoved' => $item['mt_count'] === 0,
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getCategoryTagById($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getCategoryTagById');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $categoryTagId = $args['categoryTagId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getCategoryTagById($categoryTagId);
+
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Категория тегов с id = {$categoryTagId} не существует"],
+            );
+        }
+
+        $res =  [
+            'id' => $resDb[0]['id'],
+            'name' => $resDb[0]['name'],
+        ];
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function saveCategoryTag($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::saveCategoryTag');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+        $name = $args['name'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::CATEGORYTAG_NAME_MAX_LENGTH)->check();
+
+        $errorList = [];
+        if ($nameCheck === ValueChecker::IS_EMPTY) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($nameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($name), self::CATEGORYTAG_NAME_MAX_LENGTH],
+            ];
+        }
+
+        if (count($errorList) > 0) {
+            return [Util::MakeFailOperationResult($errorList), []];
+        }
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            if ($id === 0) {
+                $resDb = $manager->createCategoryTag($name);
+            } else {
+                $resDb = $manager->updateCategoryTag($id, $name);
+            }
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $errorList = [];
+            preg_match('/SQLSTATE\[23000\].*main__categoryTag.main__categoryTag___unique_name/', $msg[0], $matches);
+            if (!empty($matches)) {
+                $errorList['name'] = [
+                    'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
+                    'args' => [$name],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function removeCategoryTag($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Account::removeCategoryTag');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            $resDb = $manager->removeCategoryTag($id);
         } catch (MWException $e) {
             $msg = $e->logData();
             $localLog->error('error:', $msg);

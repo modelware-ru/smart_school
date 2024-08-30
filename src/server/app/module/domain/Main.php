@@ -756,6 +756,7 @@ class Main
                 $accountId = intval($res['accountId']);
 
                 $resDb = $manager->createTeacher($accountId, $firstName, $lastName, $middleName, $login, $password, $email);
+                $id = $resDb[0];
             } else {
                 $resDb = $manager->updateTeacher($id, $firstName, $lastName, $middleName, $login, $password, $email);
             }

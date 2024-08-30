@@ -113,8 +113,8 @@ export default class StudentFormRemove {
         return (
             <div className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
-                    {this._atm.firstNameInput}
                     {this._atm.lastNameInput}
+                    {this._atm.firstNameInput}
                     {this._atm.middleNameInput}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">

@@ -4,5 +4,5 @@ define('VERSION', '0.0.1');
 // перенаправляет работу на тестовую схему БД
 // define('PHPUNIT', true);
 
-define('PATH_TO_INCLUDE', '../app/include.php');
-// define('PATH_TO_INCLUDE', '../school-lib/app/include.php');
+//define('PATH_TO_INCLUDE', '../app/include.php');
+define('PATH_TO_INCLUDE', '../school-lib/app/include.php');

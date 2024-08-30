@@ -119,7 +119,7 @@ export default class StudentFormHeader {
         const { langId } = this._prop;
 
         return (
-            <div className="d-flex flex-fill gap-1 gap-md-3">
+            <div className="d-flex flex-fill flex-wrap gap-1 gap-md-3">
                 <SearchInput langId={langId} />
                 {this._atm.changeClassButton}
                 {this._atm.changeGroupButton}

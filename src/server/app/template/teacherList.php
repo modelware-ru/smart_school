@@ -18,7 +18,7 @@ $teacherList = array_map(function ($item) {
     return [
         'id' => $item['id'],
         'name' => "{$item['lastName']} {$item['firstName']} {$item['middleName']}",
-        'roleStateId' => $item['role_state_id'],
+        'roleStateId' => $item['roleStateId'],
         'canBeRemoved' => $item['canBeRemoved'],
         'canBeBlocked' => $item['canBeBlocked'],
     ];

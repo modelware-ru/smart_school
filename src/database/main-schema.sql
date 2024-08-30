@@ -93,7 +93,7 @@ CREATE TABLE main__tag (
     name VARCHAR(100) DEFAULT '' NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__tag___categoryTag_id FOREIGN KEY (categoryTag_id) REFERENCES main__categoryTag(id),
-    CONSTRAINT main__tag___unique_name UNIQUE (name)
+    CONSTRAINT main__tag___unique_name_categoryTag_id UNIQUE (name, categoryTag_id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__task (

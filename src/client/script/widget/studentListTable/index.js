@@ -21,7 +21,7 @@ export default class StudentListTable {
             studentList,
         };
 
-        let rowList = studentList.map((item, key) => {
+        const rowList = studentList.map((item, key) => {
             return {
                 key,
                 id: item['id'],

@@ -4,6 +4,8 @@ import ID from './ids';
 import i18n from '../../shared/i18n/index';
 import Input from '../../atom/input';
 import Button from '../../atom/button';
+import Textarea from '../../atom/textarea';
+import TagList from '../../widget/tagList/index';
 
 import { commonEventManager } from '../../shared/eventManager';
 
@@ -20,13 +22,30 @@ export default class CategoryTagForm {
         this._prop = {
             langId,
             categoryTagId: categoryTag.id,
+            categoryTagList: categoryTag.tagList,
         };
 
         this._state = {};
 
         this._stateNameInput = {};
-        this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_CATEGORYTAG_NAME')} value={categoryTag.name} mandatory maxLength={100} />;
+        this._atm.nameInput = (
+            <Input className="col-12" label={i18n(langId, 'TTL_CATEGORYTAG_NAME')} value={categoryTag.name} mandatory maxLength={100} />
+        );
         this._updateStateNameInput({
+            disabled: false,
+            hasError: 'unknown',
+        });
+
+        this._stateNewTagListTextarea = {};
+        this._atm.newTagListTextarea = (
+            <Textarea
+                className="col-12"
+                label={i18n(langId, categoryTag.id === 0 ? 'TTL_TAG_LIST' : 'TTL_NEW_TAG_LIST')}
+                value={''}
+                help={'В качестве разделителя названий тегов используйте запятую (,)'}
+            />
+        );
+        this._updateStateNewTagListTextareaInput({
             disabled: false,
             hasError: 'unknown',
         });
@@ -40,11 +59,27 @@ export default class CategoryTagForm {
             icon: 'bi-floppy',
         });
 
+        if (categoryTag.id === 0) {
+            this._el.tagList = null;
+        } else {
+            this._el.tagList = <TagList className="col-12" tagList={categoryTag.tagList} />;
+        }
+
         this.el = this._ui_render();
     }
 
     _onSaveButtonClick = () => {
+        const {categoryTagId} = this._prop;
         const name = this._atm.nameInput.getState('value');
+        const removedTagIdList = categoryTagId === 0 ? [] : this._el.tagList.getRemovedTagIdList();
+        const newTagListStr = this._atm.newTagListTextarea.getState('value');
+        const newTagList = newTagListStr.split(',').reduce((curry, item) => {
+            const tag = item.trim();
+            if (tag.length > 0) {
+                curry.push(tag);
+            }
+            return curry;
+        }, []);
 
         const { hasError, data } = this._validateFormData(name);
 
@@ -55,7 +90,7 @@ export default class CategoryTagForm {
         if (!hasError) {
             const { categoryTagId } = this._prop;
 
-            this._callSaveCategoryTag({ id: categoryTagId, name });
+            this._callSaveCategoryTag({ id: categoryTagId, name, removedTagIdList, newTagList });
         }
     };
 
@@ -67,7 +102,7 @@ export default class CategoryTagForm {
         let data = {};
         let hasError = false;
         if (name.length === 0) {
-            data[ID.TF_INPUT_NAME_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
+            data[ID.CTF_INPUT_NAME_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
             hasError = true;
         }
 
@@ -85,12 +120,17 @@ export default class CategoryTagForm {
             return;
         }
 
-        if (typeof data[ID.TF_INPUT_NAME_ID] !== 'undefined') {
+        if (typeof data[ID.CTF_INPUT_NAME_ID] !== 'undefined') {
             this._updateStateNameInput({ disabled: false, hasError: 'yes', error: data[ID.CTF_INPUT_NAME_ID] });
         } else {
             this._updateStateNameInput({ disabled: false, hasError: 'undefined', error: null });
         }
 
+        if (typeof data[ID.CTF_TEXTAREA_TAG_LIST_ID] !== 'undefined') {
+            this._updateStateNewTagListTextareaInput({ disabled: false, hasError: 'yes', error: data[ID.CTF_TEXTAREA_TAG_LIST_ID] });
+        } else {
+            this._updateStateNewTagListTextareaInput({ disabled: false, hasError: 'undefined', error: null });
+        }
     };
 
     _beforeCallSaveCategoryTag = () => {
@@ -145,6 +185,27 @@ export default class CategoryTagForm {
         }
     };
 
+    _updateStateNewTagListTextareaInput = (state) => {
+        const { disabled = null, hasError = null, error = null } = state;
+        const { langId } = this._prop;
+
+        this._stateNewTagListTextarea = {
+            disabled: disabled ?? this._stateNewTagListTextarea.disabled,
+            hasError: hasError ?? this._stateNewTagListTextarea.hasError,
+            error: error ?? this._stateNewTagListTextarea.error,
+        };
+
+        if (disabled !== null) {
+            this._atm.newTagListTextarea.updateProp('disabled', disabled);
+        }
+        if (hasError !== null) {
+            this._atm.newTagListTextarea.updateProp('hasError', hasError);
+        }
+        if (error !== null && this._atm.newTagListTextarea.getProp('error') !== i18n(langId, error.code, error.args)) {
+            this._atm.newTagListTextarea.updateProp('error', i18n(langId, error.code, error.args));
+        }
+    };
+
     _updateStateSaveButton = (state) => {
         const { disabled = null, title = null, isLoading = null, icon = null } = state;
         const { langId } = this._prop;
@@ -180,6 +241,8 @@ export default class CategoryTagForm {
             <div className="mt-0 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
+                    {this._el.tagList}
+                    {this._atm.newTagListTextarea}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.saveButton}

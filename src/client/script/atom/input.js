@@ -239,7 +239,7 @@ export default class Input extends Atom {
                 <div className="d-flex justify-content-between">
                     {
                         (this._el.errorParent = (
-                            <div>
+                            <div className='d-flex flex-column'>
                                 {this._el.help}
                                 {this._el.error}
                             </div>

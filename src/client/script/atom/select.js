@@ -4,7 +4,6 @@ import { clsx } from '../../node_modules/clsx/dist/clsx.mjs';
 import Atom from './atom';
 
 export default class Select extends Atom {
-
     labelFor = 'l' + new Date().getTime() + Math.random();
 
     // start "constructor"
@@ -183,7 +182,7 @@ export default class Select extends Atom {
                 <div className="d-flex justify-content-between">
                     {
                         (this._el.errorParent = (
-                            <div>
+                            <div className="d-flex flex-column">
                                 {this._el.help}
                                 {this._el.error}
                             </div>

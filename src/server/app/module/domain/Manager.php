@@ -634,7 +634,8 @@ SQL;
     public function getCategoryTagById($categoryTagId)
     {
         $stmt = <<<SQL
-SELECT mct.id, mct.name
+SELECT mct.id, mct.name,
+(SELECT JSON_ARRAYAGG(JSON_OBJECT('id', mt.id, 'name', mt.name)) FROM main__tag mt WHERE mt.categoryTag_id = mct.id) tag_list 
 FROM main__categoryTag mct
 WHERE mct.id = :categoryTagId
 SQL;
@@ -674,5 +675,36 @@ SQL;
 DELETE FROM main__categoryTag WHERE id = :id
 SQL;
         return $this->_db->delete($stmt, ['id' => $categoryTagId]);
+    }
+
+    public function removeTagListFromCategoryTag($removedTagIdList, $categoryTagId)
+    {
+        $removedTagIdListString = implode(',', $removedTagIdList);
+
+        $stmt = <<<SQL
+DELETE FROM main__tag WHERE id IN ({$removedTagIdListString}) AND categoryTag_id = :categoryTagId
+SQL;
+        return $this->_db->delete($stmt, ['categoryTagId' => $categoryTagId]);
+    }
+
+    public function addTagListToCategoryTag($newTagList, $categoryTagId)
+    {
+        $tl = array_map(function ($item) {
+            return [
+                'name' => $item,
+            ];
+        }, $newTagList);
+
+        $stmt = <<<SQL
+INSERT INTO main__tag (name, categoryTag_id)
+VALUES (:name, :categoryTagId)
+SQL;
+        return $this->_db->insert(
+            $stmt,
+            $tl,
+            [
+                'categoryTagId' => $categoryTagId
+            ],
+        );
     }
 }

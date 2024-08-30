@@ -1608,6 +1608,7 @@ class Main
         $res =  [
             'id' => $resDb[0]['id'],
             'name' => $resDb[0]['name'],
+            'tagList' => json_decode($resDb[0]['tag_list'], true),
         ];
 
         return [Util::MakeSuccessOperationResult($res), []];
@@ -1621,6 +1622,8 @@ class Main
         $permissionOptions = $args['permissionOptions'];
         $id = $args['id'];
         $name = $args['name'];
+        $removedTagIdList = $args['removedTagIdList'];
+        $newTagList = $args['newTagList'];
 
         // test. start
         if (defined('PHPUNIT')) {
@@ -1652,15 +1655,28 @@ class Main
             $manager = new Manager();
             if ($id === 0) {
                 $resDb = $manager->createCategoryTag($name);
+                $id = $resDb[0];
             } else {
                 $resDb = $manager->updateCategoryTag($id, $name);
+                if (!empty($removedTagIdList)) {
+                    $resDb = $manager->removeTagListFromCategoryTag($removedTagIdList, $id);
+                }
             }
+
+            $resDb = $manager->addTagListToCategoryTag($newTagList, $id);
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
             preg_match('/SQLSTATE\[23000\].*main__categoryTag.main__categoryTag___unique_name/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['name'] = [
+                    'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
+                    'args' => [$name],
+                ];
+            }
+            preg_match('/SQLSTATE\[23000\].*main__tag.main__tag___unique_name_categoryTag_id/', $msg[0], $matches);
+            if (!empty($matches)) {
+                $errorList['tagList'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
                     'args' => [$name],
                 ];

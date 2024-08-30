@@ -157,6 +157,16 @@ function check_type_parameters($apiResource, $payload)
             '_type' => 'object',
             'id' => 1,
             'name' => 'string',
+            'newTagList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 'string',
+            ],
+            'removedTagIdList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
+            ],
         ],
         // saveCategoryTag FINISH
         // removeCategoryTag START

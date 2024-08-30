@@ -54,6 +54,7 @@ export default class Button extends Atom {
             // finish "title"
             // start "className"
             case 'className':
+                // TODO: сделать через функцию, так как забыли text-nowrap
                 this._el.btn.className = value;
                 break;
             // finish "className"
@@ -137,12 +138,12 @@ export default class Button extends Atom {
 
     // start "_ui_render"
     _ui_render = () => {
-        const { className, isLoading, disabled, icon } = this._prop;
+        const { className, isLoading, disabled } = this._prop;
 
         this._el.btn = (
             <button type="button" className={clsx(className, 'text-nowrap')} disabled={disabled} onclick={this._onClick}>
                 {(this._el.spinner = this._ui_spinner(isLoading))}
-                {(this._el.icon = this._ui_icon(icon))}
+                {(this._el.icon = this._ui_icon())}
                 {(this._el.btnTitle = this._ui_btn())}
             </button>
         );

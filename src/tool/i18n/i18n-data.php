@@ -66,6 +66,11 @@ $i18n_TTL = [
         'ru' => 'Отчество',
         'en' => 'Middle name',
     ],
+    'NEW_TAG_LIST' => [
+        '_type' => 'plain',
+        'ru' => 'Новые теги',
+        'en' => 'New tags',
+    ],
     'PARALLEL' => [
         '_type' => 'plain',
         'ru' => 'Параллель',
@@ -125,6 +130,11 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Название предмета',
         'en' => 'Subject name',
+    ],
+    'TAG_LIST' => [
+        '_type' => 'plain',
+        'ru' => 'Теги',
+        'en' => 'Tags',
     ],
     'TEACHER_GROUPS' => [
         '_type' => 'plain',

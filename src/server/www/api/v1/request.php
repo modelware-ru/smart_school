@@ -213,6 +213,8 @@ try {
         case AuthzConstant::RESOURCE_API_SAVE_CATEGORY_TAG:
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
+            $args['removedTagIdList'] = $payload['removedTagIdList'];
+            $args['newTagList'] = $payload['newTagList'];
 
             require_once 'api/v1/service/app.php';
             $res = app_save_categoryTag($args);

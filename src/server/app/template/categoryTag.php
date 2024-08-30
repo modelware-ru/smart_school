@@ -17,6 +17,7 @@ if ($categoryTagId === 0) {
     $categoryTag = [
         'id' => 0,
         'name' => '',
+        'tagList' => [],
     ];
 } else {
     $args = [
@@ -36,7 +37,7 @@ $templateData['_js']['action'] = $action;
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <script type='text/javascript' src='js/<?=$resource?>_bundle.js' defer></script>
+    <script type='text/javascript' src='js/<?= $resource ?>_bundle.js' defer></script>
 </head>
 
 <body>
@@ -53,7 +54,7 @@ $templateData['_js']['action'] = $action;
                     <?php if ($categoryTagId === 0) { ?>
                         <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая категория</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Тема "<?= $categoryTag['name']?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Тема "<?= $categoryTag['name'] ?>"</span></li>
                     <?php } ?>
                 </ol>
             </nav>

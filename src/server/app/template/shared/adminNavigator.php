@@ -1,4 +1,4 @@
-<a class="navbar-brand" href="index.php">Квадривиум</a>
+<a class="navbar-brand" href="index.php">Квадривиум [A]</a>
 <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Навигация">
     <span class="navbar-toggler-icon"></span>
 </button>

@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-27 13:25:54]
+// GENERATED [2024-09-14 20:11:37]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -15,8 +15,8 @@ class Constant {
     // Role State
     const ROLE_STATE_GUEST_ACTIVE_ID = 1; // Гость : Активный
     const ROLE_STATE_ADMIN_ACTIVE_ID = 2; // Администратор : Активный
-    const ROLE_STATE_TEACHER_ACTIVE_ID = 3; // Преподаватель : Активный
     const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
+    const ROLE_STATE_TEACHER_ACTIVE_ID = 3; // Преподаватель : Активный
 
     const ROLE_STATE = [
         self::ROLE_GUEST_ID => [
@@ -26,8 +26,8 @@ class Constant {
             self::ROLE_STATE_ADMIN_ACTIVE_ID,
         ],
         self::ROLE_TEACHER_ID => [
-            self::ROLE_STATE_TEACHER_ACTIVE_ID,
             self::ROLE_STATE_TEACHER_BLOCKED_ID,
+            self::ROLE_STATE_TEACHER_ACTIVE_ID,
         ],
     ];
 
@@ -58,6 +58,10 @@ class Constant {
     const RESOURCE_API_REMOVE_TOPIC = 'removeTopic'; 
     const RESOURCE_API_SAVE_CATEGORY_TAG = 'saveCategoryTag'; 
     const RESOURCE_API_REMOVE_CATEGORY_TAG = 'removeCategoryTag'; 
+    const RESOURCE_API_SAVE_SCHOOL_YEAR = 'saveSchoolYear'; 
+    const RESOURCE_API_REMOVE_SCHOOL_YEAR = 'removeSchoolYear'; 
+    const RESOURCE_API_SAVE_SERIE = 'saveSerie'; 
+    const RESOURCE_API_REMOVE_SERIE = 'removeSerie'; 
     // PAGE
     const RESOURCE_PAGE_GUEST_INDEX = 'guestIndex'; 
     const RESOURCE_PAGE_RECOVERY_PASSWORD = 'recoveryPassword'; 
@@ -81,6 +85,10 @@ class Constant {
     const RESOURCE_PAGE_TOPIC = 'topic'; 
     const RESOURCE_PAGE_CATEGORY_TAG_LIST = 'categoryTagList'; 
     const RESOURCE_PAGE_CATEGORY_TAG = 'categoryTag'; 
+    const RESOURCE_PAGE_SCHOOL_YEAR_LIST = 'schoolYearList'; 
+    const RESOURCE_PAGE_SCHOOL_YEAR = 'schoolYear'; 
+    const RESOURCE_PAGE_SERIE_LIST = 'serieList'; 
+    const RESOURCE_PAGE_SERIE = 'serie'; 
     // WIDGET
 
     // Action

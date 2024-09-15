@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-08-30 19:45:32]
+// GENERATED [2024-09-14 20:11:25]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -26,11 +26,16 @@ class MWI18nHelper
     const PAGE_TITLE_TOPIC = 'PAGE_TITLE_TOPIC';
     const PAGE_TITLE_CATEGORY_TAG_LIST = 'PAGE_TITLE_CATEGORY_TAG_LIST';
     const PAGE_TITLE_CATEGORY_TAG = 'PAGE_TITLE_CATEGORY_TAG';
+    const PAGE_TITLE_SCHOOL_YEAR_LIST = 'PAGE_TITLE_SCHOOL_YEAR_LIST';
+    const PAGE_TITLE_SCHOOL_YEAR = 'PAGE_TITLE_SCHOOL_YEAR';
+    const PAGE_TITLE_SERIE_LIST = 'PAGE_TITLE_SERIE_LIST';
+    const PAGE_TITLE_SERIE = 'PAGE_TITLE_SERIE';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
     const MSG_FIELD_IS_TOO_LONG = 'MSG_FIELD_IS_TOO_LONG';
     const MSG_FIELD_IS_TOO_SHORT = 'MSG_FIELD_IS_TOO_SHORT';
+    const MSG_FIELD_START_DATE_IS_GREAT_THAN_FINISH_DATE = 'MSG_FIELD_START_DATE_IS_GREAT_THAN_FINISH_DATE';
     const MSG_FIELD_VALUE_IS_NOT_VALID = 'MSG_FIELD_VALUE_IS_NOT_VALID';
     const MSG_FIELD_WITH_DUPLICATED_VALUE = 'MSG_FIELD_WITH_DUPLICATED_VALUE';
     const MSG_IMPOSSIBLE_TO_REMOVE_DATA = 'MSG_IMPOSSIBLE_TO_REMOVE_DATA';
@@ -311,6 +316,46 @@ class MWI18nHelper
                         return sprintf("Category Tag", ...$args);
                     },
                 ],
+            self::PAGE_TITLE_SCHOOL_YEAR_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Список учебных годов", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("School Year List", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_SCHOOL_YEAR => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Учебный год", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("School Year", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_SERIE_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Список серий годов", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Serie List", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_SERIE => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Серия", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Serie", ...$args);
+                    },
+                ],
         ];
         $this->_msgList = [
             self::MSG_FIELD_EMAIL_INCORRECT => function (...$args) {
@@ -324,6 +369,9 @@ class MWI18nHelper
             },
             self::MSG_FIELD_IS_TOO_SHORT => function (...$args) {
                 return sprintf("Поле содержит слишком короткое значение: %d меньше чем %d", ...$args);
+            },
+            self::MSG_FIELD_START_DATE_IS_GREAT_THAN_FINISH_DATE => function (...$args) {
+                return sprintf("Дата начала (%s) больше даты конца (%s)", ...$args);
             },
             self::MSG_FIELD_VALUE_IS_NOT_VALID => function (...$args) {
                 return sprintf("Для поля (%s) недопустимое значение (%s)", ...$args);

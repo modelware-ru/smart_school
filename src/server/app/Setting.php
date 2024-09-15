@@ -25,6 +25,11 @@ class Setting
                 'user' => 'denis',
                 'password' => 'denis',
             ],
+            'localhost-mariaDB' => [
+                'dsn' => 'mysql:host=127.0.0.1;port=33306;dbname=smart_school;charset=UTF8',
+                'user' => 'root',
+                'password' => 'root',
+            ],
             'majordomo' => [
                 'dsn' => 'mysql:host=78.108.80.142;port=3306;dbname=b171063_smart_school;charset=UTF8',
                 'user' => 'u171063_smart',

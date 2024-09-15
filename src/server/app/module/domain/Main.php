@@ -26,6 +26,8 @@ class Main
     const SUBJECT_NAME_MAX_LENGTH = 100;
     const TOPIC_NAME_MAX_LENGTH = 100;
     const CATEGORYTAG_NAME_MAX_LENGTH = 100;
+    const SCHOOLYEAR_NAME_MAX_LENGTH = 100;
+    const DATE_LENGTH = 10;
 
     public function getParallelList($args)
     {
@@ -96,7 +98,7 @@ class Main
 
     public function saveParallel($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::saveParallel');
+        $localLog = Logger::Log()->withName('Module::Domain::saveParallel');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -111,9 +113,9 @@ class Main
         // test. finish
 
         // check. start
-        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::PARALLEL_NAME_MAX_LENGTH)->check();
-
         $errorList = [];
+
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::PARALLEL_NAME_MAX_LENGTH)->check();
         if ($nameCheck === ValueChecker::IS_EMPTY) {
             $errorList['name'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -153,7 +155,7 @@ class Main
             }
         } catch (MWException $e) {
             $msg = $e->logData();
-            preg_match('/SQLSTATE\[23000\].*main__parallel.main__parallel___unique_name/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__parallel___unique_name/', $msg[0], $matches);
             $errorList = [];
             if (!empty($matches)) {
                 $errorList['name'] = [
@@ -161,7 +163,7 @@ class Main
                     'args' => [$name],
                 ];
             }
-            preg_match('/SQLSTATE\[23000\].*main__parallel.main__parallel___unique_number/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__parallel___unique_number/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['number'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
@@ -181,7 +183,7 @@ class Main
 
     public function removeParallel($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::removeParallel');
+        $localLog = Logger::Log()->withName('Module::Domain::removeParallel');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -313,7 +315,7 @@ class Main
 
     public function saveGroup($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::saveGroup');
+        $localLog = Logger::Log()->withName('Module::Domain::saveGroup');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -334,9 +336,9 @@ class Main
         // test. finish
 
         // check. start
-        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::GROUP_NAME_MAX_LENGTH)->check();
-
         $errorList = [];
+
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::GROUP_NAME_MAX_LENGTH)->check();
         if ($nameCheck === ValueChecker::IS_EMPTY) {
             $errorList['name'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -369,7 +371,7 @@ class Main
             }
         } catch (MWException $e) {
             $msg = $e->logData();
-            preg_match('/SQLSTATE\[23000\].*main__group.main__group___unique_parallel_id_name/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__group___unique_parallel_id_name/', $msg[0], $matches);
             $errorList = [];
             if (!empty($matches)) {
                 $errorList['_msg_'] = [
@@ -389,7 +391,7 @@ class Main
 
     public function removeGroup($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::removeGroup');
+        $localLog = Logger::Log()->withName('Module::Domain::removeGroup');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -523,7 +525,7 @@ class Main
 
     public function blockTeacher($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::blockTeacher');
+        $localLog = Logger::Log()->withName('Module::Domain::blockTeacher');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -618,7 +620,7 @@ class Main
 
     public function saveTeacher($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::saveTeacher');
+        $localLog = Logger::Log()->withName('Module::Domain::saveTeacher');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -643,16 +645,9 @@ class Main
         // test. finish
 
         // check. start
-        $loginCheck = (new ValueChecker($login))->notEmpty()->lengthLessOrEqual(self::LOGIN_MAX_LENGTH)->check();
-        $emailCheck = (new ValueChecker($email))->notEmpty()->lengthLessOrEqual(self::EMAIL_MAX_LENGTH)->validEmail()->check();
-        $passwordCheck = ($id === 0 || !(empty($password)))
-            ? (new ValueChecker($password))->notEmpty()->lengthLessOrEqual(self::PASSWORD_MAX_LENGTH)->check()
-            : (new ValueChecker($password))->check();
-        $firstNameCheck = (new ValueChecker($firstName))->notEmpty()->lengthLessOrEqual(self::FIRST_NAME_MAX_LENGTH)->check();
-        $lastNameCheck = (new ValueChecker($lastName))->notEmpty()->lengthLessOrEqual(self::LAST_NAME_MAX_LENGTH)->check();
-        $middleNameCheck = (new ValueChecker($middleName))->lengthLessOrEqual(self::MIDDLE_NAME_MAX_LENGTH)->check();
-
         $errorList = [];
+
+        $loginCheck = (new ValueChecker($login))->notEmpty()->lengthLessOrEqual(self::LOGIN_MAX_LENGTH)->check();
         if ($loginCheck === ValueChecker::IS_EMPTY) {
             $errorList['login'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -664,6 +659,8 @@ class Main
                 'args' => [strlen($firstName), self::LOGIN_MAX_LENGTH],
             ];
         }
+
+        $emailCheck = (new ValueChecker($email))->notEmpty()->lengthLessOrEqual(self::EMAIL_MAX_LENGTH)->validEmail()->check();
         if ($emailCheck === ValueChecker::IS_EMPTY) {
             $errorList['email'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -680,6 +677,10 @@ class Main
                 'args' => [$email],
             ];
         }
+
+        $passwordCheck = ($id === 0 || !(empty($password)))
+            ? (new ValueChecker($password))->notEmpty()->lengthLessOrEqual(self::PASSWORD_MAX_LENGTH)->check()
+            : (new ValueChecker($password))->check();
         if ($passwordCheck === ValueChecker::IS_EMPTY) {
             $errorList['password'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -691,6 +692,8 @@ class Main
                 'args' => [strlen($firstName), self::PASSWORD_MAX_LENGTH],
             ];
         }
+
+        $firstNameCheck = (new ValueChecker($firstName))->notEmpty()->lengthLessOrEqual(self::FIRST_NAME_MAX_LENGTH)->check();
         if ($firstNameCheck === ValueChecker::IS_EMPTY) {
             $errorList['firstName'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -703,6 +706,7 @@ class Main
             ];
         }
 
+        $lastNameCheck = (new ValueChecker($lastName))->notEmpty()->lengthLessOrEqual(self::LAST_NAME_MAX_LENGTH)->check();
         if ($lastNameCheck === ValueChecker::IS_EMPTY) {
             $errorList['lastName'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -715,6 +719,7 @@ class Main
             ];
         }
 
+        $middleNameCheck = (new ValueChecker($middleName))->lengthLessOrEqual(self::MIDDLE_NAME_MAX_LENGTH)->check();
         if ($middleNameCheck === ValueChecker::IS_EMPTY) {
             $errorList['middleName'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -770,14 +775,14 @@ class Main
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
-            preg_match('/SQLSTATE\[23000\].*main__user.main__user___unique_login/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__user___unique_login/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['login'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
                     'args' => [$login],
                 ];
             }
-            preg_match('/SQLSTATE\[23000\].*main__user.main__user___unique_email/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__user___unique_email/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['email'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
@@ -796,7 +801,7 @@ class Main
 
     public function removeTeacher($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::removeTeacher');
+        $localLog = Logger::Log()->withName('Module::Domain::removeTeacher');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -910,7 +915,7 @@ class Main
 
     public function saveSubject($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::saveSubject');
+        $localLog = Logger::Log()->withName('Module::Domain::saveSubject');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -923,9 +928,9 @@ class Main
         // test. finish
 
         // check. start
-        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::SUBJECT_NAME_MAX_LENGTH)->check();
-
         $errorList = [];
+
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::SUBJECT_NAME_MAX_LENGTH)->check();
         if ($nameCheck === ValueChecker::IS_EMPTY) {
             $errorList['name'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -953,7 +958,7 @@ class Main
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
-            preg_match('/SQLSTATE\[23000\].*main__subject.main__subject___unique_name/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__subject___unique_name/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['name'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
@@ -971,7 +976,7 @@ class Main
 
     public function removeSubject($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::removeSubject');
+        $localLog = Logger::Log()->withName('Module::Domain::removeSubject');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1124,7 +1129,7 @@ class Main
 
     public function saveStudent($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::saveStudent');
+        $localLog = Logger::Log()->withName('Module::Domain::saveStudent');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1139,11 +1144,9 @@ class Main
         // test. finish
 
         // check. start
-        $firstNameCheck = (new ValueChecker($firstName))->notEmpty()->lengthLessOrEqual(self::FIRST_NAME_MAX_LENGTH)->check();
-        $lastNameCheck = (new ValueChecker($lastName))->notEmpty()->lengthLessOrEqual(self::LAST_NAME_MAX_LENGTH)->check();
-        $middleNameCheck = (new ValueChecker($middleName))->lengthLessOrEqual(self::MIDDLE_NAME_MAX_LENGTH)->check();
-
         $errorList = [];
+
+        $firstNameCheck = (new ValueChecker($firstName))->notEmpty()->lengthLessOrEqual(self::FIRST_NAME_MAX_LENGTH)->check();
         if ($firstNameCheck === ValueChecker::IS_EMPTY) {
             $errorList['firstName'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -1156,6 +1159,7 @@ class Main
             ];
         }
 
+        $lastNameCheck = (new ValueChecker($lastName))->notEmpty()->lengthLessOrEqual(self::LAST_NAME_MAX_LENGTH)->check();
         if ($lastNameCheck === ValueChecker::IS_EMPTY) {
             $errorList['lastName'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -1168,6 +1172,7 @@ class Main
             ];
         }
 
+        $middleNameCheck = (new ValueChecker($middleName))->lengthLessOrEqual(self::MIDDLE_NAME_MAX_LENGTH)->check();
         if ($middleNameCheck === ValueChecker::IS_EMPTY) {
             $errorList['middleName'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -1197,7 +1202,7 @@ class Main
 
     public function removeStudent($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::removeStudent');
+        $localLog = Logger::Log()->withName('Module::Domain::removeStudent');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1237,7 +1242,7 @@ class Main
 
     public function changeClass($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::changeClass');
+        $localLog = Logger::Log()->withName('Module::Domain::changeClass');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1280,7 +1285,7 @@ class Main
 
     public function changeGroup($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::changeGroup');
+        $localLog = Logger::Log()->withName('Module::Domain::changeGroup');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1451,7 +1456,7 @@ class Main
 
     public function saveTopic($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::saveTopic');
+        $localLog = Logger::Log()->withName('Module::Domain::saveTopic');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1464,9 +1469,9 @@ class Main
         // test. finish
 
         // check. start
-        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::TOPIC_NAME_MAX_LENGTH)->check();
-
         $errorList = [];
+
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::TOPIC_NAME_MAX_LENGTH)->check();
         if ($nameCheck === ValueChecker::IS_EMPTY) {
             $errorList['name'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -1494,7 +1499,7 @@ class Main
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
-            preg_match('/SQLSTATE\[23000\].*main__topic.main__topic___unique_name/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__topic___unique_name/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['name'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
@@ -1512,7 +1517,7 @@ class Main
 
     public function removeTopic($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::removeTopic');
+        $localLog = Logger::Log()->withName('Module::Domain::removeTopic');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1597,7 +1602,7 @@ class Main
         // check. finish
 
         $manager = new Manager();
-        $resDb = $manager->getCategoryTagById($categoryTagId);
+        $resDb = $manager->getCategoryById($categoryTagId);
 
         if (count($resDb) !== 1) {
             MWException::ThrowEx(
@@ -1609,15 +1614,24 @@ class Main
         $res =  [
             'id' => $resDb[0]['id'],
             'name' => $resDb[0]['name'],
-            'tagList' => json_decode($resDb[0]['tag_list'], true),
         ];
+
+        $resDb = $manager->getCategoryTagListById($categoryTagId);
+        $tagList = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+            ];
+        }, $resDb);
+
+        $res['tagList'] = $tagList;
 
         return [Util::MakeSuccessOperationResult($res), []];
     }
 
     public function saveCategoryTag($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::saveCategoryTag');
+        $localLog = Logger::Log()->withName('Module::Domain::saveCategoryTag');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1632,9 +1646,9 @@ class Main
         // test. finish
 
         // check. start
-        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::CATEGORYTAG_NAME_MAX_LENGTH)->check();
-
         $errorList = [];
+
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::CATEGORYTAG_NAME_MAX_LENGTH)->check();
         if ($nameCheck === ValueChecker::IS_EMPTY) {
             $errorList['name'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
@@ -1668,14 +1682,14 @@ class Main
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
-            preg_match('/SQLSTATE\[23000\].*main__categoryTag.main__categoryTag___unique_name/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__categoryTag___unique_name/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['name'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
                     'args' => [$name],
                 ];
             }
-            preg_match('/SQLSTATE\[23000\].*main__tag.main__tag___unique_name_categoryTag_id/', $msg[0], $matches);
+            preg_match('/SQLSTATE\[23000\].*main__tag___unique_name_categoryTag_id/', $msg[0], $matches);
             if (!empty($matches)) {
                 $errorList['tagList'] = [
                     'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
@@ -1693,7 +1707,7 @@ class Main
 
     public function removeCategoryTag($args)
     {
-        $localLog = Logger::Log()->withName('Module::Account::removeCategoryTag');
+        $localLog = Logger::Log()->withName('Module::Domain::removeCategoryTag');
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
@@ -1729,4 +1743,305 @@ class Main
 
         return [Util::MakeSuccessOperationResult(), []];
     }
+
+    public function getSchoolYearList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getSchoolYearList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getSchoolYearList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'startDate' => $item['start_date'],
+                'finishDate' => $item['finish_date'],
+                'isCurrent' => $item['is_current'] === 'Y',
+                'canBeRemoved' => $item['ml_count'] === 0,
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getCurrentSchoolYearAndCount($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getCurrentSchoolYearAndCount');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getCurrentSchoolYearAndCount();
+
+        $res = array_map(function ($item) {
+            return [
+                'currentId' => $item['current_id'],
+                'count' => $item['count'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getSchoolYearById($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getSchoolYearById');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $schoolYearId = $args['schoolYearId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getSchoolYearById($schoolYearId);
+
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Учебный год с id = {$schoolYearId} не существует"],
+            );
+        }
+
+        $res =  [
+            'id' => $resDb[0]['id'],
+            'name' => $resDb[0]['name'],
+            'startDate' => $resDb[0]['start_date'],
+            'finishDate' => $resDb[0]['finish_date'],
+            'isCurrent' => $resDb[0]['is_current'] === 'Y',
+        ];
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function saveSchoolYear($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::saveSchoolYear');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+        $name = $args['name'];
+        $startDate = $args['startDate'];
+        $finishDate = $args['finishDate'];
+        $isCurrent = $args['isCurrent'] ? 'Y' : 'N';
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        $errorList = [];
+
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::SCHOOLYEAR_NAME_MAX_LENGTH)->check();
+        if ($nameCheck === ValueChecker::IS_EMPTY) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($nameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($name), self::SCHOOLYEAR_NAME_MAX_LENGTH],
+            ];
+        }
+
+        $startDateCheck = (new ValueChecker($startDate))->notEmpty()->lengthEqual(self::DATE_LENGTH)->check();
+        if ($startDateCheck === ValueChecker::IS_EMPTY) {
+            $errorList['startDate'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($startDateCheck === ValueChecker::LENGTH_IS_NOT_EQUAL) {
+            $errorList['startDate'] = [
+                'code' => MWI18nHelper::MSG_FIELD_VALUE_IS_NOT_VALID,
+                'args' => ['startDate', $startDate],
+            ];
+        }
+
+        $finishDateCheck = (new ValueChecker($finishDate))->notEmpty()->lengthEqual(self::DATE_LENGTH)->check();
+        if ($finishDateCheck === ValueChecker::IS_EMPTY) {
+            $errorList['finishDate'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($finishDateCheck === ValueChecker::LENGTH_IS_NOT_EQUAL) {
+            $errorList['finishDate'] = [
+                'code' => MWI18nHelper::MSG_FIELD_VALUE_IS_NOT_VALID,
+                'args' => ['finishDate', $finishDate],
+            ];
+        }
+
+        if (count($errorList) === 0) {
+            $startDateCompfinishDateCheck = (new ValueChecker(strtotime($startDate)))->valueLess(strtotime($finishDate))->check();
+            if ($startDateCompfinishDateCheck === ValueChecker::VALUE_GREAT) {
+                $errorList['startDate'] = [
+                    'code' => MWI18nHelper::MSG_FIELD_START_DATE_IS_GREAT_THAN_FINISH_DATE,
+                    'args' => [$startDate, $finishDate],
+                ];
+            }
+        }
+
+        if (count($errorList) > 0) {
+            return [Util::MakeFailOperationResult($errorList), []];
+        }
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getCurrentSchoolYearAndCount();
+
+        $schoolYearCount = $resDb[0]['count'];
+        $schoolYearCurrentId = $resDb[0]['current_id'];
+
+        if ($schoolYearCount === 0) {
+            $isCurrent = 'Y';
+        } else {
+            if ($schoolYearCurrentId === $id) {
+                $isCurrent = 'Y';
+            } else {
+                if ($isCurrent === 'Y') {
+                    $manager->updateSchoolYearIsCurrent($schoolYearCurrentId, 'N');
+                }
+            }
+        }
+
+        if ($id === 0) {
+            $resDb = $manager->createSchoolYear($name, $startDate, $finishDate, $isCurrent);
+        } else {
+            $resDb = $manager->updateSchoolYear($id, $name, $startDate, $finishDate, $isCurrent);
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function removeSchoolYear($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::removeSchoolYear');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            $resDb = $manager->removeSchoolYear($id);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('error:', $msg);
+            preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+            $errorList = [];
+            if (!empty($matches)) {
+                $errorList['_msg_'] = [
+                    'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+                    'args' => ['данные используются'],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function getSerieList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getSerieList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getSerieList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'canBeRemoved' => ($item['mst_count'] + $item['mss_count'] + $item['mls_count']) === 0,
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getSerieById($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getSerieById');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $serieId = $args['serieId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getSerieById($serieId);
+
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Серии с id = {$serieId} не существует"],
+            );
+        }
+
+        $res =  [
+            'id' => $resDb[0]['id'],
+            'name' => $resDb[0]['name'],
+        ];
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
 }

@@ -1,4 +1,4 @@
-// GENERATED [2024-08-30 19:45:32]
+// GENERATED [2024-09-14 20:11:25]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -23,6 +23,10 @@ export default {
   TTL_PASSWORD_HELP: (...args) => `Password`,
   TTL_REASON: (...args) => `Reason`,
   TTL_RECOVERY_PASSWORD: (...args) => `Recovery Password`,
+  TTL_SCHOOLYEAR_FINISH_DATE: (...args) => `School year finish date`,
+  TTL_SCHOOLYEAR_IS_CURRENT: (...args) => `Current school year`,
+  TTL_SCHOOLYEAR_NAME: (...args) => `School year name`,
+  TTL_SCHOOLYEAR_START_DATE: (...args) => `School year start date`,
   TTL_SEARCH: (...args) => `Search`,
   TTL_SIGN_IN: (...args) => `Sign In`,
   TTL_STATE: (...args) => `State`,
@@ -44,6 +48,7 @@ export default {
   MSG_FIELD_IS_REQUIRED: (...args) => `This is a required field`,
   MSG_FIELD_IS_TOO_LONG: (...args) => `The field is too long`,
   MSG_FIELD_IS_TOO_SHORT: (...args) => `The field is too short`,
+  MSG_FIELD_START_DATE_IS_GREAT_THAN_FINISH_DATE: (...args) => `Start date is greater than finish date`,
   MSG_FIELD_VALUE_IS_NOT_VALID: (...args) => `The field value is not valid`,
   MSG_FIELD_WITH_DUPLICATED_VALUE: (...args) => `This is a duplicated value`,
   MSG_IMPOSSIBLE_TO_REMOVE_DATA: (...args) => `Impossible to remove data`,

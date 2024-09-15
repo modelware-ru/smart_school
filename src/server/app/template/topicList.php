@@ -25,7 +25,7 @@ list($res, $data) = (new DomainModule())->getTopicList($args);
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacherNavigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">

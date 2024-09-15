@@ -32,7 +32,7 @@ try {
 
     // php
     // Данные для названий страниц берутся из базы данных
-    $db = DBManager::GetConnection('localhost');
+    $db = DBManager::GetConnection('localhost-mariaDB');
 
     $pageList = $db->select('SELECT id, code_name, name FROM main__page');
 

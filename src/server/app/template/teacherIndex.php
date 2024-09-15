@@ -17,7 +17,7 @@ $resource = $templateData['resource'];
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacherNavigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
@@ -36,8 +36,8 @@ $resource = $templateData['resource'];
                     <span>Задачи (NA)</span>
                 </a>
 
-                <a href="student-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Серии (NA)</span>
+                <a href="serie-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+                    <span>Серии</span>
                 </a>
 
                 <a href="topic-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">

@@ -135,3 +135,17 @@ function app_remove_categoryTag($args)
 
     return $res;
 }
+
+function app_save_schoolYear($args)
+{
+    list($res, $data) = (new DomainMain())->saveSchoolYear($args);
+
+    return $res;
+}
+
+function app_remove_schoolYear($args)
+{
+    list($res, $data) = (new DomainMain())->removeSchoolYear($args);
+
+    return $res;
+}

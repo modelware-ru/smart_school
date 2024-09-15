@@ -227,6 +227,24 @@ try {
             $res = app_remove_categoryTag($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_SAVE_SCHOOL_YEAR:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+            $args['startDate'] = $payload['startDate'];
+            $args['finishDate'] = $payload['finishDate'];
+            $args['isCurrent'] = $payload['isCurrent'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_schoolYear($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_SCHOOL_YEAR:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_schoolYear($args);
+
+            break;
     }
 
     DBManager::Commit();

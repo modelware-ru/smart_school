@@ -175,6 +175,22 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeCategoryTag FINISH
+        // saveSchoolYear START
+        AuthzConstant::RESOURCE_API_SAVE_SCHOOL_YEAR => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+            'startDate' => 'string',
+            'finishDate' => 'string',
+            'isCurrent' => true,
+        ],
+        // saveSchoolYear FINISH
+        // removeSchoolYear START
+        AuthzConstant::RESOURCE_API_REMOVE_SCHOOL_YEAR => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeSchoolYear FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

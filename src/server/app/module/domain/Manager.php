@@ -631,13 +631,25 @@ SQL;
         return $this->_db->select($stmt);
     }
 
-    public function getCategoryTagById($categoryTagId)
+    public function getCategoryById($categoryTagId)
     {
+        // (SELECT JSON_ARRAYAGG(JSON_OBJECT('id', mt.id, 'name', mt.name)) FROM main__tag mt WHERE mt.categoryTag_id = mct.id) tag_list 
+
         $stmt = <<<SQL
-SELECT mct.id, mct.name,
-(SELECT JSON_ARRAYAGG(JSON_OBJECT('id', mt.id, 'name', mt.name)) FROM main__tag mt WHERE mt.categoryTag_id = mct.id) tag_list 
+SELECT mct.id, mct.name
 FROM main__categoryTag mct
 WHERE mct.id = :categoryTagId
+SQL;
+        return $this->_db->select($stmt, ['categoryTagId' => $categoryTagId]);
+    }
+
+    public function getCategoryTagListById($categoryTagId)
+    {
+
+        $stmt = <<<SQL
+SELECT mt.id, mt.name
+FROM main__tag mt
+WHERE mt.categoryTag_id = :categoryTagId
 SQL;
         return $this->_db->select($stmt, ['categoryTagId' => $categoryTagId]);
     }
@@ -706,5 +718,115 @@ SQL;
                 'categoryTagId' => $categoryTagId
             ],
         );
+    }
+
+    public function getSchoolYearList()
+    {
+        $stmt = <<<SQL
+SELECT msy.id, msy.name, msy.start_date, msy.finish_date, msy.is_current,
+(SELECT COUNT(ml.id) FROM main__lesson ml WHERE ml.schoolYear_id = msy.id) ml_count
+FROM main__schoolYear msy
+ORDER BY msy.start_date DESC
+SQL;
+        return $this->_db->select($stmt);
+    }
+
+
+    public function getCurrentSchoolYearAndCount()
+    {
+        $stmt = <<<SQL
+SELECT 
+(SELECT msy.id FROM main__schoolYear msy WHERE is_current = 'Y') current_id,
+(SELECT COUNT(msy.id) FROM main__schoolYear msy) `count`;
+SQL;
+        return $this->_db->select($stmt);
+    }
+
+    public function getSchoolYearById($schoolYeadId)
+    {
+        $stmt = <<<SQL
+SELECT msy.id, msy.name, msy.start_date, msy.finish_date, msy.is_current
+FROM main__schoolYear msy
+WHERE msy.id = :schoolYeadId 
+SQL;
+        return $this->_db->select($stmt, ['schoolYeadId' => $schoolYeadId]);
+    }
+
+    public function createSchoolYear($name, $startDate, $finishDate, $isCurrent)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__schoolYear (name, start_date, finish_date, is_current)
+VALUES (:name, :startDate, :finishDate, :isCurrent)
+SQL;
+        return $this->_db->insert($stmt, [
+            0 => [
+                'name' => $name,
+                'startDate' => $startDate,
+                'finishDate' => $finishDate,
+                'isCurrent' => $isCurrent,
+            ],
+        ]);
+    }
+
+    public function updateSchoolYear($schoolYearId, $name, $startDate, $finishDate, $isCurrent)
+    {
+        $stmt = <<<SQL
+UPDATE main__schoolYear SET name = :name, start_date = :startDate, finish_date = :finishDate, is_current = :isCurrent
+WHERE id = :id
+SQL;
+        return $this->_db->update($stmt, [
+            0 => [
+                'id' => $schoolYearId,
+                'name' => $name,
+                'startDate' => $startDate,
+                'finishDate' => $finishDate,
+                'isCurrent' => $isCurrent,
+            ]
+        ]);
+    }
+
+    public function updateSchoolYearIsCurrent($schoolYearId, $isCurrent)
+    {
+        $stmt = <<<SQL
+UPDATE main__schoolYear SET is_current = :isCurrent
+WHERE id = :id
+SQL;
+        return $this->_db->update($stmt, [
+            0 => [
+                'id' => $schoolYearId,
+                'isCurrent' => $isCurrent,
+            ]
+        ]);
+    }
+
+
+    public function removeSchoolYear($schoolYearId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__schoolYear WHERE id = :id
+SQL;
+        return $this->_db->delete($stmt, ['id' => $schoolYearId]);
+    }
+
+    public function getSerieList()
+    {
+        $stmt = <<<SQL
+SELECT ms.id, ms.name,
+(SELECT COUNT(mst.id) FROM main__serie_task mst WHERE mst.serie_id = ms.id) mst_count,
+(SELECT COUNT(mss.id) FROM main__student_serie mss WHERE mss.serie_id = ms.id) mss_count,
+(SELECT COUNT(mls.id) FROM main__lesson_serie mls WHERE mls.serie_id = ms.id) mls_count
+FROM main__serie ms
+SQL;
+        return $this->_db->select($stmt);
+    }
+
+    public function getSerieById($serieId)
+    {
+        $stmt = <<<SQL
+SELECT ms.id, ms.name
+FROM main__serie ms
+WHERE ms.id = :serieId 
+SQL;
+        return $this->_db->select($stmt, ['serieId' => $serieId]);
     }
 }

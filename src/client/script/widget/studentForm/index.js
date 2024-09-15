@@ -28,7 +28,7 @@ export default class StudentForm {
         this._atm.firstNameInput = (
             <Input className="col-12" label={i18n(langId, 'TTL_FIRST_NAME')} value={student.firstName} mandatory maxLength={100} />
         );
-        this._updateStateInput('first', {
+        this._updateStateInput(ID.SF_INPUT_FIRSTNAME_ID, {
             disabled: false,
             hasError: 'unknown',
         });
@@ -37,14 +37,14 @@ export default class StudentForm {
         this._atm.lastNameInput = (
             <Input className="col-12" label={i18n(langId, 'TTL_LAST_NAME')} value={student.lastName} mandatory maxLength={100} />
         );
-        this._updateStateInput('last', {
+        this._updateStateInput(ID.SF_INPUT_LASTNAME_ID, {
             disabled: false,
             hasError: 'unknown',
         });
 
         this._stateMiddleNameInput = {};
         this._atm.middleNameInput = <Input className="col-12" label={i18n(langId, 'TTL_MIDDLE_NAME')} value={student.middleName} maxLength={100} />;
-        this._updateStateInput('middle', {
+        this._updateStateInput(ID.SF_INPUT_MIDDLENAME_ID, {
             disabled: false,
             hasError: 'unknown',
         });
@@ -101,43 +101,43 @@ export default class StudentForm {
 
     _showError = ({ status, data }) => {
         if (status === 'ok') {
-            this._updateStateInput('first', { disabled: false, hasError: 'no', error: null });
-            this._updateStateInput('last', { disabled: false, hasError: 'no', error: null });
-            this._updateStateInput('middle', { disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.SF_INPUT_FIRSTNAME_ID, { disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.SF_INPUT_LASTNAME_ID, { disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.SF_INPUT_MIDDLENAME_ID, { disabled: false, hasError: 'no', error: null });
             return;
         }
 
         if (status === 'error') {
-            this._updateStateInput('first', { disabled: false, hasError: 'undefine', error: null });
-            this._updateStateInput('last', { disabled: false, hasError: 'undefine', error: null });
-            this._updateStateInput('middle', { disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.SF_INPUT_FIRSTNAME_ID, { disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.SF_INPUT_LASTNAME_ID, { disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.SF_INPUT_MIDDLENAME_ID, { disabled: false, hasError: 'undefine', error: null });
             return;
         }
 
         if (typeof data[ID.SF_INPUT_FIRSTNAME_ID] !== 'undefined') {
-            this._updateStateInput('first', { disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_FIRSTNAME_ID] });
+            this._updateStateInput(ID.SF_INPUT_FIRSTNAME_ID, { disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_FIRSTNAME_ID] });
         } else {
-            this._updateStateInput('first', { disabled: false, hasError: 'undefined', error: null });
+            this._updateStateInput(ID.SF_INPUT_FIRSTNAME_ID, { disabled: false, hasError: 'undefined', error: null });
         }
 
         if (typeof data[ID.SF_INPUT_LASTNAME_ID] !== 'undefined') {
-            this._updateStateInput('last', { disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_LASTNAME_ID] });
+            this._updateStateInput(ID.SF_INPUT_LASTNAME_ID, { disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_LASTNAME_ID] });
         } else {
-            this._updateStateInput('last', { disabled: false, hasError: 'undefined', error: null });
+            this._updateStateInput(ID.SF_INPUT_LASTNAME_ID, { disabled: false, hasError: 'undefined', error: null });
         }
 
         if (typeof data[ID.SF_INPUT_MIDDLENAME_ID] !== 'undefined') {
-            this._updateStateInput('middle', { disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MIDDLENAME_ID] });
+            this._updateStateInput(ID.SF_INPUT_MIDDLENAME_ID, { disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MIDDLENAME_ID] });
         } else {
-            this._updateStateInput('middle', { disabled: false, hasError: 'undefined', error: null });
+            this._updateStateInput(ID.SF_INPUT_MIDDLENAME_ID, { disabled: false, hasError: 'undefined', error: null });
         }
     };
 
     _beforeCallSaveStudent = () => {
         this._updateStateSaveButton({ disabled: true, isLoading: true, title: 'TTL_TO_SAVE_IN_PROGRESS' });
-        this._updateStateInput('first', { disabled: true });
-        this._updateStateInput('last', { disabled: true });
-        this._updateStateInput('middle', { disabled: true });
+        this._updateStateInput(ID.SF_INPUT_FIRSTNAME_ID, { disabled: true });
+        this._updateStateInput(ID.SF_INPUT_LASTNAME_ID, { disabled: true });
+        this._updateStateInput(ID.SF_INPUT_MIDDLENAME_ID, { disabled: true });
     };
 
     _afterCallSaveStudent = (payload) => {
@@ -173,15 +173,15 @@ export default class StudentForm {
         let stateNameInput;
         let nameInput;
         switch (name) {
-            case 'first':
+            case ID.SF_INPUT_FIRSTNAME_ID:
                 stateNameInput = this._stateFirstNameInput;
                 nameInput = this._atm.firstNameInput;
                 break;
-            case 'last':
+            case ID.SF_INPUT_LASTNAME_ID:
                 stateNameInput = this._stateLastNameInput;
                 nameInput = this._atm.lastNameInput;
                 break;
-            case 'middle':
+            case ID.SF_INPUT_MIDDLENAME_ID:
                 stateNameInput = this._stateMiddleNameInput;
                 nameInput = this._atm.middleNameInput;
                 break;

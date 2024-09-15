@@ -1,4 +1,4 @@
-// GENERATED [2024-08-30 19:45:32]
+// GENERATED [2024-09-14 20:11:25]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -23,6 +23,10 @@ export default {
   TTL_PASSWORD_HELP: (...args) => `Для изменения пароля введите новый пароль. Если пароль изменять не требуется - оставьте поле пустым.`,
   TTL_REASON: (...args) => `Причина`,
   TTL_RECOVERY_PASSWORD: (...args) => `Восстановление пароля`,
+  TTL_SCHOOLYEAR_FINISH_DATE: (...args) => `Конец учебного года`,
+  TTL_SCHOOLYEAR_IS_CURRENT: (...args) => `Текущий учебный год`,
+  TTL_SCHOOLYEAR_NAME: (...args) => `Название учебного года`,
+  TTL_SCHOOLYEAR_START_DATE: (...args) => `Начало учебного года`,
   TTL_SEARCH: (...args) => `Поиск`,
   TTL_SIGN_IN: (...args) => `Вход`,
   TTL_STATE: (...args) => `Состояние`,
@@ -44,6 +48,7 @@ export default {
   MSG_FIELD_IS_REQUIRED: (...args) => `Поле должно быть заполнено`,
   MSG_FIELD_IS_TOO_LONG: (...args) => `Поле содержит слишком длинное значение`,
   MSG_FIELD_IS_TOO_SHORT: (...args) => `Поле содержит слишком короткое значение`,
+  MSG_FIELD_START_DATE_IS_GREAT_THAN_FINISH_DATE: (...args) => `Дата начала больше даты конца`,
   MSG_FIELD_VALUE_IS_NOT_VALID: (...args) => `Недопустимое значение поля`,
   MSG_FIELD_WITH_DUPLICATED_VALUE: (...args) => `Запись с таким значением уже существует`,
   MSG_IMPOSSIBLE_TO_REMOVE_DATA: (...args) => `Невозможно удалить данные: ${args[0]}`,

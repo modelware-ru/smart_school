@@ -87,6 +87,15 @@ CREATE TABLE main__subject (
     CONSTRAINT main__subject___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
 
+CREATE TABLE main__schoolYear (
+    id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    name VARCHAR(100) DEFAULT '' NOT NULL,
+    start_date DATE NOT NULL,
+    finish_date DATE NOT NULL,
+    is_current ENUM('Y', 'N') DEFAULT 'N' NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE = InnoDB;
+
 CREATE TABLE main__tag (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     categoryTag_id INT UNSIGNED NOT NULL,
@@ -145,10 +154,12 @@ CREATE TABLE main__lesson (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     subject_id INT UNSIGNED NOT NULL,
     group_id INT UNSIGNED NOT NULL,
+    schoolYear_id INT UNSIGNED NOT NULL,
     `date` DATETIME NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__lesson___subject_id FOREIGN KEY (subject_id) REFERENCES main__subject(id),
-    CONSTRAINT main__lesson___group_id FOREIGN KEY (group_id) REFERENCES main__group(id)
+    CONSTRAINT main__lesson___group_id FOREIGN KEY (group_id) REFERENCES main__group(id),
+    CONSTRAINT main__lesson___schoolYear_id FOREIGN KEY (schoolYear_id) REFERENCES main__schoolYear(id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__student_serie (

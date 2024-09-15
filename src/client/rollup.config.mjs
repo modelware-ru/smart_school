@@ -14,6 +14,7 @@ const pages = [
     'studentListChangeGroup',
     'topic',
     'categoryTag',
+    'schoolYear',
 ];
 
 const export_page = pages.reduce((acc, item) => {

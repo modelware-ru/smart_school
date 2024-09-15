@@ -111,6 +111,26 @@ $i18n_TTL = [
         'ru' => 'Восстановление пароля',
         'en' => 'Recovery Password',
     ],
+    'SCHOOLYEAR_FINISH_DATE' => [
+        '_type' => 'plain',
+        'ru' => 'Конец учебного года',
+        'en' => 'School year finish date',
+    ],
+    'SCHOOLYEAR_IS_CURRENT' => [
+        '_type' => 'plain',
+        'ru' => 'Текущий учебный год',
+        'en' => 'Current school year',
+    ],
+    'SCHOOLYEAR_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название учебного года',
+        'en' => 'School year name',
+    ],
+    'SCHOOLYEAR_START_DATE' => [
+        '_type' => 'plain',
+        'ru' => 'Начало учебного года',
+        'en' => 'School year start date',
+    ],
     'SEARCH' => [
         '_type' => 'plain',
         'ru' => 'Поиск',
@@ -228,6 +248,12 @@ $i18n_MSG = [
         'ru' => 'Поле содержит слишком короткое значение',
         'en' => 'The field is too short',
         'log' => 'Поле содержит слишком короткое значение: %d меньше чем %d',
+    ],
+    'FIELD_START_DATE_IS_GREAT_THAN_FINISH_DATE' => [
+        '_type' => 'plain',
+        'ru' => 'Дата начала больше даты конца',
+        'en' => 'Start date is greater than finish date',
+        'log' => 'Дата начала (%s) больше даты конца (%s)',
     ],
     'FIELD_VALUE_IS_NOT_VALID' => [
         '_type' => 'plain',

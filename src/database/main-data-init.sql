@@ -18,6 +18,8 @@ INSERT INTO main__api (id, code_name) VALUES (17, 'saveTopic');
 INSERT INTO main__api (id, code_name) VALUES (18, 'removeTopic');
 INSERT INTO main__api (id, code_name) VALUES (19, 'saveCategoryTag');
 INSERT INTO main__api (id, code_name) VALUES (20, 'removeCategoryTag');
+INSERT INTO main__api (id, code_name) VALUES (21, 'saveSchoolYear');
+INSERT INTO main__api (id, code_name) VALUES (22, 'removeSchoolYear');
 
 INSERT INTO main__page (id, code_name, name) VALUES (1, 'guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (id, code_name, name) VALUES (2, 'recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -41,6 +43,8 @@ INSERT INTO main__page (id, code_name, name) VALUES (19, 'topicList', '{"title":
 INSERT INTO main__page (id, code_name, name) VALUES (20, 'topic', '{"title":{"ru": "Тема задач", "en": "Topic"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (21, 'categoryTagList', '{"title":{"ru": "Список категорий и тегов", "en": "Category Tag List"}}');
 INSERT INTO main__page (id, code_name, name) VALUES (22, 'categoryTag', '{"title":{"ru": "Категория и теги", "en": "Category Tag"}}');
+INSERT INTO main__page (id, code_name, name) VALUES (23, 'schoolYearList', '{"title":{"ru": "Список учебных годов", "en": "School Year List"}}');
+INSERT INTO main__page (id, code_name, name) VALUES (24, 'schoolYear', '{"title":{"ru": "Учебный год", "en": "School Year"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');

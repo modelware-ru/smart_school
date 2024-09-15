@@ -48,6 +48,10 @@ $resource = $templateData['resource'];
                     <span>Предметы</span>
                 </a>
 
+                <a href="schoolyear-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+                    <span>Учебные года</span>
+                </a>
+
             </div>
         </div>
     </div>

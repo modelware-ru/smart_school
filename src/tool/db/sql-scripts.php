@@ -36,6 +36,7 @@ $scriptOnlyForTest = [
 ];
 
 $scriptList = ['../../database/main-clean.sql'] + $scriptShared;
+// $scriptList = ['../../database/main-clean-majordomo.sql'] + $scriptShared;
 
 $scriptTestList = ['../../database/main-clean-test.sql'] + $scriptShared + $scriptOnlyForTest;
 
@@ -43,7 +44,7 @@ try {
     $log = Logger::Init('tool-sql-script', false, 'path_localhost');
     $log->notice('start');
 
-    $db = DBManager::GetConnection('localhost');
+    $db = DBManager::GetConnection('localhost-mariaDB');
 
     if ($isTest) {
         $scriptList = $scriptTestList;
@@ -64,7 +65,6 @@ try {
         $log->notice("after processing '{$script}'" . PHP_EOL);
         echo ' - done' . PHP_EOL;
     }
-
 } catch (MWException $e) {
     $log->error($e->logMessage());
     echo PHP_EOL . 'MWException: ' . $e->logMessage() . PHP_EOL;

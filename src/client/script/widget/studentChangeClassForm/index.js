@@ -31,7 +31,7 @@ export default class StudentChangeClassForm {
         this._atm.startDateInput = (
             <Input type="date" className="col-12" label={i18n(langId, 'TTL_DATE')} value={new Date().toISOString().substring(0, 10)} mandatory />
         );
-        this._updateStateInput('startDate', {
+        this._updateStateInput(ID.CCF_INPUT_START_DATE_ID, {
             disabled: false,
             hasError: 'unknown',
         });
@@ -49,7 +49,7 @@ export default class StudentChangeClassForm {
         this._atm.classLetterInput = (
             <Input className="col-12" label={i18n(langId, 'TTL_CLASS_LETTER')} value={''} mandatory maxLength={100} />
         );
-        this._updateStateInput('classLetter', {
+        this._updateStateInput(ID.CCF_INPUT_CLASS_LETTER_ID, {
             disabled: false,
             hasError: 'unknown',
         });
@@ -121,29 +121,29 @@ export default class StudentChangeClassForm {
 
     _showError = ({ status, data }) => {
         if (status === 'ok') {
-            this._updateStateInput('startDate', { disabled: false, hasError: 'no', error: null });
-            this._updateStateInput('classLetter', { disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.CCF_INPUT_START_DATE_ID, { disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.CCF_INPUT_CLASS_LETTER_ID, { disabled: false, hasError: 'no', error: null });
             this._updateStateParallelSelect({ disabled: false, hasError: 'no', error: null });
             return;
         }
 
         if (status === 'error') {
-            this._updateStateInput('startDate', { disabled: false, hasError: 'undefine', error: null });
-            this._updateStateInput('classLetter', { disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.CCF_INPUT_START_DATE_ID, { disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.CCF_INPUT_CLASS_LETTER_ID, { disabled: false, hasError: 'undefine', error: null });
             this._updateStateParallelSelect({ disabled: false, hasError: 'undefine', error: null });
             return;
         }
 
         if (typeof data[ID.CCF_INPUT_START_DATE_ID] !== 'undefined') {
-            this._updateStateInput('startDate', { disabled: false, hasError: 'yes', error: data[ID.CCF_INPUT_START_DATE_ID] });
+            this._updateStateInput(ID.CCF_INPUT_START_DATE_ID, { disabled: false, hasError: 'yes', error: data[ID.CCF_INPUT_START_DATE_ID] });
         } else {
-            this._updateStateInput('startDate', { disabled: false, hasError: 'undefined', error: null });
+            this._updateStateInput(ID.CCF_INPUT_START_DATE_ID, { disabled: false, hasError: 'undefined', error: null });
         }
 
         if (typeof data[ID.CCF_INPUT_CLASS_LETTER_ID] !== 'undefined') {
-            this._updateStateInput('classLetter', { disabled: false, hasError: 'yes', error: data[ID.CCF_INPUT_CLASS_LETTER_ID] });
+            this._updateStateInput(ID.CCF_INPUT_CLASS_LETTER_ID, { disabled: false, hasError: 'yes', error: data[ID.CCF_INPUT_CLASS_LETTER_ID] });
         } else {
-            this._updateStateInput('classLetter', { disabled: false, hasError: 'undefined', error: null });
+            this._updateStateInput(ID.CCF_INPUT_CLASS_LETTER_ID, { disabled: false, hasError: 'undefined', error: null });
         }
 
         if (typeof data[ID.CCF_SELECT_PARALLEL_ID] !== 'undefined') {
@@ -155,7 +155,7 @@ export default class StudentChangeClassForm {
 
     _beforeCallChangeClass = () => {
         this._updateStateSaveButton({ disabled: true, isLoading: true, title: 'TTL_TO_SAVE_IN_PROGRESS' });
-        this._updateStateInput('startDate', { disabled: true });
+        this._updateStateInput(ID.CCF_INPUT_START_DATE_ID, { disabled: true });
         this._updateStateInput('className', { disabled: true });
         this._updateStateParallelSelect({ disabled: true });
     };
@@ -193,11 +193,11 @@ export default class StudentChangeClassForm {
         let stateNameInput;
         let nameInput;
         switch (entity) {
-            case 'startDate':
+            case ID.CCF_INPUT_START_DATE_ID:
                 stateNameInput = this._stateStartDateInput;
                 nameInput = this._atm.startDateInput;
                 break;
-            case 'classLetter':
+            case ID.CCF_INPUT_CLASS_LETTER_ID:
                 stateNameInput = this._stateClassLetterInput;
                 nameInput = this._atm.classLetterInput;
                 break;

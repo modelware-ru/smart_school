@@ -13,6 +13,9 @@ class ValueChecker
     const LENGTH_IS_NOT_LESS_OR_EQUAL = 4;
     const LENGTH_IS_NOT_GREAT_OR_EQUAL = 5;
     const LENGTH_IS_NOT_EQUAL = 6;
+    const VALUE_LESS = 7;
+    const VALUE_GREAT = 8;
+    const NOT_IN_ARRAY = 9;
 
     public function __construct($value)
     {
@@ -114,7 +117,62 @@ class ValueChecker
 
         return $this;
     }
-    
+
+    public function valueLess($value)
+    {
+        if (!$this->isValid()) {
+            return $this;
+        }
+
+        $res = false;
+        switch (gettype($this->_value)) {
+            case 'integer':
+                $res = $this->_value < $value;
+                break;
+        }
+
+        if (!$res) {
+            $this->_check = self::VALUE_GREAT;
+        }
+
+        return $this;
+    }
+
+    public function valueGreat($value)
+    {
+        if (!$this->isValid()) {
+            return $this;
+        }
+
+        $res = false;
+        switch (gettype($this->_value)) {
+            case 'integer':
+                $res = $this->_value > $value;
+                break;
+        }
+
+        if (!$res) {
+            $this->_check = self::VALUE_LESS;
+        }
+
+        return $this;
+    }
+
+    public function inArray($array)
+    {
+        if (!$this->isValid()) {
+            return $this;
+        }
+
+        $res = in_array($this->_value, $array);
+
+        if (!$res) {
+            $this->_check = self::NOT_IN_ARRAY;
+        }
+
+        return $this;
+    }
+
     public function isValid()
     {
         return $this->_check === self::IS_VALID;

@@ -723,8 +723,7 @@ SQL;
     public function getSchoolYearList()
     {
         $stmt = <<<SQL
-SELECT msy.id, msy.name, msy.start_date, msy.finish_date, msy.is_current,
-(SELECT COUNT(ml.id) FROM main__lesson ml WHERE ml.schoolYear_id = msy.id) ml_count
+SELECT msy.id, msy.name, msy.start_date, msy.finish_date, msy.is_current
 FROM main__schoolYear msy
 ORDER BY msy.start_date DESC
 SQL;

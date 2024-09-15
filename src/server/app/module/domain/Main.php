@@ -1770,7 +1770,7 @@ class Main
                 'startDate' => $item['start_date'],
                 'finishDate' => $item['finish_date'],
                 'isCurrent' => $item['is_current'] === 'Y',
-                'canBeRemoved' => $item['ml_count'] === 0,
+                'canBeRemoved' => true,
             ];
         }, $resDb);
 

@@ -20,10 +20,9 @@ if ($options && !is_null($options['t'])) {
 
 $scriptShared = [
     1 => '../../database/authz/authz-schema.sql',
-    2 => '../../database/authz/authz-data.sql',
+    2 => '../../database/authz/authz-data.sql', // *majordomo
     3 => '../../database/main-schema.sql',
-    4 => '../../database/main-data.sql',
-    5 => '../../database/main-data-authz.sql',
+    4 => '../../database/main-data.sql', // *majordomo
 ];
 
 $i = count($scriptShared);

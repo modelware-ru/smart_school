@@ -245,6 +245,23 @@ try {
             $res = app_remove_schoolYear($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_SAVE_SERIE:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+            $args['removedTaskIdList'] = $payload['removedTaskIdList'];
+            $args['newTaskList'] = $payload['newTaskList'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_serie($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_SERIE:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_serie($args);
+
+            break;
     }
 
     DBManager::Commit();

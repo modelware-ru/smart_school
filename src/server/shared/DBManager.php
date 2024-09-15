@@ -125,6 +125,7 @@ class DBManager
                 try {
                     $q->execute();
                 } catch (\PDOException $e) {
+                    // TODO: Неправильная проверка на duplicate
                     if ($e->getCode() == '23000' && $skipDuplicateError) {
                         continue;
                     } else {

@@ -149,3 +149,17 @@ function app_remove_schoolYear($args)
 
     return $res;
 }
+
+function app_save_serie($args)
+{
+    list($res, $data) = (new DomainMain())->saveSerie($args);
+
+    return $res;
+}
+
+function app_remove_serie($args)
+{
+    list($res, $data) = (new DomainMain())->removeSerie($args);
+
+    return $res;
+}

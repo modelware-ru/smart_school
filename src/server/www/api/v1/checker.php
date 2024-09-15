@@ -191,6 +191,29 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeSchoolYear FINISH
+        // saveSerie START
+        AuthzConstant::RESOURCE_API_SAVE_SERIE => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+            'newTaskList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 'string',
+            ],
+            'removedTaskIdList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
+            ],
+        ],
+        // saveSerie FINISH
+        // removeSerie START
+        AuthzConstant::RESOURCE_API_REMOVE_SERIE => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeSerie FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

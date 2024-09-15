@@ -119,6 +119,8 @@ INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, 
 INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 4, 'Причина _4', '2024-03-01', 1);
 
 
+INSERT INTO main__topic (id, name) VALUES (1, 'Тема 1');
+
 INSERT INTO main__categoryTag (id, name) VALUES (1, 'Категория 1');
 INSERT INTO main__categoryTag (id, name) VALUES (2, 'Категория 2');
 INSERT INTO main__categoryTag (id, name) VALUES (3, 'Категория 3');

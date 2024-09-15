@@ -28,6 +28,7 @@ class Main
     const CATEGORYTAG_NAME_MAX_LENGTH = 100;
     const SCHOOLYEAR_NAME_MAX_LENGTH = 100;
     const DATE_LENGTH = 10;
+    const SERIE_NAME_MAX_LENGTH = 100;
 
     public function getParallelList($args)
     {
@@ -1638,7 +1639,7 @@ class Main
         $id = $args['id'];
         $name = $args['name'];
         $removedTagIdList = $args['removedTagIdList'];
-        $newTagList = $args['newTagList'];
+        $newTagList = array_unique($args['newTagList']);
 
         // test. start
         if (defined('PHPUNIT')) {
@@ -2041,7 +2042,131 @@ class Main
             'name' => $resDb[0]['name'],
         ];
 
+        $resDb = $manager->getSerieTaskListById($serieId);
+        $taskList = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+            ];
+        }, $resDb);
+
+        $res['taskList'] = $taskList;
+
         return [Util::MakeSuccessOperationResult($res), []];
     }
 
+    public function saveSerie($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::saveSerie');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+        $name = $args['name'];
+        $removedTaskIdList = $args['removedTaskIdList'];
+        $newTaskList = array_unique($args['newTaskList']);
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        $errorList = [];
+
+        $nameCheck = (new ValueChecker($name))->notEmpty()->lengthLessOrEqual(self::SERIE_NAME_MAX_LENGTH)->check();
+        if ($nameCheck === ValueChecker::IS_EMPTY) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($nameCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['name'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($name), self::SERIE_NAME_MAX_LENGTH],
+            ];
+        }
+
+        if (count($errorList) > 0) {
+            return [Util::MakeFailOperationResult($errorList), []];
+        }
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            if ($id === 0) {
+                $resDb = $manager->createSerie($name);
+                $id = $resDb[0];
+            } else {
+                $resDb = $manager->updateSerie($id, $name);
+                if (!empty($removedTaskIdList)) {
+                    $resDb = $manager->removeTaskListFromSerie($removedTaskIdList, $id);
+                }
+            }
+
+            $resDb = $manager->createTaskList($newTaskList);
+            $newTaskIdList = array_map(function ($item) {
+                return [
+                    'taskId' => $item,
+                ];
+            }, $resDb);
+
+            $resDb = $manager->addTaskListToSerie($newTaskIdList, $id);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $errorList = [];
+            preg_match('/SQLSTATE\[23000\].*main__serie___unique_name/', $msg[0], $matches);
+            if (!empty($matches)) {
+                $errorList['name'] = [
+                    'code' => MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
+                    'args' => [$name],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function removeSerie($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::removeSerie');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            $resDb = $manager->removeSerie($id);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('error:', $msg);
+            preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+            $errorList = [];
+            if (!empty($matches)) {
+                $errorList['_msg_'] = [
+                    'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+                    'args' => ['данные используются'],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
 }

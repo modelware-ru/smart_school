@@ -1,4 +1,4 @@
-// GENERATED [2024-09-15 07:13:29]
+// GENERATED [2024-09-15 10:27:09]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -15,6 +15,7 @@ export default {
   TTL_LOGIN: (...args) => `Логин`,
   TTL_MIDDLE_NAME: (...args) => `Отчество`,
   TTL_NEW_TAG_LIST: (...args) => `Новые теги`,
+  TTL_NEW_TASK_LIST: (...args) => `Новые задачи`,
   TTL_PARALLEL: (...args) => `Параллель`,
   TTL_PARALLEL_NUMBER: (...args) => `Номер параллели`,
   TTL_PARALLEL_NAME: (...args) => `Название параллели`,
@@ -33,6 +34,7 @@ export default {
   TTL_STATE: (...args) => `Состояние`,
   TTL_SUBJECT_NAME: (...args) => `Название предмета`,
   TTL_TAG_LIST: (...args) => `Теги`,
+  TTL_TASK_LIST: (...args) => `Задачи`,
   TTL_TEACHER_GROUPS: (...args) => `Группы преподавателя`,
   TTL_TOPIC_NAME: (...args) => `Название темы`,
   TTL_TO_CANCEL: (...args) => `Отменить`,

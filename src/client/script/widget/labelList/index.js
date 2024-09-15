@@ -1,73 +1,73 @@
 import { el, mount } from '../../../node_modules/redom/dist/redom.es';
-import { clsx } from '../../../node_modules/clsx/dist/clsx.mjs';
 
 import i18n from '../../shared/i18n/index';
 import Label from '../../atom/label';
 
 import { commonEventManager } from '../../shared/eventManager';
 
-export default class TagList {
+export default class LabelList {
     _el = {};
     _atm = {};
 
     _key = 1;
     constructor(settings = {}) {
-        const { langId, tagList, className } = settings;
+        const { langId, title, labelList, className } = settings;
 
         this._prop = {
             langId,
-            tagList,
+            labelList,
             className,
+            title,
         };
 
-        const tagStatusList = tagList.map((item) => {
+        const labelStatusList = labelList.map((item) => {
             return {
                 id: item['id'],
                 isRemoved: false,
             };
         });
         this._state = {
-            tagStatusList,
+            labelStatusList,
         };
 
         this.el = this._ui_render();
     }
 
-    getRemovedTagIdList = () => {
-        const { tagStatusList } = this._state;
-        const removedTagIdList = tagStatusList.reduce((carry, item) => {
+    getRemovedLabelIdList = () => {
+        const { labelStatusList } = this._state;
+        const removedLabelIdList = labelStatusList.reduce((carry, item) => {
             if (item['isRemoved']) {
                 carry.push(item['id']);
             }
             return carry;
         }, []);
-        return removedTagIdList;
+        return removedLabelIdList;
     };
 
     _onClick = (data) => {
-        const { tagStatusList } = this._state;
-        const tag = tagStatusList.find((item) => item.id === data.id);
-        const tagUI = this._atm.tagList.find((item) => item.id === data.id);
+        const { labelStatusList } = this._state;
+        const label = labelStatusList.find((item) => item.id === data.id);
+        const labelUI = this._atm.labelList.find((item) => item.id === data.id);
 
         if (data.isRemoved) {
-            tag.isRemoved = false;
-            tagUI.ui.updateProp('className', 'bg-success-subtle');
-            // tagUI.ui.updateProp('iconClassName', 'text-danger');
-            // tagUI.ui.updateProp('icon', 'bi-dash-circle');
-            tagUI.ui.updateProp('onClickData', { id: data['id'], isRemoved: false });
+            label.isRemoved = false;
+            labelUI.ui.updateProp('className', 'bg-success-subtle');
+            // labelUI.ui.updateProp('iconClassName', 'text-danger');
+            // labelUI.ui.updateProp('icon', 'bi-dash-circle');
+            labelUI.ui.updateProp('onClickData', { id: data['id'], isRemoved: false });
         } else {
-            tag.isRemoved = true;
-            tagUI.ui.updateProp('className', 'bg-danger-subtle text-decoration-line-through');
-            // tagUI.ui.updateProp('iconClassName', 'text-success');
-            // tagUI.ui.updateProp('icon', 'bi-plus-circle');
-            tagUI.ui.updateProp('onClickData', { id: data['id'], isRemoved: true });
+            label.isRemoved = true;
+            labelUI.ui.updateProp('className', 'bg-danger-subtle text-decoration-line-through');
+            // labelUI.ui.updateProp('iconClassName', 'text-success');
+            // labelUI.ui.updateProp('icon', 'bi-plus-circle');
+            labelUI.ui.updateProp('onClickData', { id: data['id'], isRemoved: true });
         }
     };
 
     _ui_render = () => {
-        const { langId, className, tagList } = this._prop;
+        const { langId, className, labelList, title } = this._prop;
 
-        if (tagList.length === 0) {
+        if (labelList.length === 0) {
             return (
                 <div className={className}>
                     <div className="alert alert-info rounded-0" role="alert">
@@ -79,7 +79,7 @@ export default class TagList {
             );
         }
 
-        this._atm.tagList = tagList.map((item) => {
+        this._atm.labelList = labelList.map((item) => {
             return {
                 id: item['id'],
                 ui: (
@@ -98,10 +98,10 @@ export default class TagList {
         return (
             <div className={className}>
                 <label className="form-label fw-bold">
-                    <span>{i18n(langId, 'TTL_TAG_LIST')}</span>
+                    <span>{i18n(langId, title)}</span>
                 </label>
                 <div className="d-flex flex-wrap gap-3">
-                    {this._atm.tagList.map((item) => {
+                    {this._atm.labelList.map((item) => {
                         return item.ui;
                     })}
                 </div>

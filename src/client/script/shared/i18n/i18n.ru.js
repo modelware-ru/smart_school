@@ -1,4 +1,4 @@
-// GENERATED [2024-09-14 20:11:25]
+// GENERATED [2024-09-15 07:13:29]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -28,6 +28,7 @@ export default {
   TTL_SCHOOLYEAR_NAME: (...args) => `Название учебного года`,
   TTL_SCHOOLYEAR_START_DATE: (...args) => `Начало учебного года`,
   TTL_SEARCH: (...args) => `Поиск`,
+  TTL_SERIE_NAME: (...args) => `Название серии`,
   TTL_SIGN_IN: (...args) => `Вход`,
   TTL_STATE: (...args) => `Состояние`,
   TTL_SUBJECT_NAME: (...args) => `Название предмета`,

@@ -136,6 +136,11 @@ $i18n_TTL = [
         'ru' => 'Поиск',
         'en' => 'Search',
     ],
+    'SERIE_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название серии',
+        'en' => 'Serie name',
+    ],
     'SIGN_IN' => [
         '_type' => 'plain',
         'ru' => 'Вход',

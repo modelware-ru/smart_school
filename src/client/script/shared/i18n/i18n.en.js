@@ -1,4 +1,4 @@
-// GENERATED [2024-09-14 20:11:25]
+// GENERATED [2024-09-15 07:13:29]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -28,6 +28,7 @@ export default {
   TTL_SCHOOLYEAR_NAME: (...args) => `School year name`,
   TTL_SCHOOLYEAR_START_DATE: (...args) => `School year start date`,
   TTL_SEARCH: (...args) => `Search`,
+  TTL_SERIE_NAME: (...args) => `Serie name`,
   TTL_SIGN_IN: (...args) => `Sign In`,
   TTL_STATE: (...args) => `State`,
   TTL_SUBJECT_NAME: (...args) => `Subject name`,

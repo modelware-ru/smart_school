@@ -15,6 +15,7 @@ const pages = [
     'topic',
     'categoryTag',
     'schoolYear',
+    'serie',
 ];
 
 const export_page = pages.reduce((acc, item) => {

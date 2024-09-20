@@ -10,25 +10,33 @@ $resource = $templateData['resource'];
 
 $query = Util::HandleGET();
 
-$subjectId = isset($query['id']) ? intval($query['id']) : 0;
-$action = (isset($query['action']) && $subjectId !== 0) ? $query['action'] : '';
+$studentId = isset($query['id']) ? intval($query['id']) : 0;
+$action = (isset($query['action']) && $studentId !== 0) ? $query['action'] : '';
 
-if ($subjectId === 0) {
-    $subject = [
+if ($studentId === 0) {
+    $student = [
         'id' => 0,
-        'name' => '',
+        'firstName' => '',
+        'lastName' => '',
+        'middleName' => '',
     ];
+
+    $studentName = '';
+
 } else {
     $args = [
         'permissionOptions' => $templateData['permissionOptions'],
-        'subjectId' => $subjectId,
+        'studentId' => $studentId,
     ];
 
-    list($res, $data) = (new DomainModule())->getSubjectById($args);
+    list($res, $data) = (new DomainModule())->getStudentById($args);
 
-    $subject = $res->getData();
+    $student = $res->getData();
+
+    $studentName = "{$student['lastName']} {$student['firstName']} {$student['middleName']}";
+
 }
-$templateData['_js']['subject'] = $subject;
+$templateData['_js']['student'] = $student;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>
@@ -42,18 +50,18 @@ $templateData['_js']['action'] = $action;
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item"><a href="subject-list.php">Список предметов</a></li>
-                    <?php if ($subjectId === 0) { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новый предмет</span></li>
+                    <li class="breadcrumb-item"><a href="student-list.php">Список учеников</a></li>
+                    <?php if ($studentId === 0) { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новый ученик</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Предмет "<?= $subject['name']?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Ученик "<?= $studentName ?>"</span></li>
                     <?php } ?>
                 </ol>
             </nav>

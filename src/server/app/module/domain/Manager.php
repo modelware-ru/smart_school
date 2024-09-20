@@ -90,8 +90,9 @@ SQL;
     public function getGroupById($groupId)
     {
         $stmt = <<<SQL
-SELECT mg.id group_id, mg.name group_name, mg.parallel_id
+SELECT mg.id group_id, mg.name group_name, mg.parallel_id, mp.name parallel_name
 FROM main__group mg
+JOIN main__parallel mp ON mp.id = mg.parallel_id
 WHERE mg.id = :groupId 
 SQL;
         return $this->_db->select($stmt, ['groupId' => $groupId]);
@@ -233,6 +234,7 @@ SELECT mg.id group_id, mg.name group_name, mp.name parallel_name
 FROM main__group mg
 JOIN main__user_group mug ON mug.group_id = mg.id AND mug.user_id = :teacherId
 JOIN main__parallel mp ON mp.id = mg.parallel_id
+ORDER BY mp.number, mg.name
 SQL;
         return $this->_db->select($stmt, [
             'teacherId' => $teacherId
@@ -924,4 +926,44 @@ DELETE FROM main__serie WHERE id = :id
 SQL;
         return $this->_db->delete($stmt, ['id' => $serieId]);
     }
+
+    public function getLessonListForGroup($groupId, $startDate, $finishDate)
+    {
+        $where = '';
+        $vars = [];
+        $vars['groupId'] = $groupId;
+
+        if (!is_null($startDate)) {
+            $where = $where . ' AND ml.date >= :startDate';
+            $vars['startDate'] = $startDate;
+        }
+        if (!is_null($finishDate)) {
+            $where = $where . ' AND ml.date <= :finishDate';
+            $vars['finishDate'] = $finishDate;
+        }
+
+        $stmt = <<<SQL
+SELECT ml.id lesson_id, ml.date lesson_date, ms.id subject_id, ms.name subject_name,
+(SELECT COUNT(msl.id) FROM main__student_lesson msl WHERE msl.lesson_id = ml.id) msl_count,
+(SELECT COUNT(mls.id) FROM main__lesson_serie mls WHERE mls.lesson_id = ml.id) mls_count
+FROM main__lesson ml
+JOIN main__subject ms ON ms.id = ml.subject_id
+WHERE ml.group_id = :groupId {$where}
+ORDER BY ms.name, ml.date
+SQL;
+        return $this->_db->select($stmt, $vars);
+    }
+
+    public function getLessonById($lessonId)
+    {
+        $stmt = <<<SQL
+SELECT ml.id lesson_id, ml.date lesson_date, mg.id group_id, ms.id subject_id
+FROM main__lesson ml
+JOIN main__subject mp ON ms.id = ml.subject_id
+JOIN main__group mg ON mg.id = ml.group_id
+WHERE ml.id = :lessonId 
+SQL;
+        return $this->_db->select($stmt, ['lessonId' => $lessonId]);
+    }
+
 }

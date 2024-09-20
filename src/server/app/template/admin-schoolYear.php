@@ -55,7 +55,7 @@ $templateData['_js']['action'] = $action;
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">

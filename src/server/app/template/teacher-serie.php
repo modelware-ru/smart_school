@@ -10,26 +10,25 @@ $resource = $templateData['resource'];
 
 $query = Util::HandleGET();
 
-$categoryTagId = isset($query['id']) ? intval($query['id']) : 0;
-$action = (isset($query['action']) && $categoryTagId !== 0) ? $query['action'] : '';
+$serieId = isset($query['id']) ? intval($query['id']) : 0;
+$action = (isset($query['action']) && $serieId !== 0) ? $query['action'] : '';
 
-if ($categoryTagId === 0) {
-    $categoryTag = [
+if ($serieId === 0) {
+    $serie = [
         'id' => 0,
         'name' => '',
-        'tagList' => [],
     ];
 } else {
     $args = [
         'permissionOptions' => $templateData['permissionOptions'],
-        'categoryTagId' => $categoryTagId,
+        'serieId' => $serieId,
     ];
 
-    list($res, $data) = (new DomainModule())->getCategoryTagById($args);
+    list($res, $data) = (new DomainModule())->getSerieById($args);
 
-    $categoryTag = $res->getData();
+    $serie = $res->getData();
 }
-$templateData['_js']['categoryTag'] = $categoryTag;
+$templateData['_js']['serie'] = $serie;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>
@@ -37,24 +36,24 @@ $templateData['_js']['action'] = $action;
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <script type='text/javascript' src='js/<?= $resource ?>_bundle.js' defer></script>
+    <script type='text/javascript' src='js/<?=$resource?>_bundle.js' defer></script>
 </head>
 
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/teacherNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacher-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item"><a href="category-tag-list.php">Список категорий</a></li>
-                    <?php if ($categoryTagId === 0) { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая категория</span></li>
+                    <li class="breadcrumb-item"><a href="serie-list.php">Список серий</a></li>
+                    <?php if ($serieId === 0) { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая серия</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Тема "<?= $categoryTag['name'] ?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Серия "<?= $serie['name']?>"</span></li>
                     <?php } ?>
                 </ol>
             </nav>

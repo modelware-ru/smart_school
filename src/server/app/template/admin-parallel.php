@@ -10,33 +10,27 @@ $resource = $templateData['resource'];
 
 $query = Util::HandleGET();
 
-$studentId = isset($query['id']) ? intval($query['id']) : 0;
-$action = (isset($query['action']) && $studentId !== 0) ? $query['action'] : '';
+$parallelId = isset($query['id']) ? intval($query['id']) : 0;
+$action = (isset($query['action']) && $parallelId !== 0) ? $query['action'] : '';
 
-if ($studentId === 0) {
-    $student = [
+if ($parallelId === 0) {
+    $parallel = [
         'id' => 0,
-        'firstName' => '',
-        'lastName' => '',
-        'middleName' => '',
+        'name' => '',
+        'number' => '',
+        'showInGroup' => false,
     ];
-
-    $studentName = '';
-
 } else {
     $args = [
         'permissionOptions' => $templateData['permissionOptions'],
-        'studentId' => $studentId,
+        'parallelId' => $parallelId,
     ];
 
-    list($res, $data) = (new DomainModule())->getStudentById($args);
+    list($res, $data) = (new DomainModule())->getParallelById($args);
 
-    $student = $res->getData();
-
-    $studentName = "{$student['lastName']} {$student['firstName']} {$student['middleName']}";
-
+    $parallel = $res->getData();
 }
-$templateData['_js']['student'] = $student;
+$templateData['_js']['parallel'] = $parallel;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>
@@ -50,18 +44,18 @@ $templateData['_js']['action'] = $action;
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item"><a href="student-list.php">Список учеников</a></li>
-                    <?php if ($studentId === 0) { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новый ученик</span></li>
+                    <li class="breadcrumb-item"><a href="parallel-list.php">Список параллелей</a></li>
+                    <?php if ($parallelId === 0) { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая параллель</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Ученик "<?= $studentName ?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Параллель "<?= $parallel['name']?>"</span></li>
                     <?php } ?>
                 </ol>
             </nav>

@@ -10,25 +10,25 @@ $resource = $templateData['resource'];
 
 $query = Util::HandleGET();
 
-$topicId = isset($query['id']) ? intval($query['id']) : 0;
-$action = (isset($query['action']) && $topicId !== 0) ? $query['action'] : '';
+$subjectId = isset($query['id']) ? intval($query['id']) : 0;
+$action = (isset($query['action']) && $subjectId !== 0) ? $query['action'] : '';
 
-if ($topicId === 0) {
-    $topic = [
+if ($subjectId === 0) {
+    $subject = [
         'id' => 0,
         'name' => '',
     ];
 } else {
     $args = [
         'permissionOptions' => $templateData['permissionOptions'],
-        'topicId' => $topicId,
+        'subjectId' => $subjectId,
     ];
 
-    list($res, $data) = (new DomainModule())->getTopicById($args);
+    list($res, $data) = (new DomainModule())->getSubjectById($args);
 
-    $topic = $res->getData();
+    $subject = $res->getData();
 }
-$templateData['_js']['topic'] = $topic;
+$templateData['_js']['subject'] = $subject;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>
@@ -42,18 +42,18 @@ $templateData['_js']['action'] = $action;
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/teacherNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item"><a href="topic-list.php">Список тем задач</a></li>
-                    <?php if ($topicId === 0) { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая тема</span></li>
+                    <li class="breadcrumb-item"><a href="subject-list.php">Список предметов</a></li>
+                    <?php if ($subjectId === 0) { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новый предмет</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Тема "<?= $topic['name']?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Предмет "<?= $subject['name']?>"</span></li>
                     <?php } ?>
                 </ol>
             </nav>

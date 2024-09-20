@@ -10,25 +10,25 @@ $resource = $templateData['resource'];
 
 $query = Util::HandleGET();
 
-$serieId = isset($query['id']) ? intval($query['id']) : 0;
-$action = (isset($query['action']) && $serieId !== 0) ? $query['action'] : '';
+$topicId = isset($query['id']) ? intval($query['id']) : 0;
+$action = (isset($query['action']) && $topicId !== 0) ? $query['action'] : '';
 
-if ($serieId === 0) {
-    $serie = [
+if ($topicId === 0) {
+    $topic = [
         'id' => 0,
         'name' => '',
     ];
 } else {
     $args = [
         'permissionOptions' => $templateData['permissionOptions'],
-        'serieId' => $serieId,
+        'topicId' => $topicId,
     ];
 
-    list($res, $data) = (new DomainModule())->getSerieById($args);
+    list($res, $data) = (new DomainModule())->getTopicById($args);
 
-    $serie = $res->getData();
+    $topic = $res->getData();
 }
-$templateData['_js']['serie'] = $serie;
+$templateData['_js']['topic'] = $topic;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>
@@ -42,18 +42,18 @@ $templateData['_js']['action'] = $action;
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/teacherNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacher-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item"><a href="serie-list.php">Список серий</a></li>
-                    <?php if ($serieId === 0) { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая серия</span></li>
+                    <li class="breadcrumb-item"><a href="topic-list.php">Список тем задач</a></li>
+                    <?php if ($topicId === 0) { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая тема</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Серия "<?= $serie['name']?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Тема "<?= $topic['name']?>"</span></li>
                     <?php } ?>
                 </ol>
             </nav>

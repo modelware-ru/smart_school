@@ -18,8 +18,10 @@ class Page
         global $roleId;
         global $roleStateId;
 
+        $roleName = AuthzConstant::GetRoleName($roleId);
+
         try {
-            $log = Logger::Init("page__{$resource}");
+            $log = Logger::Init("page__{$resource}_{$roleName}");
             $log->notice('start');
 
             $resourceType = AuthzConstant::RESOURCE_TYPE_PAGE;
@@ -87,7 +89,7 @@ class Page
                 ],
             ];
 
-            echo Util::RenderTemplate("app/template/{$resource}.php");
+            echo Util::RenderTemplate("app/template/{$roleName}-{$resource}.php");
 
         } catch (\Throwable $e) {
 

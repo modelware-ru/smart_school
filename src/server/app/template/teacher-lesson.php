@@ -5,52 +5,81 @@ use MW\Module\Domain\Main as DomainModule;
 
 global $templateData;
 global $langId;
+global $userId;
 
 $resource = $templateData['resource'];
 
 $query = Util::HandleGET();
 
-$groupId = isset($query['id']) ? intval($query['id']) : 0;
-$action = (isset($query['action']) && $groupId !== 0) ? $query['action'] : '';
+$lessonId = isset($query['id']) ? intval($query['id']) : 0;
+$groupId = isset($query['groupId']) ? intval($query['groupId']) : 0;
+$schoolYearId = isset($query['schoolYearId']) ? intval($query['schoolYearId']) : -1;
+$action = (isset($query['action']) && $lessonId !== 0) ? $query['action'] : '';
 
-if ($groupId === 0) {
-    $group = [
+if ($lessonId === 0) {
+    $lesson = [
         'id' => 0,
-        'name' => '',
-        'parallelId' => '0',
+        'date' => '',
+        'groupId' => strval($groupId),
+        'subjectId' => '0',
     ];
 } else {
     $args = [
         'permissionOptions' => $templateData['permissionOptions'],
-        'groupId' => $groupId,
+        'lessonId' => $lessonId,
     ];
 
-    list($res, $data) = (new DomainModule())->getGroupById($args);
+    list($res, $data) = (new DomainModule())->getLessonById($args);
 
-    $group = $res->getData();
-    $group['parallelId'] = strval($group['parallelId']);
+    $lesson = $res->getData();
 }
 
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getParallelList($args);
+list($res, $data) = (new DomainModule())->getSubjectList($args);
 
-$parallelList = array_reduce($res->getData(), function ($carry, $item) {
+$subjectList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [
         'value' => strval($item['id']),
         'name' => $item['name'],
-        'disabled' => !$item['showInGroup'],
+        'disabled' => false,
     ];
     return $carry;
 }, [
     0 => [
         "value" => "0",
-        "name" => "Выберите параллель",
+        "name" => "Выберите предмет",
         "disabled" => true,
     ]
 ]);
+
+$args = [
+    'permissionOptions' => $templateData['permissionOptions'],
+    'teacherId' => $templateData['permissionOptions'],
+];
+
+list($res, $data) = (new DomainModule())->getGroupListForTeacher($args);
+
+$subjectList = array_reduce($res->getData(), function ($carry, $item) {
+    $carry[] = [
+        'value' => strval($item['id']),
+        'name' => $item['name'],
+        'disabled' => false,
+    ];
+    return $carry;
+}, [
+    0 => [
+        "value" => "0",
+        "name" => "Выберите предмет",
+        "disabled" => true,
+    ]
+]);
+
+
+
+
 
 list($res, $data) = (new DomainModule())->getActiveTeacherList($args);
 
@@ -71,7 +100,7 @@ $activeTeacherList = array_reduce($res->getData(), function ($carry, $item) {
 
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
-    'groupId' => $groupId,
+    'lessonId' => $lessonId,
 ];
 
 list($res, $data) = (new DomainModule())->getTeacherListInGroup($args);
@@ -83,7 +112,7 @@ $teacherListInGroup = array_map(function ($item) {
     ];
 }, $res->getData());
 
-$templateData['_js']['group'] = $group;
+$templateData['_js']['lesson'] = $lesson;
 $templateData['_js']['parallelList'] = $parallelList;
 $templateData['_js']['activeTeacherList'] = $activeTeacherList;
 $templateData['_js']['teacherListInGroup'] = $teacherListInGroup;
@@ -100,18 +129,18 @@ $templateData['_js']['action'] = $action;
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacher-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item"><a href="group-list.php">Список групп</a></li>
-                    <?php if ($groupId === 0) { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая группа</span></li>
+                    <li class="breadcrumb-item"><a href="schedule.php?id=<?= $groupId ?>&schoolYearId==<?= $schoolYearId ?>">Расписание группы</a></li>
+                    <?php if ($lessonId === 0) { ?>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новое занятие</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Группа "<?= $group['name'] ?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Занятие</span></li>
                     <?php } ?>
                 </ol>
             </nav>

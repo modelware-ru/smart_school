@@ -49,6 +49,8 @@ INSERT INTO main__page (code_name, name) VALUES ('schoolYearList', '{"title":{"r
 INSERT INTO main__page (code_name, name) VALUES ('schoolYear', '{"title":{"ru": "Учебный год", "en": "School Year"}}');
 INSERT INTO main__page (code_name, name) VALUES ('serieList', '{"title":{"ru": "Список серий годов", "en": "Serie List"}}');
 INSERT INTO main__page (code_name, name) VALUES ('serie', '{"title":{"ru": "Серия", "en": "Serie"}}');
+INSERT INTO main__page (code_name, name) VALUES ('schedule', '{"title":{"ru": "Расписание", "en": "Schedule"}}');
+INSERT INTO main__page (code_name, name) VALUES ('lesson', '{"title":{"ru": "Занятие", "en": "Lesson"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');
@@ -141,3 +143,13 @@ INSERT INTO main__subject (id, name) VALUES (3, 'Литературное чте
 
 INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (1, 'Учебный год 2024-2025', '2024-09-01', '2025-05-31', 'Y');
 INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (2, 'Учебный год 2023-2024', '2023-09-01', '2024-05-31', 'N');
+
+INSERT INTO main__serie (id, name) VALUES (1, 'Первая');
+INSERT INTO main__serie (id, name) VALUES (2, 'Вторая');
+INSERT INTO main__serie (id, name) VALUES (3, 'Третья');
+INSERT INTO main__serie (id, name) VALUES (4, 'Четвертая');
+
+INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2024-09-01');
+INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (2, 1, '2024-09-02');
+INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2024-09-08');
+INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2023-09-01');

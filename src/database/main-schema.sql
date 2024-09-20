@@ -166,6 +166,7 @@ CREATE TABLE main__student_serie (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     student_id INT UNSIGNED NOT NULL,
     serie_id INT UNSIGNED NOT NULL,
+    type ENUM ('CLASS', 'HOME', 'SPECIAL') NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__student_serie___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
     CONSTRAINT main__student_serie___serie_id FOREIGN KEY (serie_id) REFERENCES main__serie(id)
@@ -221,7 +222,6 @@ CREATE TABLE main__lesson_serie (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     lesson_id INT UNSIGNED NOT NULL,
     serie_id INT UNSIGNED NOT NULL,
-    type ENUM ('CLASS', 'HOME', 'SPECIAL') NOT NULL,
     name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__lesson_serie___lesson_id FOREIGN KEY (lesson_id) REFERENCES main__lesson(id),

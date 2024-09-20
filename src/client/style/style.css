@@ -14,6 +14,14 @@
     cursor: pointer;
 }
 
+.table.clickable-rows > tbody > tr[noclick] {
+    cursor: default;
+}
+
+.table.clickable-rows > tbody > tr[noclick]:hover {
+    --bs-table-hover-bg: var(--bs-table-bg);
+}
+
 .menu-item {
     width: 130px;
     height: 130px;
@@ -39,4 +47,23 @@
 
 .bg-danger-subtle {
     background-color: var(--bs-danger-bg-subtle);
+}
+
+.group-item {
+    width: 130px;
+    height: 130px;
+    background-color: rgb(255 197 121);
+    text-decoration: none;
+    color: black;
+}
+
+.group-item > span {
+    word-break: break-all;
+    text-align: center;
+}
+
+.group-item:hover {
+    box-shadow: var(--bs-box-shadow) !important;
+    border: 2px solid gray !important;
+    font-weight: bold !important;
 }

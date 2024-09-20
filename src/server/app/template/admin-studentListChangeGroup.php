@@ -2,6 +2,8 @@
 
 use MW\Shared\Util;
 use MW\Module\Domain\Main as DomainModule;
+use MW\Shared\MWException;
+use MW\Shared\MWI18nHelper;
 
 global $templateData;
 global $langId;
@@ -19,6 +21,52 @@ $args = [
 
 list($res, $data) = (new DomainModule())->getStudentByIdList($args);
 
+$classParallelList = array_reduce($res->getData(), function ($carry, $item) {
+    if (!is_null($item['classParallelId']) && !in_array($item['classParallelId'], $carry)) {
+        $carry[] = $item['classParallelId'];
+    }
+
+    return $carry;
+}, []);
+
+if (count($classParallelList) !== 1) {
+?>
+    <!DOCTYPE html>
+    <html lang='<?= $langId ?>' data-bs-theme='auto'>
+
+    <head>
+        <?= Util::RenderTemplate('app/template/shared/head.php') ?>
+    </head>
+
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
+                <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
+            </nav>
+            <hr class='m-0' />
+            <div class="my-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
+                        <li class="breadcrumb-item"><a href="student-list.php">Список учеников</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Смена группы</span></li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="alert alert-info rounded-0 my-3" role="alert">
+                <div>
+                    <p class="m-0">Невозможно изменить группу, так как ученики учатся на разных параллелях.</p>
+                </div>
+            </div>
+        </div>
+        <script src='js/bootstrap.bundle.min.js'></script>
+    </body>
+
+    </html>
+<?php
+    return;
+}
+
 $studentList = array_map(function ($item) {
     return [
         'id' => $item['id'],
@@ -33,9 +81,16 @@ $studentIdList = array_map(function ($item) {
     ];
 }, $studentList);
 
-list($res, $data) = (new DomainModule())->getParallelList($args);
+$parallelId = $classParallelList[0];
 
-$parallelList = array_reduce($res->getData(), function ($carry, $item) {
+$args = [
+    'permissionOptions' => $templateData['permissionOptions'],
+    'parallelId' => $parallelId,
+];
+
+list($res, $data) = (new DomainModule())->getGroupListByParallelId($args);
+
+$groupList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [
         'value' => strval($item['id']),
         'name' => $item['name'],
@@ -45,12 +100,12 @@ $parallelList = array_reduce($res->getData(), function ($carry, $item) {
 }, [
     0 => [
         "value" => "0",
-        "name" => "Выберите параллель",
+        "name" => "Выберите группу",
         "disabled" => true,
     ]
 ]);
 
-$templateData['_js']['parallelList'] = $parallelList;
+$templateData['_js']['groupList'] = $groupList;
 $templateData['_js']['studentIdList'] = $studentIdList;
 ?>
 <!DOCTYPE html>
@@ -64,7 +119,7 @@ $templateData['_js']['studentIdList'] = $studentIdList;
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
@@ -72,7 +127,7 @@ $templateData['_js']['studentIdList'] = $studentIdList;
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
                     <li class="breadcrumb-item"><a href="student-list.php">Список учеников</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Смена класса</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Смена группы</span></li>
                 </ol>
             </nav>
         </div>

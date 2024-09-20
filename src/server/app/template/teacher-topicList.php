@@ -12,7 +12,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getSchoolYearList($args);
+list($res, $data) = (new DomainModule())->getTopicList($args);
 
 ?>
 <!DOCTYPE html>
@@ -25,19 +25,19 @@ list($res, $data) = (new DomainModule())->getSchoolYearList($args);
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacher-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Список учебных годов</li>
+                    <li class="breadcrumb-item active" aria-current="page">Список тем задач</li>
                 </ol>
             </nav>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="schoolyear.php?id=0" class="btn btn-success">
+            <a href="topic.php?id=0" class="btn btn-success">
                 <i class="bi bi-plus-circle me-3"></i>
                 <span role="status">Добавить</span>
             </a>
@@ -51,23 +51,18 @@ list($res, $data) = (new DomainModule())->getSchoolYearList($args);
                 <thead>
                     <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
-                        <th scope="col">Учебный год</th>
-                        <th scope="col">Начало</th>
-                        <th scope="col">Конец</th>
+                        <th scope="col">Название темы</th>
                         <th scope="col" class="fit">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     foreach ($res->getData() as $key => $item) {
-                        $tdClass = $item['isCurrent'] ? 'bg-primary-subtle' : '';
                     ?>
                         <tr class="align-middle" data-id="<?= $item['id'] ?>">
-                            <th scope="row" class="text-end text-nowrap <?= $tdClass ?>"><?= $key + 1 ?></th>
-                            <td class="<?= $tdClass ?>"><?= $item['name'] ?></td>
-                            <td class="<?= $tdClass ?>"><?= $item['startDate'] ?></td>
-                            <td class="<?= $tdClass ?>"><?= $item['finishDate'] ?></td>
-                            <td class="p-1 <?= $tdClass ?>">
+                            <th scope="row" class="text-end text-nowrap"><?= $key + 1 ?></th>
+                            <td><?= $item['name'] ?></td>
+                            <td class="p-1">
                                 <?php if ($item['canBeRemoved']) { ?>
                                     <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
                                 <? } ?>
@@ -83,7 +78,7 @@ list($res, $data) = (new DomainModule())->getSchoolYearList($args);
         ?>
             <div class="alert alert-info rounded-0 my-3" role="alert">
                 <div>
-                    <p class="m-0">Не найден ни один учебный год.</p>
+                    <p class="m-0">Не найдена ни одна тема.</p>
                 </div>
             </div>
         <?php
@@ -96,14 +91,14 @@ list($res, $data) = (new DomainModule())->getSchoolYearList($args);
             for (const item of document.querySelectorAll('button[data-action="remove"]')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`schoolyear.php?id=${item.dataset.id}&action=remove`);
+                    window.location.assign(`topic.php?id=${item.dataset.id}&action=remove`);
                 });
             }
 
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`schoolyear.php?id=${item.dataset.id}`);
+                    window.location.assign(`topic.php?id=${item.dataset.id}`);
                 });
             }
         });

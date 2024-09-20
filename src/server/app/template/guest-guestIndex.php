@@ -20,7 +20,7 @@ $resource = $templateData['resource'];
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/guestNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/guest-navigator.php') ?>
         </nav>
         <hr class='m-0'/>
         <div id="main" class="d-flex flex-column mx-auto shadow-lg my-3">

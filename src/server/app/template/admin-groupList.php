@@ -12,7 +12,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getTopicList($args);
+list($res, $data) = (new DomainModule())->getGroupList($args);
 
 ?>
 <!DOCTYPE html>
@@ -25,19 +25,19 @@ list($res, $data) = (new DomainModule())->getTopicList($args);
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/teacherNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Список тем задач</li>
+                    <li class="breadcrumb-item active" aria-current="page">Список групп</li>
                 </ol>
             </nav>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="topic.php?id=0" class="btn btn-success">
+            <a href="group.php?id=0" class="btn btn-success">
                 <i class="bi bi-plus-circle me-3"></i>
                 <span role="status">Добавить</span>
             </a>
@@ -51,7 +51,8 @@ list($res, $data) = (new DomainModule())->getTopicList($args);
                 <thead>
                     <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
-                        <th scope="col">Название темы</th>
+                        <th scope="col">Название группы</th>
+                        <th scope="col">Параллель группы</th>
                         <th scope="col" class="fit">Действия</th>
                     </tr>
                 </thead>
@@ -62,6 +63,7 @@ list($res, $data) = (new DomainModule())->getTopicList($args);
                         <tr class="align-middle" data-id="<?= $item['id'] ?>">
                             <th scope="row" class="text-end text-nowrap"><?= $key + 1 ?></th>
                             <td><?= $item['name'] ?></td>
+                            <td><?= $item['parallelName'] ?></td>
                             <td class="p-1">
                                 <?php if ($item['canBeRemoved']) { ?>
                                     <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
@@ -78,7 +80,7 @@ list($res, $data) = (new DomainModule())->getTopicList($args);
         ?>
             <div class="alert alert-info rounded-0 my-3" role="alert">
                 <div>
-                    <p class="m-0">Не найдена ни одна тема.</p>
+                    <p class="m-0">Не найдена ни одна группа.</p>
                 </div>
             </div>
         <?php
@@ -91,14 +93,14 @@ list($res, $data) = (new DomainModule())->getTopicList($args);
             for (const item of document.querySelectorAll('button[data-action="remove"]')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`topic.php?id=${item.dataset.id}&action=remove`);
+                    window.location.assign(`group.php?id=${item.dataset.id}&action=remove`);
                 });
             }
 
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`topic.php?id=${item.dataset.id}`);
+                    window.location.assign(`group.php?id=${item.dataset.id}`);
                 });
             }
         });

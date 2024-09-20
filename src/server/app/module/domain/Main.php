@@ -281,6 +281,7 @@ class Main
             'id' => $resDb[0]['group_id'],
             'name' => $resDb[0]['group_name'],
             'parallelId' => $resDb[0]['parallel_id'],
+            'parallelName' => $resDb[0]['parallel_name'],
         ];
         return [Util::MakeSuccessOperationResult($res), []];
     }
@@ -2168,5 +2169,74 @@ class Main
         }
 
         return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function getLessonListForGroup($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getLessonListForGroup');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $groupId = $args['groupId'];
+        $startDate = $args['startDate'];
+        $finishDate = $args['finishDate'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getLessonListForGroup($groupId, $startDate, $finishDate);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['lesson_id'],
+                'date' => substr($item['lesson_date'], 0, 10),
+                'subjectId' => $item['subject_id'],
+                'subjectName' => $item['subject_name'],
+                'canBeRemoved' => ($item['msl_count'] + $item['mls_count']) === 0,
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getLessonById($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getLessonById');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $lessonId = $args['lessonId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getLessonById($lessonId);
+
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Занятие с id = {$lessonId} не существует"],
+            );
+        }
+
+        $res =  [
+            'id' => $resDb[0]['lesson_id'],
+            'date' => $resDb[0]['lesson_date'],
+            'groupId' => $resDb[0]['group_id'],
+            'subjectId' => $resDb[0]['subject_id'],
+        ];
+        return [Util::MakeSuccessOperationResult($res), []];
     }
 }

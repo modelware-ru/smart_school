@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-09-14 20:11:37]
+// GENERATED [2024-09-19 19:22:55]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -89,6 +89,8 @@ class Constant {
     const RESOURCE_PAGE_SCHOOL_YEAR = 'schoolYear'; 
     const RESOURCE_PAGE_SERIE_LIST = 'serieList'; 
     const RESOURCE_PAGE_SERIE = 'serie'; 
+    const RESOURCE_PAGE_SCHEDULE = 'schedule'; 
+    const RESOURCE_PAGE_LESSON = 'lesson'; 
     // WIDGET
 
     // Action
@@ -98,5 +100,18 @@ class Constant {
 
     public static function CheckRoleStateId($roleId, $roleStateId) {
         return in_array($roleStateId, self::ROLE_STATE[$roleId]);
+    }
+
+    public static function GetRoleName($roleId) {
+        switch ($roleId) {
+            case self::ROLE_GUEST_ID:
+                return "guest";
+            case self::ROLE_ADMIN_ID:
+                return "admin";
+            case self::ROLE_TEACHER_ID:
+                return "teacher";
+        }
+        return "";
+
     }
 }

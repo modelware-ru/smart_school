@@ -40,7 +40,7 @@ list($res, $data) = (new DomainModule())->getStudentClassGroupHistory($args);
 <body>
     <div id="main" class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/admin-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div id="main" class="my-3">

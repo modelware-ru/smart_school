@@ -12,7 +12,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getSubjectList($args);
+list($res, $data) = (new DomainModule())->getSerieList($args);
 
 ?>
 <!DOCTYPE html>
@@ -25,19 +25,19 @@ list($res, $data) = (new DomainModule())->getSubjectList($args);
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacher-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Список предметов</li>
+                    <li class="breadcrumb-item active" aria-current="page">Список серий</li>
                 </ol>
             </nav>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="subject.php?id=0" class="btn btn-success">
+            <a href="serie.php?id=0" class="btn btn-success">
                 <i class="bi bi-plus-circle me-3"></i>
                 <span role="status">Добавить</span>
             </a>
@@ -51,7 +51,7 @@ list($res, $data) = (new DomainModule())->getSubjectList($args);
                 <thead>
                     <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
-                        <th scope="col">Название предмета</th>
+                        <th scope="col">Название серии</th>
                         <th scope="col" class="fit">Действия</th>
                     </tr>
                 </thead>
@@ -78,7 +78,7 @@ list($res, $data) = (new DomainModule())->getSubjectList($args);
         ?>
             <div class="alert alert-info rounded-0 my-3" role="alert">
                 <div>
-                    <p class="m-0">Не найден ни один предмет.</p>
+                    <p class="m-0">Не найдена ни одна серия.</p>
                 </div>
             </div>
         <?php
@@ -91,14 +91,14 @@ list($res, $data) = (new DomainModule())->getSubjectList($args);
             for (const item of document.querySelectorAll('button[data-action="remove"]')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`subject.php?id=${item.dataset.id}&action=remove`);
+                    window.location.assign(`serie.php?id=${item.dataset.id}&action=remove`);
                 });
             }
 
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`subject.php?id=${item.dataset.id}`);
+                    window.location.assign(`serie.php?id=${item.dataset.id}`);
                 });
             }
         });

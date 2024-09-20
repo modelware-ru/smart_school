@@ -17,7 +17,7 @@ $resource = $templateData['resource'];
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light" aria-label="Навигационная панель">
-            <?= Util::RenderTemplate('app/template/shared/adminNavigator.php') ?>
+            <?= Util::RenderTemplate('app/template/shared/teacher-navigator.php') ?>
         </nav>
         <hr class='m-0' />
         <div class="my-3">
@@ -28,29 +28,25 @@ $resource = $templateData['resource'];
             </nav>
 
             <div class="d-flex flex-wrap gap-3">
-                <a href="parallel-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Параллели</span>
-                </a>
-
                 <a href="group-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
                     <span>Группы</span>
                 </a>
 
-                <a href="teacher-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Преподаватели</span>
+                <!-- <a href="student-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+                    <span>Задачи (NA)</span>
+                </a> -->
+
+                <a href="serie-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+                    <span>Серии</span>
                 </a>
 
-                <a href="student-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Ученики</span>
+                <!-- <a href="topic-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+                    <span>Темы задач</span>
                 </a>
 
-                <a href="subject-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Предметы</span>
-                </a>
-
-                <a href="schoolyear-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
-                    <span>Учебные года</span>
-                </a>
+                <a href="category-tag-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+                    <span>Категории и<br/>теги</span>
+                </a> -->
 
             </div>
         </div>

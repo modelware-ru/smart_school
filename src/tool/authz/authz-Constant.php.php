@@ -89,4 +89,19 @@ foreach ($actionList as $value) {
     public static function CheckRoleStateId($roleId, $roleStateId) {
         return in_array($roleStateId, self::ROLE_STATE[$roleId]);
     }
+
+    public static function GetRoleName($roleId) {
+        switch ($roleId) {
+<?php
+foreach ($roleList as $value) {
+?>
+            case self::ROLE_<?=strtoupper($value['code_name'])?>_ID:
+                return "<?=strtolower($value['code_name'])?>";
+<?php
+}
+?>
+        }
+        return "";
+
+    }
 }

@@ -212,17 +212,18 @@ CREATE TABLE main__student_lesson (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     student_id INT UNSIGNED NOT NULL,
     lesson_id INT UNSIGNED NOT NULL,
+    attendanceDict_id INT UNSIGNED,
     note TEXT,
     PRIMARY KEY (id),
     CONSTRAINT main__student_lesson___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
-    CONSTRAINT main__student_lesson___lesson_id FOREIGN KEY (lesson_id) REFERENCES main__lesson(id)
+    CONSTRAINT main__student_lesson___lesson_id FOREIGN KEY (lesson_id) REFERENCES main__lesson(id),
+    CONSTRAINT main__student_lesson___attendanceDict_id FOREIGN KEY (attendanceDict_id) REFERENCES main__attendance_Dict(id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE main__lesson_serie (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     lesson_id INT UNSIGNED NOT NULL,
     serie_id INT UNSIGNED NOT NULL,
-    name VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__lesson_serie___lesson_id FOREIGN KEY (lesson_id) REFERENCES main__lesson(id),
     CONSTRAINT main__lesson_serie___serie_id FOREIGN KEY (serie_id) REFERENCES main__serie(id)

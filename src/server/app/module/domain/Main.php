@@ -2012,6 +2012,36 @@ class Main
         return [Util::MakeSuccessOperationResult($res), []];
     }
 
+    public function getSerieListInLesson($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getSerieListInLesson');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $lessonId = $args['lessonId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getSerieListInLesson($lessonId);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['serie_id'],
+                'name' => $item['serie_name'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+
     public function getSerieById($args)
     {
         $localLog = Logger::Log()->withName('Module::Domain::getSerieById');
@@ -2233,10 +2263,110 @@ class Main
 
         $res =  [
             'id' => $resDb[0]['lesson_id'],
-            'date' => $resDb[0]['lesson_date'],
+            'date' => substr($resDb[0]['lesson_date'], 0 , 10),
             'groupId' => $resDb[0]['group_id'],
             'subjectId' => $resDb[0]['subject_id'],
         ];
         return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function saveLesson($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::saveLesson');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+        $date = $args['date'];
+        $subjectId = $args['subjectId'];
+        $groupId = $args['groupId'];
+        $serieList = array_reduce($args['serieList'], function ($carry, $item) {
+            // ;
+            $carry[] = [
+                'serieId' => $item,
+            ];
+            return $carry;
+        });
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        $errorList = [];
+
+        $dateCheck = (new ValueChecker($date))->notEmpty()->lengthEqual(self::DATE_LENGTH)->check();
+        if ($dateCheck === ValueChecker::IS_EMPTY) {
+            $errorList['date'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($dateCheck === ValueChecker::LENGTH_IS_NOT_EQUAL) {
+            $errorList['date'] = [
+                'code' => MWI18nHelper::MSG_FIELD_VALUE_IS_NOT_VALID,
+                'args' => ['date', $date],
+            ];
+        }
+
+        if (count($errorList) > 0) {
+            return [Util::MakeFailOperationResult($errorList), []];
+        }
+        // check. finish
+
+        $manager = new Manager();
+        if ($id === 0) {
+            $resDb = $manager->createLesson($date, $subjectId, $groupId);
+            $id = $resDb[0];
+        } else {
+            $resDb = $manager->updateLesson($id, $date, $subjectId, $groupId);
+        }
+
+        $manager->removeSerieListFromLesson($id);
+        if (!empty($serieList)) {
+            $manager->addSerieListToLesson($id, $serieList);
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function removeLesson($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::removeLesson');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $id = $args['id'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            $manager->removeSerieListFromLesson($id);
+            $resDb = $manager->removeLesson($id);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('error:', $msg);
+            preg_match('/SQLSTATE\[23000\]: Integrity constraint violation: 1451 Cannot delete or update a parent row:.*/', $msg[0], $matches);
+            $errorList = [];
+            if (!empty($matches)) {
+                $errorList['_msg_'] = [
+                    'code' => MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
+                    'args' => ['данные используются'],
+                ];
+            }
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
     }
 }

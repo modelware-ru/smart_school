@@ -61,6 +61,16 @@ $i18n_TTL = [
         'ru' => 'Логин',
         'en' => 'Login',
     ],
+    'LESSON' => [
+        '_type' => 'plain',
+        'ru' => 'Занятие',
+        'en' => 'Lesson',
+    ],
+    'LESSON_SERIES' => [
+        '_type' => 'plain',
+        'ru' => 'Серии занятий',
+        'en' => 'Lesson series',
+    ],
     'MIDDLE_NAME' => [
         '_type' => 'plain',
         'ru' => 'Отчество',
@@ -155,6 +165,11 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Состояние',
         'en' => 'State',
+    ],
+    'SUBJECT' => [
+        '_type' => 'plain',
+        'ru' => 'Предмет',
+        'en' => 'Subject',
     ],
     'SUBJECT_NAME' => [
         '_type' => 'plain',

@@ -262,6 +262,24 @@ try {
             $res = app_remove_serie($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_SAVE_LESSON:
+            $args['id'] = $payload['id'];
+            $args['date'] = $payload['date'];
+            $args['groupId'] = $payload['groupId'];
+            $args['subjectId'] = $payload['subjectId'];
+            $args['serieList'] = $payload['serieList'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_lesson($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_LESSON:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_remove_lesson($args);
+
+            break;
     }
 
     DBManager::Commit();

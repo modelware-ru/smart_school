@@ -22,6 +22,8 @@ INSERT INTO main__api (code_name) VALUES ('saveSchoolYear');
 INSERT INTO main__api (code_name) VALUES ('removeSchoolYear');
 INSERT INTO main__api (code_name) VALUES ('saveSerie');
 INSERT INTO main__api (code_name) VALUES ('removeSerie');
+INSERT INTO main__api (code_name) VALUES ('saveLesson');
+INSERT INTO main__api (code_name) VALUES ('removeLesson');
 
 INSERT INTO main__page (code_name, name) VALUES ('guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (code_name, name) VALUES ('recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -51,6 +53,7 @@ INSERT INTO main__page (code_name, name) VALUES ('serieList', '{"title":{"ru": "
 INSERT INTO main__page (code_name, name) VALUES ('serie', '{"title":{"ru": "Серия", "en": "Serie"}}');
 INSERT INTO main__page (code_name, name) VALUES ('schedule', '{"title":{"ru": "Расписание", "en": "Schedule"}}');
 INSERT INTO main__page (code_name, name) VALUES ('lesson', '{"title":{"ru": "Занятие", "en": "Lesson"}}');
+INSERT INTO main__page (code_name, name) VALUES ('lessonJournal', '{"title":{"ru": "Журнал занятия", "en": "Lesson Journal"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');
@@ -153,3 +156,7 @@ INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2024-09-0
 INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (2, 1, '2024-09-02');
 INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2024-09-08');
 INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2023-09-01');
+
+INSERT INTO main__attendance_Dict (id, name, display, `default`) VALUES (1, 'Отсутствует', '-', 'Y');
+INSERT INTO main__attendance_Dict (id, name, display, `default`) VALUES (2, 'Присутствует', '+', 'N');
+INSERT INTO main__attendance_Dict (id, name, display, `default`) VALUES (3, 'Болел', 'Б', 'N');

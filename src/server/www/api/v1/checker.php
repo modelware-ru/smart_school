@@ -214,6 +214,26 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeSerie FINISH
+        // saveLesson START
+        AuthzConstant::RESOURCE_API_SAVE_LESSON => [
+            '_type' => 'object',
+            'id' => 1,
+            'date' => 'string',
+            'subjectId' => 1,
+            'groupId' => 1,
+            'serieList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
+            ]
+        ],
+        // saveLesson FINISH
+        // removeLesson START
+        AuthzConstant::RESOURCE_API_REMOVE_LESSON => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeLesson FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

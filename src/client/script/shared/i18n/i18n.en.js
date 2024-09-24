@@ -1,4 +1,4 @@
-// GENERATED [2024-09-19 19:24:09]
+// GENERATED [2024-09-24 16:53:46]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -13,6 +13,8 @@ export default {
   TTL_GROUP_TEACHERS: (...args) => `Group teachers`,
   TTL_LAST_NAME: (...args) => `Last name`,
   TTL_LOGIN: (...args) => `Login`,
+  TTL_LESSON: (...args) => `Lesson`,
+  TTL_LESSON_SERIES: (...args) => `Lesson series`,
   TTL_MIDDLE_NAME: (...args) => `Middle name`,
   TTL_NEW_TAG_LIST: (...args) => `New tags`,
   TTL_NEW_TASK_LIST: (...args) => `New tasks`,
@@ -32,6 +34,7 @@ export default {
   TTL_SERIE_NAME: (...args) => `Serie name`,
   TTL_SIGN_IN: (...args) => `Sign In`,
   TTL_STATE: (...args) => `State`,
+  TTL_SUBJECT: (...args) => `Subject`,
   TTL_SUBJECT_NAME: (...args) => `Subject name`,
   TTL_TAG_LIST: (...args) => `Tags`,
   TTL_TASK_LIST: (...args) => `Tasks`,

@@ -162,14 +162,14 @@ list($res, $data) = (new DomainModule())->getLessonListForGroup($args);
                         <tr class="align-middle" data-id="<?= $item['id'] ?>">
                             <th scope="row" class="text-end text-nowrap"><?= $index ?></th>
                             <td><?= $item['date'] ?></td>
-                            <td></td>
+                            <td class="text-danger">не реализовано</td>
                             <td class="p-1">
                                 <div class="d-flex gap-3">
-                                <button data-action="edit" data-id="<?= $item['id'] ?>" class='btn btn-outline-primary btn-sm'><i class="bi bi-pencil"></i></button>
+                                    <button data-action="edit" data-id="<?= $item['id'] ?>" class='btn btn-outline-primary btn-sm'><i class="bi bi-pencil"></i></button>
 
-                                <?php if ($item['canBeRemoved']) { ?>
-                                    <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
-                                <? } ?>
+                                    <?php if ($item['canBeRemoved']) { ?>
+                                        <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
+                                    <? } ?>
                                 </div>
                             </td>
                         </tr>
@@ -217,7 +217,7 @@ list($res, $data) = (new DomainModule())->getLessonListForGroup($args);
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr:not([noclick])')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`lesson-journal.php?lessonId=${item.dataset.id}&schoolYearId=<?= $schoolYearId ?>`);
+                    window.location.assign(`lesson-journal.php?id=${item.dataset.id}&schoolYearId=<?= $schoolYearId ?>`);
                 });
             }
         });

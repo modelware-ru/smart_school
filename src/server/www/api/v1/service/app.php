@@ -163,3 +163,17 @@ function app_remove_serie($args)
 
     return $res;
 }
+
+function app_save_lesson($args)
+{
+    list($res, $data) = (new DomainMain())->saveLesson($args);
+
+    return $res;
+}
+
+function app_remove_lesson($args)
+{
+    list($res, $data) = (new DomainMain())->removeLesson($args);
+
+    return $res;
+}

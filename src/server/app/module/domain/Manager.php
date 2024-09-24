@@ -959,11 +959,80 @@ SQL;
         $stmt = <<<SQL
 SELECT ml.id lesson_id, ml.date lesson_date, mg.id group_id, ms.id subject_id
 FROM main__lesson ml
-JOIN main__subject mp ON ms.id = ml.subject_id
+JOIN main__subject ms ON ms.id = ml.subject_id
 JOIN main__group mg ON mg.id = ml.group_id
 WHERE ml.id = :lessonId 
 SQL;
         return $this->_db->select($stmt, ['lessonId' => $lessonId]);
+    }
+
+    public function getSerieListInLesson($lessonId)
+    {
+        $stmt = <<<SQL
+SELECT ms.id serie_id, ms.name serie_name
+FROM main__lesson_serie mls
+JOIN main__serie ms ON mls.serie_id = ms.id
+WHERE mls.lesson_id = :lessonId
+ORDER BY ms.name
+SQL;
+        return $this->_db->select($stmt, [
+            'lessonId' => $lessonId
+        ]);
+    }
+
+    public function createLesson($date, $subjectId, $groupId)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__lesson (`date`, subject_id, group_id)
+VALUES (:date, :subjectId, :groupId)
+SQL;
+        return $this->_db->insert($stmt, [
+            0 => [
+                'date' => $date,
+                'subjectId' => $subjectId,
+                'groupId' => $groupId,
+            ],
+        ]);
+    }
+
+    public function updateLesson($lessonId, $date, $subjectId, $groupId)
+    {
+        $stmt = <<<SQL
+UPDATE main__lesson SET `date` = :date, subject_id = :subjectId, group_id = :groupId
+WHERE id = :id
+SQL;
+        return $this->_db->update($stmt, [
+            0 => [
+                'id' => $lessonId,
+                'date' => $date,
+                'subjectId' => $subjectId,
+                'groupId' => $groupId,
+            ]
+        ]);
+    }
+
+    public function removeLesson($lessonId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__lesson WHERE id = :id
+SQL;
+        return $this->_db->delete($stmt, ['id' => $lessonId]);
+    }
+
+    public function removeSerieListFromLesson($lessonId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__lesson_serie WHERE lesson_id = :lessonId
+SQL;
+        return $this->_db->delete($stmt, ['lessonId' => $lessonId]);
+    }
+
+    public function addSerieListToLesson($lessonId, $serieList)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__lesson_serie (lesson_id, serie_id) VALUES (:lessonId, :serieId);
+SQL;
+        return $this->_db->insert($stmt, $serieList, ['lessonId' => $lessonId]);
     }
 
 }

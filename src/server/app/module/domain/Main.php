@@ -2135,14 +2135,24 @@ class Main
                 }
             }
 
-            $resDb = $manager->createTaskList($newTaskList);
-            $newTaskIdList = array_map(function ($item) {
-                return [
-                    'taskId' => $item,
-                ];
-            }, $resDb);
+            if (count($newTaskList) > 0) {
+                $resDb = $manager->fetchTaskList($newTaskList);
+                $existedTaskIdList = array_map(function ($item) {
+                    return [
+                        'taskId' => strval($item['id']),
+                    ];
+                }, $resDb);
 
-            $resDb = $manager->addTaskListToSerie($newTaskIdList, $id);
+                $resDb = $manager->createTaskList($newTaskList);
+                $newTaskIdList = array_map(function ($item) {
+                    return [
+                        'taskId' => $item,
+                    ];
+                }, $resDb);
+
+                $resultTaskList = array_merge($existedTaskIdList, $newTaskIdList);
+                $resDb = $manager->addTaskListToSerie($resultTaskList, $id);
+            }
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
@@ -2263,9 +2273,12 @@ class Main
 
         $res =  [
             'id' => $resDb[0]['lesson_id'],
-            'date' => substr($resDb[0]['lesson_date'], 0 , 10),
+            'date' => substr($resDb[0]['lesson_date'], 0, 10),
+            'parallelId' => $resDb[0]['parallel_id'],
             'groupId' => $resDb[0]['group_id'],
+            'groupName' => $resDb[0]['group_name'],
             'subjectId' => $resDb[0]['subject_id'],
+            'subjectName' => $resDb[0]['subject_name'],
         ];
         return [Util::MakeSuccessOperationResult($res), []];
     }
@@ -2368,5 +2381,80 @@ class Main
         }
 
         return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function getStudentListForLesson($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getStudentListForLesson');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $lessonId = $args['lessonId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getLessonById($lessonId);
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Занятие с id = {$lessonId} не существует"],
+            );
+        }
+
+        $lessonDate = substr($resDb[0]['lesson_date'], 0, 10);
+        $parallelId = $resDb[0]['parallel_id'];
+        $groupId = $resDb[0]['group_id'];
+
+        $resDb = $manager->getStudentListForLesson($lessonId, $lessonDate, $parallelId, $groupId);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['student_id'],
+                'firstName' => $item['first_name'],
+                'lastName' => $item['last_name'],
+                'middleName' => $item['middle_name'],
+                'note' => $item['note'],
+                'attendanceDictId' => $item['attendanceDict_id'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getAttendanceDict($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getAttendanceDict');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getAttendanceDict();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'display' => $item['display'],
+                'default' => $item['default'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
     }
 }

@@ -11,15 +11,13 @@ global $roleId;
 $roleName = AuthzConstant::GetRoleName($roleId);
 
 $templateData['_js']['message'] = $templateData['message'];
-
-$resource = $templateData['resource'];
 ?>
 <!DOCTYPE html>
 <html lang='<?= $langId ?>' data-bs-theme='auto'>
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <script type='text/javascript' src='js/<?= $resource ?>_bundle.js' defer></script>
+    <script type='text/javascript' src='js/message_bundle.js' defer></script>
 </head>
 
 <body>

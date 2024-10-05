@@ -6,8 +6,6 @@ use MW\Module\Domain\Main as DomainModule;
 global $templateData;
 global $langId;
 
-$resource = $templateData['resource'];
-
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
@@ -31,7 +29,7 @@ $templateData['_js']['teacherList'] = $teacherList;
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <script type='text/javascript' src='js/<?= $resource ?>_bundle.js' defer></script>
+    <script type='text/javascript' src='js/admin_teacherList_bundle.js' defer></script>
 </head>
 
 <body>

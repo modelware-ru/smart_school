@@ -9,7 +9,7 @@ import { commonEventManager } from '../../shared/eventManager';
 import { openSiteURL } from '../../shared/utils';
 import { fetcher } from '../../shared/fetcher';
 
-export default class StudentFormHeader {
+export default class StudentListHeader {
     _el = {};
     _atm = {};
 

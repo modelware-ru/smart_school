@@ -196,6 +196,11 @@ $i18n_TTL = [
         'ru' => 'Название темы',
         'en' => 'Topic name',
     ],
+    'TO_ADD_SERIE' => [
+        '_type' => 'plain',
+        'ru' => 'Добавить серию',
+        'en' => 'Add Serie',
+    ],
     'TO_CANCEL' => [
         '_type' => 'plain',
         'ru' => 'Отменить',
@@ -220,6 +225,11 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Удаление...',
         'en' => 'Removing...',
+    ],
+    'TO_REMOVE_SERIE' => [
+        '_type' => 'plain',
+        'ru' => 'Удалить серию',
+        'en' => 'Remove Serie',
     ],
     'TO_SAVE' => [
         '_type' => 'plain',

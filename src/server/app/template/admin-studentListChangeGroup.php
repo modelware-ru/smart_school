@@ -8,8 +8,6 @@ use MW\Shared\MWI18nHelper;
 global $templateData;
 global $langId;
 
-$resource = $templateData['resource'];
-
 $query = Util::HandleGET();
 
 $studentIdList = isset($query['ids']) ? array_map('intval', explode(',', $query['ids'])) : [];
@@ -113,7 +111,7 @@ $templateData['_js']['studentIdList'] = $studentIdList;
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <script type='text/javascript' src='js/<?= $resource ?>_bundle.js' defer></script>
+    <script type='text/javascript' src='js/admin_studentListChangeGroup_bundle.js' defer></script>
 </head>
 
 <body>

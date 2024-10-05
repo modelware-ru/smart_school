@@ -27,6 +27,8 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (2
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (22, 1, 'removeSchoolYear');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (23, 1, 'saveSerie');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (24, 1, 'removeSerie');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (25, 1, 'saveLesson');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (26, 1, 'removeLesson');
 
 -- Показ страницы
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (100, 2, 'guestIndex'); 
@@ -55,6 +57,9 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (1
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (123, 2, 'schoolYear');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (124, 2, 'serieList');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (125, 2, 'serie');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (126, 2, 'schedule');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (127, 2, 'lesson');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (128, 2, 'lessonJournal');
 
 INSERT INTO authz__role (id, code_name, name, description) VALUES (1, 'Guest', 'Гость', '');
 INSERT INTO authz__role (id, code_name, name, description) VALUES (2, 'Admin', 'Администратор', '');
@@ -114,6 +119,8 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (20, 3, 'ALLOW', 1, '{}', 3); -- removeCategoryTag
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (23, 3, 'ALLOW', 1, '{}', 3); -- saveSerie
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (24, 3, 'ALLOW', 1, '{}', 3); -- removeSerie
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (25, 3, 'ALLOW', 1, '{}', 3); -- saveLesson
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (26, 3, 'ALLOW', 1, '{}', 3); -- removeLesson
 
 -- Преподаватель ---- Показ страницы
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (110, 3, 'ALLOW', 1, '{}', 3); -- teacherIndex
@@ -124,9 +131,16 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (121, 3, 'ALLOW', 1, '{}', 3); -- categoryTag
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (124, 3, 'ALLOW', 1, '{}', 3); -- serieList
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (125, 3, 'ALLOW', 1, '{}', 3); -- serie
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (107, 3, 'ALLOW', 1, '{}', 3); -- groupList
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (106, 3, 'ALLOW', 1, '{}', 3); -- group
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (126, 3, 'ALLOW', 1, '{}', 3); -- schedule
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (127, 3, 'ALLOW', 1, '{}', 3); -- lesson
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (128, 3, 'ALLOW', 1, '{}', 3); -- lessonJournal
 
 -- Account
 INSERT INTO authz__account (id) VALUES (1);
+INSERT INTO authz__account (id) VALUES (2);
+INSERT INTO authz__account (id) VALUES (3);
 
 -- Группы
 INSERT INTO authz__group (id, name, description, role_id, role_state_id, options, prio) VALUES (1, 'SignOut', 'Возможность сделать signOut', NULL, NULL, '{}', 1);
@@ -135,5 +149,9 @@ INSERT INTO authz__group_permission (permission_id, group_id, permission, prio) 
 -- Admin
 INSERT INTO authz__account_role (account_id, role_id, role_state_id, `order`) VALUES (1, 2, 2, 1);
 INSERT INTO authz__account_role (account_id, role_id, role_state_id, `order`) VALUES (1, 3, 3, 2);
+INSERT INTO authz__account_role (account_id, role_id, role_state_id, `order`) VALUES (2, 3, 3, 1);
+INSERT INTO authz__account_role (account_id, role_id, role_state_id, `order`) VALUES (3, 3, 4, 1);
 
 INSERT INTO authz__account_group (account_id, group_id) VALUES (1, 1);
+INSERT INTO authz__account_group (account_id, group_id) VALUES (2, 1);
+INSERT INTO authz__account_group (account_id, group_id) VALUES (3, 1);

@@ -11,8 +11,6 @@ global $userId;
 
 $roleName = AuthzConstant::GetRoleName($roleId);
 
-$resource = $templateData['resource'];
-
 $query = Util::HandleGET();
 
 $groupId = isset($query['id']) ? intval($query['id']) : 0;
@@ -194,7 +192,6 @@ list($res, $data) = (new DomainModule())->getLessonListForGroup($args);
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             const select = document.getElementById('selectSchoolYear');
-            console.log(select);
             select.addEventListener('change', (e) => {
                 e.stopPropagation();
                 window.location.assign(`schedule.php?id=<?= $groupId ?>&schoolYearId=${e.target.value}`);
@@ -217,7 +214,7 @@ list($res, $data) = (new DomainModule())->getLessonListForGroup($args);
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr:not([noclick])')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`lesson-journal.php?id=${item.dataset.id}&schoolYearId=<?= $schoolYearId ?>`);
+                    window.location.assign(`lesson-journal.php?id=${item.dataset.id}&groupId=<?= $groupId ?>&schoolYearId=<?= $schoolYearId ?>`);
                 });
             }
         });

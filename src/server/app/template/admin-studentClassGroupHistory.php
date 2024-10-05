@@ -6,7 +6,6 @@ use MW\Module\Domain\Main as DomainModule;
 global $templateData;
 global $langId;
 
-$resource = $templateData['resource'];
 $query = Util::HandleGET();
 
 $studentId = isset($query['id']) ? intval($query['id']) : 0;

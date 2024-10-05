@@ -11,8 +11,6 @@ global $userId;
 
 $roleName = AuthzConstant::GetRoleName($roleId);
 
-$resource = $templateData['resource'];
-
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
     'teacherId' => $userId,

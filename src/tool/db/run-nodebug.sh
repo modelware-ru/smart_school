@@ -1,1 +1,2 @@
-php sql-scripts.php
+#!/usr/bin/bash
+php sql-scripts.php "$@"

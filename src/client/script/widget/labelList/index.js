@@ -72,7 +72,7 @@ export default class LabelList {
                 <div className={className}>
                     <div className="alert alert-info rounded-0" role="alert">
                         <div>
-                            <p className="m-0">Не добавлено ни одного тега.</p>
+                            <p className="m-0">Не добавлено ни одного элемента.</p>
                         </div>
                     </div>
                 </div>

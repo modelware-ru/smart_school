@@ -4,8 +4,6 @@ use MW\Shared\Util;
 
 global $templateData;
 global $langId;
-
-$resource = $templateData['resource'];
 ?>
 <!DOCTYPE html>
 <html lang='<?= $langId ?>' data-bs-theme='auto'>

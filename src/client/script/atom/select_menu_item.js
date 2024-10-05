@@ -16,6 +16,7 @@ export default class SelectMenuItem extends Atom {
             hasError = 'unknown', // 'yes', 'no', 'unknown'
             key = '',
             onAction = null,
+            onChange = null,
         } = settings;
 
         this._prop = {
@@ -33,6 +34,7 @@ export default class SelectMenuItem extends Atom {
 
         this._callback = {
             onAction,
+            onChange,
         };
 
         this.el = this._ui_render();
@@ -102,12 +104,15 @@ export default class SelectMenuItem extends Atom {
     // finish "_renderState"
 
     _onChange = (e) => {
+        const { key, status } = this._prop;
         const { value: oldValue } = this._state;
+        const { onChange } = this._callback;
         const newValue = e.target.value;
 
         if (oldValue === newValue) return;
 
         this._updateState('value', newValue);
+        onChange && onChange({ key, value: { oldValue, newValue }, status });
     };
 
     _select_class_name = () => {

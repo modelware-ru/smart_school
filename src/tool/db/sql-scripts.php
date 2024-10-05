@@ -11,46 +11,46 @@ use MW\Shared\Logger;
 use MW\Shared\MWException;
 use MW\Shared\Util;
 
-$options = getopt('t::');
+$options = getopt('t::c:');
 
-$isTest = FALSE;
-if ($options && !is_null($options['t'])) {
-    $isTest = TRUE;
+if (!key_exists('c', $options)) {
+    echo "Usage: -c <connectionKey> -t" . PHP_EOL;
+    exit();
 }
 
-$scriptShared = [
+$connectionName = $options['c'];
+
+$isTest = FALSE;
+if ($options && key_exists('t', $options)) {
+    $isTest = TRUE;
+    echo "Test is not supported" . PHP_EOL;
+    exit();
+}
+
+$scriptList = [
+    0 => "../../database/main-clean-{$connectionName}.sql",
     1 => '../../database/authz/authz-schema.sql',
-    2 => '../../database/authz/authz-data.sql', // *majordomo
+    2 => "../../database/authz/authz-data-{$connectionName}.sql",
     3 => '../../database/main-schema.sql',
-    4 => '../../database/main-data.sql', // *majordomo
+    4 => "../../database/main-data-{$connectionName}.sql",
 ];
-
-$i = count($scriptShared);
-$scriptOnlyForTest = [
-    // $i + 1 => '../../database/authz/authz-data-test.sql',
-    // $i + 2 => '../../database/croner/croner-data-test.sql',
-    // $i + 3 => '../../database/main-data-test.sql',
-    // $i + 4 => '../../database/main-data-authz-test.sql',
-    // $i + 5 => '../../database/main-data-croner-test.sql',
-];
-
-$scriptList = ['../../database/main-clean.sql'] + $scriptShared;
-// $scriptList = ['../../database/main-clean-majordomo.sql'] + $scriptShared;
-
-$scriptTestList = ['../../database/main-clean-test.sql'] + $scriptShared + $scriptOnlyForTest;
 
 try {
     $log = Logger::Init('tool-sql-script', false, 'path_localhost');
     $log->notice('start');
 
-    $db = DBManager::GetConnection('localhost-mariaDB');
+    $db = DBManager::GetConnection($connectionName);
 
-    if ($isTest) {
-        $scriptList = $scriptTestList;
-        $db = DBManager::GetConnection('main-test');
-    }
+    // $res = $db->select("SELECT * FROM main__group;");
+    // var_dump($res);
+    // echo "ok";
+    // exit();
+    // if ($isTest) {
+    //     $scriptList = $scriptTestList;
+    //     $db = DBManager::GetConnection('main-test');
+    // }
 
-    echo 'Обновление ' . ($isTest ? 'тестовой' : 'основной') . ' базы' . PHP_EOL;
+    echo 'Обновление ' . ($isTest ? 'тестовой' : 'основной') . ' базы на ' . $connectionName . PHP_EOL;
 
     foreach ($scriptList as $script) {
         $query = file_get_contents($script);

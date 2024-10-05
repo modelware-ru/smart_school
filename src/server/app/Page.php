@@ -82,7 +82,6 @@ class Page
 
             $templateData = [
                 'title' => $title,
-                'resource' => $resource,
                 'permissionOptions' => $pagePermissionOptions,
                 '_js' => [
                     'permission' => $widgetPermission,
@@ -148,7 +147,6 @@ class Page
             }
 
             $templateData['title'] = $title;
-            $templateData['resource'] = $resource;
 
             echo Util::RenderTemplate("app/template/{$resource}.php");
         } finally {

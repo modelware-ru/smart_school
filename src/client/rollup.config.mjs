@@ -1,22 +1,23 @@
 import babel from '@rollup/plugin-babel';
 
 const pages = [
-    'guestIndex',
     'message',
-    'parallel',
-    'group',
-    'teacherList',
-    'teacher',
-    'subject',
-    'studentList',
-    'student',
-    'studentListChangeClass',
-    'studentListChangeGroup',
-    'topic',
-    'categoryTag',
-    'schoolYear',
-    'serie',
-    'lesson',
+    'guest_guestIndex',
+    'admin_parallel',
+    'admin_group',
+    'admin_teacherList',
+    'admin_teacher',
+    'admin_subject',
+    'admin_studentList',
+    'admin_student',
+    'admin_studentListChangeClass',
+    'admin_studentListChangeGroup',
+    'admin_schoolYear',
+    'teacher_topic',
+    'teacher_categoryTag',
+    'teacher_serie',
+    'teacher_lesson',
+    'teacher_lessonJournal',
 ];
 
 const export_page = pages.reduce((acc, item) => {

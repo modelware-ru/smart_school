@@ -21,20 +21,37 @@ class Setting
             //     'password' => 'Webapp_1973!',
             // ],
             'localhost' => [
-                'dsn' => 'mysql:host=127.0.0.1;port=23306;dbname=smart_school;charset=UTF8',
-                'user' => 'denis',
-                'password' => 'denis',
-            ],
-            'localhost-mariaDB' => [
                 'dsn' => 'mysql:host=127.0.0.1;port=33306;dbname=smart_school;charset=UTF8',
                 'user' => 'root',
                 'password' => 'root',
             ],
             'majordomo' => [
-                'dsn' => 'mysql:host=78.108.80.142;port=3306;dbname=b171063_smart_school;charset=UTF8',
+                'dsn' => 'mysql:host=127.0.0.1;port=13306;dbname=b171063_smart_school;charset=UTF8',
                 'user' => 'u171063_smart',
                 'password' => 'smart_school',
+                'shellExec' => 'ssh -fNL localhost:13306:78.108.80.142:3306 smart_school_majordomo',
             ],
+            // 'majordomo2' => [
+            //     'host' => '78.108.80.142',
+            //     'port' => '3306',
+            //     'dbname' => 'b171063_smart_school',
+            //     'dsn' => 'mysql:host=78.108.80.142;port=3306;dbname=b171063_smart_school;charset=UTF8',
+            //     'user' => 'u171063_smart',
+            //     'password' => 'smart_school',
+            //     'sshTunnel' => [
+            //         'host' => 'web21s.majordomo.ru',
+            //         'port' => 1022,
+            //         'tunnelPort' => 19888,
+            //         'username' => 'u171063',
+            //         'publicKey' => '/usr/share/nginx/app/cred/u171063_public_key.txt',
+            //         'privateKey' => '/usr/share/nginx/app/cred/u171063_private_key.pem',
+            //     ],
+            // ],
+            // 'majordomo1' => [
+            //     'dsn' => 'mysql:host=localhost;port=9999;dbname=b171063_smart_school;charset=UTF8',
+            //     'user' => 'u171063_smart',
+            //     'password' => 'smart_school',
+            // ],
             // 'localhost-test' => [
             //     'dsn' => 'mysql:host=localhost;port=3306;dbname=webapp-test;charset=UTF8',
             //     'user' => 'webapp',

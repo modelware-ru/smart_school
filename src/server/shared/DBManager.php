@@ -1,4 +1,5 @@
 <?php
+
 namespace MW\Shared;
 
 use MW\App\Setting;
@@ -43,6 +44,34 @@ class DBManager
             if (substr(self::$_ManagerList[$key]->_dsn, 0, 6) === 'sqlsrv') {
                 unset(self::$_ManagerList[$key]->_driverOpts[\PDO::ATTR_ERRMODE]);
             }
+
+            if (key_exists('shellExec', $settings)) {
+                shell_exec('pgrep ssh | xargs kill > /dev/null 2>&1');
+                shell_exec($settings['shellExec']);
+            }
+
+            // if (key_exists('sshTunnel', $settings)) {
+            //     $sshHost = $settings['sshTunnel']['host'];
+            //     $sshPort = $settings['sshTunnel']['port'];
+            //     $sshUsername = $settings['sshTunnel']['username'];
+            //     $sshPublicKey = $settings['sshTunnel']['publicKey'];
+            //     $sshPrivateKey = $settings['sshTunnel']['privateKey'];
+
+            //     $connection = \ssh2_connect($sshHost, $sshPort);
+            //     \ssh2_auth_pubkey_file($connection, $sshUsername, $sshPublicKey, $sshPrivateKey);
+
+            //     $destinationHost = $settings['host'];
+            //     $destinationPort = $settings['port'];
+            //     $destinationDBName = $settings['dbname'];
+            //     $tunnelPort = $settings['sshTunnel']['tunnelPort'];
+
+            //     // $tunnel = \ssh2_tunnel($connection, "{$destinationHost}{$destinationPort}", $tunnelPort);
+            //     // $tunnel = \ssh2_tunnel($connection, $destinationHost, $tunnelPort);
+            //     // $tunnel = \ssh2_tunnel($connection, '127.0.0.1', $tunnelPort);
+            //     // shell_exec("ssh -f -L {$tunnelPort}:{$destinationHost}:{$destinationPort} majordomo sleep 60 >> logfile");
+
+            //     self::$_ManagerList[$key]->_dsn = "mysql:host=127.0.0.1;port={$tunnelPort};dbname={$destinationDBName};charset=UTF8";
+            // }
 
             self::$_ManagerList[$key]->_pdo = new \PDO(self::$_ManagerList[$key]->_dsn, self::$_ManagerList[$key]->_user, self::$_ManagerList[$key]->_password, self::$_ManagerList[$key]->_driverOpts);
             if ($hasTransaction) {
@@ -268,5 +297,4 @@ class DBManager
 
         return $res;
     }
-
 }

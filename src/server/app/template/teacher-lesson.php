@@ -7,8 +7,6 @@ global $templateData;
 global $langId;
 global $userId;
 
-$resource = $templateData['resource'];
-
 $query = Util::HandleGET();
 
 $lessonId = isset($query['id']) ? intval($query['id']) : 0;
@@ -144,7 +142,7 @@ $templateData['_js']['action'] = $action;
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <script type='text/javascript' src='js/<?= $resource ?>_bundle.js' defer></script>
+    <script type='text/javascript' src='js/teacher_lesson_bundle.js' defer></script>
 </head>
 
 <body>

@@ -6,8 +6,6 @@ use MW\Module\Domain\Main as DomainModule;
 global $templateData;
 global $langId;
 
-$resource = $templateData['resource'];
-
 $query = Util::HandleGET();
 
 $groupId = isset($query['id']) ? intval($query['id']) : 0;
@@ -94,7 +92,7 @@ $templateData['_js']['action'] = $action;
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <script type='text/javascript' src='js/<?= $resource ?>_bundle.js' defer></script>
+    <script type='text/javascript' src='js/admin_group_bundle.js' defer></script>
 </head>
 
 <body>

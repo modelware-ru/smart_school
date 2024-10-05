@@ -880,7 +880,6 @@ SQL;
         return $this->_db->delete($stmt, ['serieId' => $serieId]);
     }
 
-
     public function createTaskList($newTaskList)
     {
         $tl = array_map(function ($item) {
@@ -902,6 +901,16 @@ SQL;
             ],
             true
         );
+    }
+
+    public function fetchTaskList($taskList)
+    {
+        $taskListString = '"' . implode('","', $taskList) . '"';
+
+        $stmt = <<<SQL
+SELECT id FROM main__task WHERE name IN ({$taskListString})
+SQL;
+        return $this->_db->select($stmt);
     }
 
     public function addTaskListToSerie($newTaskIdList, $serieId)
@@ -957,7 +966,7 @@ SQL;
     public function getLessonById($lessonId)
     {
         $stmt = <<<SQL
-SELECT ml.id lesson_id, ml.date lesson_date, mg.id group_id, ms.id subject_id
+SELECT ml.id lesson_id, ml.date lesson_date, mg.parallel_id parallel_id, mg.id group_id, mg.name group_name, ms.id subject_id, ms.name subject_name
 FROM main__lesson ml
 JOIN main__subject ms ON ms.id = ml.subject_id
 JOIN main__group mg ON mg.id = ml.group_id
@@ -1035,4 +1044,44 @@ SQL;
         return $this->_db->insert($stmt, $serieList, ['lessonId' => $lessonId]);
     }
 
+    public function getStudentListForLesson($lessonId, $lessonDate, $parallelId, $groupId)
+    {
+        $stmt = <<<SQL
+SELECT ms.id, ms.first_name, ms.last_name, ms.middle_name, msl.note, msl.attendanceDict_id 
+FROM main__student ms 
+JOIN main__student_class_Hist msch ON msch.student_id = ms.id AND msch.id = 
+(
+	SELECT msch2.id FROM main__student_class_Hist msch2 
+	WHERE msch2.start_date <= :lessonDate1
+	AND msch2.student_id = ms.id
+	ORDER BY msch2.start_date DESC, msch2.`order` DESC LIMIT 1
+) AND msch.parallel_id = :parallelId
+JOIN main__student_group_Hist msgh ON msgh.student_id = ms.id AND msgh.id = 
+(
+	SELECT msgh2.id FROM main__student_group_Hist msgh2 
+	WHERE msgh2.start_date <= :lessonDate2
+	AND msgh2.student_id = ms.id
+	ORDER BY msgh2.start_date DESC, msgh2.`order` DESC LIMIT 1
+) AND msgh.group_id = :groupId
+LEFT JOIN main__student_lesson msl ON msl.lesson_id = :lessonId AND msl.student_id = ms.id
+ORDER BY ms.last_name, ms.first_name, ms.middle_name
+SQL;
+        return $this->_db->select($stmt, [
+            'lessonId' => $lessonId,
+            'lessonDate1' => $lessonDate,
+            'lessonDate2' => $lessonDate,
+            'parallelId' => $parallelId,
+            'groupId' => $groupId,
+        ]);
+    }
+
+    public function getAttendanceDict()
+    {
+        $stmt = <<<SQL
+SELECT mad.id, mad.name, mad.display, mad.default
+FROM main__attendance_Dict mad
+ORDER BY mad.default, mad.name
+SQL;
+        return $this->_db->select($stmt);
+    }
 }

@@ -6,8 +6,6 @@ use MW\Module\Domain\Main as DomainModule;
 global $templateData;
 global $langId;
 
-$resource = $templateData['resource'];
-
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];

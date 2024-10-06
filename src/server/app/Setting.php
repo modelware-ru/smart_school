@@ -8,9 +8,9 @@ class Setting
 {
     private const _DATA = [
         'database' => [
-            'default' => 'main',
+            'default' => 'docker',
             'test-postfix' => '-test',
-            'main' => [
+            'docker' => [
                 'dsn' => 'mysql:host=db;port=3306;dbname=smart_school;charset=UTF8',
                 'user' => 'denis',
                 'password' => 'denis',

@@ -69,7 +69,7 @@ try {
     echo PHP_EOL . 'MWException: ' . $e->logMessage() . PHP_EOL;
 } catch (\Throwable $e) {
     $log->error($e->getMessage());
-    echo 'Error: ' . $e->getMessage() . PHP_EOL;
+    echo PHP_EOL . 'Error: ' . $e->getMessage() . PHP_EOL;
 } finally {
     $log->info('timing', $res = Util::CalcExecutionTime($startTime));
     $log->notice('finish');

@@ -80,12 +80,13 @@ SQL;
     public function getGroupList()
     {
         $stmt = <<<SQL
-SELECT mg.id group_id, mg.name group_name, mp.name parallel_name,
+SELECT mg.id group_id, mg.name group_name, mp.id parallel_id, mp.name parallel_name,
 (SELECT COUNT(mug.id) FROM main__user_group mug WHERE mug.group_id = mg.id) mug_count,
 (SELECT COUNT(ml.id) FROM main__lesson ml WHERE ml.group_id = mg.id) ml_count,
 (SELECT COUNT(msgh.id) FROM main__student_group_Hist msgh WHERE msgh.group_id = mg.id) msgh_count
 FROM main__group mg
 JOIN main__parallel mp ON mp.id = mg.parallel_id
+ORDER BY mp.`order`, mg.`order`
 SQL;
         return $this->_db->select($stmt);
     }
@@ -93,7 +94,7 @@ SQL;
     public function getGroupById($groupId)
     {
         $stmt = <<<SQL
-SELECT mg.id group_id, mg.name group_name, mg.parallel_id, mp.name parallel_name
+SELECT mg.id group_id, mg.name group_name, mg.parallel_id, mp.name parallel_name, mg.`order` group_order
 FROM main__group mg
 JOIN main__parallel mp ON mp.id = mg.parallel_id
 WHERE mg.id = :groupId 
@@ -111,24 +112,25 @@ SQL;
         return $this->_db->select($stmt, ['parallelId' => $parallelId]);
     }
 
-    public function createGroup($name, $parallelId)
+    public function createGroup($name, $parallelId, $order)
     {
         $stmt = <<<SQL
-INSERT INTO main__group (name, parallel_id)
-VALUES (:name, :parallelId)
+INSERT INTO main__group (name, parallel_id, `order`)
+VALUES (:name, :parallelId, :order)
 SQL;
         return $this->_db->insert($stmt, [
             0 => [
                 'name' => $name,
                 'parallelId' => $parallelId,
+                'order' => $order,
             ],
         ]);
     }
 
-    public function updateGroup($groupId, $name, $parallelId)
+    public function updateGroup($groupId, $name, $parallelId, $order)
     {
         $stmt = <<<SQL
-UPDATE main__group SET name = :name, parallel_id = :parallelId
+UPDATE main__group SET name = :name, parallel_id = :parallelId, `order` = :order
 WHERE id = :id
 SQL;
         return $this->_db->update($stmt, [
@@ -136,6 +138,7 @@ SQL;
                 'id' => $groupId,
                 'name' => $name,
                 'parallelId' => $parallelId,
+                'order' => $order,
             ]
         ]);
     }
@@ -746,14 +749,14 @@ SQL;
         return $this->_db->select($stmt);
     }
 
-    public function getSchoolYearById($schoolYeadId)
+    public function getSchoolYearById($schoolYearId)
     {
         $stmt = <<<SQL
 SELECT msy.id, msy.name, msy.start_date, msy.finish_date, msy.is_current
 FROM main__schoolYear msy
-WHERE msy.id = :schoolYeadId 
+WHERE msy.id = :schoolYearId 
 SQL;
-        return $this->_db->select($stmt, ['schoolYeadId' => $schoolYeadId]);
+        return $this->_db->select($stmt, ['schoolYearId' => $schoolYearId]);
     }
 
     public function createSchoolYear($name, $startDate, $finishDate, $isCurrent)
@@ -1086,5 +1089,52 @@ FROM main__attendance_Dict mad
 ORDER BY mad.default, mad.name
 SQL;
         return $this->_db->select($stmt);
+    }
+
+    public function getTeacherGroupBySchoolYearId($schoolYearId)
+    {
+
+        $stmt = <<<SQL
+SELECT mp.id parallel_id, mp.name parallel_name, mg.id group_id, mg.name group_name, mu.id user_id, mu.first_name, mu.last_name, mu.middle_name 
+FROM main__group mg
+JOIN main__parallel mp ON mp.id = mg.parallel_id 
+LEFT JOIN main__user_group mug ON mug.group_id = mg.id AND mug.schoolYear_id = :schoolYearId
+LEFT JOIN main__user mu ON mu.id = mug.user_id
+ORDER BY mp.`order`, mg.`order` 
+SQL;
+        return $this->_db->select($stmt, [
+            "schoolYearId" => $schoolYearId,
+        ]);
+    }
+
+    public function removeTeacherGroup($groupId, $schoolYearId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__user_group WHERE group_id = :groupId AND schoolYear_id = :schoolYearId
+SQL;
+        return $this->_db->delete($stmt, ['groupId' => $groupId, 'schoolYearId' => $schoolYearId]);
+    }
+
+    public function createTeacherGroup($groupId, $schoolYearId, $teacherList)
+    {
+        $tl = array_map(function ($item) {
+            return [
+                'userId' => $item,
+            ];
+        }, $teacherList);
+
+        $stmt = <<<SQL
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id)
+VALUES (:userId, :groupId, :schoolYearId)
+SQL;
+        return $this->_db->insert(
+            $stmt,
+            $tl,
+            [
+                'groupId' => $groupId,
+                'schoolYearId' => $schoolYearId,
+            ],
+            true
+        );
     }
 }

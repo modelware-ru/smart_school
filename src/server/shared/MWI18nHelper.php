@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-10-12 11:30:50]
+// GENERATED [2024-10-12 13:05:24]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -33,6 +33,7 @@ class MWI18nHelper
     const PAGE_TITLE_SCHEDULE = 'PAGE_TITLE_SCHEDULE';
     const PAGE_TITLE_LESSON = 'PAGE_TITLE_LESSON';
     const PAGE_TITLE_LESSON_JOURNAL = 'PAGE_TITLE_LESSON_JOURNAL';
+    const PAGE_TITLE_TEACHER_GROUP = 'PAGE_TITLE_TEACHER_GROUP';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
@@ -387,6 +388,16 @@ class MWI18nHelper
                 'en' =>
                     function (...$args) {
                         return sprintf("Lesson Journal", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_TEACHER_GROUP => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Преподаватели в группах", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Teachers in Groups", ...$args);
                     },
                 ],
         ];

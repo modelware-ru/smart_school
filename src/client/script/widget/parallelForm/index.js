@@ -60,7 +60,7 @@ export default class ParallelForm {
                 maxLength={3}
                 help={i18n(langId, 'TTL_ORDER_HELP')}
                 onTest={(val) => {
-                    return (new RegExp(/^\d*$/)).test(val);
+                    return new RegExp(/^\d*$/).test(val);
                 }}
             />
         );
@@ -85,7 +85,7 @@ export default class ParallelForm {
         const name = this._atm.nameInput.getState('value');
         const number = this._atm.numberInput.getState('value');
         const showInGroup = this._atm.showInGroupCheckbox.getState('checked');
-        const order = parseInt(this._atm.orderInput.getState('value'));
+        const order = String(this._atm.orderInput.getState('value'));
 
         const { hasError, data } = this._validateFormData(name, number, order);
 
@@ -96,7 +96,7 @@ export default class ParallelForm {
         if (!hasError) {
             const { parallelId } = this._prop;
 
-            this._callSaveParallel({ id: parallelId, name, number, showInGroup, order });
+            this._callSaveParallel({ id: parallelId, name, number, showInGroup, order: parseInt(order) });
         }
     };
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace MW\Shared;
 
 class ValueChecker
@@ -69,6 +70,9 @@ class ValueChecker
             case 'string':
                 $res = strlen($this->_value) <= $size;
                 break;
+            case 'integer':
+                $res = strlen(strval($this->_value)) <= $size;
+                break;
         }
 
         if (!$res) {
@@ -89,6 +93,9 @@ class ValueChecker
             case 'string':
                 $res = strlen($this->_value) >= $size;
                 break;
+            case 'integer':
+                $res = strlen(strval($this->_value)) >= $size;
+                break;
         }
 
         if (!$res) {
@@ -108,6 +115,9 @@ class ValueChecker
         switch (gettype($this->_value)) {
             case 'string':
                 $res = strlen($this->_value) === $size;
+                break;
+            case 'integer':
+                $res = strlen(strval($this->_value)) === $size;
                 break;
         }
 

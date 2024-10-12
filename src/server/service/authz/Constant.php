@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-10-12 11:31:16]
+// GENERATED [2024-10-12 13:05:21]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -15,8 +15,8 @@ class Constant {
     // Role State
     const ROLE_STATE_GUEST_ACTIVE_ID = 1; // Гость : Активный
     const ROLE_STATE_ADMIN_ACTIVE_ID = 2; // Администратор : Активный
-    const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
     const ROLE_STATE_TEACHER_ACTIVE_ID = 3; // Преподаватель : Активный
+    const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
 
     const ROLE_STATE = [
         self::ROLE_GUEST_ID => [
@@ -26,8 +26,8 @@ class Constant {
             self::ROLE_STATE_ADMIN_ACTIVE_ID,
         ],
         self::ROLE_TEACHER_ID => [
-            self::ROLE_STATE_TEACHER_BLOCKED_ID,
             self::ROLE_STATE_TEACHER_ACTIVE_ID,
+            self::ROLE_STATE_TEACHER_BLOCKED_ID,
         ],
     ];
 
@@ -64,6 +64,8 @@ class Constant {
     const RESOURCE_API_REMOVE_SERIE = 'removeSerie'; 
     const RESOURCE_API_SAVE_LESSON = 'saveLesson'; 
     const RESOURCE_API_REMOVE_LESSON = 'removeLesson'; 
+    const RESOURCE_API_SAVE_TEACHER_GROUP = 'saveTeacherGroup'; 
+    const RESOURCE_API_REMOVE_TEACHER_GROUP = 'removeTeacherGroup'; 
     // PAGE
     const RESOURCE_PAGE_GUEST_INDEX = 'guestIndex'; 
     const RESOURCE_PAGE_RECOVERY_PASSWORD = 'recoveryPassword'; 
@@ -94,6 +96,7 @@ class Constant {
     const RESOURCE_PAGE_SCHEDULE = 'schedule'; 
     const RESOURCE_PAGE_LESSON = 'lesson'; 
     const RESOURCE_PAGE_LESSON_JOURNAL = 'lessonJournal'; 
+    const RESOURCE_PAGE_TEACHER_GROUP = 'teacherGroup'; 
     // WIDGET
 
     // Action

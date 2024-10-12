@@ -11,12 +11,16 @@ export default class SelectMenu {
 
     _key = 1;
     constructor(settings = {}) {
-        const { langId, itemContent, itemList } = settings;
+        const { langId, itemContent, itemList, onChange } = settings;
 
         this._prop = {
             langId,
             itemContent,
             itemList,
+        };
+
+        this._callback = {
+            onChange,
         };
 
         let selectMenuItemList = itemList.map((item, key) => {
@@ -94,6 +98,10 @@ export default class SelectMenu {
             unmount(_ui_menu, selectMenuItemList[index]['item']);
             selectMenuItemList.splice(index, 1);
         }
+
+        const {onChange} = this._callback;
+
+        onChange && onChange();
     };
 
     _ui_render = () => {

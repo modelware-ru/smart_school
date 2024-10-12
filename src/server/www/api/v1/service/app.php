@@ -177,3 +177,11 @@ function app_remove_lesson($args)
 
     return $res;
 }
+
+
+function app_save_teacherGroup($args)
+{
+    list($res, $data) = (new DomainMain())->saveTeacherGroup($args);
+
+    return $res;
+}

@@ -121,6 +121,7 @@ CREATE TABLE main__group (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     parallel_id INT UNSIGNED NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
+    `order` TINYINT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__group___parallel_id FOREIGN KEY (parallel_id) REFERENCES main__parallel(id),
     CONSTRAINT main__group___unique_parallel_id_name UNIQUE (parallel_id, name)

@@ -13,6 +13,7 @@ const pages = [
     'admin_studentListChangeClass',
     'admin_studentListChangeGroup',
     'admin_schoolYear',
+    'admin_teacherGroup',
     'teacher_topic',
     'teacher_categoryTag',
     'teacher_serie',

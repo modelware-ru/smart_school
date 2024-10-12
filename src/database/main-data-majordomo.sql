@@ -24,6 +24,8 @@ INSERT INTO main__api (code_name) VALUES ('saveSerie');
 INSERT INTO main__api (code_name) VALUES ('removeSerie');
 INSERT INTO main__api (code_name) VALUES ('saveLesson');
 INSERT INTO main__api (code_name) VALUES ('removeLesson');
+INSERT INTO main__api (code_name) VALUES ('saveTeacherGroup');
+INSERT INTO main__api (code_name) VALUES ('removeTeacherGroup');
 
 INSERT INTO main__page (code_name, name) VALUES ('guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (code_name, name) VALUES ('recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -54,6 +56,7 @@ INSERT INTO main__page (code_name, name) VALUES ('serie', '{"title":{"ru": "Се
 INSERT INTO main__page (code_name, name) VALUES ('schedule', '{"title":{"ru": "Расписание", "en": "Schedule"}}');
 INSERT INTO main__page (code_name, name) VALUES ('lesson', '{"title":{"ru": "Занятие", "en": "Lesson"}}');
 INSERT INTO main__page (code_name, name) VALUES ('lessonJournal', '{"title":{"ru": "Журнал занятия", "en": "Lesson Journal"}}');
+INSERT INTO main__page (code_name, name) VALUES ('teacherGroup', '{"title":{"ru": "Преподаватели в группах", "en": "Teachers in Groups"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');
@@ -76,18 +79,18 @@ INSERT INTO main__user (id, first_name, last_name, middle_name, login, password,
 INSERT INTO main__user (id, first_name, last_name, middle_name, login, password, email, account_id) VALUES (2, 'Иван', 'Иванов', 'Иванович', 'ivan', 'xd50zdGGOc2o6', "denis.ivanov+01@mail.ru", 2);
 INSERT INTO main__user (id, first_name, last_name, middle_name, login, password, email, account_id) VALUES (3, 'Виктор', 'Викторов', 'Викторович', 'victor', 'xd50zdGGOc2o6', "denis.ivanov+02@mail.ru", 3);
 
-INSERT INTO main__group (id, parallel_id, name) VALUES (1, 1, 'Аналитики');
-INSERT INTO main__group (id, parallel_id, name) VALUES (2, 1, 'Навигаторы');
-INSERT INTO main__group (id, parallel_id, name) VALUES (3, 1, 'Исследователи');
-INSERT INTO main__group (id, parallel_id, name) VALUES (4, 2, 'Аналитики');
-INSERT INTO main__group (id, parallel_id, name) VALUES (5, 2, 'Навигаторы');
-INSERT INTO main__group (id, parallel_id, name) VALUES (6, 2, 'Исследователи');
-INSERT INTO main__group (id, parallel_id, name) VALUES (7, 3, 'Аналитики');
-INSERT INTO main__group (id, parallel_id, name) VALUES (8, 3, 'Навигаторы');
-INSERT INTO main__group (id, parallel_id, name) VALUES (9, 3, 'Исследователи');
-INSERT INTO main__group (id, parallel_id, name) VALUES (10, 4, 'Аналитики');
-INSERT INTO main__group (id, parallel_id, name) VALUES (11, 4, 'Навигаторы');
-INSERT INTO main__group (id, parallel_id, name) VALUES (12, 4, 'Исследователи');
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (1, 1, 'Аналитики', 1);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (2, 1, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (3, 1, 'Исследователи', 3);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (4, 2, 'Аналитики', 1);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (5, 2, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (6, 2, 'Исследователи', 3);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (7, 3, 'Аналитики', 1);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (8, 3, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (9, 3, 'Исследователи', 3);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (10, 4, 'Аналитики', 1);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (11, 4, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (12, 4, 'Исследователи', 3);
 
 INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (1, 'Учебный год 2024-2025', '2024-09-01', '2025-05-31', 'Y');
 INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (2, 'Учебный год 2023-2024', '2023-09-01', '2024-05-31', 'N');

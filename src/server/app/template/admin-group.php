@@ -50,11 +50,6 @@ $parallelList = array_reduce($res->getData(), function ($carry, $item) {
     ]
 ]);
 
-$args = [
-    'permissionOptions' => $templateData['permissionOptions'],
-    'groupId' => $groupId,
-];
-
 $templateData['_js']['group'] = $group;
 $templateData['_js']['parallelList'] = $parallelList;
 $templateData['_js']['action'] = $action;

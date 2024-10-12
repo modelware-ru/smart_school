@@ -35,6 +35,7 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
             'name' => 'string',
             'parallelId' => 1,
+            'order' => 1,
         ],
         // saveGroup FINISH
         // removeGroup START
@@ -225,6 +226,25 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeLesson FINISH
+        // saveTeacherGroup START
+        AuthzConstant::RESOURCE_API_SAVE_TEACHER_GROUP => [
+            '_type' => 'object',
+            'groupId' => 1,
+            'schoolYearId' => 1,
+            'teacherList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 'string',
+            ]
+        ],
+        // saveTeacherGroup FINISH
+        // removeTeacherGroup START
+        AuthzConstant::RESOURCE_API_REMOVE_TEACHER_GROUP => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeTeacherGroup FINISH
+
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

@@ -38,6 +38,10 @@ global $langId;
                     <span>Преподаватели</span>
                 </a>
 
+                <a href="teacher-group.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
+                    <span>Преподаватели в группах</span>
+                </a>
+
                 <a href="student-list.php" class="menu-item d-flex justify-content-center align-items-center rounded-4">
                     <span>Ученики</span>
                 </a>

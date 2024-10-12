@@ -15,8 +15,6 @@ $query = Util::HandleGET();
 
 $groupId = isset($query['id']) ? intval($query['id']) : 0;
 $schoolYearId = isset($query['schoolYearId']) ? intval($query['schoolYearId']) : 0;
-$selecterSchoolYearId = 0;
-$schoolYearCurrentId = 0;
 $startDate = null;
 $finishDate = null;
 
@@ -31,13 +29,8 @@ foreach ($res->getData() as $item) {
     $isSelected = false;
     if (($schoolYearId === 0 && $item['isCurrent']) || ($schoolYearId === $item['id'])) {
         $isSelected = true;
-        $selecterSchoolYearId = $item['id'];
         $startDate = $item['startDate'];
         $finishDate = $item['finishDate'];
-    }
-
-    if ($schoolYearCurrentId === 0 || $item['isCurrent']) {
-        $schoolYearCurrentId = $item['id'];
     }
 
     $schoolYearList[] = [
@@ -103,9 +96,6 @@ list($res, $data) = (new DomainModule())->getLessonListForGroup($args);
 
         <?php
         if (count($schoolYearList) > 0) {
-            if ($selecterSchoolYearId === 0) {
-                $selecterSchoolYearId = $schoolYearCurrentId;
-            }
         ?>
             <select id="selectSchoolYear" class="form-select mt-5 mb-3" aria-label="Учебные года">
                 <?php

@@ -100,6 +100,7 @@ try {
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
             $args['parallelId'] = $payload['parallelId'];
+            $args['order'] = $payload['order'];
 
             require_once 'api/v1/service/app.php';
             $res = app_save_group($args);
@@ -277,6 +278,15 @@ try {
 
             require_once 'api/v1/service/app.php';
             $res = app_remove_lesson($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_SAVE_TEACHER_GROUP:
+            $args['groupId'] = $payload['groupId'];
+            $args['schoolYearId'] = $payload['schoolYearId'];
+            $args['teacherList'] = $payload['teacherList'];
+
+            require_once 'api/v1/service/app.php';
+            $res = app_save_teacherGroup($args);
 
             break;
     }

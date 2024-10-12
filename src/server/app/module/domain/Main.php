@@ -18,6 +18,7 @@ class Main
     const PARALLEL_NUMBER_LENGTH = 10;
     const PARALLEL_ORDER_LENGTH = 3;
     const GROUP_NAME_MAX_LENGTH = 100;
+    const GROUP_ORDER_MAX_LENGTH = 3;
     const LOGIN_MAX_LENGTH = 50;
     const EMAIL_MAX_LENGTH = 100;
     const PASSWORD_MAX_LENGTH = 20;
@@ -146,16 +147,11 @@ class Main
             ];
         }
 
-        $orderCheck = (new ValueChecker($number))->notEmpty()->lengthLessOrEqual(self::PARALLEL_ORDER_LENGTH)->check();
-        if ($orderCheck === ValueChecker::IS_EMPTY) {
-            $errorList['order'] = [
-                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
-                'args' => [],
-            ];
-        } else if ($orderCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+        $orderCheck = (new ValueChecker($order))->lengthLessOrEqual(self::PARALLEL_ORDER_LENGTH)->check();
+        if ($orderCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
             $errorList['order'] = [
                 'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
-                'args' => [strlen($number), self::PARALLEL_ORDER_LENGTH],
+                'args' => [strlen($order), self::PARALLEL_ORDER_LENGTH],
             ];
         }
 
@@ -260,6 +256,7 @@ class Main
             return [
                 'id' => $item['group_id'],
                 'name' => $item['group_name'],
+                'parallelId' => $item['parallel_id'],
                 'parallelName' => $item['parallel_name'],
                 'canBeRemoved' => ($item['mug_count'] + $item['ml_count'] + $item['msgh_count']) === 0,
             ];
@@ -297,6 +294,7 @@ class Main
         $res =  [
             'id' => $resDb[0]['group_id'],
             'name' => $resDb[0]['group_name'],
+            'order' => $resDb[0]['group_order'],
             'parallelId' => $resDb[0]['parallel_id'],
             'parallelName' => $resDb[0]['parallel_name'],
         ];
@@ -341,6 +339,7 @@ class Main
         $id = $args['id'];
         $name = $args['name'];
         $parallelId = $args['parallelId'];
+        $order = $args['order'];
 
         // test. start
         if (defined('PHPUNIT')) {
@@ -363,6 +362,14 @@ class Main
             ];
         }
 
+        $orderCheck = (new ValueChecker($order))->lengthLessOrEqual(self::GROUP_ORDER_MAX_LENGTH)->check();
+        if ($orderCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['order'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($order), self::GROUP_ORDER_MAX_LENGTH],
+            ];
+        }
+
         if (count($errorList) > 0) {
             return [Util::MakeFailOperationResult($errorList), []];
         }
@@ -371,10 +378,10 @@ class Main
         try {
             $manager = new Manager();
             if ($id === 0) {
-                $resDb = $manager->createGroup($name, $parallelId);
+                $resDb = $manager->createGroup($name, $parallelId, $order);
                 $id = $resDb[0];
             } else {
-                $resDb = $manager->updateGroup($id, $name, $parallelId);
+                $resDb = $manager->updateGroup($id, $name, $parallelId, $order);
             }
         } catch (MWException $e) {
             $msg = $e->logData();
@@ -2450,5 +2457,67 @@ class Main
         }, $resDb);
 
         return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getTeacherGroupBySchoolYearId($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::getTeacherGroupBySchoolYearId');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $schoolYearId = $args['schoolYearId'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->getTeacherGroupBySchoolYearId($schoolYearId);
+
+        $res = array_map(function ($item) {
+            return [
+                'parallelId' => $item['parallel_id'],
+                'parallelName' => $item['parallel_name'],
+                'groupId' => $item['group_id'],
+                'groupName' => $item['group_name'],
+                'userId' => $item['user_id'],
+                'firstName' => $item['first_name'],
+                'lastName' => $item['last_name'],
+                'middleName' => $item['middle_name'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function saveTeacherGroup($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::saveTeacherGroup');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $groupId = $args['groupId'];
+        $schoolYearId = $args['schoolYearId'];
+        $teacherList = $args['teacherList'];
+
+        // test. start
+        if (defined('PHPUNIT')) {
+        }
+        // test. finish
+
+        // check. start
+        // check. finish
+
+        $manager = new Manager();
+        $resDb = $manager->removeTeacherGroup($groupId, $schoolYearId);
+        if (count($teacherList) > 0) {
+            $resDb = $manager->createTeacherGroup($groupId, $schoolYearId, $teacherList);
+        }
+
+        return [Util::MakeSuccessOperationResult(), []];
     }
 }

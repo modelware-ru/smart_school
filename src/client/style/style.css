@@ -49,10 +49,17 @@
     background-color: var(--bs-danger-bg-subtle);
 }
 
+.group-item-schedule {
+    background-color: rgb(148, 255, 121);
+}
+
+.group-item-person {
+    background-color: rgb(121, 190, 255);
+}
+
 .group-item {
     width: 130px;
     height: 130px;
-    background-color: rgb(255 197 121);
     text-decoration: none;
     color: black;
 }

@@ -89,20 +89,23 @@ INSERT INTO main__group (id, parallel_id, name) VALUES (10, 4, 'Аналитик
 INSERT INTO main__group (id, parallel_id, name) VALUES (11, 4, 'Навигаторы');
 INSERT INTO main__group (id, parallel_id, name) VALUES (12, 4, 'Исследователи');
 
-INSERT INTO main__user_group (user_id, group_id) VALUES (1, 1);
-INSERT INTO main__user_group (user_id, group_id) VALUES (2, 1);
-INSERT INTO main__user_group (user_id, group_id) VALUES (3, 1);
-INSERT INTO main__user_group (user_id, group_id) VALUES (1, 2);
-INSERT INTO main__user_group (user_id, group_id) VALUES (1, 3);
-INSERT INTO main__user_group (user_id, group_id) VALUES (2, 4);
-INSERT INTO main__user_group (user_id, group_id) VALUES (2, 5);
-INSERT INTO main__user_group (user_id, group_id) VALUES (2, 6);
-INSERT INTO main__user_group (user_id, group_id) VALUES (3, 4);
-INSERT INTO main__user_group (user_id, group_id) VALUES (3, 5);
-INSERT INTO main__user_group (user_id, group_id) VALUES (3, 6);
-INSERT INTO main__user_group (user_id, group_id) VALUES (3, 7);
-INSERT INTO main__user_group (user_id, group_id) VALUES (3, 8);
-INSERT INTO main__user_group (user_id, group_id) VALUES (3, 9);
+INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (1, 'Учебный год 2024-2025', '2024-09-01', '2025-05-31', 'Y');
+INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (2, 'Учебный год 2023-2024', '2023-09-01', '2024-05-31', 'N');
+
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (1, 1, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (2, 1, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (3, 1, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (1, 2, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (1, 3, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (2, 4, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (2, 5, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (2, 6, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (3, 4, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (3, 5, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (3, 6, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (3, 7, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (3, 8, 1);
+INSERT INTO main__user_group (user_id, group_id, schoolYear_id) VALUES (3, 9, 1);
 
 INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (1, 'иван', 'иванов', 'иванович');
 INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (2, 'петр', 'петров', 'петрович');
@@ -143,9 +146,6 @@ INSERT INTO main__tag (categoryTag_id, name) VALUES (3, 'Тег 3_2');
 INSERT INTO main__subject (id, name) VALUES (1, 'Математика');
 INSERT INTO main__subject (id, name) VALUES (2, 'Русский язык');
 INSERT INTO main__subject (id, name) VALUES (3, 'Литературное чтение');
-
-INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (1, 'Учебный год 2024-2025', '2024-09-01', '2025-05-31', 'Y');
-INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (2, 'Учебный год 2023-2024', '2023-09-01', '2024-05-31', 'N');
 
 INSERT INTO main__serie (id, name) VALUES (1, 'Первая');
 INSERT INTO main__serie (id, name) VALUES (2, 'Вторая');

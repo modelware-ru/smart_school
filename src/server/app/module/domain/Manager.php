@@ -379,8 +379,7 @@ SELECT ms.id student_id, ms.first_name, ms.last_name, ms.middle_name, t1.class_n
 (SELECT COUNT(msch.id) FROM main__student_class_Hist msch WHERE msch.student_id = ms.id) msch_count,
 (SELECT COUNT(msgh.id) FROM main__student_group_Hist msgh WHERE msgh.student_id = ms.id) msgh_count,
 (SELECT COUNT(msl.id) FROM main__student_lesson msl WHERE msl.student_id = ms.id) msl_count,
-(SELECT COUNT(mss.id) FROM main__student_serie mss WHERE mss.student_id = ms.id) mss_count,
-(SELECT COUNT(msst.id) FROM main__student_serieTask msst WHERE msst.student_id = ms.id) msst_count
+(SELECT COUNT(mss.id) FROM main__student_serie mss WHERE mss.student_id = ms.id) mss_count
 FROM main__student ms
 
 LEFT JOIN (

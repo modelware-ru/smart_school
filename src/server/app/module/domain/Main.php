@@ -1045,7 +1045,7 @@ class Main
                 'groupName' => $item['group_name'],
                 'groupParallelId' => $item['group_parallel_id'],
                 'groupParallelNumber' => $item['group_parallel_number'],
-                'canBeRemoved' => ($item['msch_count'] + $item['msgh_count'] + $item['msl_count'] + $item['mss_count'] + $item['msst_count']) === 0,
+                'canBeRemoved' => ($item['msch_count'] + $item['msgh_count'] + $item['msl_count'] + $item['mss_count']) === 0,
                 'canBeShowHistory' => ($item['msch_count'] + $item['msgh_count']) > 0,
             ];
         }, $resDb);

@@ -56,10 +56,16 @@ list($res, $data) = (new DomainModule())->getGroupListForTeacher($args);
         <?php
                     }
         ?>
-        <a href="schedule.php?id=<?= $item['id']?>" class="group-item d-flex justify-content-center align-items-center rounded-4">
+        <a href="schedule.php?id=<?= $item['id']?>" class="group-item group-item-schedule d-flex justify-content-center align-items-center rounded-4 position-relative">
             <span><?= $item['name'] ?></span>
+            <span class="position-absolute top-0 end-0 me-2 fs-3 text-black-50"><i class="bi bi-table"></i></span>
         </a>
-    <?
+        <a href="student-list.php?id=<?= $item['id']?>" class="group-item group-item-person d-flex justify-content-center align-items-center rounded-4 position-relative">
+            <span><?= $item['name'] ?></span>
+            <span class="position-absolute top-0 end-0 me-2 fs-3 text-black-50"><i class="bi bi-person"></i></span>
+        </a>
+
+<?
                 }
     ?>
         </div>

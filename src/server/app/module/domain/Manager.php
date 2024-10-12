@@ -17,10 +17,11 @@ class Manager
     public function getParallelList()
     {
         $stmt = <<<SQL
-SELECT mp.id, mp.name, mp.number, mp.show_in_group,
+SELECT mp.id, mp.name, mp.number, mp.show_in_group, mp.`order`,
 (SELECT COUNT(mg.id) FROM main__group mg WHERE mg.parallel_id = mp.id) mg_count,
 (SELECT COUNT(msch.id) FROM main__student_class_Hist msch WHERE msch.parallel_id = mp.id) msch_count
 FROM main__parallel mp
+ORDER BY mp.`order`
 SQL;
         return $this->_db->select($stmt);
     }
@@ -28,32 +29,33 @@ SQL;
     public function getParallelById($parallelId)
     {
         $stmt = <<<SQL
-SELECT mp.id, mp.name, mp.number, mp.show_in_group
+SELECT mp.id, mp.name, mp.number, mp.show_in_group, mp.`order`
 FROM main__parallel mp
 WHERE mp.id = :parallelId 
 SQL;
         return $this->_db->select($stmt, ['parallelId' => $parallelId]);
     }
 
-    public function createParallel($name, $number, $showInGroup)
+    public function createParallel($name, $number, $showInGroup, $order)
     {
         $stmt = <<<SQL
-INSERT INTO main__parallel (name, number, show_in_group)
-VALUES (:name, :number, :showInGroup)
+INSERT INTO main__parallel (name, number, show_in_group, `order`)
+VALUES (:name, :number, :showInGroup, :order)
 SQL;
         return $this->_db->insert($stmt, [
             0 => [
                 'name' => $name,
                 'number' => $number,
                 'showInGroup' => $showInGroup,
+                'order' => $order,
             ],
         ]);
     }
 
-    public function updateParallel($parallelId, $name, $number, $showInGroup)
+    public function updateParallel($parallelId, $name, $number, $showInGroup, $order)
     {
         $stmt = <<<SQL
-UPDATE main__parallel SET name = :name, number = :number, show_in_group = :showInGroup 
+UPDATE main__parallel SET name = :name, number = :number, show_in_group = :showInGroup, `order` = :order
 WHERE id = :id
 SQL;
         return $this->_db->update($stmt, [
@@ -62,6 +64,7 @@ SQL;
                 'name' => $name,
                 'number' => $number,
                 'showInGroup' => $showInGroup,
+                'order' => $order,
             ]
         ]);
     }
@@ -724,7 +727,8 @@ SQL;
     public function getSchoolYearList()
     {
         $stmt = <<<SQL
-SELECT msy.id, msy.name, msy.start_date, msy.finish_date, msy.is_current
+SELECT msy.id, msy.name, msy.start_date, msy.finish_date, msy.is_current,
+(SELECT COUNT(mug.id) FROM main__user_group mug WHERE mug.schoolYear_id = msy.id) mug_count
 FROM main__schoolYear msy
 ORDER BY msy.start_date DESC
 SQL;

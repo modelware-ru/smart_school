@@ -1,4 +1,4 @@
-// GENERATED [2024-09-28 15:27:26]
+// GENERATED [2024-10-12 11:30:50]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -18,6 +18,8 @@ export default {
   TTL_MIDDLE_NAME: (...args) => `Отчество`,
   TTL_NEW_TAG_LIST: (...args) => `Новые теги`,
   TTL_NEW_TASK_LIST: (...args) => `Новые задачи`,
+  TTL_ORDER: (...args) => `Порядок при сортировке`,
+  TTL_ORDER_HELP: (...args) => `Чем меньше значение, тем "выше" при сортировке`,
   TTL_PARALLEL: (...args) => `Параллель`,
   TTL_PARALLEL_NUMBER: (...args) => `Номер параллели`,
   TTL_PARALLEL_NAME: (...args) => `Название параллели`,

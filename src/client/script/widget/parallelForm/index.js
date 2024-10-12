@@ -27,7 +27,7 @@ export default class ParallelForm {
 
         this._stateNameInput = {};
         this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_PARALLEL_NAME')} value={parallel.name} mandatory maxLength={100} />;
-        this._updateStateNameInput({
+        this._updateStateInput(ID.PF_INPUT_NAME_ID, {
             disabled: false,
             hasError: 'unknown',
         });
@@ -36,7 +36,7 @@ export default class ParallelForm {
         this._atm.numberInput = (
             <Input className="col-12" label={i18n(langId, 'TTL_PARALLEL_NUMBER')} value={parallel.number} mandatory maxLength={10} />
         );
-        this._updateStateNumberInput({
+        this._updateStateInput(ID.PF_INPUT_NUMBER_ID, {
             disabled: false,
             hasError: 'unknown',
         });
@@ -45,7 +45,26 @@ export default class ParallelForm {
         this._atm.showInGroupCheckbox = (
             <Checkbox className="col-12" label={i18n(langId, 'TTL_PARALLEL_SHOW_IN_GROUP')} checked={parallel.showInGroup} />
         );
-        this._updateStateShowInGroupCheckbox({
+        this._updateStateInput(ID.PF_CHECKBOX_SHOW_IN_GROUP_ID, {
+            disabled: false,
+            hasError: 'unknown',
+        });
+
+        this._stateOrderInput = {};
+        this._atm.orderInput = (
+            <Input
+                className="col-12"
+                label={i18n(langId, 'TTL_ORDER')}
+                value={parallel.order}
+                mandatory
+                maxLength={3}
+                help={i18n(langId, 'TTL_ORDER_HELP')}
+                onTest={(val) => {
+                    return (new RegExp(/^\d*$/)).test(val);
+                }}
+            />
+        );
+        this._updateStateInput(ID.PF_INPUT_ORDER_ID, {
             disabled: false,
             hasError: 'unknown',
         });
@@ -66,8 +85,9 @@ export default class ParallelForm {
         const name = this._atm.nameInput.getState('value');
         const number = this._atm.numberInput.getState('value');
         const showInGroup = this._atm.showInGroupCheckbox.getState('checked');
+        const order = parseInt(this._atm.orderInput.getState('value'));
 
-        const { hasError, data } = this._validateFormData(name, number);
+        const { hasError, data } = this._validateFormData(name, number, order);
 
         this._showError({ status: hasError ? 'fail' : 'ok', data });
 
@@ -76,24 +96,27 @@ export default class ParallelForm {
         if (!hasError) {
             const { parallelId } = this._prop;
 
-            this._callSaveParallel({ id: parallelId, name, number, showInGroup });
+            this._callSaveParallel({ id: parallelId, name, number, showInGroup, order });
         }
     };
 
     _onCancelButtonClick = () => {
         history.back();
-    }
+    };
 
-    _validateFormData = (name, number) => {
+    _validateFormData = (name, number, order) => {
         let data = {};
         let hasError = false;
         if (name.length === 0) {
             data[ID.PF_INPUT_NAME_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
             hasError = true;
         }
-
         if (number.length === 0) {
             data[ID.PF_INPUT_NUMBER_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
+            hasError = true;
+        }
+        if (order.length === 0) {
+            data[ID.PF_INPUT_ORDER_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
             hasError = true;
         }
         return { hasError, data };
@@ -101,41 +124,50 @@ export default class ParallelForm {
 
     _showError = ({ status, data }) => {
         if (status === 'ok') {
-            this._updateStateNameInput({ disabled: false, hasError: 'no', error: null });
-            this._updateStateNumberInput({ disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.PF_INPUT_NAME_ID, { disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.PF_INPUT_NUMBER_ID, { disabled: false, hasError: 'no', error: null });
+            this._updateStateInput(ID.PF_INPUT_ORDER_ID, { disabled: false, hasError: 'no', error: null });
             return;
         }
 
         if (status === 'error') {
-            this._updateStateNameInput({ disabled: false, hasError: 'undefine', error: null });
-            this._updateStateNumberInput({ disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.PF_INPUT_NAME_ID, { disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.PF_INPUT_NUMBER_ID, { disabled: false, hasError: 'undefine', error: null });
+            this._updateStateInput(ID.PF_INPUT_ORDER_ID, { disabled: false, hasError: 'undefine', error: null });
             return;
         }
 
         if (typeof data[ID.PF_INPUT_NAME_ID] !== 'undefined') {
-            this._updateStateNameInput({ disabled: false, hasError: 'yes', error: data[ID.PF_INPUT_NAME_ID] });
+            this._updateStatInput(ID.PF_INPUT_NAME_ID, { disabled: false, hasError: 'yes', error: data[ID.PF_INPUT_NAME_ID] });
         } else {
-            this._updateStateNameInput({ disabled: false, hasError: 'undefined', error: null });
+            this._updateStateInput(ID.PF_INPUT_NAME_ID, { disabled: false, hasError: 'undefined', error: null });
         }
 
         if (typeof data[ID.PF_INPUT_NUMBER_ID] !== 'undefined') {
-            this._updateStateNumberInput({ disabled: false, hasError: 'yes', error: data[ID.PF_INPUT_NUMBER_ID] });
+            this._updateStateInput(ID.PF_INPUT_NUMBER_ID, { disabled: false, hasError: 'yes', error: data[ID.PF_INPUT_NUMBER_ID] });
         } else {
-            this._updateStateNumberInput({ disabled: false, hasError: 'undefined', error: null });
+            this._updateStateInput(ID.PF_INPUT_NUMBER_ID, { disabled: false, hasError: 'undefined', error: null });
+        }
+
+        if (typeof data[ID.PF_INPUT_ORDER_ID] !== 'undefined') {
+            this._updateStateInput(ID.PF_INPUT_ORDER_ID, { disabled: false, hasError: 'yes', error: data[ID.PF_INPUT_ORDER_ID] });
+        } else {
+            this._updateStateInput(ID.PF_INPUT_ORDER_ID, { disabled: false, hasError: 'undefined', error: null });
         }
     };
 
     _beforeCallSaveParallel = () => {
         this._updateStateSaveButton({ disabled: true, isLoading: true, title: 'TTL_TO_SAVE_IN_PROGRESS' });
-        this._updateStateNameInput({ disabled: true });
-        this._updateStateNumberInput({ disabled: true });
-        this._updateStateShowInGroupCheckbox({ disabled: true });
+        this._updateStateInput(ID.PF_INPUT_NAME_ID, { disabled: true });
+        this._updateStateInput(ID.PF_INPUT_NUMBER_ID, { disabled: true });
+        this._updateStateInput(ID.PF_CHECKBOX_SHOW_IN_GROUP_ID, { disabled: true });
+        this._updateStateInput(ID.PF_INPUT_ORDER_ID, { disabled: true });
     };
 
     _afterCallSaveParallel = (payload) => {
         this._showError(payload);
 
-        this._updateStateShowInGroupCheckbox({disabled: false});
+        this._updateStateInput(ID.PF_CHECKBOX_SHOW_IN_GROUP_ID, { disabled: false });
         this._updateStateSaveButton({
             disabled: false,
             title: 'TTL_TO_SAVE',
@@ -159,45 +191,45 @@ export default class ParallelForm {
         }
     };
 
-    _updateStateNameInput = (state) => {
+    _updateStateInput = (entity, state) => {
         const { disabled = null, hasError = null, error = null } = state;
         const { langId } = this._prop;
 
-        this._stateNameInput = {
-            disabled: disabled ?? this._stateNameInput.disabled,
-            hasError: hasError ?? this._stateNameInput.hasError,
-            error: error ?? this._stateNameInput.error,
-        };
+        let stateNameInput;
+        let nameInput;
+        switch (entity) {
+            case ID.PF_INPUT_NAME_ID:
+                stateNameInput = this._stateNameInput;
+                nameInput = this._atm.nameInput;
+                break;
+            case ID.PF_INPUT_NUMBER_ID:
+                stateNameInput = this._stateNumberInput;
+                nameInput = this._atm.numberInput;
+                break;
+            case ID.PF_CHECKBOX_SHOW_IN_GROUP_ID:
+                stateNameInput = this._stateShowInGroupCheckbox;
+                nameInput = this._atm.showInGroupCheckbox;
+                break;
+            case ID.PF_INPUT_ORDER_ID:
+                stateNameInput = this._stateOrderInput;
+                nameInput = this._atm.orderInput;
+                break;
+            default:
+                return;
+        }
+
+        stateNameInput['disabled'] = disabled ?? stateNameInput.disabled;
+        stateNameInput['hasError'] = hasError ?? stateNameInput.hasError;
+        stateNameInput['error'] = error ?? stateNameInput.error;
 
         if (disabled !== null) {
-            this._atm.nameInput.updateProp('disabled', disabled);
+            nameInput.updateProp('disabled', disabled);
         }
         if (hasError !== null) {
-            this._atm.nameInput.updateProp('hasError', hasError);
+            nameInput.updateProp('hasError', hasError);
         }
-        if (error !== null && this._atm.nameInput.getProp('error') !== i18n(langId, error.code, error.args)) {
-            this._atm.nameInput.updateProp('error', i18n(langId, error.code, error.args));
-        }
-    };
-
-    _updateStateNumberInput = (state) => {
-        const { disabled = null, hasError = null, error = null } = state;
-        const { langId } = this._prop;
-
-        this._stateNumberInput = {
-            disabled: disabled ?? this._stateNumberInput.disabled,
-            hasError: hasError ?? this._stateNumberInput.hasError,
-            error: error ?? this._stateNumberInput.error,
-        };
-
-        if (disabled !== null) {
-            this._atm.numberInput.updateProp('disabled', disabled);
-        }
-        if (hasError !== null) {
-            this._atm.numberInput.updateProp('hasError', hasError);
-        }
-        if (error !== null && this._atm.numberInput.getProp('error') !== i18n(langId, error.code, error.args)) {
-            this._atm.numberInput.updateProp('error', i18n(langId, error.code, error.args));
+        if (error !== null && nameInput.getProp('error') !== i18n(langId, error.code, error.args)) {
+            nameInput.updateProp('error', i18n(langId, error.code, error.args));
         }
     };
 
@@ -229,27 +261,6 @@ export default class ParallelForm {
         }
     };
 
-    _updateStateShowInGroupCheckbox = (state) => {
-        const { disabled = null, hasError = null, error = null } = state;
-        const { langId } = this._prop;
-
-        this._stateShowInGroupCheckbox = {
-            disabled: disabled ?? this._stateShowInGroupCheckbox.disabled,
-            hasError: hasError ?? this._stateShowInGroupCheckbox.hasError,
-            error: error ?? this._stateShowInGroupCheckbox.error,
-        };
-
-        if (disabled !== null) {
-            this._atm.showInGroupCheckbox.updateProp('disabled', disabled);
-        }
-        if (hasError !== null) {
-            this._atm.showInGroupCheckbox.updateProp('hasError', hasError);
-        }
-        if (error !== null && this._atm.showInGroupCheckbox.getProp('error') !== i18n(langId, error.code, error.args)) {
-            this._atm.showInGroupCheckbox.updateProp('error', i18n(langId, error.code, error.args));
-        }
-    };
-
     _ui_render = () => {
         const { langId } = this._prop;
 
@@ -258,6 +269,7 @@ export default class ParallelForm {
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
                     {this._atm.numberInput}
+                    {this._atm.orderInput}
                     {this._atm.showInGroupCheckbox}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">

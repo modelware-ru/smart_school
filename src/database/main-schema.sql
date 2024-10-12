@@ -75,6 +75,7 @@ CREATE TABLE main__parallel (
     name VARCHAR(100) DEFAULT '' NOT NULL,
     number VARCHAR(10) DEFAULT '' NOT NULL,
     show_in_group ENUM ('Y', 'N') NOT NULL,
+    `order` TINYINT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT main__parallel___unique_name UNIQUE (name),
     CONSTRAINT main__parallel___unique_number UNIQUE (number)

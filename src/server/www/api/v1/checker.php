@@ -20,6 +20,7 @@ function check_type_parameters($apiResource, $payload)
             'name' => 'string',
             'number' => 'string',
             'showInGroup' => true,
+            'order' => 1,
         ],
         // saveParallel FINISH
         // removeParallel START
@@ -34,11 +35,6 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
             'name' => 'string',
             'parallelId' => 1,
-            'teacherList' => [
-                '_type' => 'array',
-                '_keyType' => 1,
-                '_itemTemplate' => 1,
-            ]
         ],
         // saveGroup FINISH
         // removeGroup START
@@ -65,11 +61,6 @@ function check_type_parameters($apiResource, $payload)
             'lastName' => 'string',
             'middleName' => 'string',
             'roleStateId' => 1,
-            'groupList' => [
-                '_type' => 'array',
-                '_keyType' => 1,
-                '_itemTemplate' => 1,
-            ]
         ],
         // saveTeacher FINISH
         // removeTeacher START

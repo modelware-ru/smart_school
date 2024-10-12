@@ -39,10 +39,6 @@ if ($teacherId === 0) {
     $teacherName = "{$teacher['lastName']} {$teacher['firstName']} {$teacher['middleName']}";
 }
 
-$args = [
-    'permissionOptions' => $templateData['permissionOptions'],
-];
-
 $roleStateList = [
     0 => [
         "value" => "0",
@@ -61,41 +57,8 @@ $roleStateList = [
     ]
 ];
 
-list($res, $data) = (new DomainModule())->getGroupList($args);
-
-$groupList = array_reduce($res->getData(), function ($carry, $item) {
-    $carry[] = [
-        'value' => strval($item['id']),
-        'name' => "{$item['name']} [{$item['parallelName']}]",
-        'disabled' => false,
-    ];
-    return $carry;
-}, [
-    0 => [
-        "value" => "0",
-        "name" => "Выберите группу",
-        "disabled" => true,
-    ]
-]);
-
-$args = [
-    'permissionOptions' => $templateData['permissionOptions'],
-    'teacherId' => $teacherId,
-];
-
-list($res, $data) = (new DomainModule())->getGroupListForTeacher($args);
-
-$groupListForTeacher = array_map(function ($item) {
-    return [
-        'id' => strval($item['id']),
-        'name' => "{$item['name']} [{$item['parallelName']}]",
-    ];
-}, $res->getData());
-
 $templateData['_js']['teacher'] = $teacher;
 $templateData['_js']['roleStateList'] = $roleStateList;
-$templateData['_js']['groupList'] = $groupList;
-$templateData['_js']['groupListForTeacher'] = $groupListForTeacher;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>

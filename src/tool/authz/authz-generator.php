@@ -17,7 +17,7 @@ try {
     $log = Logger::Init('tool-authz', false, 'path_localhost');
     $log->notice('start');
 
-    $db = DBManager::GetConnection('localhost-mariaDB');
+    $db = DBManager::GetConnection('localhost');
     //
     $roleList = $db->select('SELECT id, code_name, name FROM authz__role');
     $actionList = $db->select('SELECT id, code_name, name FROM authz__action');

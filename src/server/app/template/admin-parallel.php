@@ -17,6 +17,7 @@ if ($parallelId === 0) {
         'name' => '',
         'number' => '',
         'showInGroup' => false,
+        'order' => '',
     ];
 } else {
     $args = [

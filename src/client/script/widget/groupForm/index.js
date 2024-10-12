@@ -5,7 +5,6 @@ import i18n from '../../shared/i18n/index';
 import Input from '../../atom/input';
 import Select from '../../atom/select';
 import Button from '../../atom/button';
-import SelectMenu from '../../widget/selectMenu/index';
 
 import { commonEventManager } from '../../shared/eventManager';
 
@@ -17,14 +16,12 @@ export default class GroupForm {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, group, parallelList, activeTeacherList, teacherListInGroup } = settings;
+        const { langId, group, parallelList } = settings;
 
         this._prop = {
             langId,
             groupId: group.id,
             parallelList,
-            activeTeacherList,
-            teacherListInGroup,
         };
 
         this._state = {};
@@ -69,9 +66,7 @@ export default class GroupForm {
 
         if (!hasError) {
             const { groupId } = this._prop;
-            const teacherList = this._el.selectMenu.getState('itemList').map((item) => parseInt(item));
-
-            this._callSaveGroup({ id: groupId, name, parallelId, teacherList });
+            this._callSaveGroup({ id: groupId, name, parallelId });
         }
     };
 
@@ -225,16 +220,12 @@ export default class GroupForm {
 
     _ui_render = () => {
         const { langId } = this._prop;
-        const { activeTeacherList, teacherListInGroup } = this._prop;
 
         return (
             <div className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
                     {this._atm.parallelSelect}
-                    <hr />
-                    <label className="form-label fw-bold my-0">{i18n(langId, 'TTL_GROUP_TEACHERS')}:</label>
-                    {(this._el.selectMenu = <SelectMenu itemContent={activeTeacherList} itemList={teacherListInGroup} />)}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.saveButton}

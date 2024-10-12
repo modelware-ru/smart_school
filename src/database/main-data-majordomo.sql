@@ -65,11 +65,11 @@ INSERT INTO main__page (code_name, name) VALUES ('lessonJournal', '{"title":{"ru
 
 
 
-INSERT INTO main__parallel ( id, name, number, show_in_group) VALUES (1, 'Первая', '1', 'Y');
-INSERT INTO main__parallel ( id, name, number, show_in_group) VALUES (2, 'Вторая', '2', 'Y');
-INSERT INTO main__parallel ( id, name, number, show_in_group) VALUES (3, 'Третья', '3', 'Y');
-INSERT INTO main__parallel ( id, name, number, show_in_group) VALUES (4, 'Четвертая', '4', 'Y');
-INSERT INTO main__parallel ( id, name, number, show_in_group) VALUES (5, 'Пятая', '5', 'N');
+INSERT INTO main__parallel ( id, name, number, show_in_group, `order`) VALUES (1, 'Первая', '1', 'Y', 1);
+INSERT INTO main__parallel ( id, name, number, show_in_group, `order`) VALUES (2, 'Вторая', '2', 'Y', 2);
+INSERT INTO main__parallel ( id, name, number, show_in_group, `order`) VALUES (3, 'Третья', '3', 'Y', 3);
+INSERT INTO main__parallel ( id, name, number, show_in_group, `order`) VALUES (4, 'Четвертая', '4', 'Y', 4);
+INSERT INTO main__parallel ( id, name, number, show_in_group, `order`) VALUES (5, 'Пятая', '5', 'N', 5);
     
 INSERT INTO main__user (id, first_name, last_name, middle_name, login, password, email, account_id) VALUES (1, 'Любовь', 'Корешкова', '', 'luba', 'xdCgiX8fHlWm.', "luba@mail.ru", 1);
 -- INSERT INTO main__user (id, first_name, last_name, middle_name, login, password, email, account_id) VALUES (1, 'Петр', 'Петров', 'Петрович', 'petr', 'xd50zdGGOc2o6', "denis.ivanov@mail.ru", 1);

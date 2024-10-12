@@ -86,6 +86,16 @@ $i18n_TTL = [
         'ru' => 'Новые задачи',
         'en' => 'New tasks',
     ],
+    'ORDER' => [
+        '_type' => 'plain',
+        'ru' => 'Порядок при сортировке',
+        'en' => 'Order for sorting',
+    ],
+    'ORDER_HELP' => [
+        '_type' => 'plain',
+        'ru' => 'Чем меньше значение, тем "выше" при сортировке',
+        'en' => 'Less order more higher',
+    ],
     'PARALLEL' => [
         '_type' => 'plain',
         'ru' => 'Параллель',

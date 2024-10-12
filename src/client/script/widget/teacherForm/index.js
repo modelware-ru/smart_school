@@ -17,14 +17,12 @@ export default class TeacherForm {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, teacher, roleStateList, groupList, groupListForTeacher } = settings;
+        const { langId, teacher, roleStateList } = settings;
 
         this._prop = {
             langId,
             teacherId: teacher.id,
             roleStateList,
-            groupList,
-            groupListForTeacher,
         };
 
         this._state = {};
@@ -122,9 +120,8 @@ export default class TeacherForm {
 
         if (!hasError) {
             const { teacherId } = this._prop;
-            const groupList = this._el.selectMenu.getState('itemList').map((item) => parseInt(item));
 
-            this._callSaveTeacher({ id: teacherId, firstName, lastName, middleName, roleStateId, groupList, login, email, password });
+            this._callSaveTeacher({ id: teacherId, firstName, lastName, middleName, roleStateId, login, email, password });
         }
     };
 
@@ -367,7 +364,6 @@ export default class TeacherForm {
 
     _ui_render = () => {
         const { langId } = this._prop;
-        const { groupList, groupListForTeacher } = this._prop;
 
         return (
             <div className="mt-3 row gx-0 gy-3">
@@ -379,9 +375,6 @@ export default class TeacherForm {
                     {this._atm.middleNameInput}
                     {this._atm.emailInput}
                     {this._atm.roleStateSelect}
-                    <hr />
-                    <label className="form-label fw-bold my-0">{i18n(langId, 'TTL_TEACHER_GROUPS')}:</label>
-                    {(this._el.selectMenu = <SelectMenu itemContent={groupList} itemList={groupListForTeacher} />)}
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.saveButton}

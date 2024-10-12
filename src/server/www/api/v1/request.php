@@ -83,6 +83,7 @@ try {
             $args['name'] = $payload['name'];
             $args['number'] = $payload['number'];
             $args['showInGroup'] = $payload['showInGroup'];
+            $args['order'] = $payload['order'];
 
             require_once 'api/v1/service/app.php';
             $res = app_save_parallel($args);
@@ -99,7 +100,6 @@ try {
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
             $args['parallelId'] = $payload['parallelId'];
-            $args['teacherList'] = $payload['teacherList'];
 
             require_once 'api/v1/service/app.php';
             $res = app_save_group($args);
@@ -129,7 +129,6 @@ try {
             $args['lastName'] = $payload['lastName'];
             $args['middleName'] = $payload['middleName'];
             $args['roleStateId'] = $payload['roleStateId'];
-            $args['groupList'] = $payload['groupList'];
 
             require_once 'api/v1/service/app.php';
             $res = app_save_teacher($args);

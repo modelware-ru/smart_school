@@ -16,6 +16,7 @@ class Main
 {
     const PARALLEL_NAME_MAX_LENGTH = 100;
     const PARALLEL_NUMBER_LENGTH = 10;
+    const PARALLEL_ORDER_LENGTH = 3;
     const GROUP_NAME_MAX_LENGTH = 100;
     const LOGIN_MAX_LENGTH = 50;
     const EMAIL_MAX_LENGTH = 100;
@@ -54,6 +55,7 @@ class Main
                 'name' => $item['name'],
                 'number' => $item['number'],
                 'showInGroup' => $item['show_in_group'] === 'Y',
+                'order' => $item['order'],
                 'canBeRemoved' => ($item['mg_count'] + $item['msch_count']) === 0,
             ];
         }, $resDb);
@@ -92,6 +94,7 @@ class Main
             'name' => $resDb[0]['name'],
             'number' => $resDb[0]['number'],
             'showInGroup' => $resDb[0]['show_in_group'] === 'Y',
+            'order' => $resDb[0]['order'],
         ];
 
         return [Util::MakeSuccessOperationResult($res), []];
@@ -107,6 +110,7 @@ class Main
         $name = $args['name'];
         $number = $args['number'];
         $showInGroup = $args['showInGroup'] ? 'Y' : 'N';
+        $order = $args['order'];
 
         // test. start
         if (defined('PHPUNIT')) {
@@ -142,6 +146,19 @@ class Main
             ];
         }
 
+        $orderCheck = (new ValueChecker($number))->notEmpty()->lengthLessOrEqual(self::PARALLEL_ORDER_LENGTH)->check();
+        if ($orderCheck === ValueChecker::IS_EMPTY) {
+            $errorList['order'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_REQUIRED,
+                'args' => [],
+            ];
+        } else if ($orderCheck === ValueChecker::LENGTH_IS_NOT_LESS_OR_EQUAL) {
+            $errorList['order'] = [
+                'code' => MWI18nHelper::MSG_FIELD_IS_TOO_LONG,
+                'args' => [strlen($number), self::PARALLEL_ORDER_LENGTH],
+            ];
+        }
+
         if (count($errorList) > 0) {
             return [Util::MakeFailOperationResult($errorList), []];
         }
@@ -150,9 +167,9 @@ class Main
         try {
             $manager = new Manager();
             if ($id === 0) {
-                $resDb = $manager->createParallel($name, $number, $showInGroup);
+                $resDb = $manager->createParallel($name, $number, $showInGroup, $order);
             } else {
-                $resDb = $manager->updateParallel($id, $name, $number, $showInGroup);
+                $resDb = $manager->updateParallel($id, $name, $number, $showInGroup, $order);
             }
         } catch (MWException $e) {
             $msg = $e->logData();
@@ -324,13 +341,6 @@ class Main
         $id = $args['id'];
         $name = $args['name'];
         $parallelId = $args['parallelId'];
-        $teacherList = array_reduce($args['teacherList'], function ($carry, $item) {
-            // ;
-            $carry[] = [
-                'userId' => $item,
-            ];
-            return $carry;
-        });
 
         // test. start
         if (defined('PHPUNIT')) {
@@ -365,11 +375,6 @@ class Main
                 $id = $resDb[0];
             } else {
                 $resDb = $manager->updateGroup($id, $name, $parallelId);
-            }
-
-            $manager->removeTeacherListFromGroup($id);
-            if (!empty($teacherList)) {
-                $manager->addTeacherListToGroup($id, $teacherList);
             }
         } catch (MWException $e) {
             $msg = $e->logData();
@@ -634,13 +639,7 @@ class Main
         $lastName = $args['lastName'];
         $middleName = $args['middleName'];
         $roleStateId = $args['roleStateId'];
-        $groupList = array_reduce($args['groupList'], function ($carry, $item) {
-            // ;
-            $carry[] = [
-                'groupId' => $item,
-            ];
-            return $carry;
-        });
+
         // test. start
         if (defined('PHPUNIT')) {
         }
@@ -769,11 +768,6 @@ class Main
             }
 
             $resDb = $manager->blockTeacher($id, $roleStateId);
-
-            $manager->removeGroupListFromTeacher($id);
-            if (!empty($groupList)) {
-                $manager->addGroupListToTeacher($id, $groupList);
-            }
         } catch (MWException $e) {
             $msg = $e->logData();
             $errorList = [];
@@ -1771,7 +1765,7 @@ class Main
                 'startDate' => $item['start_date'],
                 'finishDate' => $item['finish_date'],
                 'isCurrent' => $item['is_current'] === 'Y',
-                'canBeRemoved' => true,
+                'canBeRemoved' => $item['mug_count'] === 0,
             ];
         }, $resDb);
 

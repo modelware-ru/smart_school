@@ -26,14 +26,18 @@ for (const [key, value] of Object.entries(teacherGroup)) {
             itemList={value}
             onChange={() => {
                 const btn = buttonList.get(key);
-                btn && btn.updateProp('disabled', false);
+                if (btn) {
+                    btn.updateProp('className', 'btn btn-success');
+                    btn.updateProp('disabled', false);
+                    btn.updateProp('icon', 'bi-floppy');
+                }
             }}
         />
     );
     buttonList.set(
         key,
         <Button
-            className="btn btn-success"
+            className="btn btn-outline-success"
             title={i18n(langId, 'TTL_TO_SAVE')}
             icon={'bi-floppy'}
             disabled={true}
@@ -56,6 +60,12 @@ for (const [key, value] of Object.entries(teacherGroup)) {
                         const resp = await fetcher('saveTeacherGroup', payload);
 
                         if (resp.status === 'ok') {
+                            btn.updateProp('className', 'btn btn-outline-success');
+                            btn.updateProp('icon', 'bi-check2-circle');
+                        }
+
+                        if (resp.status === 'error') {
+                            btn.updateProp('disabled', false);
                         }
 
                         btn.updateProp('isLoading', false);

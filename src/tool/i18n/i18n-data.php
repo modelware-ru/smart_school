@@ -262,7 +262,6 @@ $i18n_TTL = [
         'en' => 'Signing In...',
     ],
 
-
     'SIGN_OUT' => [
         '_type' => 'plain',
         'ru' => 'Выход',

@@ -8,11 +8,12 @@ export default class Notificator {
     _el = {};
 
     constructor(settings = {}) {
-        const { langId = 'ru', message = null, show = false, fixed = null } = settings;
+        const { langId = 'ru', message = null, show = false, fixed = null, className = 'alert-danger' } = settings;
 
         this._prop = {
             langId,
             fixed,
+            className,
         };
 
         this._state = {
@@ -70,12 +71,13 @@ export default class Notificator {
     };
 
     _ui_render = () => {
-        const { fixed } = this._prop;
+        const { fixed, className } = this._prop;
 
         this._el.widget = (
             <div
                 className={clsx(
-                    'alert alert-danger alert-dismissible rounded-0 text-center m-0 fade show',
+                    'alert alert-dismissible rounded-0 text-center m-0 fade show',
+                    className,
                     { 'fixed-top': fixed === 'top' },
                     { 'fixed-bottom': fixed === 'bottom' }
                 )}

@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\SchoolYear\Main as SchoolYearModule;
 
 global $templateData;
 global $langId;
@@ -25,7 +25,7 @@ if ($schoolYearId === 0) {
         'schoolYearId' => $schoolYearId,
     ];
 
-    list($res, $data) = (new DomainModule())->getSchoolYearById($args);
+    list($res, $data) = (new SchoolYearModule())->getSchoolYearById($args);
 
     $schoolYear = $res->getData();
 }
@@ -34,7 +34,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getCurrentSchoolYearAndCount($args);
+list($res, $data) = (new SchoolYearModule())->getCurrentSchoolYearAndCount($args);
 
 $schoolYear['currentId'] = ($res->getData())[0]['currentId'];
 $schoolYear['count'] = ($res->getData())[0]['count'];

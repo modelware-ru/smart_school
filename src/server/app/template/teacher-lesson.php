@@ -1,7 +1,12 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Serie\Main as SerieModule;
+use MW\Module\Domain\Group\Main as GroupModule;
+use MW\Module\Domain\Teacher\Main as TeacherModule;
+use MW\Module\Domain\Lesson\Main as LessonModule;
+use MW\Module\Domain\Subject\Main as SubjectModule;
+use MW\Module\Domain\SchoolYear\Main as SchoolYearModule;
 
 global $templateData;
 global $langId;
@@ -11,7 +16,9 @@ $query = Util::HandleGET();
 
 $lessonId = isset($query['id']) ? intval($query['id']) : 0;
 $groupId = isset($query['groupId']) ? intval($query['groupId']) : 0;
-$schoolYearId = isset($query['schoolYearId']) ? intval($query['schoolYearId']) : -1;
+$schoolYearId = isset($query['schoolYearId']) ? intval($query['schoolYearId']) : 0;
+$startDate = null;
+$finishDate = null;
 $action = (isset($query['action']) && $lessonId !== 0) ? $query['action'] : '';
 
 if ($lessonId === 0) {
@@ -28,23 +35,36 @@ if ($lessonId === 0) {
         'lessonId' => $lessonId,
     ];
 
-    list($res, $data) = (new DomainModule())->getLessonById($args);
+    list($res, $data) = (new LessonModule())->getLessonById($args);
 
     $lesson = $res->getData();
     $groupId = $lesson['groupId'];
     $lesson['groupId'] = strval($lesson['groupId']);
     $lesson['subjectId'] = strval($lesson['subjectId']);
-
 }
 
 $lesson['callbackQuery'] = "id={$groupId}&schoolYearId={$schoolYearId}";
+
+// getSchoolYearById
+$args = [
+    'permissionOptions' => $templateData['permissionOptions'],
+    'schoolYearId' => $schoolYearId,
+];
+
+list($res, $data) = (new SchoolYearModule())->getSchoolYearById($args);
+
+$schoolYearDb = $res->getData();
+
+$startDate = $schoolYearDb['startDate'];
+$finishDate = $schoolYearDb['finishDate'];
+
 
 // getSubjectList
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getSubjectList($args);
+list($res, $data) = (new SubjectModule())->getSubjectList($args);
 
 $subjectList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [
@@ -65,9 +85,10 @@ $subjectList = array_reduce($res->getData(), function ($carry, $item) {
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
     'teacherId' => $userId,
+    'schoolYearId' => $schoolYearId,
 ];
 
-list($res, $data) = (new DomainModule())->getGroupListForTeacher($args);
+list($res, $data) = (new TeacherModule())->getGroupListForTeacher($args);
 
 $groupList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [
@@ -86,7 +107,7 @@ $groupList = array_reduce($res->getData(), function ($carry, $item) {
 
 
 // getSerieList
-list($res, $data) = (new DomainModule())->getSerieList($args);
+list($res, $data) = (new SerieModule())->getSerieList($args);
 
 $serieList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [
@@ -109,7 +130,7 @@ $args = [
     'lessonId' => $lessonId,
 ];
 
-list($res, $data) = (new DomainModule())->getSerieListInLesson($args);
+list($res, $data) = (new SerieModule())->getSerieListInLesson($args);
 
 $serieListInLesson = array_map(function ($item) {
     return [
@@ -124,13 +145,14 @@ $args = [
     'groupId' => $groupId,
 ];
 
-list($res, $data) = (new DomainModule())->getGroupById($args);
+list($res, $data) = (new GroupModule())->getGroupById($args);
 
 $groupName = ($res->getData())['name'];
 $parallelName = ($res->getData())['parallelName'];
 
 
 $templateData['_js']['lesson'] = $lesson;
+$templateData['_js']['date'] = ['startDate' => $startDate, 'finishDate' => $finishDate];
 $templateData['_js']['subjectList'] = $subjectList;
 $templateData['_js']['groupList'] = $groupList;
 $templateData['_js']['serieList'] = $serieList;

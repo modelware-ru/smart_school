@@ -1,4 +1,4 @@
-// GENERATED [2024-10-12 13:05:24]
+// GENERATED [2024-10-25 15:44:33]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -55,6 +55,7 @@ export default {
   TTL_TO_SIGN_IN_IN_PROGRESS: (...args) => `Signing In...`,
   TTL_SIGN_OUT: (...args) => `Sign Out`,
   MSG_FIELD_EMAIL_INCORRECT: (...args) => `Email is incorrect`,
+  MSG_FIELD_DATE_SHOULD_BE_BETWEEN: (...args) => `Date should be between ${args[0]} and ${args[1]}`,
   MSG_FIELD_IS_REQUIRED: (...args) => `This is a required field`,
   MSG_FIELD_IS_TOO_LONG: (...args) => `The field is too long`,
   MSG_FIELD_IS_TOO_SHORT: (...args) => `The field is too short`,
@@ -64,6 +65,7 @@ export default {
   MSG_IMPOSSIBLE_TO_REMOVE_DATA: (...args) => `Impossible to remove data`,
   MSG_WRONG_FIELD_VALUE: (...args) => `Wrong value of the field`,
   MSG_WRONG_LOGIN_OR_PASSWORD: (...args) => `Login or password are wrong`,
+  MSG_WRONG_SERIE_TYPE: (...args) => `Some serie is both "a class" serie and "a home" one`,
   ERR_UNKNOWN: (...args) => `Unknown error`,
   ERR_AUTHORIZATION_NEEDED: (...args) => `Access forbidden`,
   ERR_DB_CONNECTION_FAILED: (...args) => `Database connection failed`,

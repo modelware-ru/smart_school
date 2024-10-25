@@ -1,7 +1,9 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Serie\Main as SerieModule;
+use MW\Module\Domain\Group\Main as GroupModule;
+use MW\Module\Domain\Lesson\Main as LessonModule;
 
 global $templateData;
 global $langId;
@@ -18,7 +20,7 @@ $args = [
     'lessonId' => $lessonId,
 ];
 
-list($res, $data) = (new DomainModule())->getStudentListForLesson($args);
+list($res, $data) = (new LessonModule())->getStudentListForLesson($args);
 
 $studentList = array_map(function ($item) {
     return [
@@ -26,6 +28,7 @@ $studentList = array_map(function ($item) {
         'name' => "{$item['lastName']} {$item['firstName']} {$item['middleName']}",
         'note' => $item['note'],
         'attendanceDictId' => $item['attendanceDictId'],
+        'serieList' => $item['serieList'],
     ];
 }, $res->getData());
 
@@ -36,7 +39,7 @@ $args = [
     'lessonId' => $lessonId,
 ];
 
-list($res, $data) = (new DomainModule())->getSerieListInLesson($args);
+list($res, $data) = (new SerieModule())->getSerieListInLesson($args);
 
 $serieList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [
@@ -58,7 +61,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getAttendanceDict($args);
+list($res, $data) = (new LessonModule())->getAttendanceDict($args);
 
 $attendanceDict = array_map(function ($item) {
     return [
@@ -75,7 +78,7 @@ $args = [
     'groupId' => $groupId,
 ];
 
-list($res, $data) = (new DomainModule())->getGroupById($args);
+list($res, $data) = (new GroupModule())->getGroupById($args);
 
 $groupName = ($res->getData())['name'];
 $parallelName  = ($res->getData())['parallelName'];
@@ -86,13 +89,14 @@ $args = [
     'lessonId' => $lessonId,
 ];
 
-list($res, $data) = (new DomainModule())->getLessonById($args);
+list($res, $data) = (new LessonModule())->getLessonById($args);
 
 $lessonDate = ($res->getData())['date'];
 $subjectName  = ($res->getData())['subjectName'];
 
 $templateData['_js']['studentList'] = $studentList;
 $templateData['_js']['serieList'] = $serieList;
+$templateData['_js']['lessonId'] = $lessonId;
 $templateData['_js']['attendanceDict'] = $attendanceDict;
 ?>
 <!DOCTYPE html>

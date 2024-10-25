@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Student\Main as StudentModule;
 
 global $templateData;
 global $langId;
@@ -15,7 +15,7 @@ $args = [
     'studentId' => $studentId,
 ];
 
-list($res, $data) = (new DomainModule())->getStudentById($args);
+list($res, $data) = (new StudentModule())->getStudentById($args);
 
 $student = $res->getData();
 
@@ -26,7 +26,7 @@ $args = [
     'studentId' => $studentId,
 ];
 
-list($res, $data) = (new DomainModule())->getStudentClassGroupHistory($args);
+list($res, $data) = (new StudentModule())->getStudentClassGroupHistory($args);
 
 ?>
 <!DOCTYPE html>

@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Parallel\Main as ParallelModule;
 
 global $templateData;
 global $langId;
@@ -25,7 +25,7 @@ if ($parallelId === 0) {
         'parallelId' => $parallelId,
     ];
 
-    list($res, $data) = (new DomainModule())->getParallelById($args);
+    list($res, $data) = (new ParallelModule())->getParallelById($args);
 
     $parallel = $res->getData();
 }

@@ -1,7 +1,9 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\SchoolYear\Main as SchoolYearModule;
+use MW\Module\Domain\Group\Main as GroupModule;
+use MW\Module\Domain\Teacher\Main as TeacherModule;
 use MW\Service\Authz\Constant as AuthzConstant;
 
 global $templateData;
@@ -22,7 +24,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getSchoolYearList($args);
+list($res, $data) = (new SchoolYearModule())->getSchoolYearList($args);
 
 $schoolYearList = [];
 foreach ($res->getData() as $item) {
@@ -46,7 +48,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getGroupList($args);
+list($res, $data) = (new GroupModule())->getGroupList($args);
 $groupList = $res->getData();
 
 if ($schoolYearId === 0) {
@@ -57,7 +59,7 @@ if ($schoolYearId === 0) {
         'schoolYearId' => $schoolYearId,
     ];
 
-    list($res, $data) = (new DomainModule())->getTeacherGroupBySchoolYearId($args);
+    list($res, $data) = (new TeacherModule())->getTeacherGroupBySchoolYearId($args);
 
     $teacherGroup = array_reduce($res->getData(), function ($carry, $item) {
         $key = $item['groupId'];
@@ -79,7 +81,7 @@ if ($schoolYearId === 0) {
         'permissionOptions' => $templateData['permissionOptions'],
     ];
 
-    list($res, $data) = (new DomainModule())->getTeacherList($args);
+    list($res, $data) = (new TeacherModule())->getTeacherList($args);
 
     $teacherList = array_reduce($res->getData(), function ($carry, $item) {
         $carry[] = [

@@ -28,7 +28,7 @@ export default class StudentGroupListTable {
                 id: item['id'],
                 item: (
                     <TableRow
-                        className={'align-middle'}
+                        className={'align-top'}
                         content={[
                             {
                                 className: 'text-end text-nowrap',
@@ -39,13 +39,22 @@ export default class StudentGroupListTable {
                             },
                             {
                                 value: (
-                                    <div className="" role="button">
-                                        <label className="d-flex">
+                                    <div className="d-flex flex-column" role="button">
+                                        <label className="d-flex mb-3">
                                             <input type="checkbox" />
                                             <div className="d-flex flex-fill justify-content-start ms-3">
                                                 <span className="text-nowrap">Изменить серию</span>
                                             </div>
                                         </label>
+                                        <div className="d-flex flex-column gap-2">
+                                            {item['serieList'].filter(x => x['serieType'] === 'CLASS').map((item1) => {
+                                                return (
+                                                    <a href={`student-serie-solution.php?id=${item1['id']}`} className={clsx("btn", item1['hasSolution'] ? "btn-primary" : "btn-outline-primary")} target="_blank">
+                                                        {item1['serieName']}
+                                                    </a>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 ),
                                 onClickData: { id: item['id'] },
@@ -53,50 +62,32 @@ export default class StudentGroupListTable {
                             },
                             {
                                 value: (
-                                    <div className="" role="button">
-                                        <label className="d-flex">
+                                    <div className="d-flex flex-column" role="button">
+                                        <label className="d-flex mb-3">
                                             <input type="checkbox" />
                                             <div className="d-flex flex-fill justify-content-start ms-3">
                                                 <span className="text-nowrap">Изменить серию</span>
                                             </div>
                                         </label>
+                                        <div className="d-flex flex-column gap-2">
+                                            {item['serieList'].filter(x => x['serieType'] === 'HOME').map((item1) => {
+                                                return (
+                                                    <a href={`student-serie-solution.php?id=${item1['id']}`} className={clsx("btn", item1['hasSolution'] ? "btn-primary" : "btn-outline-primary")} target="_blank">
+                                                        {item1['serieName']}
+                                                    </a>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 ),
                                 onClickData: { id: item['id'] },
                                 onClick: this._onCellHomeSerieClick,
                             },
-                            // {
-                            //     className: 'p-1',
-                            //     value: (
-                            //         <div className="d-flex gap-5">
-                            //             {item['canBeRemoved'] && (
-                            //                 <button
-                            //                     className="btn btn-outline-danger btn-sm"
-                            //                     onclick={(e) => {
-                            //                         e.stopPropagation();
-                            //                         this._onAction({ key, id: item['id'], action: 'remove' });
-                            //                     }}
-                            //                 >
-                            //                     <i className="bi bi-trash"></i>
-                            //                 </button>
-                            //             )}
-                            //             {item['canBeShowHistory'] && (
-                            //                 <button
-                            //                     className="btn btn-outline-primary btn-sm"
-                            //                     onclick={(e) => {
-                            //                         e.stopPropagation();
-                            //                         this._onAction({ key, id: item['id'], action: 'showHistory' });
-                            //                     }}
-                            //                 >
-                            //                     <i className="bi bi-file-text"></i>
-                            //                 </button>
-                            //             )}
-                            //         </div>
-                            //     ),
-                            // },
+                            {
+                                value: <div></div>,
+                            },
                         ]}
                         key={key}
-                        onRowClick={this._onRowClick}
                     />
                 ),
             };
@@ -122,7 +113,7 @@ export default class StudentGroupListTable {
         commonEventManager.dispatch('changedMarkedClassSerieList', [...markedClassSerieList]);
     };
 
-    _onCellGroupClick = (item, e) => {
+    _onCellHomeSerieClick = (item, e) => {
         const { markedHomeSerieList } = this._state;
 
         if (e.target.checked) {
@@ -134,31 +125,23 @@ export default class StudentGroupListTable {
         commonEventManager.dispatch('changedMarkedHomeSerieList', [...markedHomeSerieList]);
     };
 
-    _onRowClick = (key) => {
-        // const { rowList } = this._state;
-        // const student = rowList.find((item) => item.key === key);
-        // openSiteURL('student.php', { id: student['id'] });
-    };
+    // _onRowClick = (key) => {
+    //     // const { rowList } = this._state;
+    //     // const student = rowList.find((item) => item.key === key);
+    //     // openSiteURL('student.php', { id: student['id'] });
+    // };
 
-    _onAction = async (data) => {
-        // const { key, id, action } = data;
-        // if (action === 'remove') {
-        //     openSiteURL('student.php', { id, action: 'remove' });
-        //     return;
-        // }
-        // if (action === 'showHistory') {
-        //     openSiteURL('student-class-group-history.php', { id });
-        //     return;
-        // }
-    };
-
-    _onAllClassSerieCheck = (action) => {
-        console.log(action);
-    };
-
-    _onAllHomeSerieCheck = (action) => {
-        console.log(action);
-    };
+    // _onAction = async (data) => {
+    //     // const { key, id, action } = data;
+    //     // if (action === 'remove') {
+    //     //     openSiteURL('student.php', { id, action: 'remove' });
+    //     //     return;
+    //     // }
+    //     // if (action === 'showHistory') {
+    //     //     openSiteURL('student-class-group-history.php', { id });
+    //     //     return;
+    //     // }
+    // };
 
     _ui_render = () => {
         const { langId, studentList } = this._prop;
@@ -176,7 +159,7 @@ export default class StudentGroupListTable {
         const { rowList } = this._state;
 
         return (
-            <table className="table table-hover table-bordered clickable-rows my-3">
+            <table className="table table-bordered my-3">
                 <thead>
                     <tr className="table-active border-dark-subtle">
                         <th scope="col" className="text-end fit align-middle">
@@ -185,20 +168,8 @@ export default class StudentGroupListTable {
                         <th scope="col" className="align-middle">
                             ФИО
                         </th>
-                        <th scope="col">
-                            <div className="d-flex gap-3">
-                                <Button className="btn btn-primary" icon="bi-check-square" onClick={(e) => this._onAllClassSerieCheck('check')} />
-                                <Button className="btn btn-primary" icon="bi-square" onClick={(e) => this._onAllClassSerieCheck('uncheck')} />
-                                <span className="text-nowrap align-content-center">Классные серии</span>
-                            </div>
-                        </th>
-                        <th scope="col">
-                            <div className="d-flex gap-3">
-                                <Button className="btn btn-primary" icon="bi-check-square" onClick={(e) => this._onAllHomeSerieCheck('check')} />
-                                <Button className="btn btn-primary" icon="bi-square" onClick={(e) => this._onAllHomeSerieCheck('uncheck')} />
-                                <span className="text-nowrap align-content-center">Домашнии серии</span>
-                            </div>
-                        </th>
+                        <th scope="col">Классные серии</th>
+                        <th scope="col">Домашнии серии</th>
                         <th scope="col" className="fit align-middle">
                             Присутствие
                         </th>

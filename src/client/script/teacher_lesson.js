@@ -7,6 +7,7 @@ import PermissionManager from './shared/permissionManager';
 
 const langId = window.app.langId;
 const lesson = window.app.lesson;
+const date = window.app.date;
 const subjectList = window.app.subjectList;
 const groupList = window.app.groupList;
 const serieList = window.app.serieList;
@@ -30,6 +31,7 @@ mount(
             <LessonForm
                 langId={langId}
                 lesson={lesson}
+                date={date}
                 groupList={groupList}
                 subjectList={subjectList}
                 serieList={serieList}

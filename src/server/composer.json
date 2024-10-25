@@ -9,6 +9,16 @@
       "MW\\App\\": "./app/",
       "MW\\Module\\Account\\": "./app/module/account",
       "MW\\Module\\Domain\\": "./app/module/domain",
+      "MW\\Module\\Domain\\CategoryTag\\": "./app/module/domain/categoryTag",
+      "MW\\Module\\Domain\\Group\\": "./app/module/domain/group",
+      "MW\\Module\\Domain\\Lesson\\": "./app/module/domain/lesson",
+      "MW\\Module\\Domain\\Parallel\\": "./app/module/domain/parallel",
+      "MW\\Module\\Domain\\SchoolYear\\": "./app/module/domain/schoolYear",
+      "MW\\Module\\Domain\\Serie\\": "./app/module/domain/serie",
+      "MW\\Module\\Domain\\Student\\": "./app/module/domain/student",
+      "MW\\Module\\Domain\\Subject\\": "./app/module/domain/subject",
+      "MW\\Module\\Domain\\Teacher\\": "./app/module/domain/teacher",
+      "MW\\Module\\Domain\\Topic\\": "./app/module/domain/topic",
       "MW\\Service\\Authz\\": "./service/authz"
     }
   },

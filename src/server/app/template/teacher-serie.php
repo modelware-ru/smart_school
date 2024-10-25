@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Serie\Main as SerieModule;
 
 global $templateData;
 global $langId;
@@ -22,7 +22,7 @@ if ($serieId === 0) {
         'serieId' => $serieId,
     ];
 
-    list($res, $data) = (new DomainModule())->getSerieById($args);
+    list($res, $data) = (new SerieModule())->getSerieById($args);
 
     $serie = $res->getData();
 }

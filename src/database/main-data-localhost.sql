@@ -26,6 +26,9 @@ INSERT INTO main__api (code_name) VALUES ('saveLesson');
 INSERT INTO main__api (code_name) VALUES ('removeLesson');
 INSERT INTO main__api (code_name) VALUES ('saveTeacherGroup');
 INSERT INTO main__api (code_name) VALUES ('removeTeacherGroup');
+INSERT INTO main__api (code_name) VALUES ('addSerieToLesson');
+INSERT INTO main__api (code_name) VALUES ('removeSerieFromLesson');
+INSERT INTO main__api (code_name) VALUES ('saveStudentSolution');
 
 INSERT INTO main__page (code_name, name) VALUES ('guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (code_name, name) VALUES ('recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -57,6 +60,7 @@ INSERT INTO main__page (code_name, name) VALUES ('schedule', '{"title":{"ru": "�
 INSERT INTO main__page (code_name, name) VALUES ('lesson', '{"title":{"ru": "Занятие", "en": "Lesson"}}');
 INSERT INTO main__page (code_name, name) VALUES ('lessonJournal', '{"title":{"ru": "Журнал занятия", "en": "Lesson Journal"}}');
 INSERT INTO main__page (code_name, name) VALUES ('teacherGroup', '{"title":{"ru": "Преподаватели в группах", "en": "Teachers in Groups"}}');
+INSERT INTO main__page (code_name, name) VALUES ('studentSerieSolution', '{"title":{"ru": "Решение студента", "en": "Student Solution"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');
@@ -116,19 +120,20 @@ INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (3, '�
 INSERT INTO main__student (id, first_name, last_name, middle_name) VALUES (4, 'максим', 'максимов', 'максимович');
 
 INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (1, 1, 'А', 'Причина 1', '2024-01-01', 1);
-INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (1, 1, 'Б', 'Причина 2', '2024-02-01', 1);
-INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 1, 'Б', 'Причина 3', '2024-02-01', 2);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 1, 'Б', 'Причина 2', '2024-02-01', 1);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (1, 1, 'Б', 'Причина 3', '2024-02-01', 2);
 INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 2, 'А', 'Причина 4', '2024-01-01', 1);
 INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 2, 'Б', 'Причина 5', '2024-02-01', 1);
 INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (2, 2, 'B', 'Причина 6', '2024-03-01', 1);
+INSERT INTO main__student_class_Hist (parallel_id, student_id, letter, reason, start_date, `order`) VALUES (1, 4, 'B', 'Причина 7', '2024-03-01', 1);
 
 INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (1, 1, 'Причина _1', '2024-01-01', 1);
 INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (1, 2, 'Причина _2', '2024-02-01', 1);
-INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (1, 3, 'Причина _3', '2024-02-01', 2);
-INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 1, 'Причина _1', '2024-01-01', 1);
-INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 2, 'Причина _2', '2024-02-01', 1);
-INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 4, 'Причина _4', '2024-03-01', 1);
-
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (1, 1, 'Причина _3', '2024-02-01', 2);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 1, 'Причина _4', '2024-01-01', 1);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 2, 'Причина _5', '2024-02-01', 1);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (2, 4, 'Причина _6', '2024-03-01', 1);
+INSERT INTO main__student_group_Hist (student_id, group_id, reason, start_date, `order`) VALUES (4, 1, 'Причина _7', '2024-03-01', 1);
 
 INSERT INTO main__topic (id, name) VALUES (1, 'Тема 1');
 
@@ -155,10 +160,39 @@ INSERT INTO main__serie (id, name) VALUES (2, 'Вторая');
 INSERT INTO main__serie (id, name) VALUES (3, 'Третья');
 INSERT INTO main__serie (id, name) VALUES (4, 'Четвертая');
 
+-- INSERT INTO main__task (id, name, topic_id) VALUES (1, 'Задача 1', 1);
+-- INSERT INTO main__task (id, name, topic_id) VALUES (2, 'Задача 2', 1);
+-- INSERT INTO main__task (id, name, topic_id) VALUES (3, 'Задача 3', 1);
+-- INSERT INTO main__task (id, name, topic_id) VALUES (4, 'Задача 4', 1);
+
+-- INSERT INTO main__serie_task (id, serie_id, task_id) VALUES (1, 2, 1);
+-- INSERT INTO main__serie_task (id, serie_id, task_id) VALUES (2, 2, 2);
+-- INSERT INTO main__serie_task (id, serie_id, task_id) VALUES (3, 2, 3);
+
+-- INSERT INTO main__serie_task (id, serie_id, task_id) VALUES (5, 3, 1);
+-- INSERT INTO main__serie_task (id, serie_id, task_id) VALUES (6, 3, 2);
+-- INSERT INTO main__serie_task (id, serie_id, task_id) VALUES (7, 3, 3);
+-- INSERT INTO main__serie_task (id, serie_id, task_id) VALUES (8, 3, 4);
+
 INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2024-09-01');
 INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (2, 1, '2024-09-02');
 INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2024-09-08');
 INSERT INTO main__lesson (subject_id, group_id, `date`) VALUES (1, 1, '2023-09-01');
+
+-- INSERT INTO main__lesson_serie (lesson_id, serie_id) VALUES (1, 1);
+-- INSERT INTO main__lesson_serie (lesson_id, serie_id) VALUES (1, 2);
+-- INSERT INTO main__lesson_serie (lesson_id, serie_id) VALUES (1, 3);
+
+-- INSERT INTO main__student_serie (id, student_id, lesson_id, serie_id, type, `date`) VALUES (1, 4, 1, 1, 'CLASS', '2024-09-01');
+-- INSERT INTO main__student_serie (id, student_id, lesson_id, serie_id, type, `date`) VALUES (2, 4, 1, 2, 'HOME', '2024-09-01');
+-- INSERT INTO main__student_serie (id, student_id, lesson_id, serie_id, type, `date`) VALUES (3, 4, 1, 3, 'CLASS', '2024-09-01');
+
+-- INSERT INTO main__studentSerie_serieTask (student_serie_id, serie_task_id, value, `date`) VALUES (2, 1, '10', '2024-09-01');
+-- INSERT INTO main__studentSerie_serieTask (student_serie_id, serie_task_id, value, `date`) VALUES (2, 2, '5', '2024-09-01');
+-- INSERT INTO main__studentSerie_serieTask (student_serie_id, serie_task_id, value, `date`) VALUES (2, 3, '3', '2024-09-01');
+
+-- INSERT INTO main__studentSerie_serieTask (student_serie_id, serie_task_id, value, `date`) VALUES (3, 5, '11', '2024-09-11');
+-- INSERT INTO main__studentSerie_serieTask (student_serie_id, serie_task_id, value, `date`) VALUES (3, 6, '55', '2024-09-11');
 
 INSERT INTO main__attendance_Dict (id, name, display, `default`) VALUES (1, 'Отсутствует', '-', 'Y');
 INSERT INTO main__attendance_Dict (id, name, display, `default`) VALUES (2, 'Присутствует', '+', 'N');

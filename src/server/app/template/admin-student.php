@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Student\Main as StudentModule;
 
 global $templateData;
 global $langId;
@@ -27,7 +27,7 @@ if ($studentId === 0) {
         'studentId' => $studentId,
     ];
 
-    list($res, $data) = (new DomainModule())->getStudentById($args);
+    list($res, $data) = (new StudentModule())->getStudentById($args);
 
     $student = $res->getData();
 

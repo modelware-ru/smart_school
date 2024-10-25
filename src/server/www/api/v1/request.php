@@ -74,8 +74,8 @@ try {
             $args['login'] = $payload['login'];
             $args['password'] = $payload['password'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_sign_in($args);
+            require_once 'api/v1/service/account.php';
+            $res = srv_sign_in($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_PARALLEL:
@@ -85,15 +85,15 @@ try {
             $args['showInGroup'] = $payload['showInGroup'];
             $args['order'] = $payload['order'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_parallel($args);
+            require_once 'api/v1/service/parallel.php';
+            $res = srv_save_parallel($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_PARALLEL:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_parallel($args);
+            require_once 'api/v1/service/parallel.php';
+            $res = srv_remove_parallel($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_GROUP:
@@ -102,23 +102,23 @@ try {
             $args['parallelId'] = $payload['parallelId'];
             $args['order'] = $payload['order'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_group($args);
+            require_once 'api/v1/service/group.php';
+            $res = srv_save_group($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_GROUP:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_group($args);
+            require_once 'api/v1/service/group.php';
+            $res = srv_remove_group($args);
 
             break;
         case AuthzConstant::RESOURCE_API_BLOCK_TEACHER:
             $args['id'] = $payload['id'];
             $args['action'] = $payload['action'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_block_teacher($args);
+            require_once 'api/v1/service/teacher.php';
+            $res = srv_block_teacher($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_TEACHER:
@@ -131,30 +131,30 @@ try {
             $args['middleName'] = $payload['middleName'];
             $args['roleStateId'] = $payload['roleStateId'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_teacher($args);
+            require_once 'api/v1/service/teacher.php';
+            $res = srv_save_teacher($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_TEACHER:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_teacher($args);
+            require_once 'api/v1/service/teacher.php';
+            $res = srv_remove_teacher($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_SUBJECT:
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_subject($args);
+            require_once 'api/v1/service/subject.php';
+            $res = srv_save_subject($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_SUBJECT:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_subject($args);
+            require_once 'api/v1/service/subject.php';
+            $res = srv_remove_subject($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_STUDENT:
@@ -163,15 +163,15 @@ try {
             $args['lastName'] = $payload['lastName'];
             $args['middleName'] = $payload['middleName'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_student($args);
+            require_once 'api/v1/service/student.php';
+            $res = srv_save_student($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_STUDENT:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_student($args);
+            require_once 'api/v1/service/student.php';
+            $res = srv_remove_student($args);
 
             break;
         case AuthzConstant::RESOURCE_API_CHANGE_CLASS:
@@ -181,8 +181,8 @@ try {
             $args['reason'] = $payload['reason'];
             $args['studentIdList'] = $payload['studentIdList'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_change_class($args);
+            require_once 'api/v1/service/student.php';
+            $res = srv_change_class($args);
 
             break;
         case AuthzConstant::RESOURCE_API_CHANGE_GROUP:
@@ -191,23 +191,23 @@ try {
             $args['reason'] = $payload['reason'];
             $args['studentIdList'] = $payload['studentIdList'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_change_group($args);
+            require_once 'api/v1/service/student.php';
+            $res = srv_change_group($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_TOPIC:
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_topic($args);
+            require_once 'api/v1/service/topic.php';
+            $res = srv_save_topic($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_TOPIC:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_topic($args);
+            require_once 'api/v1/service/topic.php';
+            $res = srv_remove_topic($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_CATEGORY_TAG:
@@ -216,15 +216,15 @@ try {
             $args['removedTagIdList'] = $payload['removedTagIdList'];
             $args['newTagList'] = $payload['newTagList'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_categoryTag($args);
+            require_once 'api/v1/service/categoryTag.php';
+            $res = srv_save_categoryTag($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_CATEGORY_TAG:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_categoryTag($args);
+            require_once 'api/v1/service/categoryTag.php';
+            $res = srv_remove_categoryTag($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_SCHOOL_YEAR:
@@ -234,15 +234,15 @@ try {
             $args['finishDate'] = $payload['finishDate'];
             $args['isCurrent'] = $payload['isCurrent'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_schoolYear($args);
+            require_once 'api/v1/service/schoolYear.php';
+            $res = srv_save_schoolYear($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_SCHOOL_YEAR:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_schoolYear($args);
+            require_once 'api/v1/service/schoolYear.php';
+            $res = srv_remove_schoolYear($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_SERIE:
@@ -251,15 +251,15 @@ try {
             $args['removedTaskIdList'] = $payload['removedTaskIdList'];
             $args['newTaskList'] = $payload['newTaskList'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_serie($args);
+            require_once 'api/v1/service/serie.php';
+            $res = srv_save_serie($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_SERIE:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_serie($args);
+            require_once 'api/v1/service/serie.php';
+            $res = srv_remove_serie($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_LESSON:
@@ -269,15 +269,15 @@ try {
             $args['subjectId'] = $payload['subjectId'];
             $args['serieList'] = $payload['serieList'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_lesson($args);
+            require_once 'api/v1/service/lesson.php';
+            $res = srv_save_lesson($args);
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_LESSON:
             $args['id'] = $payload['id'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_remove_lesson($args);
+            require_once 'api/v1/service/lesson.php';
+            $res = srv_remove_lesson($args);
 
             break;
         case AuthzConstant::RESOURCE_API_SAVE_TEACHER_GROUP:
@@ -285,8 +285,36 @@ try {
             $args['schoolYearId'] = $payload['schoolYearId'];
             $args['teacherList'] = $payload['teacherList'];
 
-            require_once 'api/v1/service/app.php';
-            $res = app_save_teacherGroup($args);
+            require_once 'api/v1/service/teacher.php';
+            $res = srv_save_teacherGroup($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_ADD_SERIE_TO_LESSON:
+            $args['lessonId'] = $payload['lessonId'];
+            $args['serieId'] = $payload['serieId'];
+            $args['studentClassList'] = $payload['studentClassList'];
+            $args['studentHomeList'] = $payload['studentHomeList'];
+
+            require_once 'api/v1/service/lesson.php';
+            $res = srv_add_serie_to_lesson($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_SERIE_FROM_LESSON:
+            $args['lessonId'] = $payload['lessonId'];
+            $args['serieId'] = $payload['serieId'];
+            $args['studentClassList'] = $payload['studentClassList'];
+            $args['studentHomeList'] = $payload['studentHomeList'];
+
+            require_once 'api/v1/service/lesson.php';
+            $res = srv_remove_serie_from_lesson($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_SAVE_STUDENT_SOLUTION:
+            $args['taskList'] = $payload['taskList'];
+            $args['studentSerieId'] = $payload['studentSerieId'];
+
+            require_once 'api/v1/service/student.php';
+            $res = srv_save_student_solution($args);
 
             break;
     }

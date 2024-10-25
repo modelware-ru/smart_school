@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Subject\Main as SubjectModule;
 
 global $templateData;
 global $langId;
@@ -10,7 +10,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getSubjectList($args);
+list($res, $data) = (new SubjectModule())->getSubjectList($args);
 
 ?>
 <!DOCTYPE html>

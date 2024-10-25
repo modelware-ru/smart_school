@@ -155,6 +155,16 @@ class Util
         return $maskData;
     }
 
+    public static function SQLConstraintHandler(&$errorList, $constraint, $errorMsg, $errorKey, $errorCode, $errorArgs = []) {
+        preg_match($constraint, $errorMsg, $matches);
+        if (!empty($matches)) {
+            $errorList[$errorKey] = [
+                'code' => $errorCode,
+                'args' => $errorArgs,
+            ];
+        }
+    }
+
     public static function GenerateToken($key = '')
     {
         return md5(uniqid($key, true));

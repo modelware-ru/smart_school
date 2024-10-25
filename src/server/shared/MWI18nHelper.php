@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-10-12 13:05:24]
+// GENERATED [2024-10-25 15:44:33]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -34,8 +34,10 @@ class MWI18nHelper
     const PAGE_TITLE_LESSON = 'PAGE_TITLE_LESSON';
     const PAGE_TITLE_LESSON_JOURNAL = 'PAGE_TITLE_LESSON_JOURNAL';
     const PAGE_TITLE_TEACHER_GROUP = 'PAGE_TITLE_TEACHER_GROUP';
+    const PAGE_TITLE_STUDENT_SERIE_SOLUTION = 'PAGE_TITLE_STUDENT_SERIE_SOLUTION';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
+    const MSG_FIELD_DATE_SHOULD_BE_BETWEEN = 'MSG_FIELD_DATE_SHOULD_BE_BETWEEN';
     const MSG_FIELD_IS_REQUIRED = 'MSG_FIELD_IS_REQUIRED';
     const MSG_FIELD_IS_TOO_LONG = 'MSG_FIELD_IS_TOO_LONG';
     const MSG_FIELD_IS_TOO_SHORT = 'MSG_FIELD_IS_TOO_SHORT';
@@ -45,6 +47,7 @@ class MWI18nHelper
     const MSG_IMPOSSIBLE_TO_REMOVE_DATA = 'MSG_IMPOSSIBLE_TO_REMOVE_DATA';
     const MSG_WRONG_FIELD_VALUE = 'MSG_WRONG_FIELD_VALUE';
     const MSG_WRONG_LOGIN_OR_PASSWORD = 'MSG_WRONG_LOGIN_OR_PASSWORD';
+    const MSG_WRONG_SERIE_TYPE = 'MSG_WRONG_SERIE_TYPE';
 
     const ERR_UNKNOWN = 'ERR_UNKNOWN';
     const ERR_AUTHORIZATION_NEEDED = 'ERR_AUTHORIZATION_NEEDED';
@@ -400,10 +403,23 @@ class MWI18nHelper
                         return sprintf("Teachers in Groups", ...$args);
                     },
                 ],
+            self::PAGE_TITLE_STUDENT_SERIE_SOLUTION => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Решение студента", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Student Solution", ...$args);
+                    },
+                ],
         ];
         $this->_msgList = [
             self::MSG_FIELD_EMAIL_INCORRECT => function (...$args) {
                 return sprintf("Некорректный адрес электронной почты: %s", ...$args);
+            },
+            self::MSG_FIELD_DATE_SHOULD_BE_BETWEEN => function (...$args) {
+                return sprintf("Дата должна быть между (%s) и (%s)", ...$args);
             },
             self::MSG_FIELD_IS_REQUIRED => function (...$args) {
                 return sprintf("Поле должно быть заполнено: %s", ...$args);
@@ -431,6 +447,9 @@ class MWI18nHelper
             },
             self::MSG_WRONG_LOGIN_OR_PASSWORD => function (...$args) {
                 return sprintf("Попытка входа в систему. %s", ...$args);
+            },
+            self::MSG_WRONG_SERIE_TYPE => function (...$args) {
+                return sprintf("Одна и та же серия указана как \"классная\", так и \"домашняя\"", ...$args);
             },
         ];
 

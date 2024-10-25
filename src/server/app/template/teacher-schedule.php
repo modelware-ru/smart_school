@@ -1,7 +1,9 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\SchoolYear\Main as SchoolYearModule;
+use MW\Module\Domain\Group\Main as GroupModule;
+use MW\Module\Domain\Lesson\Main as LessonModule;
 use MW\Service\Authz\Constant as AuthzConstant;
 
 global $templateData;
@@ -18,11 +20,12 @@ $schoolYearId = isset($query['schoolYearId']) ? intval($query['schoolYearId']) :
 $startDate = null;
 $finishDate = null;
 
+// getSchoolYearList
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getSchoolYearList($args);
+list($res, $data) = (new SchoolYearModule())->getSchoolYearList($args);
 
 $schoolYearList = [];
 foreach ($res->getData() as $item) {
@@ -41,23 +44,13 @@ foreach ($res->getData() as $item) {
     ];
 }
 
-if (count($schoolYearList) === 0) {
-    $schoolYearId = -1;
-}
-
-$schoolYearList[] = [
-    'id' => '-1',
-    'title' => 'Все занятия',
-    'isCurrent' => false,
-    'isSelected' => $schoolYearId === -1,
-];
 
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
     'groupId' => $groupId,
 ];
 
-list($res, $data) = (new DomainModule())->getGroupById($args);
+list($res, $data) = (new GroupModule())->getGroupById($args);
 
 $groupName = ($res->getData())['name'];
 $parallelName = ($res->getData())['parallelName'];
@@ -68,7 +61,7 @@ $args = [
     'startDate' => $startDate,
     'finishDate' => $finishDate,
 ];
-list($res, $data) = (new DomainModule())->getLessonListForGroup($args);
+list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
 
 ?>
 <!DOCTYPE html>
@@ -97,7 +90,7 @@ list($res, $data) = (new DomainModule())->getLessonListForGroup($args);
         <?php
         if (count($schoolYearList) > 0) {
         ?>
-            <select id="selectSchoolYear" class="form-select mt-5 mb-3" aria-label="Учебные года">
+            <select id="selectSchoolYear" class="form-select mt-5 mb-3" aria-label="Учебные года" disabled>
                 <?php
                 foreach ($schoolYearList as $item) {
                     $selected = '';

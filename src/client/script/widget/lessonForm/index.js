@@ -17,7 +17,7 @@ export default class LessonForm {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, lesson, groupList, subjectList, serieList, serieListInLesson } = settings;
+        const { langId, lesson, groupList, subjectList, serieList, serieListInLesson, date } = settings;
 
         this._prop = {
             langId,
@@ -27,6 +27,7 @@ export default class LessonForm {
             subjectList,
             serieList,
             serieListInLesson,
+            date,
         };
 
         this._state = {};
@@ -92,11 +93,21 @@ export default class LessonForm {
         history.back();
     };
 
-    _validateFormData = (date, groupId, subjectId) => {
+    _validateFormData = (lessonDate, groupId, subjectId) => {
+        const {date} = this._prop;
+
         let data = {};
         let hasError = false;
-        if (date.length === 0) {
+        if (lessonDate.length === 0) {
             data[ID.LF_INPUT_DATE_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
+            hasError = true;
+        }
+
+        const st = new Date(date.startDate).getTime();
+        const ft = new Date(date.finishDate).getTime();
+        const vt = new Date(lessonDate).getTime();
+        if (vt > ft || vt < st) {
+            data[ID.LF_INPUT_DATE_ID] = { code: 'MSG_FIELD_DATE_SHOULD_BE_BETWEEN', args: [date.startDate, date.finishDate] };
             hasError = true;
         }
 
@@ -170,7 +181,7 @@ export default class LessonForm {
             const resp = await fetcher('saveLesson', payload);
 
             if (resp.status === 'ok') {
-                const {callbackQuery} = this._prop;
+                const { callbackQuery } = this._prop;
                 openSiteURL(`schedule.php?${callbackQuery}`);
             }
 

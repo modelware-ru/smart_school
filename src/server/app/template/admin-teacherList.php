@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Teacher\Main as TeacherModule;
 
 global $templateData;
 global $langId;
@@ -10,7 +10,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getTeacherList($args);
+list($res, $data) = (new TeacherModule())->getTeacherList($args);
 
 $teacherList = array_map(function ($item) {
     return [

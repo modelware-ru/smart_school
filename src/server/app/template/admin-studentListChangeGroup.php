@@ -1,9 +1,8 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
-use MW\Shared\MWException;
-use MW\Shared\MWI18nHelper;
+use MW\Module\Domain\Student\Main as StudentModule;
+use MW\Module\Domain\Group\Main as GroupModule;
 
 global $templateData;
 global $langId;
@@ -17,7 +16,7 @@ $args = [
     'studentIdList' => $studentIdList,
 ];
 
-list($res, $data) = (new DomainModule())->getStudentByIdList($args);
+list($res, $data) = (new StudentModule())->getStudentByIdList($args);
 
 $classParallelList = array_reduce($res->getData(), function ($carry, $item) {
     if (!is_null($item['classParallelId']) && !in_array($item['classParallelId'], $carry)) {
@@ -86,7 +85,7 @@ $args = [
     'parallelId' => $parallelId,
 ];
 
-list($res, $data) = (new DomainModule())->getGroupListByParallelId($args);
+list($res, $data) = (new GroupModule())->getGroupListByParallelId($args);
 
 $groupList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [

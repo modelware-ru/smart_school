@@ -14,16 +14,18 @@ export default class StudentGroupListHeader {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, serieList } = settings;
+        const { langId, serieList, lessonId } = settings;
 
         this._prop = {
             langId,
             serieList,
+            lessonId,
         };
 
         this._state = {
-            hasSerie: false,
-            hasMarked: false,
+            serieId: 0,
+            markedClassSerieList: new Set(),
+            markedHomeSerieList: new Set(),
         };
 
         this._stateAddSerieButton = {};
@@ -35,9 +37,6 @@ export default class StudentGroupListHeader {
                 title={i18n(langId, 'TTL_TO_ADD_SERIE')}
             />
         );
-        this._updateStateSerieButton('add', {
-            disabled: !this._state.hasSerie && !this._state.hasMarked,
-        });
 
         this._stateRemoveSerieButton = {};
         this._atm.removeSerieButton = (
@@ -48,9 +47,7 @@ export default class StudentGroupListHeader {
                 title={i18n(langId, 'TTL_TO_REMOVE_SERIE')}
             />
         );
-        this._updateStateSerieButton('remove', {
-            disabled: !this._state.hasSerie && !this._state.hasMarked,
-        });
+        this._calcStateSerieButtons();
 
         commonEventManager.subscribe('changedMarkedClassSerieList', this._onChangedMarkedClassSerieList);
         commonEventManager.subscribe('changedMarkedHomeSerieList', this._onChangedMarkedHomeSerieList);
@@ -59,30 +56,62 @@ export default class StudentGroupListHeader {
     }
 
     _onAddSerieButtonClick = () => {
-        const { markedClassSerieList, markedHomeSerieList } = this._state;
-        const ids = 'ids=' + markedClassSerieList.join(',');
-        // openSiteURL(`student-list-change-class.php?${ids}`);
+        this._fetch('addSerieToLesson');
     };
 
     _onRemoveSerieButtonClick = () => {
+        this._fetch('removeSerieFromLesson');
+    };
+
+    _fetch = async (action) => {
         const { markedClassSerieList, markedHomeSerieList } = this._state;
-        const ids = 'ids=' + markedHomeSerieList.join(',');
-        // openSiteURL(`student-list-change-group.php?${ids}`);
+        const { lessonId } = this._prop;
+        const { serieId } = this._state;
+
+        const payload = {
+            lessonId,
+            serieId,
+            studentClassList: [...markedClassSerieList],
+            studentHomeList: [...markedHomeSerieList],
+        };
+
+        commonEventManager.dispatch('showSpinner');
+
+        try {
+            const resp = await fetcher(action, payload);
+
+            if (resp.status === 'ok') {
+                location.reload(true);
+                return;
+            }
+            commonEventManager.dispatch('hideSpinner');
+        } catch (e) {
+            debugger;
+            commonEventManager.dispatch('hideSpinner');
+        }
     };
 
     _onChangedMarkedClassSerieList = (data) => {
         this._state['markedClassSerieList'] = data;
+        this._calcStateSerieButtons();
     };
 
     _onChangedMarkedHomeSerieList = (data) => {
         this._state['markedHomeSerieList'] = data;
+        this._calcStateSerieButtons();
+    };
 
-        // const l = data.length;
-        // if (l > 0) {
-        //     this._updateStateSerieButton('group', { disabled: false, title: 'TTL_TO_CHANGE_GROUP', titleArgs: [l] });
-        // } else {
-        //     this._updateStateSerieButton('group', { disabled: true, title: 'TTL_TO_CHANGE_GROUP' });
-        // }
+    _calcStateSerieButtons = () => {
+        const { serieId, markedClassSerieList, markedHomeSerieList } = this._state;
+
+        const enabled = serieId !== 0 && (markedClassSerieList.length > 0 || markedHomeSerieList.length > 0);
+
+        this._updateStateSerieButton('add', {
+            disabled: !enabled,
+        });
+        this._updateStateSerieButton('remove', {
+            disabled: !enabled,
+        });
     };
 
     _updateStateSerieButton = (entity, state) => {
@@ -122,24 +151,19 @@ export default class StudentGroupListHeader {
             value: { newValue },
         } = args;
 
-        this._state.hasSerie = parseInt(newValue) !== 0;
-        console.log (this._state.hasSerie);
-        this._updateStateSerieButton('add', {
-            disabled: !this._state.hasSerie && !this._state.hasMarked,
-        });
-        this._updateStateSerieButton('remove', {
-            disabled: !this._state.hasSerie && !this._state.hasMarked,
-        });
+        this._state.serieId = parseInt(newValue);
+        this._calcStateSerieButtons();
     };
 
     _ui_render = () => {
         const { langId, serieList } = this._prop;
+        const { serieId } = this._state;
 
         return (
             <div className="d-flex flex-fill flex-wrap gap-1 gap-md-3">
                 <SelectMenuItem
                     className="flex-fill"
-                    value={0}
+                    value={serieId}
                     content={serieList}
                     status={'none'}
                     hasError={'unknown'}

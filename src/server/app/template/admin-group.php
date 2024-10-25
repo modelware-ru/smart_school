@@ -1,7 +1,8 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Group\Main as GroupModule;
+use MW\Module\Domain\Parallel\Main as ParallelModule;
 
 global $templateData;
 global $langId;
@@ -23,7 +24,7 @@ if ($groupId === 0) {
         'groupId' => $groupId,
     ];
 
-    list($res, $data) = (new DomainModule())->getGroupById($args);
+    list($res, $data) = (new GroupModule())->getGroupById($args);
 
     $group = $res->getData();
     $group['parallelId'] = strval($group['parallelId']);
@@ -33,7 +34,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getParallelList($args);
+list($res, $data) = (new ParallelModule())->getParallelList($args);
 
 $parallelList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [

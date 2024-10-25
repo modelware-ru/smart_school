@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\CategoryTag\Main as CategoryTagModule;
 
 global $templateData;
 global $langId;
@@ -23,7 +23,7 @@ if ($categoryTagId === 0) {
         'categoryTagId' => $categoryTagId,
     ];
 
-    list($res, $data) = (new DomainModule())->getCategoryTagById($args);
+    list($res, $data) = (new CategoryTagModule())->getCategoryTagById($args);
 
     $categoryTag = $res->getData();
 }

@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Topic\Main as TopicModule;
 
 global $templateData;
 global $langId;
@@ -22,7 +22,7 @@ if ($topicId === 0) {
         'topicId' => $topicId,
     ];
 
-    list($res, $data) = (new DomainModule())->getTopicById($args);
+    list($res, $data) = (new TopicModule())->getTopicById($args);
 
     $topic = $res->getData();
 }

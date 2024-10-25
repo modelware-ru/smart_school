@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Teacher\Main as TeacherModule;
 use MW\Service\Authz\Constant as AuthzConstant;
 
 global $templateData;
@@ -31,7 +31,7 @@ if ($teacherId === 0) {
         'teacherId' => $teacherId,
     ];
 
-    list($res, $data) = (new DomainModule())->getTeacherById($args);
+    list($res, $data) = (new TeacherModule())->getTeacherById($args);
 
     $teacher = $res->getData();
     $teacher['roleStateId'] = strval($teacher['roleStateId']);

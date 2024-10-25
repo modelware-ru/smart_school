@@ -26,6 +26,9 @@ INSERT INTO main__api (code_name) VALUES ('saveLesson');
 INSERT INTO main__api (code_name) VALUES ('removeLesson');
 INSERT INTO main__api (code_name) VALUES ('saveTeacherGroup');
 INSERT INTO main__api (code_name) VALUES ('removeTeacherGroup');
+INSERT INTO main__api (code_name) VALUES ('addSerieToLesson');
+INSERT INTO main__api (code_name) VALUES ('removeSerieFromLesson');
+INSERT INTO main__api (code_name) VALUES ('saveStudentSolution');
 
 INSERT INTO main__page (code_name, name) VALUES ('guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (code_name, name) VALUES ('recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -57,6 +60,7 @@ INSERT INTO main__page (code_name, name) VALUES ('schedule', '{"title":{"ru": "�
 INSERT INTO main__page (code_name, name) VALUES ('lesson', '{"title":{"ru": "Занятие", "en": "Lesson"}}');
 INSERT INTO main__page (code_name, name) VALUES ('lessonJournal', '{"title":{"ru": "Журнал занятия", "en": "Lesson Journal"}}');
 INSERT INTO main__page (code_name, name) VALUES ('teacherGroup', '{"title":{"ru": "Преподаватели в группах", "en": "Teachers in Groups"}}');
+INSERT INTO main__page (code_name, name) VALUES ('studentSerieSolution', '{"title":{"ru": "Решение студента", "en": "Student Solution"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');

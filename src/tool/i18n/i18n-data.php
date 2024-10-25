@@ -280,6 +280,12 @@ $i18n_MSG = [
         'en' => 'Email is incorrect',
         'log' => 'Некорректный адрес электронной почты: %s',
     ],
+    'FIELD_DATE_SHOULD_BE_BETWEEN' => [
+        '_type' => 'plain',
+        'ru' => 'Дата должна быть между ${args[0]} и ${args[1]}',
+        'en' => 'Date should be between ${args[0]} and ${args[1]}',
+        'log' => 'Дата должна быть между (%s) и (%s)',
+    ],
     'FIELD_IS_REQUIRED' => [
         '_type' => 'plain',
         'ru' => 'Поле должно быть заполнено',
@@ -334,6 +340,12 @@ $i18n_MSG = [
         'en' => 'Login or password are wrong',
         'log' => 'Попытка входа в систему. %s',
     ],
+    'WRONG_SERIE_TYPE' => [
+        '_type' => 'plain',
+        'ru' => 'Одна и та же серия указана как \"классная\", так и \"домашняя\"',
+        'en' => 'Some serie is both "a class" serie and "a home" one',
+        'log' => 'Одна и та же серия указана как \"классная\", так и \"домашняя\"',
+    ],    
 
 ];
 

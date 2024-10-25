@@ -1,7 +1,8 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\Student\Main as StudentModule;
+use MW\Module\Domain\Parallel\Main as ParallelModule;
 
 global $templateData;
 global $langId;
@@ -15,7 +16,7 @@ $args = [
     'studentIdList' => $studentIdList,
 ];
 
-list($res, $data) = (new DomainModule())->getStudentByIdList($args);
+list($res, $data) = (new StudentModule())->getStudentByIdList($args);
 
 $studentList = array_map(function ($item) {
     return [
@@ -31,7 +32,7 @@ $studentIdList = array_map(function ($item) {
     ];
 }, $studentList);
 
-list($res, $data) = (new DomainModule())->getParallelList($args);
+list($res, $data) = (new ParallelModule())->getParallelList($args);
 
 $parallelList = array_reduce($res->getData(), function ($carry, $item) {
     $carry[] = [

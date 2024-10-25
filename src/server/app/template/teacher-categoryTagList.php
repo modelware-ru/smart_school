@@ -1,7 +1,7 @@
 <?php
 
 use MW\Shared\Util;
-use MW\Module\Domain\Main as DomainModule;
+use MW\Module\Domain\CategoryTag\Main as CategoryTagModule;
 
 global $templateData;
 global $langId;
@@ -10,7 +10,7 @@ $args = [
     'permissionOptions' => $templateData['permissionOptions'],
 ];
 
-list($res, $data) = (new DomainModule())->getCategoryTagList($args);
+list($res, $data) = (new CategoryTagModule())->getCategoryTagList($args);
 
 ?>
 <!DOCTYPE html>

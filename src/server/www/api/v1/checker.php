@@ -235,7 +235,7 @@ function check_type_parameters($apiResource, $payload)
                 '_type' => 'array',
                 '_keyType' => 1,
                 '_itemTemplate' => 'string',
-            ]
+            ],
         ],
         // saveTeacherGroup FINISH
         // removeTeacherGroup START
@@ -244,7 +244,56 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeTeacherGroup FINISH
-
+        // addSerieToLesson START
+        AuthzConstant::RESOURCE_API_ADD_SERIE_TO_LESSON => [
+            '_type' => 'object',
+            'lessonId' => 1,
+            'serieId' => 1,
+            'studentClassList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
+            ],
+            'studentHomeList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
+            ],
+        ],
+        // addSerieToLesson FINISH
+        // removeSerieFromLesson START
+        AuthzConstant::RESOURCE_API_REMOVE_SERIE_FROM_LESSON => [
+            '_type' => 'object',
+            'lessonId' => 1,
+            'serieId' => 1,
+            'studentClassList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
+            ],
+            'studentHomeList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => 1,
+            ],
+        ],
+        // removeSerieFromLesson FINISH
+        // saveStudentSolution START
+        AuthzConstant::RESOURCE_API_SAVE_STUDENT_SOLUTION => [
+            '_type' => 'object',
+            'studentSerieId' => 1,
+            'taskList' => [
+                '_type' => 'array',
+                '_keyType' => 1,
+                '_itemTemplate' => [
+                    '_type' => 'object',
+                    'value' => 'string',
+                    'solutionId' => 1,
+                    'serieTaskId' => 1,
+                ],
+            ],
+        ],
+        // saveStudentSolution FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

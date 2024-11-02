@@ -11,14 +11,15 @@ use MW\Shared\Logger;
 use MW\Shared\MWException;
 use MW\Shared\Util;
 
-$options = getopt('t::c:');
+$options = getopt('t::c:r:');
 
 if (!key_exists('c', $options)) {
-    echo "Usage: -c <connectionKey> -t" . PHP_EOL;
+    echo "Usage: -c <connectionKey> -t -r <realm>" . PHP_EOL;
     exit();
 }
 
 $connectionName = $options['c'];
+$realmName = $options['r'];
 
 $isTest = FALSE;
 if ($options && key_exists('t', $options)) {
@@ -30,9 +31,9 @@ if ($options && key_exists('t', $options)) {
 $scriptList = [
     0 => "../../database/main-clean-{$connectionName}.sql",
     1 => '../../database/authz/authz-schema.sql',
-    2 => "../../database/authz/authz-data-{$connectionName}.sql",
+    2 => "../../database/authz/authz-data-{$realmName}.sql",
     3 => '../../database/main-schema.sql',
-    4 => "../../database/main-data-{$connectionName}.sql",
+    4 => "../../database/main-data-{$realmName}.sql",
 ];
 
 try {

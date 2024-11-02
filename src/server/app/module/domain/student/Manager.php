@@ -37,7 +37,7 @@ JOIN main__group mg ON msgh.group_id = mg.id
 JOIN main__parallel mp ON mg.parallel_id = mp.id 
 WHERE gh.start_date = gh.max_start_date AND gh.`order` = gh.max_order) t2 
 ON t2.student_id = ms.id
-ORDER BY ms.last_name, ms.first_name, ms.middle_name
+ORDER BY t1.class_number, t1.class_letter, ms.last_name, ms.first_name, ms.middle_name
 SQL;
         return $this->_db->select($stmt);
     }

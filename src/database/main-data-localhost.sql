@@ -84,16 +84,16 @@ INSERT INTO main__user (id, first_name, last_name, middle_name, login, password,
 INSERT INTO main__user (id, first_name, last_name, middle_name, login, password, email, account_id) VALUES (3, 'Виктор', 'Викторов', 'Викторович', 'victor', 'xd50zdGGOc2o6', "denis.ivanov+02@mail.ru", 3);
 
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (1, 1, 'Аналитики', 1);
-INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (2, 1, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (2, 1, 'Новаторы', 2);
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (3, 1, 'Исследователи', 3);
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (4, 2, 'Аналитики', 1);
-INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (5, 2, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (5, 2, 'Новаторы', 2);
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (6, 2, 'Исследователи', 3);
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (7, 3, 'Аналитики', 1);
-INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (8, 3, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (8, 3, 'Новаторы', 2);
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (9, 3, 'Исследователи', 3);
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (10, 4, 'Аналитики', 1);
-INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (11, 4, 'Навигаторы', 2);
+INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (11, 4, 'Новаторы', 2);
 INSERT INTO main__group (id, parallel_id, name, `order`) VALUES (12, 4, 'Исследователи', 3);
 
 INSERT INTO main__schoolYear (id, name, start_date, finish_date, is_current) VALUES (1, 'Учебный год 2024-2025', '2024-09-01', '2025-05-31', 'Y');

@@ -8,6 +8,7 @@ use MW\Shared\Session;
 class SessionObject
 {
     private const _USER_ID = 'userId';
+    private const _USER_NAME = 'userName';
     private const _ACCOUNT_ID = 'accountId';
     private const _ROLE_ID = 'roleId';
     private const _ROLE_STATE_ID = 'roleStateId';
@@ -66,6 +67,16 @@ class SessionObject
     public function setUserId($userId)
     {
         Session::Instance()->set(self::_USER_ID, $userId);
+    }
+
+    public function getUserName()
+    {
+        return Session::Instance()->get(self::_USER_NAME);
+    }
+
+    public function setUserName($userName)
+    {
+        Session::Instance()->set(self::_USER_NAME, $userName);
     }
 
     public function getAccountId()

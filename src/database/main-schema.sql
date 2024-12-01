@@ -170,6 +170,7 @@ CREATE TABLE main__student_serie (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     student_id INT UNSIGNED NOT NULL,
     serie_id INT UNSIGNED NOT NULL,
+    group_id INT UNSIGNED NOT NULL,
     lesson_id INT UNSIGNED,
     type ENUM ('CLASS', 'HOME') NOT NULL,
     `date` DATETIME NOT NULL,
@@ -177,9 +178,10 @@ CREATE TABLE main__student_serie (
     CONSTRAINT main__student_serie___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
     CONSTRAINT main__student_serie___serie_id FOREIGN KEY (serie_id) REFERENCES main__serie(id),
     CONSTRAINT main__student_serie___lesson_id FOREIGN KEY (lesson_id) REFERENCES main__lesson(id),
+    CONSTRAINT main__student_serie___group_id FOREIGN KEY (group_id) REFERENCES main__group(id),
     CONSTRAINT main__student_serie___unique_student_id_serie_id UNIQUE (student_id, serie_id)
 ) ENGINE = InnoDB;
-
+ 
 CREATE TABLE main__studentSerie_serieTask (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     student_serie_id INT UNSIGNED NOT NULL,

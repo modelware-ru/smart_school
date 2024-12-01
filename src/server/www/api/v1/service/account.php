@@ -9,6 +9,7 @@ function srv_sign_in($args)
 
     if ($res->isOk()) {
         SessionObject::Instance()->setUserId($data['userId']);
+        SessionObject::Instance()->setUserName($data['userName']);
         SessionObject::Instance()->setAccountId($data['accountId']);
         SessionObject::Instance()->setRoleId($data['roleId']);
         SessionObject::Instance()->setRoleStateId($data['roleStateId']);

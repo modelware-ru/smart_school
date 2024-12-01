@@ -3,7 +3,7 @@
 use MW\Shared\Util;
 use MW\Module\Domain\SchoolYear\Main as SchoolYearModule;
 use MW\Module\Domain\Group\Main as GroupModule;
-use MW\Module\Domain\Lesson\Main as LessonModule;
+use MW\Module\Domain\Student\Main as StudentModule;
 use MW\Service\Authz\Constant as AuthzConstant;
 
 global $templateData;
@@ -61,7 +61,7 @@ $args = [
     'startDate' => $startDate,
     'finishDate' => $finishDate,
 ];
-list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
+list($res, $data) = (new StudentModule())->getStudentListForGroup($args);
 
 ?>
 <!DOCTYPE html>
@@ -82,7 +82,7 @@ list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Меню</a></li>
                     <li class="breadcrumb-item"><a href="group-list.php">Список групп по параллелям</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Расписание группы "<?= $groupName ?>" [<?= $parallelName ?>]</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Ученики группы "<?= $groupName ?>" [<?= $parallelName ?>]</span></li>
                 </ol>
             </nav>
         </div>
@@ -103,56 +103,29 @@ list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
                 }
                 ?>
             </select>
-            <div class="d-flex justify-content-end">
-                <a href="lesson.php?id=0&groupId=<?= $groupId ?>&schoolYearId=<?= $schoolYearId ?>" class="btn btn-success">
-                    <i class="bi bi-plus-circle me-3"></i>
-                    <span role="status">Добавить</span>
-                </a>
-            </div>
-
         <?php
         }
-        $itemList = $res->getData();
-        if ($res->isOk() && count($itemList) > 0) {
+        $studentList = $res->getData();
+        if ($res->isOk() && count($studentList) > 0) {
         ?>
             <table class="table table-hover table-bordered clickable-rows my-3">
                 <thead>
                     <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
-                        <th scope="col" class="text-end fit">Дата занятия</th>
-                        <th scope="col">Серии</th>
-                        <th scope="col" class="fit">Действия</th>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Интервал принадлежности группе</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $curSubjectId = 0;
                     $index = 0;
-                    foreach ($itemList as $key => $item) {
+                    foreach ($studentList as $key => $item) {
                         $index++;
-                        if ($curSubjectId !== $item['subjectId']) {
-                            $curSubjectId = $item['subjectId'];
-                            $index = 1;
                     ?>
-                            <tr class="align-middle table-primary" noclick>
-                                <td colspan="4"><?= $item['subjectName'] ?></td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
                         <tr class="align-middle" data-id="<?= $item['id'] ?>">
                             <th scope="row" class="text-end text-nowrap"><?= $index ?></th>
-                            <td><?= $item['date'] ?></td>
-                            <td class="text-danger">не реализовано</td>
-                            <td class="p-1">
-                                <div class="d-flex gap-3">
-                                    <button data-action="edit" data-id="<?= $item['id'] ?>" class='btn btn-outline-primary btn-sm'><i class="bi bi-pencil"></i></button>
-
-                                    <?php if ($item['canBeRemoved']) { ?>
-                                        <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>
-                                    <? } ?>
-                                </div>
-                            </td>
+                            <td><?= $item['name'] ?></td>
+                            <td><?= $item['startDate'] ?>&nbsp;&nbsp;-&nbsp;&nbsp;<?= $item['finishDate'] ?></td>
                         </tr>
                     <?php
                     }
@@ -164,7 +137,7 @@ list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
         ?>
             <div class="alert alert-info rounded-0 my-3" role="alert">
                 <div>
-                    <p class="m-0">Не найдено ни одно занятие.</p>
+                    <p class="m-0">Не найдено ни одно ученика.</p>
                 </div>
             </div>
         <?php
@@ -174,35 +147,14 @@ list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
     <script src='js/bootstrap.bundle.min.js'></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-            const select = document.getElementById('selectSchoolYear');
-            select.addEventListener('change', (e) => {
-                e.stopPropagation();
-                window.location.assign(`schedule.php?id=<?= $groupId ?>&schoolYearId=${e.target.value}`);
-            });
-
-            for (const item of document.querySelectorAll('button[data-action="remove"]')) {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    window.location.assign(`lesson.php?id=${item.dataset.id}&action=remove&schoolYearId=<?= $schoolYearId ?>`);
-                });
-            }
-
-            for (const item of document.querySelectorAll('button[data-action="edit"]')) {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    window.location.assign(`lesson.php?id=${item.dataset.id}&schoolYearId=<?= $schoolYearId ?>`);
-                });
-            }
-
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr:not([noclick])')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.location.assign(`lesson-journal.php?id=${item.dataset.id}&schoolYearId=<?= $schoolYearId ?>`);
+                    window.open(`student-serie-group-list.php?id=${item.dataset.id}`, '_blank');
                 });
             }
         });
     </script>
-
 </body>
 
 </html>

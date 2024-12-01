@@ -16,7 +16,7 @@ class Manager
     public function getUserByLogin($login)
     {
         $stmt = <<<SQL
-SELECT id, account_id, password FROM main__user WHERE login = :login
+SELECT id, account_id, password, first_name, last_name, middle_name FROM main__user WHERE login = :login
 SQL;
         return $this->_db->select($stmt, ['login' => $login]);
     }

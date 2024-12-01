@@ -46,7 +46,7 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
             <?= Util::RenderTemplate('app/template/shared/teacher-closer.php') ?>
         </nav>
         <hr class='m-0' />
-        <table class="table table-striped">
+        <table class="table table-striped mt-5">
             <tbody>
                 <tr>
                     <th scope="row">Ученик</th>
@@ -62,6 +62,10 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
                 </tr>
                 <tr>
                     <th scope="row">Серия</th>
+                    <td><?= $studentSerie['serieName'] ?></td>
+                </tr>
+                <tr>
+                    <th scope="row">Тип серии</th>
                     <td><?= $studentSerie['serieType'] === 'HOME' ? "Домашняя" : "Классная" ?> / <?= $studentSerie['serieDate'] ?></td>
                 </tr>
                 <tr>

@@ -11,7 +11,6 @@ global $langId;
 $query = Util::HandleGET();
 
 $lessonId = isset($query['id']) ? intval($query['id']) : 0;
-$groupId = isset($query['groupId']) ? intval($query['groupId']) : 0;
 $schoolYearId = isset($query['schoolYearId']) ? intval($query['schoolYearId']) : 0;
 
 // getStudentListForLesson
@@ -72,14 +71,15 @@ $attendanceDict = array_map(function ($item) {
     ];
 }, $res->getData());
 
-// getGroupById
+// getGroupByLessonId
 $args = [
     'permissionOptions' => $templateData['permissionOptions'],
-    'groupId' => $groupId,
+    'lessonId' => $lessonId,
 ];
 
-list($res, $data) = (new GroupModule())->getGroupById($args);
+list($res, $data) = (new GroupModule())->getGroupByLessonId($args);
 
+$groupId = ($res->getData())['id'];
 $groupName = ($res->getData())['name'];
 $parallelName  = ($res->getData())['parallelName'];
 
@@ -97,6 +97,8 @@ $subjectName  = ($res->getData())['subjectName'];
 $templateData['_js']['studentList'] = $studentList;
 $templateData['_js']['serieList'] = $serieList;
 $templateData['_js']['lessonId'] = $lessonId;
+$templateData['_js']['groupId'] = $groupId;
+$templateData['_js']['schoolYearId'] = $schoolYearId;
 $templateData['_js']['attendanceDict'] = $attendanceDict;
 ?>
 <!DOCTYPE html>

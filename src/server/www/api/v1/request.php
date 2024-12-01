@@ -292,6 +292,7 @@ try {
         case AuthzConstant::RESOURCE_API_ADD_SERIE_TO_LESSON:
             $args['lessonId'] = $payload['lessonId'];
             $args['serieId'] = $payload['serieId'];
+            $args['groupId'] = $payload['groupId'];
             $args['studentClassList'] = $payload['studentClassList'];
             $args['studentHomeList'] = $payload['studentHomeList'];
 

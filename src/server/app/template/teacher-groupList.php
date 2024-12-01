@@ -116,7 +116,7 @@ list($res, $data) = (new TeacherModule())->getGroupListForTeacher($args);
             <span><?= $item['name'] ?></span>
             <span class="position-absolute top-0 end-0 me-2 fs-3 text-black-50"><i class="bi bi-table"></i></span>
         </a>
-        <a href="student-list.php?id=<?= $item['id'] ?>&schoolYearId=<?= $schoolYearId?>" class="group-item group-item-person d-flex justify-content-center align-items-center rounded-4 position-relative">
+        <a href="student-group-list.php?id=<?= $item['id'] ?>&schoolYearId=<?= $schoolYearId?>" class="group-item group-item-person d-flex justify-content-center align-items-center rounded-4 position-relative">
             <span><?= $item['name'] ?></span>
             <span class="position-absolute top-0 end-0 me-2 fs-3 text-black-50"><i class="bi bi-person"></i></span>
         </a>

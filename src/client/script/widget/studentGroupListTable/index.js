@@ -15,11 +15,13 @@ export default class StudentGroupListTable {
 
     _key = 1;
     constructor(settings = {}) {
-        const { langId, studentList } = settings;
+        const { langId, studentList, groupId, schoolYearId } = settings;
 
         this._prop = {
             langId,
             studentList,
+            groupId,
+            schoolYearId,
         };
 
         const rowList = studentList.map((item, key) => {
@@ -35,7 +37,7 @@ export default class StudentGroupListTable {
                                 value: <strong>{key + 1}</strong>,
                             },
                             {
-                                value: item['name'],
+                                value: <a href={`student-serie-group-list.php?id=${item['id']}&groupId=${groupId}&schoolYearId=${schoolYearId}`} target="_blank">{item['name']}</a>,
                             },
                             {
                                 value: (

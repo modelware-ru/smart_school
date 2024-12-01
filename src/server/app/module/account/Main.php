@@ -53,9 +53,11 @@ class Main
 
         $userId = $resDb[0]['id'];
         $accountId = $resDb[0]['account_id'];
+        $userName = $resDb[0]['last_name'] . ' ' .  $resDb[0]['first_name'] . ' ' . $resDb[0]['middle_name'];
 
         $data = [
             'userId' => $userId,
+            'userName' => $userName,
             'accountId' => $accountId,
             'roleId' => NULL,
             'roleStateId' => NULL,
@@ -73,7 +75,8 @@ class Main
             return [Util::MakeFailOperationResult($errorList), []];
         }
 
+        $resAr = AuthzService::GetMainRoleByAccountId(['accountId' => $accountId]);
+
         return [Util::MakeSuccessOperationResult(test: $data), $data];
     }
-
 }

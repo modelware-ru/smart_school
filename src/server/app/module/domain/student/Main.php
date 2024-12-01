@@ -478,4 +478,61 @@ class Main
 
         return [Util::MakeSuccessOperationResult(), []];
     }
+
+    public function getStudentListForGroup($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::Lesson::getStudentListForGroup');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $groupId = $args['groupId'];
+        $startDate = $args['startDate'];
+        $finishDate = $args['finishDate'];
+
+        $errorList = [];
+
+        $manager = new Manager();
+        $resDb = $manager->getStudentListForGroup($groupId, $startDate, $finishDate);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['student_id'],
+                'name' => $item['last_name'] . ' ' .  $item['first_name'] . ' ' . $item['middle_name'],
+                'startDate' => substr($item['start_date'], 0, 10),
+                'finishDate' => substr($item['finish_date'], 0, 10),
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getStudentSerieGroupList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::Student::getStudentSerieGroupList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $studentId = $args['studentId'];
+        $groupId = $args['groupId'];
+
+        $errorList = [];
+
+        $manager = new Manager();
+        $resDb = $manager->getStudentSerieGroupList($studentId, $groupId);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['student_serie_id'],
+                'groupId' => $item['group_id'],
+                'serieId' => $item['serie_id'],
+                'serieName' => $item['serie_name'],
+                'serieType' => $item['serie_type'],
+                'serieDate' => substr($item['serie_date'], 0, 10),
+                'lessonDate' => substr($item['lesson_date'], 0, 10),
+                'subjectName' => $item['subject_name'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
 }

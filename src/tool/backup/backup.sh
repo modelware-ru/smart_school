@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+mariadb-dump --defaults-file=db-smart-majordomo.config --skip-ssl --protocol=tcp --compress=TRUE --default-character-set=utf8 --no-create-db b171063_smart_school > b171063_smart_school.$(date -d "today" +"%Y-%m-%d-%H-%M").sql

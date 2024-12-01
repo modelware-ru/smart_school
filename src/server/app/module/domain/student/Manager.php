@@ -270,4 +270,48 @@ SQL;
             'studentSerieId' => $studentSerieId,
         ]);
     }
+
+    public function getStudentListForGroup($groupId, $startDate, $finishDate)
+    {
+        $stmt = <<<SQL
+SELECT tbl2.student_id, ms.first_name, ms.last_name, ms.middle_name, tbl2.start_date, tbl2.finish_date FROM (
+	SELECT tbl1.student_id, MIN(tbl1.start_date) start_date, (MAX(tbl1.finish_date) - INTERVAL 1 DAY) finish_date
+	FROM (
+		SELECT
+		msgh.student_id,
+		msgh.group_id,
+		msgh.start_date,
+		IFNULL(LEAD(msgh.start_date, 1) OVER (PARTITION BY msgh.student_id ORDER BY msgh.start_date), CURRENT_DATE() + INTERVAL 1 DAY) finish_date
+		FROM main__student_group_Hist msgh
+		ORDER BY msgh.student_id, msgh.start_date
+	) tbl1
+	WHERE tbl1.group_id = :groupId
+	GROUP BY tbl1.student_id
+) tbl2
+JOIN main__student ms ON ms.id = tbl2.student_id
+WHERE tbl2.start_date <= :finishDate AND tbl2.finish_date >= :startDate
+SQL;
+        return $this->_db->select($stmt, ['groupId' => $groupId, 'startDate' => $startDate, 'finishDate' => $finishDate]);
+    }
+
+    public function getStudentSerieGroupList($studentId, $groupId)
+    {
+        $stmt = <<<SQL
+SELECT
+mss.id student_serie_id,
+mss.serie_id,
+mss.group_id,
+mss.type serie_type,
+msr.name serie_name,
+mss.date serie_date,
+ml.`date` lesson_date,
+ms.name subject_name
+FROM main__student_serie mss
+JOIN main__serie msr ON msr.id = mss.serie_id
+LEFT JOIN main__lesson ml ON ml.id = mss.lesson_id
+LEFT JOIN main__subject ms ON ms.id = ml.subject_id
+WHERE mss.student_id = :studentId AND mss.group_id = :groupId
+SQL;
+        return $this->_db->select($stmt, ['studentId' => $studentId, 'groupId' => $groupId]);
+    }
 }

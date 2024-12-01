@@ -63,6 +63,37 @@ class Main
             'name' => $resDb[0]['group_name'],
             'order' => $resDb[0]['group_order'],
             'parallelId' => $resDb[0]['parallel_id'],
+            'parallelNumber' => $resDb[0]['parallel_number'],
+            'parallelName' => $resDb[0]['parallel_name'],
+        ];
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
+    public function getGroupByLessonId($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::Group::getGroupByLesson');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $lessonId = $args['lessonId'];
+
+        $errorList = [];
+
+        $manager = new Manager();
+        $resDb = $manager->getGroupByLessonId($lessonId);
+
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Группа для занятия с id = {$lessonId} не существует"],
+            );
+        }
+
+        $res =  [
+            'id' => $resDb[0]['group_id'],
+            'name' => $resDb[0]['group_name'],
+            'order' => $resDb[0]['group_order'],
+            'parallelId' => $resDb[0]['parallel_id'],
             'parallelName' => $resDb[0]['parallel_name'],
         ];
         return [Util::MakeSuccessOperationResult($res), []];

@@ -12,6 +12,7 @@ if (is_null($userId)) {
     Session::Instance()->reset();
 }
 
+$userName = SessionObject::Instance()->getUserName();
 $accountId = SessionObject::Instance()->getAccountId();
 $roleId = SessionObject::Instance()->getRoleId();
 $roleStateId = SessionObject::Instance()->getRoleStateId();

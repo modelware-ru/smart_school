@@ -14,12 +14,13 @@ export default class StudentGroupListHeader {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, serieList, lessonId } = settings;
+        const { langId, serieList, lessonId, groupId } = settings;
 
         this._prop = {
             langId,
             serieList,
             lessonId,
+            groupId,
         };
 
         this._state = {
@@ -65,12 +66,13 @@ export default class StudentGroupListHeader {
 
     _fetch = async (action) => {
         const { markedClassSerieList, markedHomeSerieList } = this._state;
-        const { lessonId } = this._prop;
+        const { lessonId, groupId } = this._prop;
         const { serieId } = this._state;
 
         const payload = {
             lessonId,
             serieId,
+            groupId,
             studentClassList: [...markedClassSerieList],
             studentHomeList: [...markedHomeSerieList],
         };

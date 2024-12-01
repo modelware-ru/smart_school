@@ -250,6 +250,7 @@ class Main
         $permissionOptions = $args['permissionOptions'];
         $lessonId = $args['lessonId'];
         $serieId = $args['serieId'];
+        $groupId = $args['groupId'];
         $studentClassList = $args['studentClassList'];
         $studentHomeList = $args['studentHomeList'];
 
@@ -286,7 +287,7 @@ class Main
 
         $manager = new Manager();
         $now = date('Y-m-d', time());
-        $manager->addSerieToLesson($lessonId, $now, $serieId, $studentList);
+        $manager->addSerieToLesson($lessonId, $now, $serieId, $studentList, $groupId);
 
         return [Util::MakeSuccessOperationResult(), []];
     }

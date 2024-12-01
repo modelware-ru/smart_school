@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-10-25 15:44:30]
+// GENERATED [2024-11-29 10:38:59]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -15,8 +15,8 @@ class Constant {
     // Role State
     const ROLE_STATE_GUEST_ACTIVE_ID = 1; // Гость : Активный
     const ROLE_STATE_ADMIN_ACTIVE_ID = 2; // Администратор : Активный
-    const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
     const ROLE_STATE_TEACHER_ACTIVE_ID = 3; // Преподаватель : Активный
+    const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
 
     const ROLE_STATE = [
         self::ROLE_GUEST_ID => [
@@ -26,8 +26,8 @@ class Constant {
             self::ROLE_STATE_ADMIN_ACTIVE_ID,
         ],
         self::ROLE_TEACHER_ID => [
-            self::ROLE_STATE_TEACHER_BLOCKED_ID,
             self::ROLE_STATE_TEACHER_ACTIVE_ID,
+            self::ROLE_STATE_TEACHER_BLOCKED_ID,
         ],
     ];
 
@@ -101,6 +101,8 @@ class Constant {
     const RESOURCE_PAGE_LESSON_JOURNAL = 'lessonJournal'; 
     const RESOURCE_PAGE_TEACHER_GROUP = 'teacherGroup'; 
     const RESOURCE_PAGE_STUDENT_SERIE_SOLUTION = 'studentSerieSolution'; 
+    const RESOURCE_PAGE_STUDENT_GROUP_LIST = 'studentGroupList'; 
+    const RESOURCE_PAGE_STUDENT_SERIE_GROUP_LIST = 'studentSerieGroupList'; 
     // WIDGET
 
     // Action

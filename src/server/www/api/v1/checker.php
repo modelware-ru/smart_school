@@ -249,6 +249,7 @@ function check_type_parameters($apiResource, $payload)
             '_type' => 'object',
             'lessonId' => 1,
             'serieId' => 1,
+            'groupId' => 1,
             'studentClassList' => [
                 '_type' => 'array',
                 '_keyType' => 1,

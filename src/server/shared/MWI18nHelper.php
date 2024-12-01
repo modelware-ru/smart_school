@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-10-25 15:44:33]
+// GENERATED [2024-11-29 10:39:02]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -35,6 +35,8 @@ class MWI18nHelper
     const PAGE_TITLE_LESSON_JOURNAL = 'PAGE_TITLE_LESSON_JOURNAL';
     const PAGE_TITLE_TEACHER_GROUP = 'PAGE_TITLE_TEACHER_GROUP';
     const PAGE_TITLE_STUDENT_SERIE_SOLUTION = 'PAGE_TITLE_STUDENT_SERIE_SOLUTION';
+    const PAGE_TITLE_STUDENT_GROUP_LIST = 'PAGE_TITLE_STUDENT_GROUP_LIST';
+    const PAGE_TITLE_STUDENT_SERIE_GROUP_LIST = 'PAGE_TITLE_STUDENT_SERIE_GROUP_LIST';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_DATE_SHOULD_BE_BETWEEN = 'MSG_FIELD_DATE_SHOULD_BE_BETWEEN';
@@ -411,6 +413,26 @@ class MWI18nHelper
                 'en' =>
                     function (...$args) {
                         return sprintf("Student Solution", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_STUDENT_GROUP_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Список учеников в группе", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Student Group List", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_STUDENT_SERIE_GROUP_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Список серий ученика в группе", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Student Serie Group List", ...$args);
                     },
                 ],
         ];

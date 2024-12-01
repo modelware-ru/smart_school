@@ -24,12 +24,23 @@ SQL;
     public function getGroupById($groupId)
     {
         $stmt = <<<SQL
-SELECT mg.id group_id, mg.name group_name, mg.parallel_id, mp.name parallel_name, mg.`order` group_order
+SELECT mg.id group_id, mg.name group_name, mg.parallel_id, mp.name parallel_name, mp.number parallel_number, mg.`order` group_order
 FROM main__group mg
 JOIN main__parallel mp ON mp.id = mg.parallel_id
 WHERE mg.id = :groupId 
 SQL;
         return $this->_db->select($stmt, ['groupId' => $groupId]);
+    }
+
+    public function getGroupByLessonId($lessonId)
+    {
+        $stmt = <<<SQL
+SELECT mg.id group_id, mg.name group_name, mg.parallel_id, mp.name parallel_name, mg.`order` group_order
+FROM main__group mg
+JOIN main__lesson ml ON mg.id = ml.group_id AND ml.id = :lessonId
+JOIN main__parallel mp ON mp.id = mg.parallel_id
+SQL;
+        return $this->_db->select($stmt, ['lessonId' => $lessonId]);
     }
 
     public function getGroupListByParallelId($parallelId)

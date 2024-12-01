@@ -161,16 +161,17 @@ SQL;
         ]);
     }
 
-    public function addSerieToLesson($lessonId, $date, $serieId, $studentList)
+    public function addSerieToLesson($lessonId, $date, $serieId, $studentList, $groupId)
     {
         $stmt = <<<SQL
-INSERT INTO main__student_serie (`type`, `date`, lesson_id, student_id, serie_id)
-VALUES (:type, :date, :lessonId, :studentId, :serieId)
+INSERT INTO main__student_serie (`type`, `date`, lesson_id, student_id, serie_id, group_id)
+VALUES (:type, :date, :lessonId, :studentId, :serieId, :groupId)
 SQL;
         return $this->_db->insert($stmt, $studentList, [
             'date' => $date,
             'lessonId' => $lessonId,
             'serieId' => $serieId,
+            'groupId' => $groupId,
         ], true);
     }
 

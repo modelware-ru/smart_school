@@ -318,6 +318,22 @@ try {
             $res = srv_save_student_solution($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_SAVE_TASK:
+            $args['id'] = $payload['id'];
+            $args['name'] = $payload['name'];
+            $args['topicId'] = $payload['topicId'];
+
+            require_once 'api/v1/service/task.php';
+            $res = srv_save_task($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_TASK:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/task.php';
+            $res = srv_remove_task($args);
+
+            break;
     }
 
     DBManager::Commit();

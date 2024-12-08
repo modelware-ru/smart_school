@@ -191,6 +191,11 @@ $i18n_TTL = [
         'ru' => 'Теги',
         'en' => 'Tags',
     ],
+    'TASK_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название задачи',
+        'en' => 'Task name',
+    ],
     'TASK_LIST' => [
         '_type' => 'plain',
         'ru' => 'Задачи',
@@ -200,6 +205,11 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Группы преподавателя',
         'en' => 'Teacher groups',
+    ],
+    'TOPIC' => [
+        '_type' => 'plain',
+        'ru' => 'Тема',
+        'en' => 'Topic',
     ],
     'TOPIC_NAME' => [
         '_type' => 'plain',

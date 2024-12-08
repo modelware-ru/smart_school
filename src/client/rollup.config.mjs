@@ -20,6 +20,7 @@ const pages = [
     'teacher_lesson',
     'teacher_lessonJournal',
     'teacher_studentSerieSolution',
+    'teacher_task',
 ];
 
 const export_page = pages.reduce((acc, item) => {

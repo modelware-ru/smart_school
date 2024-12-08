@@ -295,6 +295,20 @@ function check_type_parameters($apiResource, $payload)
             ],
         ],
         // saveStudentSolution FINISH
+        // saveTask START
+        AuthzConstant::RESOURCE_API_SAVE_TASK => [
+            '_type' => 'object',
+            'id' => 1,
+            'name' => 'string',
+            'topicId' => 1,
+        ],
+        // saveTask FINISH
+        // removeTask START
+        AuthzConstant::RESOURCE_API_REMOVE_TASK => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeTask FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

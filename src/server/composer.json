@@ -19,6 +19,7 @@
       "MW\\Module\\Domain\\Subject\\": "./app/module/domain/subject",
       "MW\\Module\\Domain\\Teacher\\": "./app/module/domain/teacher",
       "MW\\Module\\Domain\\Topic\\": "./app/module/domain/topic",
+      "MW\\Module\\Domain\\Task\\": "./app/module/domain/task",
       "MW\\Service\\Authz\\": "./service/authz"
     }
   },

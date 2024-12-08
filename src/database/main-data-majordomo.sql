@@ -29,6 +29,8 @@ INSERT INTO main__api (code_name) VALUES ('removeTeacherGroup');
 INSERT INTO main__api (code_name) VALUES ('addSerieToLesson');
 INSERT INTO main__api (code_name) VALUES ('removeSerieFromLesson');
 INSERT INTO main__api (code_name) VALUES ('saveStudentSolution');
+INSERT INTO main__api (code_name) VALUES ('saveTask');
+INSERT INTO main__api (code_name) VALUES ('removeTask');
 
 INSERT INTO main__page (code_name, name) VALUES ('guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (code_name, name) VALUES ('recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');
@@ -61,6 +63,10 @@ INSERT INTO main__page (code_name, name) VALUES ('lesson', '{"title":{"ru": "З�
 INSERT INTO main__page (code_name, name) VALUES ('lessonJournal', '{"title":{"ru": "Журнал занятия", "en": "Lesson Journal"}}');
 INSERT INTO main__page (code_name, name) VALUES ('teacherGroup', '{"title":{"ru": "Преподаватели в группах", "en": "Teachers in Groups"}}');
 INSERT INTO main__page (code_name, name) VALUES ('studentSerieSolution', '{"title":{"ru": "Решение студента", "en": "Student Solution"}}');
+INSERT INTO main__page (code_name, name) VALUES ('studentGroupList', '{"title":{"ru": "Список учеников в группе", "en": "Student Group List"}}');
+INSERT INTO main__page (code_name, name) VALUES ('studentSerieGroupList', '{"title":{"ru": "Список серий ученика в группе", "en": "Student Serie Group List"}}');
+INSERT INTO main__page (code_name, name) VALUES ('taskList', '{"title":{"ru": "Список задач", "en": "Task List"}}');
+INSERT INTO main__page (code_name, name) VALUES ('task', '{"title":{"ru": "Задача", "en": "Task"}}');
 
 INSERT INTO main__parallel ( id, name, number, show_in_group, `order`) VALUES (1, 'Первая', '1', 'Y', 1);
 INSERT INTO main__parallel ( id, name, number, show_in_group, `order`) VALUES (2, 'Вторая', '2', 'Y', 2);

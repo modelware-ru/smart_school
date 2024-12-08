@@ -75,8 +75,7 @@ class Main
             return [Util::MakeFailOperationResult($errorList), []];
         }
 
-        $resAr = AuthzService::GetMainRoleByAccountId(['accountId' => $accountId]);
-
         return [Util::MakeSuccessOperationResult(test: $data), $data];
     }
+
 }

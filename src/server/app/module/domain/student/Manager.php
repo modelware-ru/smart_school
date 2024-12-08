@@ -274,8 +274,8 @@ SQL;
     public function getStudentListForGroup($groupId, $startDate, $finishDate)
     {
         $stmt = <<<SQL
-SELECT tbl2.student_id, ms.first_name, ms.last_name, ms.middle_name, tbl2.start_date, tbl2.finish_date FROM (
-	SELECT tbl1.student_id, MIN(tbl1.start_date) start_date, (MAX(tbl1.finish_date) - INTERVAL 1 DAY) finish_date
+SELECT tbl2.student_id, ms.first_name, ms.last_name, ms.middle_name, tbl2.start_date, tbl2.finish_date FROM ( 
+	SELECT tbl1.student_id, MIN(tbl1.start_date) start_date, (MAX(tbl1.finish_date) - INTERVAL 1 DAY) finish_date 
 	FROM (
 		SELECT
 		msgh.student_id,

@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-11-29 10:38:59]
+// GENERATED [2024-12-08 17:19:10]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -15,8 +15,8 @@ class Constant {
     // Role State
     const ROLE_STATE_GUEST_ACTIVE_ID = 1; // Гость : Активный
     const ROLE_STATE_ADMIN_ACTIVE_ID = 2; // Администратор : Активный
-    const ROLE_STATE_TEACHER_ACTIVE_ID = 3; // Преподаватель : Активный
     const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
+    const ROLE_STATE_TEACHER_ACTIVE_ID = 3; // Преподаватель : Активный
 
     const ROLE_STATE = [
         self::ROLE_GUEST_ID => [
@@ -26,8 +26,8 @@ class Constant {
             self::ROLE_STATE_ADMIN_ACTIVE_ID,
         ],
         self::ROLE_TEACHER_ID => [
-            self::ROLE_STATE_TEACHER_ACTIVE_ID,
             self::ROLE_STATE_TEACHER_BLOCKED_ID,
+            self::ROLE_STATE_TEACHER_ACTIVE_ID,
         ],
     ];
 
@@ -69,6 +69,8 @@ class Constant {
     const RESOURCE_API_ADD_SERIE_TO_LESSON = 'addSerieToLesson'; 
     const RESOURCE_API_REMOVE_SERIE_FROM_LESSON = 'removeSerieFromLesson'; 
     const RESOURCE_API_SAVE_STUDENT_SOLUTION = 'saveStudentSolution'; 
+    const RESOURCE_API_SAVE_TASK = 'saveTask'; 
+    const RESOURCE_API_REMOVE_TASK = 'removeTask'; 
     // PAGE
     const RESOURCE_PAGE_GUEST_INDEX = 'guestIndex'; 
     const RESOURCE_PAGE_RECOVERY_PASSWORD = 'recoveryPassword'; 
@@ -103,6 +105,8 @@ class Constant {
     const RESOURCE_PAGE_STUDENT_SERIE_SOLUTION = 'studentSerieSolution'; 
     const RESOURCE_PAGE_STUDENT_GROUP_LIST = 'studentGroupList'; 
     const RESOURCE_PAGE_STUDENT_SERIE_GROUP_LIST = 'studentSerieGroupList'; 
+    const RESOURCE_PAGE_TASK_LIST = 'taskList'; 
+    const RESOURCE_PAGE_TASK = 'task'; 
     // WIDGET
 
     // Action

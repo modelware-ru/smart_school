@@ -132,7 +132,7 @@ CREATE TABLE main__task_tag (
     task_id INT UNSIGNED NOT NULL,
     tag_id INT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT main__task_tag___task_id FOREIGN KEY (task_id) REFERENCES main__task(id),
+    CONSTRAINT main__task_tag___task_id FOREIGN KEY (task_id) REFERENCES main__task(id) ON DELETE CASCADE,
     CONSTRAINT main__task_tag___tag_id FOREIGN KEY (tag_id) REFERENCES main__tag(id)
 ) ENGINE = InnoDB;
 

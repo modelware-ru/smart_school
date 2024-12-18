@@ -334,6 +334,23 @@ try {
             $res = srv_remove_task($args);
 
             break;
+        case AuthzConstant::RESOURCE_API_ADD_HOME_SERIE_TO_STUDENT:
+            $args['serieId'] = $payload['serieId'];
+            $args['studentId'] = $payload['studentId'];
+            $args['groupId'] = $payload['groupId'];
+            $args['date'] = $payload['date'];
+
+            require_once 'api/v1/service/serie.php';
+            $res = srv_add_home_serie_to_student($args);
+
+            break;
+        case AuthzConstant::RESOURCE_API_REMOVE_HOME_SERIE_FROM_STUDENT:
+            $args['id'] = $payload['id'];
+
+            require_once 'api/v1/service/serie.php';
+            $res = srv_remove_home_serie_from_student($args);
+
+            break;
     }
 
     DBManager::Commit();

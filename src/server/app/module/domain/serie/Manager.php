@@ -147,4 +147,28 @@ SQL;
             'lessonId' => $lessonId
         ]);
     }
+
+    public function addHomeSerieToStudent($studentId, $serieId, $groupId, $date)
+    {
+        $stmt = <<<SQL
+INSERT INTO main__student_serie (type, student_id, group_id, date, serie_id)
+VALUES ('HOME', :studentId, :groupId, :date, :serieId)
+SQL;
+        return $this->_db->insert($stmt, [
+            0 => [
+                'studentId' => $studentId,
+                'groupId' => $groupId,
+                'date' => $date,
+                'serieId' => $serieId,
+            ],
+        ]);
+    }
+
+    public function removeHomeSerieFromStudent($studentSerieId)
+    {
+        $stmt = <<<SQL
+DELETE FROM main__student_serie WHERE id = :id
+SQL;
+        return $this->_db->delete($stmt, ['id' => $studentSerieId]);
+    }
 }

@@ -11,7 +11,8 @@ class Setting
             'default' => 'docker',
             'test-postfix' => '-test',
             'docker' => [
-                'dsn' => 'mysql:host=db;port=3306;dbname=smart_school;charset=UTF8',
+                'dsn1' => 'mysql:host=db;port=3306;dbname=smart_school;charset=UTF8',
+                'dsn' => 'mysql:host=db;port=3306;dbname=smart_school_www;charset=UTF8',
                 'user' => 'denis',
                 'password' => 'denis',
             ],

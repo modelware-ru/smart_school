@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-12-08 17:19:10]
+// GENERATED [2024-12-18 12:11:41]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -15,8 +15,8 @@ class Constant {
     // Role State
     const ROLE_STATE_GUEST_ACTIVE_ID = 1; // Гость : Активный
     const ROLE_STATE_ADMIN_ACTIVE_ID = 2; // Администратор : Активный
-    const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
     const ROLE_STATE_TEACHER_ACTIVE_ID = 3; // Преподаватель : Активный
+    const ROLE_STATE_TEACHER_BLOCKED_ID = 4; // Преподаватель : Заблокированный
 
     const ROLE_STATE = [
         self::ROLE_GUEST_ID => [
@@ -26,8 +26,8 @@ class Constant {
             self::ROLE_STATE_ADMIN_ACTIVE_ID,
         ],
         self::ROLE_TEACHER_ID => [
-            self::ROLE_STATE_TEACHER_BLOCKED_ID,
             self::ROLE_STATE_TEACHER_ACTIVE_ID,
+            self::ROLE_STATE_TEACHER_BLOCKED_ID,
         ],
     ];
 
@@ -71,6 +71,8 @@ class Constant {
     const RESOURCE_API_SAVE_STUDENT_SOLUTION = 'saveStudentSolution'; 
     const RESOURCE_API_SAVE_TASK = 'saveTask'; 
     const RESOURCE_API_REMOVE_TASK = 'removeTask'; 
+    const RESOURCE_API_ADD_HOME_SERIE_TO_STUDENT = 'addHomeSerieToStudent'; 
+    const RESOURCE_API_REMOVE_HOME_SERIE_FROM_STUDENT = 'removeHomeSerieFromStudent'; 
     // PAGE
     const RESOURCE_PAGE_GUEST_INDEX = 'guestIndex'; 
     const RESOURCE_PAGE_RECOVERY_PASSWORD = 'recoveryPassword'; 

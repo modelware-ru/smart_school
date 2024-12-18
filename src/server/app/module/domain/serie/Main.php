@@ -217,4 +217,56 @@ class Main
         return [Util::MakeSuccessOperationResult(), []];
     }
 
+
+    public function addHomeSerieToStudent($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::Serie::addHomeSerieToStudent');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $studentId = $args['studentId'];
+        $serieId = $args['serieId'];
+        $groupId = $args['groupId'];
+        $date = $args['date'];
+
+        // check. start
+        // check. finish
+
+        try {
+            $manager = new Manager();
+            $manager->addHomeSerieToStudent($studentId, $serieId, $groupId, $date);
+        } catch (MWException $e) {
+            $msg = $e->logData();
+            $localLog->error('Error:', $msg);
+
+            Util::SQLConstraintHandler(
+                $errorList,
+                '/SQLSTATE\[23000\]: Integrity constraint violation: 1062 Duplicate entry.*/',
+                $msg[0],
+                '_msg_',
+                MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
+                ['данные дублируются']
+            );
+
+            if (count($errorList) > 0) {
+                return [Util::MakeFailOperationResult($errorList), []];
+            }
+            throw $e;
+        }
+        return [Util::MakeSuccessOperationResult(), []];
+    }
+
+    public function removeHomeSerieFromStudent($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::Serie::removeHomeSerieFromStudent');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $studentSerieId = $args['id'];
+
+        $manager = new Manager();
+        $manager->removeHomeSerieFromStudent($studentSerieId);
+
+        return [Util::MakeSuccessOperationResult(), []];
+    }
 }

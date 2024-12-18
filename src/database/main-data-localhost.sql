@@ -31,6 +31,8 @@ INSERT INTO main__api (code_name) VALUES ('removeSerieFromLesson');
 INSERT INTO main__api (code_name) VALUES ('saveStudentSolution');
 INSERT INTO main__api (code_name) VALUES ('saveTask');
 INSERT INTO main__api (code_name) VALUES ('removeTask');
+INSERT INTO main__api (code_name) VALUES ('addHomeSerieToStudent');
+INSERT INTO main__api (code_name) VALUES ('removeHomeSerieFromStudent');
 
 INSERT INTO main__page (code_name, name) VALUES ('guestIndex', '{"title":{"ru": "Вход", "en": "Sign In"}}'); 
 INSERT INTO main__page (code_name, name) VALUES ('recoveryPassword', '{"title":{"ru": "Восстановление пароля", "en": "Recovery Password"}}');

@@ -218,7 +218,7 @@ JOIN main__student mst ON mst.id = mss.student_id
 JOIN main__serie msr ON msr.id = mss.serie_id
 LEFT JOIN main__lesson ml ON ml.id = mss.lesson_id
 LEFT JOIN main__subject ms ON ms.id = ml.subject_id
-LEFT JOIN main__group mg ON mg.id = ml.group_id
+LEFT JOIN main__group mg ON mg.id = mss.group_id
 LEFT JOIN main__parallel mp ON mp.id = mg.parallel_id
 WHERE mss.id = :studentSerieId 
 SQL;

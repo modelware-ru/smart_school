@@ -24,8 +24,6 @@ export default class TaskForm {
             topicList,
         };
 
-        console.log(topicList)
-
         this._state = {};
 
         this._stateNameInput = {};

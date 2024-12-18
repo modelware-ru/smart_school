@@ -11,7 +11,7 @@ global $userName;
     <ul class="navbar-nav mb-2 mb-md-0 gap-md-4">
         <!-- <li class="nav-item"><span role="button" class="nav-link active btn btn-light" onclick="window.close();">Закрыть окно</span></li> -->
         <li class="nav-item">
-            <button role="button" class="nav-link active btn btn-light" onclick="window.close();">
+            <button role="button" class="active btn btn-light" onclick="window.close();">
                 <span role="status">Закрыть окно</span>
                 <i class="bi bi-x-lg ms-3"></i>
             </button>

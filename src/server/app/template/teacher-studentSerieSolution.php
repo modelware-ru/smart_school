@@ -68,10 +68,12 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
                     <th scope="row">Тип серии</th>
                     <td><?= $studentSerie['serieType'] === 'HOME' ? "Домашняя" : "Классная" ?> / <?= $studentSerie['serieDate'] ?></td>
                 </tr>
-                <tr>
-                    <th scope="row">Занятие</th>
-                    <td><?= $studentSerie['subjectName'] ?> / <?= $studentSerie['lessonDate'] ?></td>
-                </tr>
+                <?php if (!is_null($studentSerie['subjectName'])) { ?>
+                    <tr>
+                        <th scope="row">Занятие</th>
+                        <td><?= $studentSerie['subjectName'] ?> / <?= $studentSerie['lessonDate'] ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
 

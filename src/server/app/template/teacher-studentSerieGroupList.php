@@ -5,6 +5,7 @@ use MW\Module\Domain\SchoolYear\Main as SchoolYearModule;
 use MW\Module\Domain\Student\Main as StudentModule;
 use MW\Service\Authz\Constant as AuthzConstant;
 use MW\Module\Domain\Group\Main as GroupModule;
+use MW\Module\Domain\Serie\Main as SerieModule;
 
 global $templateData;
 global $langId;
@@ -75,13 +76,42 @@ $groupName = ($res->getData())['name'];
 $parallelName = ($res->getData())['parallelName'];
 $parallelNumber = ($res->getData())['parallelNumber'];
 
+// getStudentById
+$args = [
+    'permissionOptions' => $templateData['permissionOptions'],
+];
+list($res, $data) = (new SerieModule())->getSerieList($args);
+
+$serieList = array_reduce($res->getData(), function ($carry, $item) {
+    $carry[] = [
+        'value' => strval($item['id']),
+        'name' => $item['name'],
+        'disabled' => false,
+    ];
+    return $carry;
+}, [
+    0 => [
+        "value" => "0",
+        "name" => "Выберите серию",
+        "disabled" => false,
+    ]
+]);
+
+$templateData['_js']['studentId'] = $studentId;
+$templateData['_js']['groupId'] = $groupId;
+$templateData['_js']['serieList'] = $serieList;
+$templateData['_js']['schoolYear'] = [
+    'startDate' => $startDate,
+    'finishDate' => $finishDate,
+];
 ?>
+
 <!DOCTYPE html>
 <html lang='<?= $langId ?>' data-bs-theme='auto'>
 
 <head>
     <?= Util::RenderTemplate('app/template/shared/head.php') ?>
-    <!-- <script type='text/javascript' src='js/teacher_studentSerieSolution_bundle.js' defer></script> -->
+    <script type='text/javascript' src='js/teacher_studentSerieGroupList_bundle.js' defer></script>
 </head>
 
 <body>
@@ -107,12 +137,10 @@ $parallelNumber = ($res->getData())['parallelNumber'];
             </tbody>
         </table>
 
-        <div class="d-flex justify-content-end mb-3">
-            <a href="student-serie.php?id=0&studentId=<?= $studentId ?>&groupId=<?= $groupId ?>&schoolYearId=<?= $schoolYearId ?>" class="btn btn-success disabled">
-                <i class="bi bi-plus-circle me-3"></i>
-                <span role="status">Добавить</span>
-            </a>
+        <div id="main">
+            <div id="student-serie-group-list-header"></div>
         </div>
+
         <?php
         if (count($studentSerieList) > 0) {
         ?>
@@ -123,6 +151,7 @@ $parallelNumber = ($res->getData())['parallelNumber'];
                         <th scope="col">#</th>
                         <th scope="col">Серия</th>
                         <th scope="col">Тип серии</th>
+                        <th scope="col">Дата выдачи</th>
                         <th scope="col">Занятие</th>
                         <th scope="col">Действие</th>
                     </tr>
@@ -134,8 +163,13 @@ $parallelNumber = ($res->getData())['parallelNumber'];
                         <tr data-id="<?= $item['id'] ?>">
                             <th scope="row" class="text-end text-nowrap"><?= $key + 1 ?></th>
                             <td><?= $item['serieName'] ?></td>
-                            <td><?= $item['serieType'] === 'HOME' ? "Домашняя" : "Классная" ?> / <?= $item['serieDate'] ?></td>
-                            <td><?= $item['subjectName'] ?> / <?= $item['lessonDate'] ?></td>
+                            <td><?= $item['serieType'] === 'HOME' ? "Домашняя" : "Классная" ?></td>
+                            <td><?= $item['serieDate'] ?></td>
+                            <?php if (is_null($item['subjectName'])) { ?>
+                                <td></td>
+                            <?php } else { ?>
+                                <td><?= $item['subjectName'] ?> / <?= $item['lessonDate'] ?></td>
+                            <?php } ?>
                             <td class="p-1">
                                 <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm disabled'><i class="bi bi-trash"></i></button>
                             </td>

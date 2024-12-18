@@ -309,6 +309,21 @@ function check_type_parameters($apiResource, $payload)
             'id' => 1,
         ],
         // removeTask FINISH
+        // addHomeSerieToStudent START
+        AuthzConstant::RESOURCE_API_ADD_HOME_SERIE_TO_STUDENT => [
+            '_type' => 'object',
+            'serieId' => 1,
+            'studentId' => 1,
+            'groupId' => 1,
+            'date' => 'string',
+        ],
+        // addHomeSerieToStudent FINISH
+        // removeHomeSerieFromStudent START
+        AuthzConstant::RESOURCE_API_REMOVE_HOME_SERIE_FROM_STUDENT => [
+            '_type' => 'object',
+            'id' => 1,
+        ],
+        // removeHomeSerieFromStudent FINISH
     ];
 
     if (!array_key_exists($apiResource, $checkList)) {

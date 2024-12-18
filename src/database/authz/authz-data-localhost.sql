@@ -36,6 +36,8 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (3
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (31, 1, 'saveStudentSolution');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (32, 1, 'saveTask');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (33, 1, 'removeTask');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (34, 1, 'addHomeSerieToStudent');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (35, 1, 'removeHomeSerieFromStudent');
 
 -- Показ страницы
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (100, 2, 'guestIndex'); 
@@ -143,6 +145,8 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (31, 3, 'ALLOW', 1, '{}', 3); -- saveStudentSolution
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (32, 3, 'ALLOW', 1, '{}', 3); -- saveTask
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (33, 3, 'ALLOW', 1, '{}', 3); -- removeTask
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (34, 3, 'ALLOW', 1, '{}', 3); -- addHomeSerieToStudent
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (35, 3, 'ALLOW', 1, '{}', 3); -- removeHomeSerieFromStudent
 
 -- Преподаватель ---- Показ страницы
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (110, 3, 'ALLOW', 1, '{}', 3); -- teacherIndex

@@ -137,7 +137,7 @@ list($res, $data) = (new StudentModule())->getStudentListForGroup($args);
         ?>
             <div class="alert alert-info rounded-0 my-3" role="alert">
                 <div>
-                    <p class="m-0">Не найдено ни одно ученика.</p>
+                    <p class="m-0">Не найдено ни одного ученика.</p>
                 </div>
             </div>
         <?php

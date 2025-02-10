@@ -164,7 +164,7 @@ list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
         ?>
             <div class="alert alert-info rounded-0 my-3" role="alert">
                 <div>
-                    <p class="m-0">Не найдено ни одно занятие.</p>
+                    <p class="m-0">Не найдено ни одного занятие.</p>
                 </div>
             </div>
         <?php

@@ -184,7 +184,7 @@ $templateData['_js']['schoolYear'] = [
         ?>
             <div class="alert alert-info rounded-0 my-3" role="alert">
                 <div>
-                    <p class="m-0">Не найдено ни одно серии для данного ученика.</p>
+                    <p class="m-0">Не найдено ни одной серии для данного ученика.</p>
                 </div>
             </div>
         <?php

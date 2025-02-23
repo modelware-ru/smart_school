@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap = "../server/vendor/autoload.php"
+    backupGlobals               = "false"
+    colors                      = "true"
+    processIsolation            = "false"
+    stopOnFailure               = "false">
+
+    <testsuites>
+        <testsuite name="API Test Suite">
+            <file>./api/TestPostRequest.php</file>
+            <file>./api/TestGetCode.php</file>
+            <file>./api/TestSignUp.php</file>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory>../server/app</directory>
+            <directory>../server/service</directory>
+            <directory>../server/setting</directory>
+            <directory>../server/shared</directory>
+        </include>
+    </source>
+</phpunit>

@@ -1,3 +1,4 @@
-node_modules/
 **/node_modules
-vendor/
+**/vendor
+package-lock.json
+src/server/app/Setting.majordomo.php

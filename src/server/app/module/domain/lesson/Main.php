@@ -298,6 +298,7 @@ class Main
         $localLog->info('parameters:', Util::MaskData($args));
 
         $permissionOptions = $args['permissionOptions'];
+        $groupId = $args['groupId'];
         $lessonId = $args['lessonId'];
         $serieId = $args['serieId'];
         $studentClassList = $args['studentClassList'];
@@ -321,7 +322,7 @@ class Main
         $studentList = array_merge($studentClassListEx, $studentHomeListEx);
 
         $manager = new Manager();
-        $manager->removeSerieFromLesson($lessonId, $serieId, $studentList);
+        $manager->removeSerieFromLesson($groupId, $lessonId, $serieId, $studentList);
 
         return [Util::MakeSuccessOperationResult(), []];
     }

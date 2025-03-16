@@ -265,6 +265,7 @@ function check_type_parameters($apiResource, $payload)
         // removeSerieFromLesson START
         AuthzConstant::RESOURCE_API_REMOVE_SERIE_FROM_LESSON => [
             '_type' => 'object',
+            'groupId' => 1,
             'lessonId' => 1,
             'serieId' => 1,
             'studentClassList' => [

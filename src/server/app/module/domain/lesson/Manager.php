@@ -175,11 +175,11 @@ SQL;
         ], true);
     }
 
-    public function removeSerieFromLesson($lessonId, $serieId, $studentList)
+    public function removeSerieFromLesson($groupId, $lessonId, $serieId, $studentList)
     {
         $stmt = <<<SQL
-DELETE FROM main__student_serie WHERE lesson_id = :lessonId AND serie_id = :serieId AND student_id = :studentId AND type = :type
+DELETE FROM main__student_serie WHERE group_id = :groupId AND lesson_id = :lessonId AND serie_id = :serieId AND student_id = :studentId AND type = :type
 SQL;
-        return $this->_db->deleteEx($stmt, $studentList, ['lessonId' => $lessonId, 'serieId' => $serieId]);
+        return $this->_db->deleteEx($stmt, $studentList, ['lessonId' => $lessonId, 'serieId' => $serieId, 'groupId' => $groupId]);
     }
 }

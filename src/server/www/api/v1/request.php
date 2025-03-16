@@ -301,6 +301,7 @@ try {
 
             break;
         case AuthzConstant::RESOURCE_API_REMOVE_SERIE_FROM_LESSON:
+            $args['groupId'] = $payload['groupId'];
             $args['lessonId'] = $payload['lessonId'];
             $args['serieId'] = $payload['serieId'];
             $args['studentClassList'] = $payload['studentClassList'];

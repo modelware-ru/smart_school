@@ -2,3 +2,4 @@
 **/vendor
 package-lock.json
 src/server/app/Setting.majordomo.php
+*.bak

@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-12-18 12:11:41]
+// GENERATED [2025-03-26 07:43:12]
 namespace MW\Service\Authz;
 
 class Constant {
@@ -109,6 +109,7 @@ class Constant {
     const RESOURCE_PAGE_STUDENT_SERIE_GROUP_LIST = 'studentSerieGroupList'; 
     const RESOURCE_PAGE_TASK_LIST = 'taskList'; 
     const RESOURCE_PAGE_TASK = 'task'; 
+    const RESOURCE_PAGE_STUDENT_SERIE_LIST = 'studentSerieList'; 
     // WIDGET
 
     // Action

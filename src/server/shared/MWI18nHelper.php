@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2024-12-18 12:11:51]
+// GENERATED [2025-03-26 07:48:35]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -39,6 +39,7 @@ class MWI18nHelper
     const PAGE_TITLE_STUDENT_SERIE_GROUP_LIST = 'PAGE_TITLE_STUDENT_SERIE_GROUP_LIST';
     const PAGE_TITLE_TASK_LIST = 'PAGE_TITLE_TASK_LIST';
     const PAGE_TITLE_TASK = 'PAGE_TITLE_TASK';
+    const PAGE_TITLE_STUDENT_SERIE_LIST = 'PAGE_TITLE_STUDENT_SERIE_LIST';
 
     const MSG_FIELD_EMAIL_INCORRECT = 'MSG_FIELD_EMAIL_INCORRECT';
     const MSG_FIELD_DATE_SHOULD_BE_BETWEEN = 'MSG_FIELD_DATE_SHOULD_BE_BETWEEN';
@@ -455,6 +456,16 @@ class MWI18nHelper
                 'en' =>
                     function (...$args) {
                         return sprintf("Task", ...$args);
+                    },
+                ],
+            self::PAGE_TITLE_STUDENT_SERIE_LIST => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Список серий ученика", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Student Serie List", ...$args);
                     },
                 ],
         ];

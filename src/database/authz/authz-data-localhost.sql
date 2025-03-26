@@ -75,6 +75,7 @@ INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (1
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (132, 2, 'studentSerieGroupList');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (133, 2, 'taskList');
 INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (134, 2, 'task');
+INSERT INTO authz__permission (id, action_id, resource_code_name_mask) VALUES (135, 2, 'studentSerieList');
 
 INSERT INTO authz__role (id, code_name, name, description) VALUES (1, 'Guest', 'Гость', '');
 INSERT INTO authz__role (id, code_name, name, description) VALUES (2, 'Admin', 'Администратор', '');
@@ -167,6 +168,7 @@ INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, op
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (132, 3, 'ALLOW', 1, '{}', 3); -- studentSerieGroupList
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (133, 3, 'ALLOW', 1, '{}', 3); -- taskList
 INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (134, 3, 'ALLOW', 1, '{}', 3); -- task
+INSERT INTO authz__role_permission (permission_id, role_id, permission, prio, options, role_state_id) VALUES (135, 3, 'ALLOW', 1, '{}', 3); -- studentSerieList
 
 -- Account
 INSERT INTO authz__account (id) VALUES (1);

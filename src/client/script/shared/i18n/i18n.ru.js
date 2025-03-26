@@ -1,4 +1,4 @@
-// GENERATED [2024-12-18 12:11:51]
+// GENERATED [2025-03-26 07:48:35]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {

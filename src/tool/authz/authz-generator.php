@@ -11,13 +11,23 @@ use MW\Shared\Logger;
 use MW\Shared\MWException;
 use MW\Shared\Util;
 
+
+$options = getopt('c:');
+
+if (!key_exists('c', $options)) {
+    echo "Usage: -c <connectionKey>" . PHP_EOL;
+    exit();
+}
+
+$connectionName = $options['c'];
+
 $authzPath = '../../server/service/authz';
 $authzJsPath = '../../client/script/shared';
 try {
     $log = Logger::Init('tool-authz', false, 'path_localhost');
     $log->notice('start');
 
-    $db = DBManager::GetConnection('localhost');
+    $db = DBManager::GetConnection($connectionName);
     //
     $roleList = $db->select('SELECT id, code_name, name FROM authz__role');
     $actionList = $db->select('SELECT id, code_name, name FROM authz__action');

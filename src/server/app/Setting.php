@@ -22,7 +22,7 @@ class Setting
             //     'password' => 'Webapp_1973!',
             // ],
             'localhost' => [
-                'dsn' => 'mysql:host=127.0.0.1;port=33306;dbname=smart_school;charset=UTF8',
+                'dsn' => 'mysql:host=127.0.0.1;port=33306;dbname=smart_school_www;charset=UTF8',
                 'user' => 'root',
                 'password' => 'root',
             ],

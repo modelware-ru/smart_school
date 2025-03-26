@@ -150,7 +150,7 @@ list($res, $data) = (new StudentModule())->getStudentListForGroup($args);
             for (const item of document.querySelectorAll('.table.clickable-rows>tbody>tr:not([noclick])')) {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    window.open(`student-serie-group-list.php?id=${item.dataset.id}&groupId=<?= $groupId?>&schoolYearId=<?= $schoolYearId?>`, '_blank');
+                    window.open(`student-serie-list.php?id=${item.dataset.id}&groupId=<?= $groupId?>&schoolYearId=<?= $schoolYearId?>`, '_blank');
                 });
             }
         });

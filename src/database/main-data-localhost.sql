@@ -69,6 +69,7 @@ INSERT INTO main__page (code_name, name) VALUES ('studentGroupList', '{"title":{
 INSERT INTO main__page (code_name, name) VALUES ('studentSerieGroupList', '{"title":{"ru": "Список серий ученика в группе", "en": "Student Serie Group List"}}');
 INSERT INTO main__page (code_name, name) VALUES ('taskList', '{"title":{"ru": "Список задач", "en": "Task List"}}');
 INSERT INTO main__page (code_name, name) VALUES ('task', '{"title":{"ru": "Задача", "en": "Task"}}');
+INSERT INTO main__page (code_name, name) VALUES ('studentSerieList', '{"title":{"ru": "Список серий ученика", "en": "Student Serie List"}}');
 
 -- INSERT INTO main__widget (id, code_name) VALUES (1, 'signUpForm');
 -- INSERT INTO main__widget (id, code_name) VALUES (2, 'guestNavigator');

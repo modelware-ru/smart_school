@@ -314,4 +314,29 @@ WHERE mss.student_id = :studentId AND mss.group_id = :groupId
 SQL;
         return $this->_db->select($stmt, ['studentId' => $studentId, 'groupId' => $groupId]);
     }
+
+    public function getStudentSerieList($studentId, $startDate, $finishDate)
+    {
+        $stmt = <<<SQL
+SELECT
+mss.id student_serie_id,
+mss.serie_id,
+mss.group_id,
+mss.type serie_type,
+msr.name serie_name,
+mss.date serie_date,
+ml.`date` lesson_date,
+ms.name subject_name,
+mg.name group_name
+FROM main__student_serie mss
+JOIN main__serie msr ON msr.id = mss.serie_id
+LEFT JOIN main__lesson ml ON ml.id = mss.lesson_id
+LEFT JOIN main__subject ms ON ms.id = ml.subject_id
+JOIN main__group mg ON mg.id = mss.group_id
+WHERE mss.student_id = :studentId
+AND mss.`date` >= :startDate AND mss.`date` <= :finishDate
+ORDER BY ml.`date`
+SQL;
+        return $this->_db->select($stmt, ['studentId' => $studentId, 'startDate' => $startDate, 'finishDate' => $finishDate]);
+    }
 }

@@ -535,4 +535,35 @@ class Main
 
         return [Util::MakeSuccessOperationResult($res), []];
     }
+    public function getStudentSerieList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::Student::getStudentSerieList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+        $studentId = $args['studentId'];
+        $startDate = $args['startDate'];
+        $finishDate = $args['finishDate'];
+
+        $errorList = [];
+
+        $manager = new Manager();
+        $resDb = $manager->getStudentSerieList($studentId, $startDate, $finishDate);
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['student_serie_id'],
+                'groupId' => $item['group_id'],
+                'groupName' => $item['group_name'],
+                'serieId' => $item['serie_id'],
+                'serieName' => $item['serie_name'],
+                'serieType' => $item['serie_type'],
+                'serieDate' => substr($item['serie_date'], 0, 10),
+                'lessonDate' => substr($item['lesson_date'], 0, 10),
+                'subjectName' => $item['subject_name'],
+            ];
+        }, $resDb);
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }    
 }

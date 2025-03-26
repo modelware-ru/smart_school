@@ -1,1 +1,1 @@
-php authz-generator.php 
+php authz-generator.php "$@"

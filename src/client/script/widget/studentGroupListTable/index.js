@@ -37,7 +37,7 @@ export default class StudentGroupListTable {
                                 value: <strong>{key + 1}</strong>,
                             },
                             {
-                                value: <a href={`student-serie-group-list.php?id=${item['id']}&groupId=${groupId}&schoolYearId=${schoolYearId}`} target="_blank">{item['name']}</a>,
+                                value: <a href={`student-serie-list.php?id=${item['id']}&groupId=${groupId}&schoolYearId=${schoolYearId}`} target="_blank">{item['name']}</a>,
                             },
                             {
                                 value: (

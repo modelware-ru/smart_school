@@ -11,6 +11,16 @@ use MW\Shared\Logger;
 use MW\Shared\MWException;
 use MW\Shared\Util;
 
+
+$options = getopt('c:');
+
+if (!key_exists('c', $options)) {
+    echo "Usage: -c <connectionKey>" . PHP_EOL;
+    exit();
+}
+
+$connectionName = $options['c'];
+
 $jsPath = '../../client/script/shared/i18n';
 $phpPath = '../../server/shared';
 require_once './i18n-data.php';
@@ -32,7 +42,7 @@ try {
 
     // php
     // Данные для названий страниц берутся из базы данных
-    $db = DBManager::GetConnection('localhost');
+    $db = DBManager::GetConnection($connectionName);
 
     $pageList = $db->select('SELECT id, code_name, name FROM main__page');
 

@@ -1,1 +1,1 @@
-php i18n-generator.php 
+php i18n-generator.php "$@"

@@ -1,4 +1,4 @@
-// GENERATED [2025-03-26 07:48:35]
+// GENERATED [2025-04-18 05:42:22]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -46,8 +46,8 @@ export default {
   TTL_TOPIC_NAME: (...args) => `Topic name`,
   TTL_TO_ADD_SERIE: (...args) => `Add Serie`,
   TTL_TO_CANCEL: (...args) => `Cancel`,
-  TTL_TO_CHANGE_CLASS: (...args) => <span>Change class <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
-  TTL_TO_CHANGE_GROUP: (...args) => <span>Change group <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
+  TTL_TO_CHANGE_CLASS: (...args) => <span>Change class <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
+  TTL_TO_CHANGE_GROUP: (...args) => <span>Change group <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>,
   TTL_TO_REMOVE: (...args) => `Remove`,
   TTL_TO_REMOVE_IN_PROGRESS: (...args) => `Removing...`,
   TTL_TO_REMOVE_SERIE: (...args) => `Remove Serie`,

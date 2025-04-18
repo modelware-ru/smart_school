@@ -228,13 +228,13 @@ $i18n_TTL = [
     ],
     'TO_CHANGE_CLASS' => [
         '_type' => 'html',
-        'ru' => '<span>Сменить класс <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
-        'en' => '<span>Change class <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
+        'ru' => '<span>Сменить класс <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
+        'en' => '<span>Change class <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
     ],
     'TO_CHANGE_GROUP' => [
         '_type' => 'html',
-        'ru' => '<span>Сменить группу <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
-        'en' => '<span>Change group <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
+        'ru' => '<span>Сменить группу <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
+        'en' => '<span>Change group <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{args[0]}</span></span>',
     ],
     'TO_REMOVE' => [
         '_type' => 'plain',

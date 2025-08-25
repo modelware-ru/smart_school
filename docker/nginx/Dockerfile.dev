@@ -1,7 +1,0 @@
-FROM nginx:1.27
-
-RUN apt-get update && apt-get install -y mc
-
-RUN usermod -u 1000 nginx && groupmod -g 1000 nginx
-
-WORKDIR /usr/share/nginx

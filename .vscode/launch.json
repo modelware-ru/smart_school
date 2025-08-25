@@ -10,8 +10,8 @@
             "request": "launch",
             "port": 9005,
             "pathMappings": {
-                "/usr/share/nginx": "${workspaceFolder}/src/server",
-                "/usr/share/tool": "${workspaceFolder}/src/tool"
+                "/usr/share/nginx": "${workspaceFolder}/main/server",
+                "/usr/share/tool": "${workspaceFolder}/main/tool"
             }
         },
         {

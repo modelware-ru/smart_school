@@ -1,0 +1,6 @@
+app/*
+!app/.gitempty
+nginx/*
+!nginx/.gitempty
+php/*
+!php/.gitempty

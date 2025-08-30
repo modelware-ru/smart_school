@@ -23,6 +23,7 @@ const pages = [
     'teacher_task',
     'teacher_studentSerieGroupList',
     'teacher_studentSerieList',
+    'test',
 ];
 
 const export_page = pages.reduce((acc, item) => {

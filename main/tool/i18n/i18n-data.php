@@ -185,7 +185,12 @@ $i18n_TTL = [
         '_type' => 'plain',
         'ru' => 'Подтемы',
         'en' => 'Subtopics',
-    ],    
+    ],
+    'SUBTOPIC_NAME' => [
+        '_type' => 'plain',
+        'ru' => 'Название подтемы',
+        'en' => 'Subtopic name',
+    ],
     'SUBJECT' => [
         '_type' => 'plain',
         'ru' => 'Предмет',
@@ -365,7 +370,7 @@ $i18n_MSG = [
         'ru' => 'Одна и та же серия указана как \"классная\", так и \"домашняя\"',
         'en' => 'Some serie is both "a class" serie and "a home" one',
         'log' => 'Одна и та же серия указана как \"классная\", так и \"домашняя\"',
-    ],    
+    ],
 
 ];
 

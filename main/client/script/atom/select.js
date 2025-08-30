@@ -19,7 +19,7 @@ export default class Select extends Atom {
             error = '',
             disabled = false,
             mandatory = false,
-            onChanged = null,
+            onChange = null,
         } = settings;
 
         this._prop = {
@@ -39,7 +39,7 @@ export default class Select extends Atom {
         };
 
         this._callback = {
-            onChanged,
+            onChange,
         };
 
         this.el = this._ui_render();
@@ -61,10 +61,12 @@ export default class Select extends Atom {
             // finish "label"
             // start "value"
             case 'value':
+                this._updateState('value', value);
                 break;
             // finish "value"
             // start "optionData"
             case 'optionData':
+                this._el.select = mount(this.el, this._ui_select(), _ui_select, true);
                 break;
             // finish "optionData"
             // start "help"
@@ -118,11 +120,13 @@ export default class Select extends Atom {
 
     _onChange = (e) => {
         const { value: oldValue } = this._state;
+        const { onChange } = this._callback;
         const newValue = e.target.value;
 
         if (oldValue === newValue) return;
 
         this._updateState('value', newValue);
+        onChange && onChange(oldValue, newValue);
     };
 
     _select_class_name = () => {
@@ -140,6 +144,25 @@ export default class Select extends Atom {
         return <span className="text-danger">{hasError === 'yes' && error}</span>;
     };
 
+    _ui_select = () => {
+        const { optionData, disabled } = this._prop;
+        const { value } = this._state;
+
+        const optionList = optionData.map((item) => {
+            return (
+                <option value={item['value']} disabled={item['disabled']} selected={item['value'] === value}>
+                    {item['name']}
+                </option>
+            );
+        });
+
+        return (
+            <select id={this.labelFor} className={this._select_class_name()} disabled={disabled} value={value} onchange={this._onChange}>
+                {optionList}
+            </select>
+        );
+    };
+
     // start "_ui_render"
     _ui_render = () => {
         const {
@@ -153,21 +176,8 @@ export default class Select extends Atom {
             disabled,
             mandatory,
         } = this._prop;
-        const { value } = this._state;
 
-        const optionList = optionData.map((item) => {
-            return (
-                <option value={item['value']} disabled={item['disabled']} selected={item['value'] === value}>
-                    {item['name']}
-                </option>
-            );
-        });
-
-        this._el.select = (
-            <select id={this.labelFor} className={this._select_class_name()} disabled={disabled} value={value} onchange={this._onChange}>
-                {optionList}
-            </select>
-        );
+        this._el.select = this._ui_select();
         this._el.label = <span>{label}</span>;
         this._el.help = this._ui_help();
         this._el.error = this._ui_error();
@@ -194,3 +204,9 @@ export default class Select extends Atom {
     };
     // finish "_ui_render"
 }
+
+const factory = (settings) => {
+    return new Select(settings);
+};
+
+export { factory };

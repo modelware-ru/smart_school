@@ -1,4 +1,5 @@
 <?php
+
 namespace MW\App;
 
 use MW\Service\Authz\Constant as AuthzConstant;
@@ -23,6 +24,15 @@ class Page
         try {
             $log = Logger::Init("page__{$resource}_{$roleName}");
             $log->notice('start');
+
+            // TEST
+            if ($resource === "test") {
+                $templateData = [
+                    'title' => MWI18nHelper::PAGE_TITLE_TEACHER,
+                ];
+                echo Util::RenderTemplate("app/template/test.php");
+                return;
+            }
 
             $resourceType = AuthzConstant::RESOURCE_TYPE_PAGE;
             $actionId = AuthzConstant::ACTION_PAGE_SHOW;
@@ -89,7 +99,6 @@ class Page
             ];
 
             echo Util::RenderTemplate("app/template/{$roleName}-{$resource}.php");
-
         } catch (\Throwable $e) {
 
             $resource = AuthzConstant::RESOURCE_PAGE_MESSAGE;
@@ -156,5 +165,4 @@ class Page
             $log->notice('finish');
         }
     }
-
 }

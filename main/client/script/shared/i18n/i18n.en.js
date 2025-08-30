@@ -1,4 +1,4 @@
-// GENERATED [2025-08-24 12:30:32]
+// GENERATED [2025-08-30 15:43:33]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -38,6 +38,7 @@ export default {
   TTL_SIGN_IN: (...args) => `Sign In`,
   TTL_STATE: (...args) => `State`,
   TTL_SUBTOPIC_LIST: (...args) => `Subtopics`,
+  TTL_SUBTOPIC_NAME: (...args) => `Subtopic name`,
   TTL_SUBJECT: (...args) => `Subject`,
   TTL_SUBJECT_NAME: (...args) => `Subject name`,
   TTL_TAG_LIST: (...args) => `Tags`,

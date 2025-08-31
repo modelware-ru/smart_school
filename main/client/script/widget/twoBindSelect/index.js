@@ -10,7 +10,16 @@ export default class TwoBindSelect {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, label, value, optionData, onReady = null } = settings;
+        const {
+            langId,
+            label = {
+                first: '',
+                second: '',
+            },
+            value,
+            optionData,
+            onReady = null,
+        } = settings;
 
         this._prop = {
             langId,
@@ -24,8 +33,8 @@ export default class TwoBindSelect {
         };
 
         this._callback = {
-            onReady
-        }
+            onReady,
+        };
 
         this._stateFirstSelect = {};
         this._atm.firstSelect = <Select label={i18n(langId, label.first)} value={value.first} onChange={this.onChangeFirst}></Select>;
@@ -40,6 +49,10 @@ export default class TwoBindSelect {
         });
 
         this.el = this._ui_render();
+    }
+
+    hide = () => {
+       this.el.className = 'd-none';
     }
 
     _updateStateSelect = (entity, state) => {
@@ -71,7 +84,7 @@ export default class TwoBindSelect {
         }
     };
 
-    getState = (name) => {
+    state = (name) => {
         return this._state[name];
     };
 
@@ -91,6 +104,9 @@ export default class TwoBindSelect {
             first: newValue,
             second: '0',
         };
+
+        const { onReady } = this._callback;
+        onReady && onReady(false);
     };
 
     onChangeSecond = (oldValue, newValue) => {
@@ -104,8 +120,8 @@ export default class TwoBindSelect {
         this._state.value = value;
 
         if (value.first !== '0' && value.second !== '0') {
-            const {onReady} = this._callback;
-            onReady && onReady();
+            const { onReady } = this._callback;
+            onReady && onReady(true);
         }
     };
 
@@ -118,3 +134,9 @@ export default class TwoBindSelect {
         );
     };
 }
+
+const factory = (settings) => {
+    return new TwoBindSelect(settings);
+};
+
+export { factory };

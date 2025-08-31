@@ -184,10 +184,12 @@ export default class Select extends Atom {
 
         return (
             <div className={className}>
-                <label for={this.labelFor} className="form-label fw-bold">
-                    {this._el.label}
-                    {mandatory && <span className="text-danger">&nbsp;*</span>}
-                </label>
+                {label.length !== 0 && (
+                    <label for={this.labelFor} className="form-label fw-bold">
+                        {this._el.label}
+                        {mandatory && <span className="text-danger">&nbsp;*</span>}
+                    </label>
+                )}
                 {this._el.select}
                 <div className="d-flex justify-content-between">
                     {

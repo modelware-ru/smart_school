@@ -1,11 +1,14 @@
 import { mount, el } from '../node_modules/redom/dist/redom.es';
 import i18n from './shared/i18n/index';
 
-import TwoBindSelect from './widget/twoBindSelect/index';
+import DynamicList from './atom/dynamicList';
+import { factory as twoBindSelectFactory } from './widget/twoBindSelect/index';
+
+import Button from './atom/button';
 
 const langId = 'ru';
 
-const opt1 = [
+const optionDataFirst = [
     {
         value: '0',
         name: 'Выберите тему',
@@ -25,7 +28,7 @@ const opt1 = [
     },
 ];
 
-const opt2 = {
+const optionDataSecond = {
     0: [
         {
             value: '0',
@@ -92,28 +95,55 @@ const opt2 = {
     ],
 };
 
-const onReady = () => {
-    console.log('Ready');
-}
+const data = {
+    optionData: {
+        first: optionDataFirst,
+        second: optionDataSecond,
+    },
+    label1: {
+        first: 'TTL_TOPIC_NAME',
+        second: 'TTL_SUBTOPIC_NAME',
+    },
+};
+
+const defaultValue = {
+    first: '0',
+    second: '0',
+};
+
+const value = [
+    {
+        first: 'a1',
+        second: 'a11',
+    },
+    {
+        first: 'a1',
+        second: 'a12',
+    },
+    {
+        first: 'a2',
+        second: 'a21',
+    },
+];
+
+const dl = (
+    <DynamicList
+        langId={langId}
+        factory={{
+            data,
+            creator: twoBindSelectFactory,
+        }}
+        defaultValue={defaultValue}
+        value={value}
+    />
+);
 
 mount(
     document.getElementById('main'),
     <div className="w-100">
-        <TwoBindSelect
-            langId={langId}
-            label={{
-                first: i18n(langId, 'TTL_TOPIC_NAME'),
-                second: i18n(langId, 'TTL_SUBTOPIC_NAME'),
-            }}
-            value={{
-                first: '0',
-                second: '0',
-            }}
-            optionData={{
-                first: opt1,
-                second: opt2,
-            }}
-            onReady={onReady}
-        />
+        {dl}
+        <Button title="OK" className="btn btn-success" onClick={() => {
+            console.log(dl.state());
+        }} />
     </div>
 );

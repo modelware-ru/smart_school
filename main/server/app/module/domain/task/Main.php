@@ -29,11 +29,24 @@ class Main
             return [
                 'id' => $item['id'],
                 'name' => $item['name'],
-                'topicId' => $item['topic_id'],
-                'topicName' => $item['topic_name'],
                 'canBeRemoved' => $item['mst_count'] === 0,
             ];
         }, $resDb);
+
+        foreach ($res as $key => $item) {
+            $taskId = $item['id'];
+            $resDb = $manager->getTopicSubtopicListByTaskId($taskId);
+            $topicSubtopicList = array_map(function ($item) {
+                return [
+                    'topicId' => $item['topic_id'],
+                    'topicName' => $item['topic_name'],
+                    'subtopicId' => $item['subtopic_id'],
+                    'subtopicName' => $item['subtopic_name'],
+                ];
+            }, $resDb);
+
+            $res[$key]['topicSubtopicList'] = $topicSubtopicList;
+        }
 
         return [Util::MakeSuccessOperationResult($res), []];
     }
@@ -58,10 +71,23 @@ class Main
             );
         }
 
+        $taskName = $resDb[0]['name'];
+
+        $resDb = $manager->getTopicSubtopicListByTaskId($taskId);
+        $topicSubtopicList = array_map(function ($item) {
+            return [
+                'topicId' => $item['topic_id'],
+                'topicName' => $item['topic_name'],
+                'subtopicId' => $item['subtopic_id'],
+                'subtopicName' => $item['subtopic_name'],
+            ];
+        }, $resDb);
+
+
         $res =  [
-            'id' => $resDb[0]['id'],
-            'name' => $resDb[0]['name'],
-            'topicId' => $resDb[0]['topic_id'],
+            'id' => $taskId,
+            'name' => $taskName,
+            'topicSubtopicList' => $topicSubtopicList,
         ];
 
         return [Util::MakeSuccessOperationResult($res), []];
@@ -75,7 +101,7 @@ class Main
         $permissionOptions = $args['permissionOptions'];
         $id = $args['id'];
         $name = $args['name'];
-        $topicId = $args['topicId'];
+        $subtopicList = $args['subtopicList'];
 
         $errorList = [];
 
@@ -101,9 +127,21 @@ class Main
         try {
             $manager = new Manager();
             if ($id === 0) {
-                $resDb = $manager->createTask($name, $topicId);
+                $resDb = $manager->createTask($name);
+                $id = $resDb[0];
             } else {
-                $resDb = $manager->updateTask($id, $name, $topicId);
+                $resDb = $manager->updateTask($id, $name);
+                $resDb = $manager->removeTaskSubtopicList($id);
+            }
+
+            if (count($subtopicList) > 0) {
+                $newSubtopicList = array_map(function ($item) {
+                    return [
+                        'subtopicId' => $item,
+                    ];
+                }, $subtopicList);
+
+                $resDb = $manager->addSubtopicListToTask($newSubtopicList, $id);
             }
         } catch (MWException $e) {
             $msg = $e->logData();
@@ -116,7 +154,7 @@ class Main
                 'name',
                 MWI18nHelper::MSG_FIELD_WITH_DUPLICATED_VALUE,
                 [$name]
-            ); 
+            );
 
             if (count($errorList) > 0) {
                 return [Util::MakeFailOperationResult($errorList), []];
@@ -151,7 +189,7 @@ class Main
                 '_msg_',
                 MWI18nHelper::MSG_IMPOSSIBLE_TO_REMOVE_DATA,
                 ['данные используются']
-            ); 
+            );
 
             if (count($errorList) > 0) {
                 return [Util::MakeFailOperationResult($errorList), []];
@@ -161,6 +199,4 @@ class Main
 
         return [Util::MakeSuccessOperationResult(), []];
     }
-
-
 }

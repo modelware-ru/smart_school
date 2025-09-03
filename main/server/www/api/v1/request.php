@@ -324,7 +324,7 @@ try {
         case AuthzConstant::RESOURCE_API_SAVE_TASK:
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
-            $args['topicId'] = $payload['topicId'];
+            $args['subtopicList'] = $payload['subtopicList'];
 
             require_once 'api/v1/service/task.php';
             $res = srv_save_task($args);

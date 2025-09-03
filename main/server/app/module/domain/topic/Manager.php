@@ -11,7 +11,6 @@ class Manager extends GeneralManager
     {
         $stmt = <<<SQL
 SELECT mt.id, mt.name,
-(SELECT COUNT(mts.id) FROM main__task mts WHERE mts.topic_id = mt.id) mts_count,
 (SELECT COUNT(ms.id) FROM main__subtopic ms WHERE ms.topic_id = mt.id) ms_count
 FROM main__topic mt
 SQL;
@@ -28,7 +27,7 @@ SQL;
         return $this->_db->select($stmt, ['topicId' => $topicId]);
     }
 
-    public function getTopicSubtopicListById($topicId)
+    public function getSubtopicListById($topicId)
     {
         $stmt = <<<SQL
 SELECT ms.id, ms.name
@@ -74,30 +73,6 @@ DELETE FROM main__subtopic WHERE id IN ({$removedSubtopicIdListString}) AND topi
 SQL;
         return $this->_db->delete($stmt, ['topicId' => $topicId]);
     }
-
-    public function createTaskList($newTaskList)
-    {
-        $tl = array_map(function ($item) {
-            return [
-                'name' => $item,
-            ];
-        }, $newTaskList);
-
-        // TODO: topic
-        $stmt = <<<SQL
-INSERT INTO main__task (name, topic_id)
-VALUES (:name, :topicId)
-SQL;
-        return $this->_db->insert(
-            $stmt,
-            $tl,
-            [
-                'topicId' => 1,
-            ],
-            true
-        );
-    }
-
 
     public function addSubtopicListToTopic($newSubtopicNameList, $topicId)
     {

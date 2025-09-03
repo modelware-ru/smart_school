@@ -15,21 +15,17 @@ export default class TaskFormRemove {
     _atm = {};
 
     constructor(settings = {}) {
-        const { langId, task, topicList } = settings;
+        const { langId, task } = settings;
 
         this._prop = {
             langId,
             taskId: task.id,
-            topicList,
+            topicSubtopicList: task.topicSubtopicList,
         };
 
         this._state = {};
 
         this._atm.nameInput = <Input className="col-12" label={i18n(langId, 'TTL_TASK_NAME')} value={task.name} disabled={true} />;
-
-        this._atm.topicSelect = (
-            <Select className="col-12" label={i18n(langId, 'TTL_TOPIC_NAME')} value={task.topicId} optionData={topicList} disabled={true} />
-        );
 
         this._stateRemoveButton = {};
         this._atm.removeButton = <Button className="btn btn-danger" onClick={this._onRemoveButtonClick} />;
@@ -112,13 +108,18 @@ export default class TaskFormRemove {
     };
 
     _ui_render = () => {
-        const { langId } = this._prop;
+        const { langId, topicSubtopicList } = this._prop;
 
         return (
             <div className="mt-3 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
-                    {this._atm.topicSelect}
+                    <label className="form-label fw-bold">{i18n(langId, 'TTL_TOPIC_NAME_LIST')}</label>
+                    <ul className="list-unstyled my-0">
+                        {topicSubtopicList.map((item) => (
+                            <li>{item['name']}</li>
+                        ))}
+                    </ul>
                 </div>
                 <div className="d-flex flex-wrap justify-content-between gap-2 mb-3">
                     {this._atm.removeButton}

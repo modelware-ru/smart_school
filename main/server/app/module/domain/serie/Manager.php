@@ -78,39 +78,6 @@ SQL;
         return $this->_db->delete($stmt, ['serieId' => $serieId]);
     }
 
-    public function createTaskList($newTaskList)
-    {
-        $tl = array_map(function ($item) {
-            return [
-                'name' => $item,
-            ];
-        }, $newTaskList);
-
-        // TODO: topic
-        $stmt = <<<SQL
-INSERT INTO main__task (name, topic_id)
-VALUES (:name, :topicId)
-SQL;
-        return $this->_db->insert(
-            $stmt,
-            $tl,
-            [
-                'topicId' => 1,
-            ],
-            true
-        );
-    }
-
-    public function fetchTaskList($taskList)
-    {
-        $taskListString = '"' . implode('","', $taskList) . '"';
-
-        $stmt = <<<SQL
-SELECT id FROM main__task WHERE name IN ({$taskListString})
-SQL;
-        return $this->_db->select($stmt);
-    }
-
     public function addTaskListToSerie($newTaskIdList, $serieId)
     {
         $stmt = <<<SQL

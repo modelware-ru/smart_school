@@ -16,7 +16,7 @@ if ($taskId === 0) {
     $task = [
         'id' => 0,
         'name' => '',
-        'topicId' => '0',
+        'topicSubtopicList' => []
     ];
 } else {
     $args = [
@@ -27,7 +27,15 @@ if ($taskId === 0) {
     list($res, $data) = (new TaskModule())->getTaskById($args);
 
     $task = $res->getData();
-    $task['topicId'] = strval($task['topicId']);
+
+
+    $task['topicSubtopicList'] = array_map(function ($item) {
+        return [
+            'name' => "{$item['topicName']} / {$item['subtopicName']}",
+            'first' => strval($item['topicId']),
+            'second' => strval($item['subtopicId']),
+        ];
+    }, $task['topicSubtopicList']);
 }
 
 // getTopicList
@@ -51,8 +59,45 @@ $topicList = array_reduce($res->getData(), function ($carry, $item) {
     ]
 ]);
 
+
+// getTopicSubtopicList
+$args = [
+    'permissionOptions' => $templateData['permissionOptions'],
+];
+list($res, $data) = (new TopicModule())->getTopicSubtopicList($args);
+
+
+$topicSubtopicList = [
+    0 =>  [
+        0 => [
+            "value" => "0",
+            "name" => "Тема не выбрана",
+            "disabled" => true,
+        ]
+    ]
+];
+
+foreach ($res->getData() as $item) {
+    $topicSubtopicList[$item['id']] = array_reduce($item['subtopicList'], function ($carry, $item) {
+        $carry[] = [
+            'value' => strval($item['id']),
+            'name' => $item['name'],
+            'disabled' => false,
+        ];
+        return $carry;
+    }, [
+        0 => [
+            "value" => "0",
+            "name" => "Выберите подтему",
+            "disabled" => true,
+        ]
+    ]);
+}
+
+
 $templateData['_js']['task'] = $task;
 $templateData['_js']['topicList'] = $topicList;
+$templateData['_js']['topicSubtopicList'] = $topicSubtopicList;
 $templateData['_js']['action'] = $action;
 ?>
 <!DOCTYPE html>
@@ -77,7 +122,7 @@ $templateData['_js']['action'] = $action;
                     <?php if ($taskId === 0) { ?>
                         <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Новая задача</span></li>
                     <?php } else { ?>
-                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Задача "<?= $task['name']?>"</span></li>
+                        <li class="breadcrumb-item active" aria-current="page"><span class="fw-bold">Задача "<?= $task['name'] ?>"</span></li>
                     <?php } ?>
                 </ol>
             </nav>

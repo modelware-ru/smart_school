@@ -50,7 +50,7 @@ list($res, $data) = (new TaskModule())->getTaskList($args);
                     <tr class="table-active border-dark-subtle">
                         <th scope="col" class="text-end fit">#</th>
                         <th scope="col">Название задачи</th>
-                        <th scope="col">Тема задачи</th>
+                        <th scope="col">Темы задачи</th>
                         <th scope="col" class="fit">Действия</th>
                     </tr>
                 </thead>
@@ -61,7 +61,15 @@ list($res, $data) = (new TaskModule())->getTaskList($args);
                         <tr class="align-middle" data-id="<?= $item['id'] ?>">
                             <th scope="row" class="text-end text-nowrap"><?= $key + 1 ?></th>
                             <td><?= $item['name'] ?></td>
-                            <td><?= $item['topicName'] ?></td>
+                            <td>
+                                <?php
+                                foreach ($item['topicSubtopicList'] as $ts) {
+                                ?>
+                                    <?= $ts['topicName'] ?>&nbsp;\&nbsp;<?= $ts['subtopicName'] ?></br>
+                                <?php
+                                }
+                                ?>
+                            </td>
                             <td class="p-1">
                                 <?php if ($item['canBeRemoved']) { ?>
                                     <button data-action="remove" data-id="<?= $item['id'] ?>" class='btn btn-outline-danger btn-sm'><i class="bi bi-trash"></i></button>

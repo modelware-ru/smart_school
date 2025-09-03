@@ -7,6 +7,7 @@ use MW\Shared\MWI18nHelper;
 use MW\Shared\Util;
 use MW\Shared\MWException;
 use MW\Shared\ValueChecker;
+use MW\Module\Domain\Task\Manager as TaskManager;
 
 class Main
 {
@@ -143,14 +144,15 @@ class Main
             }
 
             if (count($newTaskList) > 0) {
-                $resDb = $manager->fetchTaskList($newTaskList);
+                $taskManager = new TaskManager();
+                $resDb = $taskManager->getTaskIdList($newTaskList);
                 $existedTaskIdList = array_map(function ($item) {
                     return [
                         'taskId' => strval($item['id']),
                     ];
                 }, $resDb);
 
-                $resDb = $manager->createTaskList($newTaskList);
+                $resDb = $taskManager->createTaskList($newTaskList);
                 $newTaskIdList = array_map(function ($item) {
                     return [
                         'taskId' => $item,

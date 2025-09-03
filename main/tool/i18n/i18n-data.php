@@ -231,6 +231,11 @@ $i18n_TTL = [
         'ru' => 'Название темы',
         'en' => 'Topic name',
     ],
+    'TOPIC_NAME_LIST' => [
+        '_type' => 'plain',
+        'ru' => 'Названия тем',
+        'en' => 'Topic names',
+    ],
     'TO_ADD_SERIE' => [
         '_type' => 'plain',
         'ru' => 'Добавить серию',

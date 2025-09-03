@@ -36,6 +36,42 @@ class Main
         return [Util::MakeSuccessOperationResult($res), []];
     }
 
+    public function getTopicSubtopicList($args)
+    {
+        $localLog = Logger::Log()->withName('Module::Domain::Topic::getTopicSubtopicList');
+        $localLog->info('parameters:', Util::MaskData($args));
+
+        $permissionOptions = $args['permissionOptions'];
+
+        $errorList = [];
+
+        $manager = new Manager();
+        $resDb = $manager->getTopicList();
+
+        $res = array_map(function ($item) {
+            return [
+                'id' => $item['id'],
+                'name' => $item['name'],
+                'subtopicList' => [],
+            ];
+        }, $resDb);
+
+        foreach ($res as $key => $item) {
+            $topicId = $item['id'];
+            $resDb = $manager->getSubtopicListById($topicId);
+            $subtopicList = array_map(function ($item) {
+                return [
+                    'id' => $item['id'],
+                    'name' => $item['name'],
+                ];
+            }, $resDb);
+
+            $res[$key]['subtopicList'] = $subtopicList;
+        }
+
+        return [Util::MakeSuccessOperationResult($res), []];
+    }
+
     public function getTopicById($args)
     {
         $localLog = Logger::Log()->withName('Module::Domain::Topic::getTopicById');
@@ -61,7 +97,7 @@ class Main
             'name' => $resDb[0]['name'],
         ];
 
-        $resDb = $manager->getTopicSubtopicListById($topicId);
+        $resDb = $manager->getSubtopicListById($topicId);
         $subtopicList = array_map(function ($item) {
             return [
                 'id' => $item['id'],

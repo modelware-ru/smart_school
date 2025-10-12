@@ -74,6 +74,10 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
                         <td><?= $studentSerie['subjectName'] ?> / <?= $studentSerie['lessonDate'] ?></td>
                     </tr>
                 <?php } ?>
+                <tr>
+                    <th scope="row">Макс. балл</th>
+                    <td><?= $studentSerie['maxValue'] ?></td>
+                </tr>
             </tbody>
         </table>
 

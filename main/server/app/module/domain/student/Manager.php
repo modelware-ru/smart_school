@@ -206,7 +206,7 @@ SQL;
     {
         $stmt = <<<SQL
 SELECT
-mss.type serie_type, mss.date serie_date, mss.serie_id serie_id,
+mss.type serie_type, mss.date serie_date, mss.serie_id serie_id, mss.max_value,
 mst.id student_id, mst.first_name, mst.last_name, mst.middle_name,
 msr.name serie_name,
 ml.date lesson_date,
@@ -323,6 +323,7 @@ mss.id student_serie_id,
 mss.serie_id,
 mss.group_id,
 mss.type serie_type,
+mss.max_value max_value,
 msr.name serie_name,
 mss.date serie_date,
 ml.`date` lesson_date,

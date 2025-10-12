@@ -71,6 +71,11 @@ $i18n_TTL = [
         'ru' => 'Серии занятий',
         'en' => 'Lesson series',
     ],
+    'MAX_VALUE' => [
+        '_type' => 'plain',
+        'ru' => 'Макс. балл',
+        'en' => 'Max value',
+    ],
     'MIDDLE_NAME' => [
         '_type' => 'plain',
         'ru' => 'Отчество',

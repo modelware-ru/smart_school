@@ -34,6 +34,7 @@ class Main
                 'date' => substr($item['lesson_date'], 0, 10),
                 'subjectId' => $item['subject_id'],
                 'subjectName' => $item['subject_name'],
+                'serieList' => $item['serie_list'],
                 'canBeRemoved' => ($item['msl_count'] + $item['mls_count']) === 0,
             ];
         }, $resDb);

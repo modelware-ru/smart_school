@@ -84,6 +84,7 @@ class Main
         $res =  [
             'id' => $resDb[0]['id'],
             'name' => $resDb[0]['name'],
+            'maxValue' => $resDb[0]['max_value'],
         ];
 
         $resDb = $manager->getSerieTaskListById($serieId);
@@ -107,6 +108,7 @@ class Main
         $permissionOptions = $args['permissionOptions'];
         $id = $args['id'];
         $name = $args['name'];
+        $maxValue = $args['maxValue'];
         $removedTaskIdList = $args['removedTaskIdList'];
         $newTaskList = array_unique($args['newTaskList']);
 
@@ -134,10 +136,10 @@ class Main
         try {
             $manager = new Manager();
             if ($id === 0) {
-                $resDb = $manager->createSerie($name);
+                $resDb = $manager->createSerie($name, $maxValue);
                 $id = $resDb[0];
             } else {
-                $resDb = $manager->updateSerie($id, $name);
+                $resDb = $manager->updateSerie($id, $name, $maxValue);
                 if (!empty($removedTaskIdList)) {
                     $resDb = $manager->removeTaskListFromSerie($removedTaskIdList, $id);
                 }

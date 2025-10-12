@@ -143,7 +143,7 @@ list($res, $data) = (new LessonModule())->getLessonListForGroup($args);
                         <tr class="align-middle" data-id="<?= $item['id'] ?>">
                             <th scope="row" class="text-end text-nowrap"><?= $index ?></th>
                             <td><?= $item['date'] ?></td>
-                            <td class="text-danger">не реализовано</td>
+                            <td class="text-secondary"><?= $item['serieList'] ?></td>
                             <td class="p-1">
                                 <div class="d-flex gap-3">
                                     <button data-action="edit" data-id="<?= $item['id'] ?>" class='btn btn-outline-primary btn-sm'><i class="bi bi-pencil"></i></button>

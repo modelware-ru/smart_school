@@ -34,6 +34,13 @@ export default class SerieForm {
             hasError: 'unknown',
         });
 
+        this._stateMaxValueInput = {};
+        this._atm.maxValueInput = <Input className="col-12" label={i18n(langId, 'TTL_MAX_VALUE')} value={serie.maxValue} mandatory />;
+        this._updateStateMaxValueInput({
+            disabled: false,
+            hasError: 'unknown',
+        });
+
         this._stateNewTaskListTextarea = {};
         this._atm.newTaskListTextarea = (
             <Textarea
@@ -67,8 +74,9 @@ export default class SerieForm {
     }
 
     _onSaveButtonClick = () => {
-        const {serieId} = this._prop;
+        const { serieId } = this._prop;
         const name = this._atm.nameInput.getState('value');
+        const maxValue = parseInt(this._atm.maxValueInput.getState('value'));
         const removedTaskIdList = serieId === 0 ? [] : this._el.taskList.getRemovedLabelIdList();
         const newTaskListStr = this._atm.newTaskListTextarea.getState('value');
         const newTaskList = newTaskListStr.split(',').reduce((curry, item) => {
@@ -79,7 +87,7 @@ export default class SerieForm {
             return curry;
         }, []);
 
-        const { hasError, data } = this._validateFormData(name);
+        const { hasError, data } = this._validateFormData(name, maxValue);
 
         this._showError({ status: hasError ? 'fail' : 'ok', data });
 
@@ -88,7 +96,7 @@ export default class SerieForm {
         if (!hasError) {
             const { serieId } = this._prop;
 
-            this._callSaveSerie({ id: serieId, name, removedTaskIdList, newTaskList });
+            this._callSaveSerie({ id: serieId, name, maxValue, removedTaskIdList, newTaskList });
         }
     };
 
@@ -96,11 +104,17 @@ export default class SerieForm {
         history.back();
     };
 
-    _validateFormData = (name) => {
+    _validateFormData = (name, maxValue) => {
         let data = {};
         let hasError = false;
+
         if (name.length === 0) {
             data[ID.SF_INPUT_NAME_ID] = { code: 'MSG_FIELD_IS_REQUIRED', args: [] };
+            hasError = true;
+        }
+
+        if (!Number.isInteger(maxValue)) {
+            data[ID.SF_INPUT_MAX_VALUE] = { code: 'MSG_FIELD_VALUE_IS_NOT_VALID', args: [] };
             hasError = true;
         }
 
@@ -110,11 +124,13 @@ export default class SerieForm {
     _showError = ({ status, data }) => {
         if (status === 'ok') {
             this._updateStateNameInput({ disabled: false, hasError: 'no', error: null });
+            this._updateStateMaxValueInput({ disabled: false, hasError: 'no', error: null });
             return;
         }
 
         if (status === 'error') {
             this._updateStateNameInput({ disabled: false, hasError: 'undefine', error: null });
+            this._updateStateMaxValueInput({ disabled: false, hasError: 'undefine', error: null });
             return;
         }
 
@@ -122,6 +138,12 @@ export default class SerieForm {
             this._updateStateNameInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_NAME_ID] });
         } else {
             this._updateStateNameInput({ disabled: false, hasError: 'undefined', error: null });
+        }
+
+        if (typeof data[ID.SF_INPUT_MAX_VALUE] !== 'undefined') {
+            this._updateStateMaxValueInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MAX_VALUE] });
+        } else {
+            this._updateStateMaxValueInput({ disabled: false, hasError: 'undefined', error: null });
         }
 
         if (typeof data[ID.SF_TEXTAREA_TASK_LIST_ID] !== 'undefined') {
@@ -134,6 +156,7 @@ export default class SerieForm {
     _beforeCallSaveSerie = () => {
         this._updateStateSaveButton({ disabled: true, isLoading: true, title: 'TTL_TO_SAVE_IN_PROGRESS' });
         this._updateStateNameInput({ disabled: true });
+        this._updateStateMaxValueInput({ disabled: true });
     };
 
     _afterCallSaveSerie = (payload) => {
@@ -180,6 +203,27 @@ export default class SerieForm {
         }
         if (error !== null && this._atm.nameInput.getProp('error') !== i18n(langId, error.code, error.args)) {
             this._atm.nameInput.updateProp('error', i18n(langId, error.code, error.args));
+        }
+    };
+
+    _updateStateMaxValueInput = (state) => {
+        const { disabled = null, hasError = null, error = null } = state;
+        const { langId } = this._prop;
+
+        this._stateMaxValueInput = {
+            disabled: disabled ?? this._stateMaxValueInput.disabled,
+            hasError: hasError ?? this._stateMaxValueInput.hasError,
+            error: error ?? this._stateMaxValueInput.error,
+        };
+
+        if (disabled !== null) {
+            this._atm.maxValueInput.updateProp('disabled', disabled);
+        }
+        if (hasError !== null) {
+            this._atm.maxValueInput.updateProp('hasError', hasError);
+        }
+        if (error !== null && this._atm.maxValueInput.getProp('error') !== i18n(langId, error.code, error.args)) {
+            this._atm.maxValueInput.updateProp('error', i18n(langId, error.code, error.args));
         }
     };
 
@@ -239,6 +283,7 @@ export default class SerieForm {
             <div className="mt-0 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
+                    {this._atm.maxValueInput}
                     {this._el.taskList}
                     {this._atm.newTaskListTextarea}
                 </div>

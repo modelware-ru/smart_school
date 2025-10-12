@@ -29,7 +29,7 @@ class Main
             return [
                 'id' => $item['id'],
                 'name' => $item['name'],
-                'canBeRemoved' => $item['mts_count'] === 0 && $item['ms_count'] === 0,
+                'canBeRemoved' => $item['ms_count'] === 0,
             ];
         }, $resDb);
 

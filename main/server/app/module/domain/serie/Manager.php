@@ -22,7 +22,7 @@ SQL;
     public function getSerieById($serieId)
     {
         $stmt = <<<SQL
-SELECT ms.id, ms.name
+SELECT ms.id, ms.name, ms.max_value
 FROM main__serie ms
 WHERE ms.id = :serieId 
 SQL;
@@ -41,29 +41,31 @@ SQL;
         return $this->_db->select($stmt, ['serieId' => $serieId]);
     }
 
-    public function createSerie($name)
+    public function createSerie($name, $maxValue)
     {
         $stmt = <<<SQL
-INSERT INTO main__serie (name)
-VALUES (:name)
+INSERT INTO main__serie (name, max_value)
+VALUES (:name, :maxValue)
 SQL;
         return $this->_db->insert($stmt, [
             0 => [
                 'name' => $name,
+                'maxValue' => $maxValue,
             ],
         ]);
     }
 
-    public function updateSerie($serieId, $name)
+    public function updateSerie($serieId, $name, $maxValue)
     {
         $stmt = <<<SQL
-UPDATE main__serie SET name = :name
+UPDATE main__serie SET name = :name, max_value = :maxValue
 WHERE id = :id
 SQL;
         return $this->_db->update($stmt, [
             0 => [
                 'id' => $serieId,
                 'name' => $name,
+                'maxValue' => $maxValue,
             ]
         ]);
     }
@@ -118,15 +120,16 @@ SQL;
     public function addHomeSerieToStudent($studentId, $serieId, $groupId, $date)
     {
         $stmt = <<<SQL
-INSERT INTO main__student_serie (type, student_id, group_id, date, serie_id)
-VALUES ('HOME', :studentId, :groupId, :date, :serieId)
+INSERT INTO main__student_serie (type, student_id, group_id, date, serie_id, max_value)
+VALUES ('HOME', :studentId, :groupId, :date, :serieId1, (SELECT max_value FROM main__serie WHERE id = :serieId2))
 SQL;
         return $this->_db->insert($stmt, [
             0 => [
                 'studentId' => $studentId,
                 'groupId' => $groupId,
                 'date' => $date,
-                'serieId' => $serieId,
+                'serieId1' => $serieId,
+                'serieId2' => $serieId,
             ],
         ]);
     }

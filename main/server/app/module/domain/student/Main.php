@@ -3,14 +3,13 @@
 namespace MW\Module\Domain\Student;
 
 use MW\Shared\Logger;
+use MW\Shared\MWException;
 use MW\Shared\MWI18nHelper;
 use MW\Shared\Util;
-use MW\Shared\MWException;
 use MW\Shared\ValueChecker;
 
 class Main
 {
-
     const FIRST_NAME_MAX_LENGTH = 100;
     const LAST_NAME_MAX_LENGTH = 100;
     const MIDDLE_NAME_MAX_LENGTH = 100;
@@ -67,7 +66,7 @@ class Main
             );
         }
 
-        $res =  [
+        $res = [
             'id' => $resDb[0]['student_id'],
             'firstName' => $resDb[0]['first_name'],
             'lastName' => $resDb[0]['last_name'],
@@ -231,7 +230,7 @@ class Main
 
         $manager = new Manager();
 
-        $resDb =  $manager->getMaxOrderForStudentClassHistory($studentIdList, $startDate);
+        $resDb = $manager->getMaxOrderForStudentClassHistory($studentIdList, $startDate);
 
         $studentIdList = array_map(function ($item) use ($resDb) {
             $res = NULL;
@@ -299,7 +298,7 @@ class Main
             return [Util::MakeFailOperationResult($errorList), []];
         }
 
-        $resDb =  $manager->getMaxOrderForStudentGroupHistory($studentIdList, $startDate);
+        $resDb = $manager->getMaxOrderForStudentGroupHistory($studentIdList, $startDate);
 
         $studentIdList = array_map(function ($item) use ($resDb) {
             $res = NULL;
@@ -368,7 +367,7 @@ class Main
             );
         }
 
-        $res =  [
+        $res = [
             'serieType' => $resDb[0]['serie_type'],
             'serieDate' => substr($resDb[0]['serie_date'], 0, 10),
             'serieId' => $resDb[0]['serie_id'],
@@ -376,8 +375,10 @@ class Main
             'firstName' => $resDb[0]['first_name'],
             'lastName' => $resDb[0]['last_name'],
             'middleName' => $resDb[0]['middle_name'],
+            'maxValue' => $resDb[0]['max_value'],
             'serieName' => $resDb[0]['serie_name'],
-            'lessonDate' => substr($resDb[0]['lesson_date'], 0, 10),
+            // 'lessonDate' => substr($resDb[0]['lesson_date'], 0, 10),
+            'lessonDate' => (!isset($resDb[0]['lesson_date'])) ? '' : substr($resDb[0]['lesson_date'], 0, 10),
             'subjectName' => $resDb[0]['subject_name'],
             'groupName' => $resDb[0]['group_name'],
             'parallelName' => $resDb[0]['parallel_name'],
@@ -410,8 +411,8 @@ class Main
             return [
                 'serieTaskId' => $item['serie_task_id'],
                 'solutionId' => is_null($item['solution_id']) ? 0 : $item['solution_id'],
-                'solutionValue' => is_null($item['solution_value']) ? "" : $item['solution_value'],
-                'solutionDate' => is_null($item['solution_date']) ? "-" : substr($item['solution_date'], 0, 10),
+                'solutionValue' => is_null($item['solution_value']) ? '' : $item['solution_value'],
+                'solutionDate' => is_null($item['solution_date']) ? '-' : substr($item['solution_date'], 0, 10),
                 'taskName' => $item['task_name'],
             ];
         }, $resDb);
@@ -431,7 +432,7 @@ class Main
 
         // removeStudentSolution
         $solutionListToRemove = array_reduce($taskList, function ($carry, $item) {
-            if (empty($item['value']) && $item['solutionId'] !== 0) {
+            if (empty($item['value']) && $item['value'] !== '0' && $item['solutionId'] !== 0) {
                 $carry[] = [
                     'solutionId' => $item['solutionId'],
                 ];
@@ -447,7 +448,7 @@ class Main
 
         // updateStudentSolution
         $solutionListToUpdate = array_reduce($taskList, function ($carry, $item) {
-            if (!empty($item['value']) && $item['solutionId'] !== 0) {
+            if ((!empty($item['value']) || $item['value'] === '0') && $item['solutionId'] !== 0) {
                 $carry[] = [
                     'solutionId' => $item['solutionId'],
                     'value' => $item['value'],
@@ -463,7 +464,7 @@ class Main
 
         // createStudentSolution
         $solutionListToCreate = array_reduce($taskList, function ($carry, $item) {
-            if (!empty($item['value']) && $item['solutionId'] === 0) {
+            if ((!empty($item['value']) || $item['value'] === '0') && $item['solutionId'] === 0) {
                 $carry[] = [
                     'serieTaskId' => $item['serieTaskId'],
                     'value' => $item['value'],
@@ -497,7 +498,7 @@ class Main
         $res = array_map(function ($item) {
             return [
                 'id' => $item['student_id'],
-                'name' => $item['last_name'] . ' ' .  $item['first_name'] . ' ' . $item['middle_name'],
+                'name' => $item['last_name'] . ' ' . $item['first_name'] . ' ' . $item['middle_name'],
                 'startDate' => substr($item['start_date'], 0, 10),
                 'finishDate' => substr($item['finish_date'], 0, 10),
             ];
@@ -535,6 +536,7 @@ class Main
 
         return [Util::MakeSuccessOperationResult($res), []];
     }
+
     public function getStudentSerieList($args)
     {
         $localLog = Logger::Log()->withName('Module::Domain::Student::getStudentSerieList');
@@ -555,15 +557,16 @@ class Main
                 'id' => $item['student_serie_id'],
                 'groupId' => $item['group_id'],
                 'groupName' => $item['group_name'],
+                'maxValue' => $item['max_value'],
                 'serieId' => $item['serie_id'],
                 'serieName' => $item['serie_name'],
                 'serieType' => $item['serie_type'],
                 'serieDate' => substr($item['serie_date'], 0, 10),
-                'lessonDate' => substr($item['lesson_date'], 0, 10),
+                'lessonDate' => (is_null($item['lesson_date'])) ? '' : substr($item['lesson_date'], 0, 10),
                 'subjectName' => $item['subject_name'],
             ];
         }, $resDb);
 
         return [Util::MakeSuccessOperationResult($res), []];
-    }    
+    }
 }

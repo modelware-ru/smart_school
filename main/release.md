@@ -1,3 +1,24 @@
+2025-10-12
+---
+ALTER TABLE main__serie ADD max_value TINYINT DEFAULT 0;
+ALTER TABLE main__student_serie ADD max_value TINYINT DEFAULT 0;
+
+
+2025-09-01
+---
+CREATE TABLE main__task_subtopic (
+    id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    task_id INT UNSIGNED NOT NULL,
+    subtopic_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT main__task_subtopic___task_id FOREIGN KEY (task_id) REFERENCES main__task(id),
+    CONSTRAINT main__task_subtopic___subtopic_id FOREIGN KEY (subtopic_id) REFERENCES main__subtopic(id),
+    CONSTRAINT main__task_subtopic___unique_task_id_subtopic_id UNIQUE (task_id, subtopic_id)
+) ENGINE = InnoDB;
+
+ALTER TABLE main__task DROP FOREIGN KEY main__task___topic_id;
+ALTER TABLE main__task DROP COLUMN topic_id;
+
 2025-08-24
 ---
 CREATE TABLE main__subtopic (

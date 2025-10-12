@@ -134,7 +134,8 @@ SQL;
         $stmt = <<<SQL
 SELECT ml.id lesson_id, ml.date lesson_date, ms.id subject_id, ms.name subject_name,
 (SELECT COUNT(msl.id) FROM main__student_lesson msl WHERE msl.lesson_id = ml.id) msl_count,
-(SELECT COUNT(mls.id) FROM main__lesson_serie mls WHERE mls.lesson_id = ml.id) mls_count
+(SELECT COUNT(mls.id) FROM main__lesson_serie mls WHERE mls.lesson_id = ml.id) mls_count,
+(SELECT GROUP_CONCAT(ms1.name SEPARATOR ', ') FROM main__lesson_serie mls1 JOIN main__serie ms1 ON mls1.serie_id = ms1.id AND mls1.lesson_id = lesson_id) as serie_list
 FROM main__lesson ml
 JOIN main__subject ms ON ms.id = ml.subject_id
 WHERE ml.group_id = :groupId {$where}
@@ -164,15 +165,16 @@ SQL;
     public function addSerieToLesson($lessonId, $date, $serieId, $studentList, $groupId)
     {
         $stmt = <<<SQL
-INSERT INTO main__student_serie (`type`, `date`, lesson_id, student_id, serie_id, group_id)
-VALUES (:type, :date, :lessonId, :studentId, :serieId, :groupId)
+INSERT INTO main__student_serie (`type`, `date`, lesson_id, student_id, serie_id, group_id, max_value)
+VALUES (:type, :date, :lessonId, :studentId, :serieId1, :groupId, (SELECT max_value FROM main__serie WHERE id = :serieId2))
 SQL;
         return $this->_db->insert($stmt, $studentList, [
             'date' => $date,
             'lessonId' => $lessonId,
-            'serieId' => $serieId,
+            'serieId1' => $serieId,
+            'serieId2' => $serieId,
             'groupId' => $groupId,
-        ], true);
+        ]);
     }
 
     public function removeSerieFromLesson($groupId, $lessonId, $serieId, $studentList)

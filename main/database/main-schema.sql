@@ -66,6 +66,7 @@ CREATE TABLE main__user (
 CREATE TABLE main__serie (
     id INT UNSIGNED AUTO_INCREMENT NOT NULL,
     name VARCHAR(100) DEFAULT '' NOT NULL,
+    max_value TINYINT DEFAULT 0
     PRIMARY KEY (id),
     CONSTRAINT main__serie___unique_name UNIQUE (name)
 ) ENGINE = InnoDB;
@@ -174,6 +175,7 @@ CREATE TABLE main__student_serie (
     lesson_id INT UNSIGNED,
     type ENUM ('CLASS', 'HOME') NOT NULL,
     `date` DATETIME NOT NULL,
+    max_value TINYINT DEFAULT 0
     PRIMARY KEY (id),
     CONSTRAINT main__student_serie___student_id FOREIGN KEY (student_id) REFERENCES main__student(id),
     CONSTRAINT main__student_serie___serie_id FOREIGN KEY (serie_id) REFERENCES main__serie(id),

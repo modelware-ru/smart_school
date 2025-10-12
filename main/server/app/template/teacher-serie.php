@@ -15,6 +15,7 @@ if ($serieId === 0) {
     $serie = [
         'id' => 0,
         'name' => '',
+        'maxValue' => 0,
     ];
 } else {
     $args = [

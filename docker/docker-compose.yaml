@@ -2,8 +2,8 @@ services:
     main:
         build:
             dockerfile: Dockerfile
-        hostname: sch
-        container_name: sch-main
+        hostname: school
+        container_name: school-main
         ports:
             - "8823:80"
             - "8846:443"

@@ -76,6 +76,16 @@ $i18n_TTL = [
         'ru' => 'Макс. балл',
         'en' => 'Max value',
     ],
+    'MAX_VALUE_CLASS' => [
+        '_type' => 'plain',
+        'ru' => 'Макс. балл (класс.)',
+        'en' => 'Max value (class)',
+    ],
+    'MAX_VALUE_HOME' => [
+        '_type' => 'plain',
+        'ru' => 'Макс. балл (дом.)',
+        'en' => 'Max value (home)',
+    ],
     'MIDDLE_NAME' => [
         '_type' => 'plain',
         'ru' => 'Отчество',

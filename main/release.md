@@ -1,3 +1,9 @@
+2025-10-13
+---
+ALTER TABLE main__serie DROP COLUMN max_value;
+ALTER TABLE main__serie ADD max_value_home TINYINT DEFAULT 0;
+ALTER TABLE main__serie ADD max_value_class TINYINT DEFAULT 0;
+
 2025-10-12
 ---
 ALTER TABLE main__serie ADD max_value TINYINT DEFAULT 0;

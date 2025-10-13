@@ -198,7 +198,8 @@ function check_type_parameters($apiResource, $payload)
             '_type' => 'object',
             'id' => 1,
             'name' => 'string',
-            'maxValue' => 1,
+            'maxValueClass' => 1,
+            'maxValueHome' => 1,
             'newTaskList' => [
                 '_type' => 'array',
                 '_keyType' => 1,

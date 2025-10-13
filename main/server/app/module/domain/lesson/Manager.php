@@ -166,7 +166,7 @@ SQL;
     {
         $stmt = <<<SQL
 INSERT INTO main__student_serie (`type`, `date`, lesson_id, student_id, serie_id, group_id, max_value)
-VALUES (:type, :date, :lessonId, :studentId, :serieId1, :groupId, (SELECT max_value FROM main__serie WHERE id = :serieId2))
+VALUES (:type, :date, :lessonId, :studentId, :serieId1, :groupId, (SELECT max_value_class as max_value FROM main__serie WHERE id = :serieId2))
 SQL;
         return $this->_db->insert($stmt, $studentList, [
             'date' => $date,

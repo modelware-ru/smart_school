@@ -1,4 +1,4 @@
-// GENERATED [2025-10-12 14:37:36]
+// GENERATED [2025-10-14 00:20:27]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -16,6 +16,8 @@ export default {
   TTL_LESSON: (...args) => `Занятие`,
   TTL_LESSON_SERIES: (...args) => `Серии занятий`,
   TTL_MAX_VALUE: (...args) => `Макс. балл`,
+  TTL_MAX_VALUE_CLASS: (...args) => `Макс. балл (класс.)`,
+  TTL_MAX_VALUE_HOME: (...args) => `Макс. балл (дом.)`,
   TTL_MIDDLE_NAME: (...args) => `Отчество`,
   TTL_NEW_SUBTOPIC_LIST: (...args) => `Новые подтемы`,
   TTL_NEW_TAG_LIST: (...args) => `Новые теги`,

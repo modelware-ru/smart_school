@@ -430,6 +430,27 @@ class Main
 
         $errorList = [];
 
+        $manager = new Manager();
+        $resDb = $manager->getStudentSerieById($studentSerieId);
+        if (count($resDb) !== 1) {
+            MWException::ThrowEx(
+                errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                logData: ['', "Серии для ученика с id = {$studentSerieId} не существует"],
+            );
+        }
+
+        $maxValue = $resDb[0]['max_value'];
+
+        foreach ($taskList as $task) {
+            $val = intval($task['value']);
+            if ($val > $maxValue) {
+                MWException::ThrowEx(
+                    errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
+                    logData: ['', "Превышено максимальное значение оценки - {$val}"],
+                );
+            }
+        }
+
         // removeStudentSolution
         $solutionListToRemove = array_reduce($taskList, function ($carry, $item) {
             if (empty($item['value']) && $item['value'] !== '0' && $item['solutionId'] !== 0) {
@@ -439,8 +460,6 @@ class Main
             }
             return $carry;
         }, []);
-
-        $manager = new Manager();
 
         if (count($solutionListToRemove) > 0) {
             $manager->removeStudentSolution($solutionListToRemove);

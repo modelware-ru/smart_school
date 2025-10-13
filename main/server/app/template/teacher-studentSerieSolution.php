@@ -99,7 +99,7 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
                         <th scope="row"><?= ++$index ?></th>
                         <td><?= $solution['taskName'] ?></td>
                         <td>
-                            <input type="text" value="<?= $solution['solutionValue'] ?>" size="4" data-solutionid=<?= $solution['solutionId'] ?> data-serietaskid=<?= $solution['serieTaskId'] ?> />
+                            <input type="number" min="-1" max="<?= $studentSerie['maxValue'] ?>" value="<?= $solution['solutionValue'] ?>" size=4 data-solutionid=<?= $solution['solutionId'] ?> data-serietaskid=<?= $solution['serieTaskId'] ?> />
                         </td>
                         <td><?= $solution['solutionDate'] ?></td>
                     </tr>

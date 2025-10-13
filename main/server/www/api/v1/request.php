@@ -250,7 +250,8 @@ try {
         case AuthzConstant::RESOURCE_API_SAVE_SERIE:
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
-            $args['maxValue'] = $payload['maxValue'];
+            $args['maxValueClass'] = $payload['maxValueClass'];
+            $args['maxValueHome'] = $payload['maxValueHome'];
             $args['removedTaskIdList'] = $payload['removedTaskIdList'];
             $args['newTaskList'] = $payload['newTaskList'];
 

@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-mariadb --defaults-file=db-smart-localhost.config --skip-ssl smart_school_www < $1
+mariadb --defaults-file=db-smart-majordomo.config --skip-ssl b171063_smart_school < $1

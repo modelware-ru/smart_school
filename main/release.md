@@ -1,3 +1,18 @@
+2025-12-06
+---
+ALTER TABLE main__serie CHANGE max_value_home max_value_home_writing tinyint(4) DEFAULT 0 NULL;
+ALTER TABLE main__serie CHANGE max_value_class max_value_class_writing tinyint(4) DEFAULT 0 NULL;
+ALTER TABLE main__serie ADD max_value_home_verbal TINYINT DEFAULT 0;
+ALTER TABLE main__serie ADD max_value_class_verbal TINYINT DEFAULT 0;
+ALTER TABLE main__student_serie CHANGE max_value max_value_writing tinyint(4) DEFAULT 0 NULL;
+ALTER TABLE main__student_serie ADD max_value_verbal TINYINT DEFAULT 0;
+ALTER TABLE main__studentSerie_serieTask CHANGE value value_writing tinyint(4) DEFAULT NULL NULL;
+ALTER TABLE main__studentSerie_serieTask ADD value_verbal TINYINT DEFAULT NULL;
+ALTER TABLE main__studentSerie_serieTask ADD has_value_writing TINYINT DEFAULT 0 NOT NULL COMMENT '0 - оценка не установлена';
+ALTER TABLE main__studentSerie_serieTask ADD has_value_verbal TINYINT DEFAULT 0 NOT NULL COMMENT '0 - оценка не установлена';
+
+
+
 2025-10-13
 ---
 ALTER TABLE main__serie DROP COLUMN max_value;

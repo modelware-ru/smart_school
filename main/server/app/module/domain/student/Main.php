@@ -375,7 +375,8 @@ class Main
             'firstName' => $resDb[0]['first_name'],
             'lastName' => $resDb[0]['last_name'],
             'middleName' => $resDb[0]['middle_name'],
-            'maxValue' => $resDb[0]['max_value'],
+            'maxValueWriting' => $resDb[0]['max_value_writing'],
+            'maxValueVerbal' => $resDb[0]['max_value_verbal'],
             'serieName' => $resDb[0]['serie_name'],
             // 'lessonDate' => substr($resDb[0]['lesson_date'], 0, 10),
             'lessonDate' => (!isset($resDb[0]['lesson_date'])) ? '' : substr($resDb[0]['lesson_date'], 0, 10),
@@ -411,7 +412,10 @@ class Main
             return [
                 'serieTaskId' => $item['serie_task_id'],
                 'solutionId' => is_null($item['solution_id']) ? 0 : $item['solution_id'],
-                'solutionValue' => is_null($item['solution_value']) ? '' : $item['solution_value'],
+                'solutionValueWriting' => is_null($item['solution_value_writing']) ? '' : $item['solution_value_writing'],
+                'hasValueWriting' => $item['has_value_writing'],
+                'solutionValueVerbal' => is_null($item['solution_value_verbal']) ? '' : $item['solution_value_verbal'],
+                'hasValueVerbal' => $item['has_value_verbal'],
                 'solutionDate' => is_null($item['solution_date']) ? '-' : substr($item['solution_date'], 0, 10),
                 'taskName' => $item['task_name'],
             ];
@@ -439,21 +443,66 @@ class Main
             );
         }
 
-        $maxValue = $resDb[0]['max_value'];
+        $maxValueWriting = $resDb[0]['max_value_writing'];
+        $maxValueVerbal = $resDb[0]['max_value_verbal'];
+
+        $newTaskList = [];
 
         foreach ($taskList as $task) {
-            $val = intval($task['value']);
-            if ($val > $maxValue) {
+            $key = strval($task['solutionId']) . '_' . strval($task['serieTaskId']);
+            if (!array_key_exists($key, $newTaskList)) {
+                $newTaskList[$key] = [
+                    'valueWriting' => '',
+                    'hasValueWriting' => 0,
+                    'valueVerbal' => '',
+                    'hasValueVerbal' => 0,
+                    'solutionId' => $task['solutionId'],
+                    'serieTaskId' => $task['serieTaskId'],
+                ];
+            }
+            if ($task['type'] === 'writing') {
+                if ($task['hasValue'] === 1) {
+                    $newTaskList[$key]['valueWriting'] = $task['value'];
+                    $newTaskList[$key]['hasValueWriting'] = 1;
+                }
+            } else if ($task['type'] === 'verbal') {
+                if ($task['hasValue'] === 1) {
+                    $newTaskList[$key]['valueVerbal'] = $task['value'];
+                    $newTaskList[$key]['hasValueVerbal'] = 1;
+                }
+            } else {
                 MWException::ThrowEx(
                     errCode: MWI18nHelper::ERR_WRONG_REQUEST_PARAMETERS,
-                    logData: ['', "Превышено максимальное значение оценки - {$val}"],
+                    logData: ['', "Неверный тип оценки - {$task['type']}"],
+                );
+            }
+        }
+
+        $taskList = [];
+        foreach ($newTaskList as $task) {
+            $taskList[] = $task;
+        }
+
+        foreach ($taskList as $task) {
+            $valWriting = intval($task['valueWriting']);
+            if ($task['hasValueWriting'] === 1 && $valWriting > $maxValueWriting) {
+                MWException::ThrowEx(
+                    errCode: MWI18nHelper::ERR_WRONG_VALUE,
+                    logData: ["Превышено максимальное значение оценки (письмо) - {$valWriting}"],
+                );
+            }
+            $valVerbal = intval($task['valueVerbal']);
+            if ($task['hasValueVerbal'] === 1 && $valVerbal > $maxValueVerbal) {
+                MWException::ThrowEx(
+                    errCode: MWI18nHelper::ERR_WRONG_VALUE,
+                    logData: ["Превышено максимальное значение оценки (устно) - {$valVerbal}"],
                 );
             }
         }
 
         // removeStudentSolution
         $solutionListToRemove = array_reduce($taskList, function ($carry, $item) {
-            if (empty($item['value']) && $item['value'] !== '0' && $item['solutionId'] !== 0) {
+            if ($item['hasValueWriting'] === 0 && $item['hasValueVerbal'] === 0 && $item['solutionId'] !== 0) {
                 $carry[] = [
                     'solutionId' => $item['solutionId'],
                 ];
@@ -467,10 +516,13 @@ class Main
 
         // updateStudentSolution
         $solutionListToUpdate = array_reduce($taskList, function ($carry, $item) {
-            if ((!empty($item['value']) || $item['value'] === '0') && $item['solutionId'] !== 0) {
+            if (($item['hasValueWriting'] === 1 || $item['hasValueVerbal'] === 1) && $item['solutionId'] !== 0) {
                 $carry[] = [
                     'solutionId' => $item['solutionId'],
-                    'value' => $item['value'],
+                    'valueWriting' => intval($item['valueWriting']),
+                    'hasValueWriting' => $item['hasValueWriting'],
+                    'valueVerbal' => intval($item['valueVerbal']),
+                    'hasValueVerbal' => $item['hasValueVerbal'],
                 ];
             }
             return $carry;
@@ -483,10 +535,13 @@ class Main
 
         // createStudentSolution
         $solutionListToCreate = array_reduce($taskList, function ($carry, $item) {
-            if ((!empty($item['value']) || $item['value'] === '0') && $item['solutionId'] === 0) {
+            if (($item['hasValueWriting'] === 1 || $item['hasValueVerbal'] === 1) && $item['solutionId'] === 0) {
                 $carry[] = [
                     'serieTaskId' => $item['serieTaskId'],
-                    'value' => $item['value'],
+                    'valueWriting' => intval($item['valueWriting']),
+                    'hasValueWriting' => $item['hasValueWriting'],
+                    'valueVerbal' => intval($item['valueVerbal']),
+                    'hasValueVerbal' => $item['hasValueVerbal'],
                 ];
             }
             return $carry;
@@ -576,7 +631,8 @@ class Main
                 'id' => $item['student_serie_id'],
                 'groupId' => $item['group_id'],
                 'groupName' => $item['group_name'],
-                'maxValue' => $item['max_value'],
+                'maxValueWriting' => $item['max_value_writing'],
+                'maxValueVerbal' => $item['max_value_verbal'],
                 'serieId' => $item['serie_id'],
                 'serieName' => $item['serie_name'],
                 'serieType' => $item['serie_type'],

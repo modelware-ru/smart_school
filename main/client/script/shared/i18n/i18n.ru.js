@@ -1,4 +1,4 @@
-// GENERATED [2025-10-14 00:20:27]
+// GENERATED [2025-12-06 20:59:51]
 import { el } from '../../../node_modules/redom/dist/redom.es';
 
 export default {
@@ -16,8 +16,10 @@ export default {
   TTL_LESSON: (...args) => `Занятие`,
   TTL_LESSON_SERIES: (...args) => `Серии занятий`,
   TTL_MAX_VALUE: (...args) => `Макс. балл`,
-  TTL_MAX_VALUE_CLASS: (...args) => `Макс. балл (класс.)`,
-  TTL_MAX_VALUE_HOME: (...args) => `Макс. балл (дом.)`,
+  TTL_MAX_VALUE_CLASS_WRITING: (...args) => `Макс. балл (класс. письмо)`,
+  TTL_MAX_VALUE_CLASS_VERBAL: (...args) => `Макс. балл (класс. устно)`,
+  TTL_MAX_VALUE_HOME_WRITING: (...args) => `Макс. балл (дом. письмо)`,
+  TTL_MAX_VALUE_HOME_VERBAL: (...args) => `Макс. балл (дом. устно)`,
   TTL_MIDDLE_NAME: (...args) => `Отчество`,
   TTL_NEW_SUBTOPIC_LIST: (...args) => `Новые подтемы`,
   TTL_NEW_TAG_LIST: (...args) => `Новые теги`,
@@ -80,4 +82,5 @@ export default {
   ERR_DB_CONNECTION_FAILED: (...args) => `Нет доступа к базе данных`,
   ERR_DB_SQL_STATEMENT_FAILED: (...args) => `Ошибка при выполнении запроса к базе данных`,
   ERR_WRONG_REQUEST_PARAMETERS: (...args) => `Неверные параметры запроса`,
+  ERR_WRONG_VALUE: (...args) => `Неверное значение параметра`,
 };

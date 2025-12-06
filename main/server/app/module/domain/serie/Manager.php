@@ -21,7 +21,7 @@ class Manager extends GeneralManager
     public function getSerieById($serieId)
     {
         $stmt = <<<SQL
-            SELECT ms.id, ms.name, ms.max_value_class,  ms.max_value_home
+            SELECT ms.id, ms.name, ms.max_value_class_writing, ms.max_value_class_verbal, ms.max_value_home_writing,  ms.max_value_home_verbal
             FROM main__serie ms
             WHERE ms.id = :serieId 
             SQL;
@@ -39,33 +39,37 @@ class Manager extends GeneralManager
         return $this->_db->select($stmt, ['serieId' => $serieId]);
     }
 
-    public function createSerie($name, $maxValueClass, $maxValueHome)
+    public function createSerie($name, $maxValueClassWriting, $maxValueClassVerbal, $maxValueHomeWriting, $maxValueHomeVerbal)
     {
         $stmt = <<<SQL
-            INSERT INTO main__serie (name, max_value_class, max_value_home)
-            VALUES (:name, :maxValueClass, :maxValueHome)
+            INSERT INTO main__serie (name, max_value_class_writing, max_value_class_verbal, max_value_home_writing, max_value_home_verbal)
+            VALUES (:name, :maxValueClassWriting, :maxValueClassVerbal, :maxValueHomeWriting, :maxValueHomeVerbal)
             SQL;
         return $this->_db->insert($stmt, [
             0 => [
                 'name' => $name,
-                'maxValueClass' => $maxValueClass,
-                'maxValueHome' => $maxValueHome,
+                'maxValueClassWriting' => $maxValueClassWriting,
+                'maxValueClassVerbal' => $maxValueClassVerbal,
+                'maxValueHomeWriting' => $maxValueHomeWriting,
+                'maxValueHomeVerbal' => $maxValueHomeVerbal,
             ],
         ]);
     }
 
-    public function updateSerie($serieId, $name, $maxValueClass, $maxValueHome)
+    public function updateSerie($serieId, $name, $maxValueClassWriting, $maxValueClassVerbal, $maxValueHomeWriting, $maxValueHomeVerbal)
     {
         $stmt = <<<SQL
-            UPDATE main__serie SET name = :name, max_value_class = :maxValueClass, max_value_home = :maxValueHome
+            UPDATE main__serie SET name = :name, max_value_class_writing = :maxValueClassWriting, max_value_class_verbal = :maxValueClassVerbal, max_value_home_writing = :maxValueHomeWriting, max_value_home_verbal = :maxValueHomeVerbal
             WHERE id = :id
             SQL;
         return $this->_db->update($stmt, [
             0 => [
                 'id' => $serieId,
                 'name' => $name,
-                'maxValueClass' => $maxValueClass,
-                'maxValueHome' => $maxValueHome,
+                'maxValueClassWriting' => $maxValueClassWriting,
+                'maxValueClassVerbal' => $maxValueClassVerbal,
+                'maxValueHomeWriting' => $maxValueHomeWriting,
+                'maxValueHomeVerbal' => $maxValueHomeVerbal,
             ]
         ]);
     }
@@ -120,8 +124,10 @@ class Manager extends GeneralManager
     public function addHomeSerieToStudent($studentId, $serieId, $groupId, $date)
     {
         $stmt = <<<SQL
-            INSERT INTO main__student_serie (type, student_id, group_id, date, serie_id, max_value)
-            VALUES ('HOME', :studentId, :groupId, :date, :serieId1, (SELECT max_value_home as max_value FROM main__serie WHERE id = :serieId2))
+            INSERT INTO main__student_serie (type, student_id, group_id, date, serie_id, max_value_writing, max_value_verbal)
+            VALUES ('HOME', :studentId, :groupId, :date, :serieId1, 
+            (SELECT max_value_home_writing as max_value_writing FROM main__serie WHERE id = :serieId2),
+            (SELECT max_value_home_verbal as max_value_verbal FROM main__serie WHERE id = :serieId3))
             SQL;
         return $this->_db->insert($stmt, [
             0 => [
@@ -130,6 +136,7 @@ class Manager extends GeneralManager
                 'date' => $date,
                 'serieId1' => $serieId,
                 'serieId2' => $serieId,
+                'serieId3' => $serieId,
             ],
         ]);
     }

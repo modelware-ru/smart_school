@@ -1,5 +1,5 @@
 <?php
-// GENERATED [2025-09-03 06:33:25]
+// GENERATED [2025-12-06 20:59:51]
 namespace MW\Shared;
 
 class MWI18nHelper
@@ -59,6 +59,7 @@ class MWI18nHelper
     const ERR_DB_CONNECTION_FAILED = 'ERR_DB_CONNECTION_FAILED';
     const ERR_DB_SQL_STATEMENT_FAILED = 'ERR_DB_SQL_STATEMENT_FAILED';
     const ERR_WRONG_REQUEST_PARAMETERS = 'ERR_WRONG_REQUEST_PARAMETERS';
+    const ERR_WRONG_VALUE = 'ERR_WRONG_VALUE';
 
     private static ?MWI18nHelper $_Instance = null;
     private array $_pageTemplateList = [];
@@ -559,6 +560,16 @@ class MWI18nHelper
                         return sprintf("Wrong request parameters", ...$args);
                     },
                 ],
+            self::ERR_WRONG_VALUE => [
+                'ru' =>
+                    function (...$args) {
+                        return sprintf("Неверное значение параметра", ...$args);
+                    },
+                'en' =>
+                    function (...$args) {
+                        return sprintf("Wrong value parameter", ...$args);
+                    },
+                ],
         ];        
         $this->_errorLogMsgList = [
             self::ERR_UNKNOWN => function (...$args) {
@@ -585,6 +596,9 @@ constVars: %s
             self::ERR_WRONG_REQUEST_PARAMETERS => function (...$args) {
                 return sprintf("Неправильные типы данных в запросе: %s\n%s", ...$args);
             },
+            self::ERR_WRONG_VALUE => function (...$args) {
+                return sprintf("Неверное значение параметра: %s", ...$args);
+            },
         ];
         $this->_errorHttpStatusList = [
             self::ERR_UNKNOWN => 500,
@@ -592,6 +606,7 @@ constVars: %s
             self::ERR_DB_CONNECTION_FAILED => 500,
             self::ERR_DB_SQL_STATEMENT_FAILED => 500,
             self::ERR_WRONG_REQUEST_PARAMETERS => 400,
+            self::ERR_WRONG_VALUE => 400,
         ];
     }
 }

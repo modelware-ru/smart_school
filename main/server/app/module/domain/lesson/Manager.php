@@ -165,14 +165,17 @@ SQL;
     public function addSerieToLesson($lessonId, $date, $serieId, $studentList, $groupId)
     {
         $stmt = <<<SQL
-INSERT INTO main__student_serie (`type`, `date`, lesson_id, student_id, serie_id, group_id, max_value)
-VALUES (:type, :date, :lessonId, :studentId, :serieId1, :groupId, (SELECT max_value_class as max_value FROM main__serie WHERE id = :serieId2))
+INSERT INTO main__student_serie (`type`, `date`, lesson_id, student_id, serie_id, group_id, max_value_writing, max_value_verbal)
+VALUES (:type, :date, :lessonId, :studentId, :serieId1, :groupId, 
+(SELECT max_value_class_writing as max_value_writing FROM main__serie WHERE id = :serieId2),
+(SELECT max_value_class_verbal as max_value_verbal FROM main__serie WHERE id = :serieId3))
 SQL;
         return $this->_db->insert($stmt, $studentList, [
             'date' => $date,
             'lessonId' => $lessonId,
             'serieId1' => $serieId,
             'serieId2' => $serieId,
+            'serieId3' => $serieId,
             'groupId' => $groupId,
         ]);
     }

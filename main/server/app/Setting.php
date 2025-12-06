@@ -12,7 +12,7 @@ class Setting
             'test-postfix' => '-test',
             'docker' => [
                 'dsn1' => 'mysql:host=db;port=3306;dbname=smart_school;charset=UTF8',
-                'dsn' => 'mysql:host=db;port=3306;dbname=smart_school_www_2025_08_18;charset=UTF8',
+                'dsn' => 'mysql:host=db;port=3306;dbname=smart_school_www_2025_12_06;charset=UTF8',
                 'user' => 'denis',
                 'password' => 'denis',
             ],

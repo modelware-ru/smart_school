@@ -155,7 +155,7 @@ $templateData['_js']['schoolYear'] = [
                         <th scope="col">Тип серии</th>
                         <th scope="col">Группа</th>
                         <th scope="col">Дата выдачи</th>
-                        <th scope="col">Макс.балл</th>
+                        <th scope="col">Макс.балл (письмо / устно)</th>
                         <th scope="col">Занятие</th>
                         <th scope="col">Действие</th>
                     </tr>
@@ -170,7 +170,7 @@ $templateData['_js']['schoolYear'] = [
                             <td><?= $item['serieType'] === 'HOME' ? "Домашняя" : "Классная" ?></td>
                             <td><?= $item['groupName'] ?></td>
                             <td><?= $item['serieDate'] ?></td>
-                            <td><?= $item['maxValue'] ?></td>
+                            <td><?= $item['maxValueWriting'] ?>&nbsp;/&nbsp;<?= $item['maxValueVerbal'] ?></td>
                             <?php if (is_null($item['subjectName'])) { ?>
                                 <td></td>
                             <?php } else { ?>

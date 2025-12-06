@@ -76,15 +76,25 @@ $i18n_TTL = [
         'ru' => 'Макс. балл',
         'en' => 'Max value',
     ],
-    'MAX_VALUE_CLASS' => [
+    'MAX_VALUE_CLASS_WRITING' => [
         '_type' => 'plain',
-        'ru' => 'Макс. балл (класс.)',
-        'en' => 'Max value (class)',
+        'ru' => 'Макс. балл (класс. письмо)',
+        'en' => 'Max value (class writing)',
     ],
-    'MAX_VALUE_HOME' => [
+    'MAX_VALUE_CLASS_VERBAL' => [
         '_type' => 'plain',
-        'ru' => 'Макс. балл (дом.)',
-        'en' => 'Max value (home)',
+        'ru' => 'Макс. балл (класс. устно)',
+        'en' => 'Max value (class verbal)',
+    ],
+    'MAX_VALUE_HOME_WRITING' => [
+        '_type' => 'plain',
+        'ru' => 'Макс. балл (дом. письмо)',
+        'en' => 'Max value (home writing)',
+    ],
+    'MAX_VALUE_HOME_VERBAL' => [
+        '_type' => 'plain',
+        'ru' => 'Макс. балл (дом. устно)',
+        'en' => 'Max value (home verbal)',
     ],
     'MIDDLE_NAME' => [
         '_type' => 'plain',
@@ -432,6 +442,13 @@ $i18n_ERR = [
         'ru' => 'Неверные параметры запроса',
         'en' => 'Wrong request parameters',
         'log' => 'Неправильные типы данных в запросе: %s\n%s',
+        'httpStatus' => Constant::HTTP_BAR_REQUEST,
+    ],
+    'WRONG_VALUE' => [
+        '_type' => 'plain',
+        'ru' => 'Неверное значение параметра',
+        'en' => 'Wrong value parameter',
+        'log' => 'Неверное значение параметра: %s',
         'httpStatus' => Constant::HTTP_BAR_REQUEST,
     ],
 ];

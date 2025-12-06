@@ -15,8 +15,10 @@ if ($serieId === 0) {
     $serie = [
         'id' => 0,
         'name' => '',
-        'maxValueClass' => 1,
-        'maxValueHome' => 0,
+        'maxValueClassWriting' => 1,
+        'maxValueClassVerbal' => 1,
+        'maxValueHomeWriting' => 0,
+        'maxValueHomeVerbal' => 0,
     ];
 } else {
     $args = [

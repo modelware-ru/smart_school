@@ -1,7 +1,7 @@
 <?php
 
-use MW\Shared\Util;
 use MW\Module\Domain\Student\Main as StudentModule;
+use MW\Shared\Util;
 
 global $templateData;
 global $langId;
@@ -66,7 +66,7 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
                 </tr>
                 <tr>
                     <th scope="row">Тип серии</th>
-                    <td><?= $studentSerie['serieType'] === 'HOME' ? "Домашняя" : "Классная" ?> / <?= $studentSerie['serieDate'] ?></td>
+                    <td><?= $studentSerie['serieType'] === 'HOME' ? 'Домашняя' : 'Классная' ?> / <?= $studentSerie['serieDate'] ?></td>
                 </tr>
                 <?php if (!is_null($studentSerie['subjectName'])) { ?>
                     <tr>
@@ -75,8 +75,8 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
                     </tr>
                 <?php } ?>
                 <tr>
-                    <th scope="row">Макс. балл</th>
-                    <td><?= $studentSerie['maxValue'] ?></td>
+                    <th scope="row">Макс. балл (письмо / устно)</th>
+                    <td><?= $studentSerie['maxValueWriting'] ?>&nbsp;/&nbsp;<?= $studentSerie['maxValueVerbal'] ?></td>
                 </tr>
             </tbody>
         </table>
@@ -86,20 +86,31 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Задача</th>
-                    <th scope="col">Оценка</th>
+                    <th scope="col">Оценка (письмо)</th>
+                    <th scope="col">Оценка (устно)</th>
                     <th scope="col">Дата</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $index = 0;
-                foreach ($studentSolution as $solution) {
-                ?>
+                foreach ($studentSolution as $key => $solution) {
+                    ?>
                     <tr>
                         <th scope="row"><?= ++$index ?></th>
                         <td><?= $solution['taskName'] ?></td>
+
                         <td>
-                            <input type="number" min="-1" max="<?= $studentSerie['maxValue'] ?>" value="<?= $solution['solutionValue'] ?>" size=4 data-solutionid=<?= $solution['solutionId'] ?> data-serietaskid=<?= $solution['serieTaskId'] ?> />
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="<?= 'val_' . $key ?>" id="<?= 'val_' . $key . '_r_writing' ?>" <?= $solution['hasValueWriting'] === 1 ? 'checked' : '' ?>/>
+                                <input type="number" min="-1" max="<?= $studentSerie['maxValueWriting'] ?>" value="<?= $solution['hasValueWriting'] === 1 ? $solution['solutionValueWriting'] : '' ?>" size=4 data-solutionid=<?= $solution['solutionId'] ?> data-serietaskid=<?= $solution['serieTaskId'] ?> data-valuetype='writing' id="<?= 'val_' . $key . '_writing' ?>" data-hasvalue=<?= $solution['hasValueWriting'] ?>/>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="<?= 'val_' . $key ?>" id="<?= 'val_' . $key . '_r_verbal' ?>" <?= $solution['hasValueVerbal'] === 1 ? 'checked' : '' ?>/>
+                                <input type="number" min="-1" max="<?= $studentSerie['maxValueVerbal'] ?>" value="<?= $solution['hasValueVerbal'] === 1 ? $solution['solutionValueVerbal'] : '' ?>" size=4 data-solutionid=<?= $solution['solutionId'] ?> data-serietaskid=<?= $solution['serieTaskId'] ?>  data-valuetype='verbal' id="<?= 'val_' . $key . '_verbal' ?>"  data-hasvalue=<?= $solution['hasValueVerbal'] ?>/>
+                            </div>
                         </td>
                         <td><?= $solution['solutionDate'] ?></td>
                     </tr>
@@ -112,6 +123,18 @@ $templateData['_js']['studentSerieId'] = $studentSerieId;
         </div>
     </div>
     <script src='js/bootstrap.bundle.min.js'></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            for (const item of document.querySelectorAll('input[type="checkbox"]')) {
+                item.addEventListener('change', (e) => {
+                    e.stopPropagation();
+                    const partId = item.id.substring(item.name.length);
+                    const inputId = item.name + partId.substring(2); // remove '_r'
+                    document.getElementById(inputId).dataset.hasvalue = (item.checked) ? 1 : 0;
+                });
+            }
+        });
+    </script>    
 </body>
 
 </html>

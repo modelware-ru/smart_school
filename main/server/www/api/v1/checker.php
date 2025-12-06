@@ -198,8 +198,10 @@ function check_type_parameters($apiResource, $payload)
             '_type' => 'object',
             'id' => 1,
             'name' => 'string',
-            'maxValueClass' => 1,
-            'maxValueHome' => 1,
+            'maxValueClassWriting' => 1,
+            'maxValueClassVerbal' => 1,
+            'maxValueHomeWriting' => 1,
+            'maxValueHomeVerbal' => 1,
             'newTaskList' => [
                 '_type' => 'array',
                 '_keyType' => 1,
@@ -302,6 +304,8 @@ function check_type_parameters($apiResource, $payload)
                 '_itemTemplate' => [
                     '_type' => 'object',
                     'value' => 'string',
+                    'type' => 'string',
+                    'hasValue' => 1,
                     'solutionId' => 1,
                     'serieTaskId' => 1,
                 ],

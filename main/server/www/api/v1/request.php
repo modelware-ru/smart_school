@@ -3,6 +3,7 @@ require_once '../../defines.php';
 require_once '../../' . PATH_TO_INCLUDE;
 require_once 'app/init.php';
 
+use MW\App\Setting;
 use MW\Service\Authz\Constant as AuthzConstant;
 use MW\Service\Authz\Main as AuthzService;
 use MW\Shared\Constant as SharedConstant;
@@ -11,7 +12,6 @@ use MW\Shared\Logger;
 use MW\Shared\MWException;
 use MW\Shared\MWI18nHelper;
 use MW\Shared\Util;
-use MW\App\Setting;
 
 global $accountId;
 global $roleId;
@@ -250,8 +250,10 @@ try {
         case AuthzConstant::RESOURCE_API_SAVE_SERIE:
             $args['id'] = $payload['id'];
             $args['name'] = $payload['name'];
-            $args['maxValueClass'] = $payload['maxValueClass'];
-            $args['maxValueHome'] = $payload['maxValueHome'];
+            $args['maxValueClassWriting'] = $payload['maxValueClassWriting'];
+            $args['maxValueClassVerbal'] = $payload['maxValueClassVerbal'];
+            $args['maxValueHomeWriting'] = $payload['maxValueHomeWriting'];
+            $args['maxValueHomeVerbal'] = $payload['maxValueHomeVerbal'];
             $args['removedTaskIdList'] = $payload['removedTaskIdList'];
             $args['newTaskList'] = $payload['newTaskList'];
 

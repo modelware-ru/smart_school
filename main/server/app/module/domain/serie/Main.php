@@ -2,16 +2,15 @@
 
 namespace MW\Module\Domain\Serie;
 
+use MW\Module\Domain\Task\Manager as TaskManager;
 use MW\Shared\Logger;
+use MW\Shared\MWException;
 use MW\Shared\MWI18nHelper;
 use MW\Shared\Util;
-use MW\Shared\MWException;
 use MW\Shared\ValueChecker;
-use MW\Module\Domain\Task\Manager as TaskManager;
 
 class Main
 {
-
     const SERIE_NAME_MAX_LENGTH = 100;
 
     public function getSerieList($args)
@@ -60,7 +59,6 @@ class Main
         return [Util::MakeSuccessOperationResult($res), []];
     }
 
-
     public function getSerieById($args)
     {
         $localLog = Logger::Log()->withName('Module::Domain::Serie::getSerieById');
@@ -81,11 +79,13 @@ class Main
             );
         }
 
-        $res =  [
+        $res = [
             'id' => $resDb[0]['id'],
             'name' => $resDb[0]['name'],
-            'maxValueClass' => $resDb[0]['max_value_class'],
-            'maxValueHome' => $resDb[0]['max_value_home'],
+            'maxValueClassWriting' => $resDb[0]['max_value_class_writing'],
+            'maxValueClassVerbal' => $resDb[0]['max_value_class_verbal'],
+            'maxValueHomeWriting' => $resDb[0]['max_value_home_writing'],
+            'maxValueHomeVerbal' => $resDb[0]['max_value_home_verbal'],
         ];
 
         $resDb = $manager->getSerieTaskListById($serieId);
@@ -109,8 +109,10 @@ class Main
         $permissionOptions = $args['permissionOptions'];
         $id = $args['id'];
         $name = $args['name'];
-        $maxValueClass = $args['maxValueClass'];
-        $maxValueHome = $args['maxValueHome'];
+        $maxValueClassWriting = $args['maxValueClassWriting'];
+        $maxValueClassVerbal = $args['maxValueClassVerbal'];
+        $maxValueHomeWriting = $args['maxValueHomeWriting'];
+        $maxValueHomeVerbal = $args['maxValueHomeVerbal'];
         $removedTaskIdList = $args['removedTaskIdList'];
         $newTaskList = array_unique($args['newTaskList']);
 
@@ -138,10 +140,10 @@ class Main
         try {
             $manager = new Manager();
             if ($id === 0) {
-                $resDb = $manager->createSerie($name, $maxValueClass, $maxValueHome);
+                $resDb = $manager->createSerie($name, $maxValueClassWriting, $maxValueClassVerbal, $maxValueHomeWriting, $maxValueHomeVerbal);
                 $id = $resDb[0];
             } else {
-                $resDb = $manager->updateSerie($id, $name, $maxValueClass, $maxValueHome);
+                $resDb = $manager->updateSerie($id, $name, $maxValueClassWriting, $maxValueClassVerbal, $maxValueHomeWriting, $maxValueHomeVerbal);
                 if (!empty($removedTaskIdList)) {
                     $resDb = $manager->removeTaskListFromSerie($removedTaskIdList, $id);
                 }
@@ -223,7 +225,6 @@ class Main
         return [Util::MakeSuccessOperationResult(), []];
     }
 
-
     public function addHomeSerieToStudent($args)
     {
         $localLog = Logger::Log()->withName('Module::Domain::Serie::addHomeSerieToStudent');
@@ -238,6 +239,7 @@ class Main
         // check. start
         // check. finish
 
+        $errorList = [];
         try {
             $manager = new Manager();
             $manager->addHomeSerieToStudent($studentId, $serieId, $groupId, $date);

@@ -34,16 +34,38 @@ export default class SerieForm {
             hasError: 'unknown',
         });
 
-        this._stateMaxValueClassInput = {};
-        this._atm.maxValueClassInput = <Input className="col-3" label={i18n(langId, 'TTL_MAX_VALUE_CLASS')} value={serie.maxValueClass} mandatory />;
-        this._updateStateMaxValueClassInput({
+        this._stateMaxValueClassWritingInput = {};
+        this._atm.maxValueClassWritingInput = (
+            <Input className="" label={i18n(langId, 'TTL_MAX_VALUE_CLASS_WRITING')} value={serie.maxValueClassWriting} mandatory />
+        );
+        this._updateStateMaxValueClassWritingInput({
             disabled: false,
             hasError: 'unknown',
         });
 
-        this._stateMaxValueHomeInput = {};
-        this._atm.maxValueHomeInput = <Input className="col-3 offset-1" label={i18n(langId, 'TTL_MAX_VALUE_HOME')} value={serie.maxValueHome} mandatory />;
-        this._updateStateMaxValueHomeInput({
+        this._stateMaxValueClassVerbalInput = {};
+        this._atm.maxValueClassVerbalInput = (
+            <Input className="" label={i18n(langId, 'TTL_MAX_VALUE_CLASS_VERBAL')} value={serie.maxValueClassVerbal} mandatory />
+        );
+        this._updateStateMaxValueClassVerbalInput({
+            disabled: false,
+            hasError: 'unknown',
+        });
+
+        this._stateMaxValueHomeWritingInput = {};
+        this._atm.maxValueHomeWritingInput = (
+            <Input className="" label={i18n(langId, 'TTL_MAX_VALUE_HOME_WRITING')} value={serie.maxValueHomeWriting} mandatory />
+        );
+        this._updateStateMaxValueHomeWritingInput({
+            disabled: false,
+            hasError: 'unknown',
+        });
+
+        this._stateMaxValueHomeVerbalInput = {};
+        this._atm.maxValueHomeVerbalInput = (
+            <Input className="" label={i18n(langId, 'TTL_MAX_VALUE_HOME_VERBAL')} value={serie.maxValueHomeVerbal} mandatory />
+        );
+        this._updateStateMaxValueHomeVerbalInput({
             disabled: false,
             hasError: 'unknown',
         });
@@ -83,8 +105,10 @@ export default class SerieForm {
     _onSaveButtonClick = () => {
         const { serieId } = this._prop;
         const name = this._atm.nameInput.getState('value');
-        const maxValueClass = parseInt(this._atm.maxValueClassInput.getState('value'));
-        const maxValueHome = parseInt(this._atm.maxValueHomeInput.getState('value'));
+        const maxValueClassWriting = parseInt(this._atm.maxValueClassWritingInput.getState('value'));
+        const maxValueClassVerbal = parseInt(this._atm.maxValueClassVerbalInput.getState('value'));
+        const maxValueHomeWriting = parseInt(this._atm.maxValueHomeWritingInput.getState('value'));
+        const maxValueHomeVerbal = parseInt(this._atm.maxValueHomeVerbalInput.getState('value'));
         const removedTaskIdList = serieId === 0 ? [] : this._el.taskList.getRemovedLabelIdList();
         const newTaskListStr = this._atm.newTaskListTextarea.getState('value');
         const newTaskList = newTaskListStr.split(',').reduce((curry, item) => {
@@ -95,7 +119,7 @@ export default class SerieForm {
             return curry;
         }, []);
 
-        const { hasError, data } = this._validateFormData(name, maxValueClass, maxValueHome);
+        const { hasError, data } = this._validateFormData(name, maxValueClassWriting, maxValueClassVerbal, maxValueHomeWriting, maxValueHomeVerbal);
 
         this._showError({ status: hasError ? 'fail' : 'ok', data });
 
@@ -104,7 +128,16 @@ export default class SerieForm {
         if (!hasError) {
             const { serieId } = this._prop;
 
-            this._callSaveSerie({ id: serieId, name, maxValueClass, maxValueHome, removedTaskIdList, newTaskList });
+            this._callSaveSerie({
+                id: serieId,
+                name,
+                maxValueClassWriting,
+                maxValueClassVerbal,
+                maxValueHomeWriting,
+                maxValueHomeVerbal,
+                removedTaskIdList,
+                newTaskList,
+            });
         }
     };
 
@@ -112,7 +145,7 @@ export default class SerieForm {
         history.back();
     };
 
-    _validateFormData = (name, maxValueClass, maxValueHome) => {
+    _validateFormData = (name, maxValueClassWriting, maxValueClassVerbal, maxValueHomeWriting, maxValueHomeVerbal) => {
         let data = {};
         let hasError = false;
 
@@ -121,13 +154,23 @@ export default class SerieForm {
             hasError = true;
         }
 
-        if (!Number.isInteger(maxValueClass)) {
-            data[ID.SF_INPUT_MAX_VALUE_CLASS] = { code: 'MSG_FIELD_VALUE_IS_NOT_VALID', args: [] };
+        if (!Number.isInteger(maxValueClassWriting)) {
+            data[ID.SF_INPUT_MAX_VALUE_CLASS_WRITING] = { code: 'MSG_FIELD_VALUE_IS_NOT_VALID', args: [] };
             hasError = true;
         }
 
-        if (!Number.isInteger(maxValueHome)) {
-            data[ID.SF_INPUT_MAX_VALUE_HOME] = { code: 'MSG_FIELD_VALUE_IS_NOT_VALID', args: [] };
+        if (!Number.isInteger(maxValueClassVerbal)) {
+            data[ID.SF_INPUT_MAX_VALUE_CLASS_VERBAL] = { code: 'MSG_FIELD_VALUE_IS_NOT_VALID', args: [] };
+            hasError = true;
+        }
+
+        if (!Number.isInteger(maxValueHomeWriting)) {
+            data[ID.SF_INPUT_MAX_VALUE_HOME_WRITING] = { code: 'MSG_FIELD_VALUE_IS_NOT_VALID', args: [] };
+            hasError = true;
+        }
+
+        if (!Number.isInteger(maxValueHomeVerbal)) {
+            data[ID.SF_INPUT_MAX_VALUE_HOME_VERBAL] = { code: 'MSG_FIELD_VALUE_IS_NOT_VALID', args: [] };
             hasError = true;
         }
 
@@ -137,15 +180,19 @@ export default class SerieForm {
     _showError = ({ status, data }) => {
         if (status === 'ok') {
             this._updateStateNameInput({ disabled: false, hasError: 'no', error: null });
-            this._updateStateMaxValueClassInput({ disabled: false, hasError: 'no', error: null });
-            this._updateStateMaxValueHomeInput({ disabled: false, hasError: 'no', error: null });
+            this._updateStateMaxValueClassWritingInput({ disabled: false, hasError: 'no', error: null });
+            this._updateStateMaxValueClassVerbalInput({ disabled: false, hasError: 'no', error: null });
+            this._updateStateMaxValueHomeWritingInput({ disabled: false, hasError: 'no', error: null });
+            this._updateStateMaxValueHomeVerbalInput({ disabled: false, hasError: 'no', error: null });
             return;
         }
 
         if (status === 'error') {
             this._updateStateNameInput({ disabled: false, hasError: 'undefine', error: null });
-            this._updateStateMaxValueClassInput({ disabled: false, hasError: 'undefine', error: null });
-            this._updateStateMaxValueHomeInput({ disabled: false, hasError: 'undefine', error: null });
+            this._updateStateMaxValueClassWritingInput({ disabled: false, hasError: 'undefine', error: null });
+            this._updateStateMaxValueClassVerbalInput({ disabled: false, hasError: 'undefine', error: null });
+            this._updateStateMaxValueHomeWritingInput({ disabled: false, hasError: 'undefine', error: null });
+            this._updateStateMaxValueHomeVerbalInput({ disabled: false, hasError: 'undefine', error: null });
             return;
         }
 
@@ -155,16 +202,28 @@ export default class SerieForm {
             this._updateStateNameInput({ disabled: false, hasError: 'undefined', error: null });
         }
 
-        if (typeof data[ID.SF_INPUT_MAX_VALUE_CLASS] !== 'undefined') {
-            this._updateStateMaxValueClassInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MAX_VALUE_CLASS] });
+        if (typeof data[ID.SF_INPUT_MAX_VALUE_CLASS_WRITING] !== 'undefined') {
+            this._updateStateMaxValueClassWritingInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MAX_VALUE_CLASS_WRITING] });
         } else {
-            this._updateStateMaxValueClassInput({ disabled: false, hasError: 'undefined', error: null });
+            this._updateStateMaxValueClassWritingInput({ disabled: false, hasError: 'undefined', error: null });
         }
 
-        if (typeof data[ID.SF_INPUT_MAX_VALUE_HOME] !== 'undefined') {
-            this._updateStateMaxValueHomeInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MAX_VALUE_HOME] });
+        if (typeof data[ID.SF_INPUT_MAX_VALUE_CLASS_VERBAL] !== 'undefined') {
+            this._updateStateMaxValueClassVerbalInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MAX_VALUE_CLASS_VERBAL] });
         } else {
-            this._updateStateMaxValueHomeInput({ disabled: false, hasError: 'undefined', error: null });
+            this._updateStateMaxValueClassVerbalInput({ disabled: false, hasError: 'undefined', error: null });
+        }
+
+        if (typeof data[ID.SF_INPUT_MAX_VALUE_HOME_WRITING] !== 'undefined') {
+            this._updateStateMaxValueHomeWritingInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MAX_VALUE_HOME_WRITING] });
+        } else {
+            this._updateStateMaxValueHomeWritingInput({ disabled: false, hasError: 'undefined', error: null });
+        }
+
+        if (typeof data[ID.SF_INPUT_MAX_VALUE_HOME_VERBAL] !== 'undefined') {
+            this._updateStateMaxValueHomeVerbalInput({ disabled: false, hasError: 'yes', error: data[ID.SF_INPUT_MAX_VALUE_HOME_VERBAL] });
+        } else {
+            this._updateStateMaxValueHomeVerbalInput({ disabled: false, hasError: 'undefined', error: null });
         }
 
         if (typeof data[ID.SF_TEXTAREA_TASK_LIST_ID] !== 'undefined') {
@@ -177,7 +236,10 @@ export default class SerieForm {
     _beforeCallSaveSerie = () => {
         this._updateStateSaveButton({ disabled: true, isLoading: true, title: 'TTL_TO_SAVE_IN_PROGRESS' });
         this._updateStateNameInput({ disabled: true });
-        this._updateStateMaxValueClassInput({ disabled: true });
+        this._updateStateMaxValueClassWritingInput({ disabled: true });
+        this._updateStateMaxValueClassVerbalInput({ disabled: true });
+        this._updateStateMaxValueHomeWritingInput({ disabled: true });
+        this._updateStateMaxValueHomeVerbalInput({ disabled: true });
     };
 
     _afterCallSaveSerie = (payload) => {
@@ -227,45 +289,87 @@ export default class SerieForm {
         }
     };
 
-    _updateStateMaxValueClassInput = (state) => {
+    _updateStateMaxValueClassWritingInput = (state) => {
         const { disabled = null, hasError = null, error = null } = state;
         const { langId } = this._prop;
 
-        this._stateMaxValueClassInput = {
-            disabled: disabled ?? this._stateMaxValueClassInput.disabled,
-            hasError: hasError ?? this._stateMaxValueClassInput.hasError,
-            error: error ?? this._stateMaxValueClassInput.error,
+        this._stateMaxValueClassWritingInput = {
+            disabled: disabled ?? this._stateMaxValueClassWritingInput.disabled,
+            hasError: hasError ?? this._stateMaxValueClassWritingInput.hasError,
+            error: error ?? this._stateMaxValueClassWritingInput.error,
         };
 
         if (disabled !== null) {
-            this._atm.maxValueClassInput.updateProp('disabled', disabled);
+            this._atm.maxValueClassWritingInput.updateProp('disabled', disabled);
         }
         if (hasError !== null) {
-            this._atm.maxValueClassInput.updateProp('hasError', hasError);
+            this._atm.maxValueClassWritingInput.updateProp('hasError', hasError);
         }
-        if (error !== null && this._atm.maxValueClassInput.getProp('error') !== i18n(langId, error.code, error.args)) {
-            this._atm.maxValueClassInput.updateProp('error', i18n(langId, error.code, error.args));
+        if (error !== null && this._atm.maxValueClassWritingInput.getProp('error') !== i18n(langId, error.code, error.args)) {
+            this._atm.maxValueClassWritingInput.updateProp('error', i18n(langId, error.code, error.args));
         }
     };
 
-    _updateStateMaxValueHomeInput = (state) => {
+    _updateStateMaxValueClassVerbalInput = (state) => {
         const { disabled = null, hasError = null, error = null } = state;
         const { langId } = this._prop;
 
-        this._stateMaxValueHomeInput = {
-            disabled: disabled ?? this._stateMaxValueHomeInput.disabled,
-            hasError: hasError ?? this._stateMaxValueHomeInput.hasError,
-            error: error ?? this._stateMaxValueHomeInput.error,
+        this._stateMaxValueClassVerbalInput = {
+            disabled: disabled ?? this._stateMaxValueClassVerbalInput.disabled,
+            hasError: hasError ?? this._stateMaxValueClassVerbalInput.hasError,
+            error: error ?? this._stateMaxValueClassVerbalInput.error,
         };
 
         if (disabled !== null) {
-            this._atm.maxValueHomeInput.updateProp('disabled', disabled);
+            this._atm.maxValueClassVerbalInput.updateProp('disabled', disabled);
         }
         if (hasError !== null) {
-            this._atm.maxValueHomeInput.updateProp('hasError', hasError);
+            this._atm.maxValueClassVerbalInput.updateProp('hasError', hasError);
         }
-        if (error !== null && this._atm.maxValueHomeInput.getProp('error') !== i18n(langId, error.code, error.args)) {
-            this._atm.maxValueHomeInput.updateProp('error', i18n(langId, error.code, error.args));
+        if (error !== null && this._atm.maxValueClassVerbalInput.getProp('error') !== i18n(langId, error.code, error.args)) {
+            this._atm.maxValueClassVerbalInput.updateProp('error', i18n(langId, error.code, error.args));
+        }
+    };
+
+    _updateStateMaxValueHomeWritingInput = (state) => {
+        const { disabled = null, hasError = null, error = null } = state;
+        const { langId } = this._prop;
+
+        this._stateMaxValueHomeWritingInput = {
+            disabled: disabled ?? this._stateMaxValueHomeWritingInput.disabled,
+            hasError: hasError ?? this._stateMaxValueHomeWritingInput.hasError,
+            error: error ?? this._stateMaxValueHomeWritingInput.error,
+        };
+
+        if (disabled !== null) {
+            this._atm.maxValueHomeWritingInput.updateProp('disabled', disabled);
+        }
+        if (hasError !== null) {
+            this._atm.maxValueHomeWritingInput.updateProp('hasError', hasError);
+        }
+        if (error !== null && this._atm.maxValueHomeWritingInput.getProp('error') !== i18n(langId, error.code, error.args)) {
+            this._atm.maxValueHomeWritingInput.updateProp('error', i18n(langId, error.code, error.args));
+        }
+    };
+
+    _updateStateMaxValueHomeVerbalInput = (state) => {
+        const { disabled = null, hasError = null, error = null } = state;
+        const { langId } = this._prop;
+
+        this._stateMaxValueHomeVerbalInput = {
+            disabled: disabled ?? this._stateMaxValueHomeVerbalInput.disabled,
+            hasError: hasError ?? this._stateMaxValueHomeVerbalInput.hasError,
+            error: error ?? this._stateMaxValueHomeVerbalInput.error,
+        };
+
+        if (disabled !== null) {
+            this._atm.maxValueHomeVerbalInput.updateProp('disabled', disabled);
+        }
+        if (hasError !== null) {
+            this._atm.maxValueHomeVerbalInput.updateProp('hasError', hasError);
+        }
+        if (error !== null && this._atm.maxValueHomeVerbalInput.getProp('error') !== i18n(langId, error.code, error.args)) {
+            this._atm.maxValueHomeVerbalInput.updateProp('error', i18n(langId, error.code, error.args));
         }
     };
 
@@ -325,9 +429,15 @@ export default class SerieForm {
             <div className="mt-0 row gx-0 gy-3">
                 <div className="bg-body-tertiary row border gy-3 m-0 pb-3">
                     {this._atm.nameInput}
-                    <div className='d-flex'>
-                    {this._atm.maxValueClassInput}
-                    {this._atm.maxValueHomeInput}
+                    <div className="d-flex gap-4">
+                        <div className="d-flex flex-column flex-grow-1">
+                            {this._atm.maxValueClassWritingInput}
+                            {this._atm.maxValueClassVerbalInput}
+                        </div>
+                        <div className="d-flex flex-column flex-grow-1">
+                            {this._atm.maxValueHomeWritingInput}
+                            {this._atm.maxValueHomeVerbalInput}
+                        </div>
                     </div>
                     {this._el.taskList}
                     {this._atm.newTaskListTextarea}

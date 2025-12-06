@@ -206,7 +206,7 @@ SQL;
     {
         $stmt = <<<SQL
 SELECT
-mss.type serie_type, mss.date serie_date, mss.serie_id serie_id, mss.max_value,
+mss.type serie_type, mss.date serie_date, mss.serie_id serie_id, mss.max_value_writing, mss.max_value_verbal,
 mst.id student_id, mst.first_name, mst.last_name, mst.middle_name,
 msr.name serie_name,
 ml.date lesson_date,
@@ -229,7 +229,7 @@ SQL;
     {
         $stmt = <<<SQL
 SELECT mst.id serie_task_id, 
-mssst.id solution_id, mssst.value solution_value, mssst.date solution_date, 
+mssst.id solution_id, mssst.value_writing solution_value_writing, mssst.has_value_writing, mssst.value_verbal solution_value_verbal, mssst.has_value_verbal, mssst.date solution_date, 
 mt.name task_name
 FROM main__student_serie mss
 JOIN main__serie_task mst ON mst.serie_id = mss.serie_id
@@ -252,7 +252,10 @@ SQL;
     {
         $stmt = <<<SQL
 UPDATE main__studentSerie_serieTask SET 
-value = :value,
+value_writing = :valueWriting,
+has_value_writing = :hasValueWriting,
+value_verbal = :valueVerbal,
+has_value_verbal = :hasValueVerbal,
 date = :date
 WHERE id = :solutionId
 SQL;
@@ -262,8 +265,8 @@ SQL;
     public function createStudentSolution($studentSerieId, $solutionList, $date)
     {
         $stmt = <<<SQL
-INSERT INTO main__studentSerie_serieTask (student_serie_id, serie_task_id, value, `date`)
-VALUES (:studentSerieId, :serieTaskId, :value, :date)
+INSERT INTO main__studentSerie_serieTask (student_serie_id, serie_task_id, value_writing, has_value_writing, value_verbal, has_value_verbal, `date`)
+VALUES (:studentSerieId, :serieTaskId, :valueWriting, :hasValueWriting, :valueVerbal, :hasValueVerbal, :date)
 SQL;
         return $this->_db->insert($stmt, $solutionList, [
             'date' => $date,
@@ -323,7 +326,8 @@ mss.id student_serie_id,
 mss.serie_id,
 mss.group_id,
 mss.type serie_type,
-mss.max_value,
+mss.max_value_writing,
+mss.max_value_verbal,
 msr.name serie_name,
 mss.date serie_date,
 ml.`date` lesson_date,
